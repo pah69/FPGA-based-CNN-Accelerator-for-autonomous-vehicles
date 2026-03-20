@@ -1,0 +1,18 @@
+////////////////////////////////////////////////////////////////////////////////
+// Company: <Company Name>
+// Engineer: <Engineer Name>
+//
+// Create Date: <date>
+// Design Name: <name_of_top-level_design>
+// Module Name: <name_of_this_module>
+// Target Device: <target device>
+// Tool versions: <tool_versions>
+// Description:
+//    <Description here>
+// Dependencies:
+//    <Dependencies here>
+// Revision:
+//    <Code_revision_information>
+// Additional Comments:
+//    <Additional_comments>
+////////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,341 @@
+$date
+   Thu Mar 19 16:56:42 2026
+$end
+$version
+  2022.2.2
+$end
+$timescale
+  1ps
+$end
+$scope module tb_top $end
+$var reg 1 ! clk $end
+$var reg 1 " rst_n $end
+$var reg 17 # activation_i [16:0] $end
+$var reg 17 $ activation_o [16:0] $end
+$var reg 1 % weight_we $end
+$var reg 16 & weight_addr [15:0] $end
+$var reg 17 ' weight_i [16:0] $end
+$var reg 35 ( result_o [34:0] $end
+$scope module dut $end
+$var wire 1 ) clk $end
+$var wire 1 * rst_n $end
+$var wire 17 + activation_i [16:0] $end
+$var reg 17 $ activation_o [16:0] $end
+$var wire 1 , weight_we $end
+$var wire 17 - weight_addr [16:0] $end
+$var wire 17 . weight_i [16:0] $end
+$var reg 35 ( result_o [34:0] $end
+$var wire 17 / weight_data_bus [16:0] $end
+$var reg 35 0 res [34:0] $end
+$var reg 17 1 delay_reg [16:0] $end
+$scope module ram_inst $end
+$var wire 1 ) clk $end
+$var wire 16 2 addr [15:0] $end
+$var wire 17 / data [16:0] $end
+$var wire 1 3 cs $end
+$var wire 1 , we $end
+$var wire 1 4 oe $end
+$var reg 17 5 tmp_data [16:0] $end
+$var integer 32 6 i [31:0] $end
+$upscope $end
+$scope module mac_inst $end
+$var wire 1 ) clk $end
+$var wire 1 * rst_n $end
+$var wire 17 + mac_a_in [16:0] $end
+$var wire 17 7 mac_b_in [16:0] $end
+$var reg 35 0 result [34:0] $end
+$var reg 34 8 product_out [33:0] $end
+$var reg 35 9 accum_out [34:0] $end
+$var reg 35 : result_reg [34:0] $end
+$scope module mul $end
+$var wire 1 ) clk $end
+$var wire 1 * rst_n $end
+$var wire 17 + a_in [16:0] $end
+$var wire 17 7 b_in [16:0] $end
+$var reg 34 8 product [33:0] $end
+$var reg 9 ; a_hi [8:0] $end
+$var reg 9 < b_hi [8:0] $end
+$var reg 8 = a_lo [7:0] $end
+$var reg 8 > b_lo [7:0] $end
+$var reg 16 ? pp_hh [15:0] $end
+$var reg 16 @ pp_hl [15:0] $end
+$var reg 16 A pp_lh [15:0] $end
+$var reg 16 B pp_ll [15:0] $end
+$var reg 34 C sum_mid [33:0] $end
+$var reg 34 D pp_hh_reg [33:0] $end
+$var reg 34 E pp_ll_reg [33:0] $end
+$upscope $end
+$scope module acc $end
+$var wire 1 ) clk $end
+$var wire 1 * rst_n $end
+$var wire 35 F accum_in [34:0] $end
+$var reg 35 9 accum_out [34:0] $end
+$var reg 35 G current_sum_o [34:0] $end
+$var reg 35 H next_sum_o [34:0] $end
+$scope module add $end
+$var wire 35 F a_in [34:0] $end
+$var wire 35 I b_in [34:0] $end
+$var reg 35 H sum [34:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+0!
+0"
+b0 #
+b0 $
+0%
+b0 &
+b0 '
+b0 (
+0)
+0*
+b0 +
+0,
+bz0000000000000000 -
+b0 .
+b0 /
+b0 0
+b0 1
+b0 2
+13
+14
+b0 5
+b10000000000000000 6
+b0 7
+b0 8
+b0 9
+b0 :
+b0 ;
+b0 <
+b0 =
+b0 >
+b0 ?
+b0 @
+b0 A
+b0 B
+b0 C
+b0 D
+b0 E
+b0 F
+b0 G
+b0 H
+b0 I
+$end
+#5000
+1!
+1)
+#10000
+0!
+0)
+#15000
+1!
+1)
+#20000
+0!
+0)
+#25000
+1!
+1)
+#30000
+0!
+0)
+#35000
+1!
+1)
+#40000
+0!
+0)
+#45000
+1!
+1)
+#50000
+0!
+0)
+#55000
+1!
+1)
+#60000
+0!
+0)
+#65000
+1!
+1)
+#70000
+0!
+0)
+#75000
+1!
+1)
+#80000
+0!
+0)
+#85000
+1!
+1)
+#90000
+0!
+0)
+#95000
+1!
+1"
+1)
+1*
+#100000
+0!
+0)
+#105000
+1!
+1%
+b0 &
+b10 '
+1)
+1,
+b10 .
+b10 /
+04
+b10 7
+#110000
+0!
+0)
+#115000
+1!
+b1 &
+b11 '
+1)
+bz0000000000000001 -
+b11 .
+b11 /
+b1 2
+b11 7
+b10 >
+#120000
+0!
+0)
+#125000
+1!
+b10 &
+b100 '
+1)
+bz0000000000000010 -
+b100 .
+b100 /
+b10 2
+b100 7
+b11 >
+#130000
+0!
+0)
+#135000
+1!
+0%
+b0 &
+b0 '
+1)
+0,
+bz0000000000000000 -
+b0 .
+b0 /
+b0 2
+14
+b0 7
+b100 >
+#140000
+0!
+0)
+#145000
+1!
+1)
+b10 /
+b10 5
+b10 7
+b0 >
+#150000
+0!
+0)
+#155000
+1!
+1)
+b10 >
+#160000
+0!
+0)
+#165000
+1!
+1)
+#170000
+0!
+0)
+#175000
+1!
+1)
+#180000
+0!
+0)
+#185000
+1!
+1)
+#190000
+0!
+0)
+#195000
+1!
+1)
+#200000
+0!
+0)
+#205000
+1!
+1)
+#210000
+0!
+0)
+#215000
+1!
+1)
+#220000
+0!
+0)
+#225000
+1!
+1)
+#230000
+0!
+0)
+#235000
+1!
+1)
+#240000
+0!
+0)
+#245000
+1!
+1)
+#250000
+0!
+0)
+#255000
+1!
+1)
+#260000
+0!
+0)
+#265000
+1!
+1)
+#270000
+0!
+0)
+#275000
+1!
+1)
+#280000
+0!
+0)
+#285000
+1!
+1)

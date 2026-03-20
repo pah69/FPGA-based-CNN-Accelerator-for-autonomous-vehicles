@@ -1,0 +1,22 @@
+1) Survey :
+- Chuan bi excel/doc ghi chu lai cac paper ve fpga-based accelerator
+- Trinh bay kien truc SOTA (State of The Art)
+
+2) Implement :
+
+
+
+
+
+
+----------------------------------
+
+10/02/2026
+
+- Chuan bi file excel note lai tat ca cac paper ve chu de FPGA-based Accelerator.
+- Nghien cuu State of the Art.
+- 
+- Chu de kha nang cao se la : FPGA-based CNN Accelerator Hardware/Software Co-Design
+- Chot design architecture : soon...
+
+
