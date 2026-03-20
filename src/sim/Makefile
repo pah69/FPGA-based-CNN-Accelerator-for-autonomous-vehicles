@@ -1,7 +1,7 @@
 # Variables
 TOP_MODULE = tb_top
 SNAPSHOT   = my_sim_snapshot
-SRC_FILES  = *.sv
+SRC_FILES  = /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/processing_element/*.sv
 
 # Targets
 all: simulate clean

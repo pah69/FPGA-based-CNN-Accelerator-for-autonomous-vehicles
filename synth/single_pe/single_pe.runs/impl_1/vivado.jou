@@ -1,0 +1,13 @@
+#-----------------------------------------------------------
+# Vivado v2022.2.2 (64-bit)
+# SW Build 3788238 on Tue Feb 21 19:59:23 MST 2023
+# IP Build 3783773 on Tue Feb 21 23:41:56 MST 2023
+# Start of session at: Fri Mar 20 17:32:26 2026
+# Process ID: 397609
+# Current directory: /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/synth/single_pe/single_pe.runs/impl_1
+# Command line: vivado -log pe_wrapper.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source pe_wrapper.tcl -notrace
+# Log file: /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/synth/single_pe/single_pe.runs/impl_1/pe_wrapper.vdi
+# Journal file: /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/synth/single_pe/single_pe.runs/impl_1/vivado.jou
+# Running On: pah-PC, OS: Linux, CPU Frequency: 3553.290 MHz, CPU Physical cores: 16, Host memory: 32887 MB
+#-----------------------------------------------------------
+source pe_wrapper.tcl -notrace
