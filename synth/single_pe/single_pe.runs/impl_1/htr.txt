@@ -1,9 +1,3 @@
-#
-# Vivado(TM)
-# htr.txt: a Vivado-generated description of how-to-repeat the
-#          the basic steps of a run.  Note that runme.bat/sh needs
-#          to be invoked for Vivado to track run status.
-# Copyright 1986-2023 Xilinx, Inc. All Rights Reserved.
-#
-
-vivado -log pe_wrapper.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source pe_wrapper.tcl -notrace
+version https://git-lfs.github.com/spec/v1
+oid sha256:df8a39b990d9993cde64c95440ab696c310511fef6924e4020f76d1caca87b53
+size 382
