@@ -1,4 +1,3 @@
-
 ////////////////////////////////////////////////////////////////////////////////
 // Company: <Company Name>
 // Engineer: Anh Ho Pham
@@ -36,11 +35,11 @@ module mac_unit #(
     input logic mac_acc_clear,
 
     // Outputs
-    output logic mac_valid_o,
+    output logic                         mac_valid_o,
     output logic signed [DATA_WIDTH*2:0] result
 );
 
-  // --- Internal Signals ---
+  // output reg
   logic signed [(DATA_WIDTH*2)-1:0] product_o;
 
   // Control signal pipeline registers (3 stages to match multiplier)
@@ -48,7 +47,7 @@ module mac_unit #(
   logic [2:0] start_pipe;
   logic [2:0] clear_pipe;
 
-  // --- Control Signal Synchronization ---
+  // Synchronization 
   // Delay the control signals by 3 clock cycles to align with the multiplier's output
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
@@ -62,7 +61,7 @@ module mac_unit #(
     end
   end
 
-  // Signals extracted from the end of the pipeline to feed the accumulator
+  // Registers
   logic acc_valid_in;
   logic acc_start;
   logic acc_clear;
@@ -72,12 +71,11 @@ module mac_unit #(
   assign acc_clear    = clear_pipe[2];
 
 
-  // --- Instantiations ---
-
-  // 1. Pipelined Multiplier (Latency: 3 cycles)
+  // Instantiate
+  // Pipelined Multiplier - Latency: 3 cycles
   multiplier #(
       .DATA_WIDTH(DATA_WIDTH)
-  ) mul (
+  ) mul_inst (
       .clk(clk),
       .rst_n(rst_n),
       .a_i(mac_a_i),
@@ -85,10 +83,10 @@ module mac_unit #(
       .product(product_o)
   );
 
-  // 2. Accumulator (Latency: 1 cycle)
+  // Accumulator - Latency: 1 cycle 
   accumulator #(
       .DATA_WIDTH(DATA_WIDTH)
-  ) acc (
+  ) accum_inst (
       .clk(clk),
       .rst_n(rst_n),
       .clear(acc_clear),

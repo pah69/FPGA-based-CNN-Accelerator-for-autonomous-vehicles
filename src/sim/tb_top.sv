@@ -38,9 +38,13 @@ module tb_top;
       .result_o(result_o)
   );
 
-  // --- Clock Generation ---
-  always #(CLK_PERIOD / 2) clk = ~clk;
+  // Clock generation
+  initial begin
+    clk = 0;
+    forever #10 clk = ~clk;  // 100 MHz clock
+  end
 
+  
   // =========================================================================
   // TASK 1: Apply Reset Test
   // =========================================================================
@@ -145,5 +149,13 @@ module tb_top;
     $display("\nSimulation Finished Successfully.");
     $finish;
   end
-
+  
+  initial begin
+    $display(" -----------------------");
+    $display("  DUMP VCD ENABLED ");
+    $display(" -----------------------");
+    $dumpfile("pe_test.vcd");
+    $dumpvars;
+    $dumpon;
+  end
 endmodule

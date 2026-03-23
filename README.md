@@ -1,1 +1,3 @@
-# FPGA-based-CNN-Accelerator-for-autonomous-vehicles
+
+This repo contains my Final Bachelor Thesis
+FPGA-based Convolution Neural Network Accelerator !

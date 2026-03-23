@@ -1,5 +1,5 @@
 // ////////////////////////////////////////////////////////////////////////////////
-// // Company: SoC.one
+// // Company:
 // // Engineer: Anh Ho Pham
 // //
 // // Create Date: 03/03/2026
@@ -7,10 +7,7 @@
 // // Module Name: pe (Processing Element)
 // // Target Device: ZCU104
 // // Tool versions: Vivado 2025.2
-// // Description:
-// //    Processing Element for systolic array. Integrates an internal BRAM for 
-// //    weight storage and a pipelined MAC unit. Forwards activations with a 
-// //    matched delay pipeline to maintain array synchronization.
+// // 
 // ////////////////////////////////////////////////////////////////////////////////
 
 `timescale 1ns / 1ps
@@ -23,16 +20,16 @@ module pe #(
     input logic clk,
     input logic rst_n,
 
-    // dataflow (Activation)
+    // dataflow - Activation
     input  logic signed [DATA_WIDTH-1:0] activation_i,
     output logic signed [DATA_WIDTH-1:0] activation_o,
 
-    // ram ctrl (Weight)
+    // ram ctrl - Weight
     input logic                         weight_we,
     input logic        [ADDR_WIDTH-1:0] weight_addr,
     input logic signed [DATA_WIDTH-1:0] weight_i,
 
-    // MAC control (Lifecycle)
+    // MAC control
     input logic valid_in,
     input logic start,
     input logic acc_clear,
@@ -42,30 +39,30 @@ module pe #(
     output logic signed [2*DATA_WIDTH:0] result_o
 );
 
-  // --- Internal Signals ---
+  // Internal
   logic signed [DATA_WIDTH-1:0] weight_rd_data;
 
   // Array to delay the activation signal
   logic signed [DATA_WIDTH-1:0] act_pipe[0:MAC_PIPELINE_DEPTH-1];
 
 
-  // Module Instantiations
+  // Instantiations
 
-  // 1. Local Weight RAM (FPGA BRAM Inferred)
+  // Local Weight RAM
   ram #(
       .ADDR_WIDTH(ADDR_WIDTH),
       .DATA_WIDTH(DATA_WIDTH),
       .DEPTH(1 << ADDR_WIDTH)
-  ) weight_ram (
+  ) ram_inst (
       .clk    (clk),
-      .cs     (1'b1),           // RAM always selected in this PE
+      .cs     (1'b1),          
       .we     (weight_we),
       .addr   (weight_addr),
       .wr_data(weight_i),
       .rd_data(weight_rd_data)
   );
 
-  // 2. MAC Unit (3-stage mult + 1-stage acc)
+  // MAC Unit (3-stage mult + 1-stage acc)
   mac_unit #(
       .DATA_WIDTH(DATA_WIDTH)
   ) mac_inst (
@@ -80,15 +77,14 @@ module pe #(
       .result       (result_o)
   );
 
-  // Delays the input activation by 4 clock cycles to match the MAC compute path.
+  // Delay by 4 clock cycles to match the MAC
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       act_pipe[0] <= '0;
       act_pipe[1] <= '0;
       act_pipe[2] <= '0;
       act_pipe[3] <= '0;
-    end else begin
-      // Pipeline only advances when valid_in is high
+    end else if (valid_in) begin
       act_pipe[0] <= activation_i;
       act_pipe[1] <= act_pipe[0];
       act_pipe[2] <= act_pipe[1];
@@ -96,7 +92,7 @@ module pe #(
     end
   end
 
-  // The output is the last stage of the shift register
+  // output assign
   assign activation_o = act_pipe[3];
 
 endmodule : pe
