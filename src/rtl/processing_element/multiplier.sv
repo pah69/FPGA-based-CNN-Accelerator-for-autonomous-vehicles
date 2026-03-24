@@ -65,3 +65,19 @@ module multiplier #(
   assign product = product_reg;
 
 endmodule
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

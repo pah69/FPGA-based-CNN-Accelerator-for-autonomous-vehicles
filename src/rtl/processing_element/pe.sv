@@ -30,12 +30,12 @@ module pe #(
     input logic signed [DATA_WIDTH-1:0] weight_i,
 
     // MAC control
-    input logic valid_in,
+    input logic valid_i,
     input logic start,
     input logic acc_clear,
 
     // MAC output
-    output logic valid_out,
+    output logic valid_o,
     output logic signed [2*DATA_WIDTH:0] result_o
 );
 
@@ -55,7 +55,7 @@ module pe #(
       .DEPTH(1 << ADDR_WIDTH)
   ) ram_inst (
       .clk    (clk),
-      .cs     (1'b1),          
+      .cs     (1'b1),
       .we     (weight_we),
       .addr   (weight_addr),
       .wr_data(weight_i),
@@ -70,21 +70,21 @@ module pe #(
       .rst_n        (rst_n),
       .mac_a_i      (activation_i),
       .mac_b_i      (weight_rd_data),
-      .mac_valid_i  (valid_in),
+      .mac_valid_i  (valid_i),
       .mac_start    (start),
       .mac_acc_clear(acc_clear),
-      .mac_valid_o  (valid_out),
+      .mac_valid_o  (valid_o),
       .result       (result_o)
   );
 
-  // Delay by 4 clock cycles to match the MAC
+  // Delay by 4 clock cycles to match the MACactivation_o
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       act_pipe[0] <= '0;
       act_pipe[1] <= '0;
       act_pipe[2] <= '0;
       act_pipe[3] <= '0;
-    end else if (valid_in) begin
+    end else begin
       act_pipe[0] <= activation_i;
       act_pipe[1] <= act_pipe[0];
       act_pipe[2] <= act_pipe[1];

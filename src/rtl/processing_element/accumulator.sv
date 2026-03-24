@@ -24,8 +24,8 @@ module accumulator #(
 ) (
     input logic clk,
     input logic rst_n,
-    input logic clear,      // Synchronously clears the accumulator
-    input logic start,      // Starts a new accumulation (ignores previous sum)
+    input logic clear,      // Synchronously clears
+    input logic start,      // Starts a new accumulation
     input logic valid_i,    // High when accum_i is valid
     input logic signed [DATA_WIDTH*2:0] accum_i,
 
