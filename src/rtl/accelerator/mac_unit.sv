@@ -1,22 +1,3 @@
-////////////////////////////////////////////////////////////////////////////////
-// Company: <Company Name>
-// Engineer: Anh Ho Pham
-//
-// Create Date: 03/03/2026
-// Design Name: MAC_unit
-// Module Name: mac_unit
-// Target Device: ZCU104
-// Tool versions: Vivado 2025.2
-// Description:
-//    <Description here>
-// Dependencies:
-//    <Dependencies here>
-// Revision:
-//    <Code_revision_information>
-// Additional Comments:
-//    <Additional_comments>
-////////////////////////////////////////////////////////////////////////////////
-
 `timescale 1ns / 1ps
 
 module mac_unit #(
@@ -39,25 +20,38 @@ module mac_unit #(
     output logic signed [DATA_WIDTH*2:0] result
 );
 
+  localparam int CTRL_PIPE_DEPTH = 4;
+
   // output reg
   logic signed [(DATA_WIDTH*2)-1:0] product_o;
 
-  // Control signal pipeline registers (3 stages to match multiplier)
-  logic [2:0] valid_pipe;
-  logic [2:0] start_pipe;
-  logic [2:0] clear_pipe;
+  // Control signal pipeline registers (4 stages to match multiplier + accumulator sampling)
+  logic [CTRL_PIPE_DEPTH-1:0] valid_pipe;
+  logic [CTRL_PIPE_DEPTH-1:0] start_pipe;
+  logic [CTRL_PIPE_DEPTH-1:0] clear_pipe;
 
   // Synchronization 
-  // Delay the control signals by 3 clock cycles to align with the multiplier's output
+  // Delay the control signals so the accumulator samples them with the matching product
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       valid_pipe <= '0;
       start_pipe <= '0;
       clear_pipe <= '0;
     end else begin
-      valid_pipe <= {valid_pipe[1:0], mac_valid_i};
-      start_pipe <= {start_pipe[1:0], mac_start};
-      clear_pipe <= {clear_pipe[1:0], mac_acc_clear};
+      valid_pipe[0] <= mac_valid_i;
+      valid_pipe[1] <= valid_pipe[0];
+      valid_pipe[2] <= valid_pipe[1];
+      valid_pipe[3] <= valid_pipe[2];
+
+      start_pipe[0] <= mac_start;
+      start_pipe[1] <= start_pipe[0];
+      start_pipe[2] <= start_pipe[1];
+      start_pipe[3] <= start_pipe[2];
+
+      clear_pipe[0] <= mac_acc_clear;
+      clear_pipe[1] <= clear_pipe[0];
+      clear_pipe[2] <= clear_pipe[1];
+      clear_pipe[3] <= clear_pipe[2];
     end
   end
 
@@ -66,13 +60,13 @@ module mac_unit #(
   logic acc_start;
   logic acc_clear;
 
-  assign acc_valid_in = valid_pipe[2];
-  assign acc_start    = start_pipe[2];
-  assign acc_clear    = clear_pipe[2];
+  assign acc_valid_in = valid_pipe[CTRL_PIPE_DEPTH-1];
+  assign acc_start    = start_pipe[CTRL_PIPE_DEPTH-1];
+  assign acc_clear    = clear_pipe[CTRL_PIPE_DEPTH-1];
 
 
   // Instantiate
-  // Pipelined Multiplier - Latency: 3 cycles
+  // Pipelined Multiplier - 3 internal stages, sampled by the accumulator on the 4th clock
   multiplier #(
       .DATA_WIDTH(DATA_WIDTH)
   ) mul_inst (
@@ -99,4 +93,3 @@ module mac_unit #(
   );
 
 endmodule
-

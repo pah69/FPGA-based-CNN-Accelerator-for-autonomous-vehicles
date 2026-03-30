@@ -1,7 +1,7 @@
 Copyright 1986-2023 Xilinx, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2022.2.2 (lin64) Build 3788238 Tue Feb 21 19:59:23 MST 2023
-| Date         : Fri Mar 20 17:33:24 2026
+| Date         : Tue Mar 24 10:36:16 2026
 | Host         : pah-PC running 64-bit Ubuntu 24.04.4 LTS
 | Command      : report_control_sets -verbose -file pe_wrapper_control_sets_placed.rpt
 | Design       : pe_wrapper

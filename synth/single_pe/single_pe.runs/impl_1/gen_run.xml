@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="impl_1" LaunchPart="xczu7ev-ffvc1156-2-e" LaunchTime="1774002745">
+<GenRun Id="impl_1" LaunchPart="xczu7ev-ffvc1156-2-e" LaunchTime="1774323298">
   <File Type="POSTROUTE-PHYSOPT-RQS-RPT" Name="postroute_physopt_report_qor_suggestions_0.rpt"/>
   <File Type="ROUTE-RQS-RPT" Name="route_report_qor_suggestions_0.rpt"/>
   <File Type="POSTROUTE-PHYSOPT-RQS" Name="pe_wrapper_postroute_physopted.rqs"/>
@@ -34,52 +34,51 @@
   <File Type="POSTROUTE-PHYSOPT-DCP" Name="pe_wrapper_postroute_physopt.dcp"/>
   <File Type="ROUTE-BUS-SKEW-RPX" Name="pe_wrapper_bus_skew_routed.rpx"/>
   <File Type="ROUTE-BUS-SKEW-PB" Name="pe_wrapper_bus_skew_routed.pb"/>
+  <File Type="ROUTE-BUS-SKEW" Name="pe_wrapper_bus_skew_routed.rpt"/>
+  <File Type="ROUTE-CLK" Name="pe_wrapper_clock_utilization_routed.rpt"/>
+  <File Type="ROUTE-SIMILARITY" Name="pe_wrapper_incremental_reuse_routed.rpt"/>
+  <File Type="ROUTE-TIMING-RPX" Name="pe_wrapper_timing_summary_routed.rpx"/>
+  <File Type="ROUTE-TIMING-PB" Name="pe_wrapper_timing_summary_routed.pb"/>
+  <File Type="ROUTE-TIMINGSUMMARY" Name="pe_wrapper_timing_summary_routed.rpt"/>
+  <File Type="ROUTE-STATUS-PB" Name="pe_wrapper_route_status.pb"/>
+  <File Type="ROUTE-STATUS" Name="pe_wrapper_route_status.rpt"/>
+  <File Type="ROUTE-PWR-RPX" Name="pe_wrapper_power_routed.rpx"/>
+  <File Type="ROUTE-PWR-SUM" Name="pe_wrapper_power_summary_routed.pb"/>
+  <File Type="ROUTE-PWR" Name="pe_wrapper_power_routed.rpt"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="pe_wrapper_methodology_drc_routed.pb"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-RPX" Name="pe_wrapper_methodology_drc_routed.rpx"/>
+  <File Type="ROUTE-METHODOLOGY-DRC" Name="pe_wrapper_methodology_drc_routed.rpt"/>
+  <File Type="ROUTE-DRC-RPX" Name="pe_wrapper_drc_routed.rpx"/>
+  <File Type="ROUTE-DRC-PB" Name="pe_wrapper_drc_routed.pb"/>
+  <File Type="ROUTE-DRC" Name="pe_wrapper_drc_routed.rpt"/>
+  <File Type="ROUTE-BLACKBOX-DCP" Name="pe_wrapper_routed_bb.dcp"/>
+  <File Type="ROUTE-DCP" Name="pe_wrapper_routed.dcp"/>
+  <File Type="ROUTE-ERROR-DCP" Name="pe_wrapper_routed_error.dcp"/>
+  <File Type="PHYSOPT-TIMING" Name="pe_wrapper_timing_summary_physopted.rpt"/>
+  <File Type="PHYSOPT-DRC" Name="pe_wrapper_drc_physopted.rpt"/>
+  <File Type="PHYSOPT-DCP" Name="pe_wrapper_physopt.dcp"/>
+  <File Type="POSTPLACE-PWROPT-TIMING" Name="pe_wrapper_timing_summary_postplace_pwropted.rpt"/>
   <File Type="POSTPLACE-PWROPT-DCP" Name="pe_wrapper_postplace_pwropt.dcp"/>
+  <File Type="PLACE-TIMING" Name="pe_wrapper_timing_summary_placed.rpt"/>
+  <File Type="PLACE-PRE-SIMILARITY" Name="pe_wrapper_incremental_reuse_pre_placed.rpt"/>
+  <File Type="PLACE-SIMILARITY" Name="pe_wrapper_incremental_reuse_placed.rpt"/>
+  <File Type="PLACE-CTRL" Name="pe_wrapper_control_sets_placed.rpt"/>
   <File Type="PLACE-UTIL-PB" Name="pe_wrapper_utilization_placed.pb"/>
-  <File Type="OPT-METHODOLOGY-DRC" Name="pe_wrapper_methodology_drc_opted.rpt"/>
   <File Type="PLACE-UTIL" Name="pe_wrapper_utilization_placed.rpt"/>
   <File Type="PLACE-CLK" Name="pe_wrapper_clock_utilization_placed.rpt"/>
   <File Type="PLACE-IO" Name="pe_wrapper_io_placed.rpt"/>
-  <File Type="PHYSOPT-TIMING" Name="pe_wrapper_timing_summary_physopted.rpt"/>
-  <File Type="PWROPT-DRC" Name="pe_wrapper_drc_pwropted.rpt"/>
+  <File Type="PLACE-DCP" Name="pe_wrapper_placed.dcp"/>
   <File Type="PWROPT-TIMING" Name="pe_wrapper_timing_summary_pwropted.rpt"/>
+  <File Type="PWROPT-DRC" Name="pe_wrapper_drc_pwropted.rpt"/>
+  <File Type="PWROPT-DCP" Name="pe_wrapper_pwropt.dcp"/>
+  <File Type="OPT-HWDEF" Name="pe_wrapper.hwdef"/>
+  <File Type="OPT-METHODOLOGY-DRC" Name="pe_wrapper_methodology_drc_opted.rpt"/>
   <File Type="OPT-DRC" Name="pe_wrapper_drc_opted.rpt"/>
-  <File Type="PLACE-TIMING" Name="pe_wrapper_timing_summary_placed.rpt"/>
+  <File Type="OPT-DCP" Name="pe_wrapper_opt.dcp"/>
+  <File Type="OPT-TIMING" Name="pe_wrapper_timing_summary_opted.rpt"/>
+  <File Type="REPORTS-TCL" Name="pe_wrapper_reports.tcl"/>
   <File Type="INIT-TIMING" Name="pe_wrapper_timing_summary_init.rpt"/>
   <File Type="PA-TCL" Name="pe_wrapper.tcl"/>
-  <File Type="PLACE-SIMILARITY" Name="pe_wrapper_incremental_reuse_placed.rpt"/>
-  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="pe_wrapper_methodology_drc_routed.pb"/>
-  <File Type="PLACE-DCP" Name="pe_wrapper_placed.dcp"/>
-  <File Type="PA-DCP" Name="pe_wrapper.dcp"/>
-  <File Type="PLACE-PRE-SIMILARITY" Name="pe_wrapper_incremental_reuse_pre_placed.rpt"/>
-  <File Type="ROUTE-DRC-RPX" Name="pe_wrapper_drc_routed.rpx"/>
-  <File Type="PLACE-CTRL" Name="pe_wrapper_control_sets_placed.rpt"/>
-  <File Type="ROUTE-METHODOLOGY-DRC" Name="pe_wrapper_methodology_drc_routed.rpt"/>
-  <File Type="OPT-DCP" Name="pe_wrapper_opt.dcp"/>
-  <File Type="OPT-HWDEF" Name="pe_wrapper.hwdef"/>
-  <File Type="POSTPLACE-PWROPT-TIMING" Name="pe_wrapper_timing_summary_postplace_pwropted.rpt"/>
-  <File Type="REPORTS-TCL" Name="pe_wrapper_reports.tcl"/>
-  <File Type="OPT-TIMING" Name="pe_wrapper_timing_summary_opted.rpt"/>
-  <File Type="PWROPT-DCP" Name="pe_wrapper_pwropt.dcp"/>
-  <File Type="PHYSOPT-DCP" Name="pe_wrapper_physopt.dcp"/>
-  <File Type="PHYSOPT-DRC" Name="pe_wrapper_drc_physopted.rpt"/>
-  <File Type="ROUTE-ERROR-DCP" Name="pe_wrapper_routed_error.dcp"/>
-  <File Type="ROUTE-DCP" Name="pe_wrapper_routed.dcp"/>
-  <File Type="ROUTE-BLACKBOX-DCP" Name="pe_wrapper_routed_bb.dcp"/>
-  <File Type="ROUTE-DRC" Name="pe_wrapper_drc_routed.rpt"/>
-  <File Type="ROUTE-METHODOLOGY-DRC-RPX" Name="pe_wrapper_methodology_drc_routed.rpx"/>
-  <File Type="ROUTE-DRC-PB" Name="pe_wrapper_drc_routed.pb"/>
-  <File Type="ROUTE-PWR" Name="pe_wrapper_power_routed.rpt"/>
-  <File Type="ROUTE-PWR-SUM" Name="pe_wrapper_power_summary_routed.pb"/>
-  <File Type="ROUTE-PWR-RPX" Name="pe_wrapper_power_routed.rpx"/>
-  <File Type="ROUTE-STATUS" Name="pe_wrapper_route_status.rpt"/>
-  <File Type="ROUTE-STATUS-PB" Name="pe_wrapper_route_status.pb"/>
-  <File Type="ROUTE-TIMINGSUMMARY" Name="pe_wrapper_timing_summary_routed.rpt"/>
-  <File Type="ROUTE-TIMING-PB" Name="pe_wrapper_timing_summary_routed.pb"/>
-  <File Type="ROUTE-TIMING-RPX" Name="pe_wrapper_timing_summary_routed.rpx"/>
-  <File Type="ROUTE-SIMILARITY" Name="pe_wrapper_incremental_reuse_routed.rpt"/>
-  <File Type="ROUTE-CLK" Name="pe_wrapper_clock_utilization_routed.rpt"/>
-  <File Type="ROUTE-BUS-SKEW" Name="pe_wrapper_bus_skew_routed.rpt"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PSRCDIR/sources_1/imports/processing_element/accumulator.sv">
@@ -167,6 +166,14 @@
   </FileSet>
   <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1">
     <Filter Type="Utils"/>
+    <File Path="$PSRCDIR/utils_1/imports/synth_1/pe_wrapper.dcp">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedInSteps" Val="synth_1"/>
+        <Attr Name="AutoDcp" Val="1"/>
+      </FileInfo>
+    </File>
     <Config>
       <Option Name="TopAutoSet" Val="TRUE"/>
     </Config>

@@ -3,7 +3,7 @@ TOP_MODULE = tb
 SNAPSHOT   = my_sim_snapshot
 
 # Directories
-RTL_DIR = /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/processing_element/
+RTL_DIR = /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/accelerator/
 SIM_DIR = /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/
 
 # Source Files

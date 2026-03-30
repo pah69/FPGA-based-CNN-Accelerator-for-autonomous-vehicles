@@ -1,0 +1,1014 @@
+$date
+   Mon Mar 30 08:39:14 2026
+$end
+
+$version
+  2025.2
+  $dumpfile ("tb_top_ws_reg.vcd") 
+$end
+
+$timescale
+  1ps
+$end
+
+$scope module tb $end
+$var reg 1 ! clk $end
+$var reg 1 " rst_n $end
+$var reg 1 # valid_in $end
+$var reg 1 $ start_in $end
+$var reg 1 % clear_in $end
+$scope module dut $end
+$var wire 1 & clk $end
+$var wire 1 ' rst_n $end
+$var wire 1 ( valid_in $end
+$var wire 1 ) start_in $end
+$var wire 1 * clear_in $end
+$scope module GEN_ROW[0].GEN_COL[0].pe_inst $end
+$var wire 1 & clk $end
+$var wire 1 ' rst_n $end
+$var wire 17 + activation_i [33:17] $end
+$var wire 1 ( valid_i $end
+$var wire 17 , weight_i [33:17] $end
+$var wire 1 - weight_load_i $end
+$var wire 1 ) start_i $end
+$var wire 1 * clear_i $end
+$var reg 35 . result_o [139:105] $end
+$var reg 1 / valid_o $end
+$var reg 17 0 weight_o [67:51] $end
+$var reg 17 1 weight_reg [16:0] $end
+$scope module mac_inst $end
+$var wire 1 & clk $end
+$var wire 1 ' rst_n $end
+$var wire 17 + mac_a_i [33:17] $end
+$var wire 17 2 mac_b_i [16:0] $end
+$var wire 1 ( mac_valid_i $end
+$var wire 1 ) mac_start $end
+$var wire 1 * mac_acc_clear $end
+$var reg 1 / mac_valid_o $end
+$var reg 35 . result [139:105] $end
+$var reg 34 3 product_o [33:0] $end
+$var reg 3 4 valid_pipe [2:0] $end
+$var reg 3 5 start_pipe [2:0] $end
+$var reg 3 6 clear_pipe [2:0] $end
+$var reg 1 7 acc_valid_in $end
+$var reg 1 8 acc_start $end
+$var reg 1 9 acc_clear $end
+$scope module mul_inst $end
+$var wire 1 & clk $end
+$var wire 1 ' rst_n $end
+$var wire 17 + a_i [33:17] $end
+$var wire 17 2 b_i [16:0] $end
+$var reg 34 3 product [33:0] $end
+$var reg 17 : a_reg [16:0] $end
+$var reg 17 ; b_reg [16:0] $end
+$var reg 17 < c_reg [16:0] $end
+$var reg 17 = d_reg [16:0] $end
+$var reg 34 > mult_reg [33:0] $end
+$var reg 34 ? product_reg [33:0] $end
+$upscope $end
+$scope module accum_inst $end
+$var wire 1 & clk $end
+$var wire 1 ' rst_n $end
+$var wire 1 @ clear $end
+$var wire 1 A start $end
+$var wire 1 B valid_i $end
+$var wire 35 C accum_i [34:0] $end
+$var reg 1 / valid_o $end
+$var reg 35 . accum_o [139:105] $end
+$var reg 35 D current_sum_o [34:0] $end
+$var reg 35 E next_sum_o [34:0] $end
+$var reg 35 F adder_b_i [34:0] $end
+$var reg 1 G start_d $end
+$var reg 1 H start_seq $end
+$var reg 1 I start_pending $end
+$scope module add $end
+$var wire 35 C a_i [34:0] $end
+$var wire 35 J b_i [34:0] $end
+$var reg 35 E sum [34:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module GEN_ROW[0].GEN_COL[1].pe_inst $end
+$var wire 1 & clk $end
+$var wire 1 ' rst_n $end
+$var wire 17 + activation_i [33:17] $end
+$var wire 1 ( valid_i $end
+$var wire 17 K weight_i [16:0] $end
+$var wire 1 L weight_load_i $end
+$var wire 1 ) start_i $end
+$var wire 1 * clear_i $end
+$var reg 35 M result_o [104:70] $end
+$var reg 1 N valid_o $end
+$var reg 17 O weight_o [50:34] $end
+$var reg 17 P weight_reg [16:0] $end
+$scope module mac_inst $end
+$var wire 1 & clk $end
+$var wire 1 ' rst_n $end
+$var wire 17 + mac_a_i [33:17] $end
+$var wire 17 Q mac_b_i [16:0] $end
+$var wire 1 ( mac_valid_i $end
+$var wire 1 ) mac_start $end
+$var wire 1 * mac_acc_clear $end
+$var reg 1 N mac_valid_o $end
+$var reg 35 M result [104:70] $end
+$var reg 34 R product_o [33:0] $end
+$var reg 3 S valid_pipe [2:0] $end
+$var reg 3 T start_pipe [2:0] $end
+$var reg 3 U clear_pipe [2:0] $end
+$var reg 1 V acc_valid_in $end
+$var reg 1 W acc_start $end
+$var reg 1 X acc_clear $end
+$scope module mul_inst $end
+$var wire 1 & clk $end
+$var wire 1 ' rst_n $end
+$var wire 17 + a_i [33:17] $end
+$var wire 17 Q b_i [16:0] $end
+$var reg 34 R product [33:0] $end
+$var reg 17 Y a_reg [16:0] $end
+$var reg 17 Z b_reg [16:0] $end
+$var reg 17 [ c_reg [16:0] $end
+$var reg 17 \ d_reg [16:0] $end
+$var reg 34 ] mult_reg [33:0] $end
+$var reg 34 ^ product_reg [33:0] $end
+$upscope $end
+$scope module accum_inst $end
+$var wire 1 & clk $end
+$var wire 1 ' rst_n $end
+$var wire 1 _ clear $end
+$var wire 1 ` start $end
+$var wire 1 a valid_i $end
+$var wire 35 b accum_i [34:0] $end
+$var reg 1 N valid_o $end
+$var reg 35 M accum_o [104:70] $end
+$var reg 35 c current_sum_o [34:0] $end
+$var reg 35 d next_sum_o [34:0] $end
+$var reg 35 e adder_b_i [34:0] $end
+$var reg 1 f start_d $end
+$var reg 1 g start_seq $end
+$var reg 1 h start_pending $end
+$scope module add $end
+$var wire 35 b a_i [34:0] $end
+$var wire 35 i b_i [34:0] $end
+$var reg 35 d sum [34:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module GEN_ROW[1].GEN_COL[0].pe_inst $end
+$var wire 1 & clk $end
+$var wire 1 ' rst_n $end
+$var wire 17 j activation_i [16:0] $end
+$var wire 1 ( valid_i $end
+$var wire 17 , weight_i [33:17] $end
+$var wire 1 - weight_load_i $end
+$var wire 1 ) start_i $end
+$var wire 1 * clear_i $end
+$var reg 35 k result_o [69:35] $end
+$var reg 1 l valid_o $end
+$var reg 17 m weight_o [33:17] $end
+$var reg 17 n weight_reg [16:0] $end
+$scope module mac_inst $end
+$var wire 1 & clk $end
+$var wire 1 ' rst_n $end
+$var wire 17 j mac_a_i [16:0] $end
+$var wire 17 o mac_b_i [16:0] $end
+$var wire 1 ( mac_valid_i $end
+$var wire 1 ) mac_start $end
+$var wire 1 * mac_acc_clear $end
+$var reg 1 l mac_valid_o $end
+$var reg 35 k result [69:35] $end
+$var reg 34 p product_o [33:0] $end
+$var reg 3 q valid_pipe [2:0] $end
+$var reg 3 r start_pipe [2:0] $end
+$var reg 3 s clear_pipe [2:0] $end
+$var reg 1 t acc_valid_in $end
+$var reg 1 u acc_start $end
+$var reg 1 v acc_clear $end
+$scope module mul_inst $end
+$var wire 1 & clk $end
+$var wire 1 ' rst_n $end
+$var wire 17 j a_i [16:0] $end
+$var wire 17 o b_i [16:0] $end
+$var reg 34 p product [33:0] $end
+$var reg 17 w a_reg [16:0] $end
+$var reg 17 x b_reg [16:0] $end
+$var reg 17 y c_reg [16:0] $end
+$var reg 17 z d_reg [16:0] $end
+$var reg 34 { mult_reg [33:0] $end
+$var reg 34 | product_reg [33:0] $end
+$upscope $end
+$scope module accum_inst $end
+$var wire 1 & clk $end
+$var wire 1 ' rst_n $end
+$var wire 1 } clear $end
+$var wire 1 ~ start $end
+$var wire 1 !! valid_i $end
+$var wire 35 "! accum_i [34:0] $end
+$var reg 1 l valid_o $end
+$var reg 35 k accum_o [69:35] $end
+$var reg 35 #! current_sum_o [34:0] $end
+$var reg 35 $! next_sum_o [34:0] $end
+$var reg 35 %! adder_b_i [34:0] $end
+$var reg 1 &! start_d $end
+$var reg 1 '! start_seq $end
+$var reg 1 (! start_pending $end
+$scope module add $end
+$var wire 35 "! a_i [34:0] $end
+$var wire 35 )! b_i [34:0] $end
+$var reg 35 $! sum [34:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module GEN_ROW[1].GEN_COL[1].pe_inst $end
+$var wire 1 & clk $end
+$var wire 1 ' rst_n $end
+$var wire 17 j activation_i [16:0] $end
+$var wire 1 ( valid_i $end
+$var wire 17 K weight_i [16:0] $end
+$var wire 1 L weight_load_i $end
+$var wire 1 ) start_i $end
+$var wire 1 * clear_i $end
+$var reg 35 *! result_o [34:0] $end
+$var reg 1 +! valid_o $end
+$var reg 17 ,! weight_o [16:0] $end
+$var reg 17 -! weight_reg [16:0] $end
+$scope module mac_inst $end
+$var wire 1 & clk $end
+$var wire 1 ' rst_n $end
+$var wire 17 j mac_a_i [16:0] $end
+$var wire 17 .! mac_b_i [16:0] $end
+$var wire 1 ( mac_valid_i $end
+$var wire 1 ) mac_start $end
+$var wire 1 * mac_acc_clear $end
+$var reg 1 +! mac_valid_o $end
+$var reg 35 *! result [34:0] $end
+$var reg 34 /! product_o [33:0] $end
+$var reg 3 0! valid_pipe [2:0] $end
+$var reg 3 1! start_pipe [2:0] $end
+$var reg 3 2! clear_pipe [2:0] $end
+$var reg 1 3! acc_valid_in $end
+$var reg 1 4! acc_start $end
+$var reg 1 5! acc_clear $end
+$scope module mul_inst $end
+$var wire 1 & clk $end
+$var wire 1 ' rst_n $end
+$var wire 17 j a_i [16:0] $end
+$var wire 17 .! b_i [16:0] $end
+$var reg 34 /! product [33:0] $end
+$var reg 17 6! a_reg [16:0] $end
+$var reg 17 7! b_reg [16:0] $end
+$var reg 17 8! c_reg [16:0] $end
+$var reg 17 9! d_reg [16:0] $end
+$var reg 34 :! mult_reg [33:0] $end
+$var reg 34 ;! product_reg [33:0] $end
+$upscope $end
+$scope module accum_inst $end
+$var wire 1 & clk $end
+$var wire 1 ' rst_n $end
+$var wire 1 <! clear $end
+$var wire 1 =! start $end
+$var wire 1 >! valid_i $end
+$var wire 35 ?! accum_i [34:0] $end
+$var reg 1 +! valid_o $end
+$var reg 35 *! accum_o [34:0] $end
+$var reg 35 @! current_sum_o [34:0] $end
+$var reg 35 A! next_sum_o [34:0] $end
+$var reg 35 B! adder_b_i [34:0] $end
+$var reg 1 C! start_d $end
+$var reg 1 D! start_seq $end
+$var reg 1 E! start_pending $end
+$scope module add $end
+$var wire 35 ?! a_i [34:0] $end
+$var wire 35 F! b_i [34:0] $end
+$var reg 35 A! sum [34:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope begin Block143_20 $end
+$var reg 32 G! r [31:0] $end
+$scope begin Block144_21 $end
+$var reg 32 H! c [31:0] $end
+$upscope $end
+$upscope $end
+$scope begin Block157_23 $end
+$var reg 32 I! r [31:0] $end
+$scope begin Block158_24 $end
+$var reg 32 J! c [31:0] $end
+$upscope $end
+$upscope $end
+$scope task zero_inputs $end
+$upscope $end
+$scope task load_weight_step $end
+$upscope $end
+$scope task compute_step $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+
+#0
+$dumpvars
+0!
+0!!
+0"
+b0 "!
+0#
+b0 #!
+0$
+b0 $!
+0%
+b0 %!
+0&
+0&!
+0'
+0'!
+0(
+0(!
+0)
+b0 )!
+0*
+b0 *!
+b0 +
+0+!
+b0 ,
+b0 ,!
+0-
+b0 -!
+b0 .
+b0 .!
+0/
+b0 /!
+b0 0
+b0 0!
+b0 1
+b0 1!
+b0 2
+b0 2!
+b0 3
+03!
+b0 4
+04!
+b0 5
+05!
+b0 6
+b0 6!
+07
+b0 7!
+08
+bx 8!
+09
+bx 9!
+b0 :
+b0 :!
+b0 ;
+b0 ;!
+bx <
+0<!
+bx =
+0=!
+b0 >
+0>!
+b0 ?
+b0 ?!
+0@
+b0 @!
+0A
+b0 A!
+0B
+b0 B!
+b0 C
+0C!
+b0 D
+0D!
+b0 E
+0E!
+b0 F
+b0 F!
+0G
+b0 G!
+0H
+b0 H!
+0I
+b0 I!
+b0 J
+b0 J!
+b0 K
+0L
+b0 M
+0N
+b0 O
+b0 P
+b0 Q
+b0 R
+b0 S
+b0 T
+b0 U
+0V
+0W
+0X
+b0 Y
+b0 Z
+bx [
+bx \
+b0 ]
+b0 ^
+0_
+0`
+0a
+b0 b
+b0 c
+b0 d
+b0 e
+0f
+0g
+0h
+b0 i
+b0 j
+b0 k
+0l
+b0 m
+b0 n
+b0 o
+b0 p
+b0 q
+b0 r
+b0 s
+0t
+0u
+0v
+b0 w
+b0 x
+bx y
+bx z
+b0 {
+b0 |
+0}
+0~
+$end
+
+#5000
+1!
+1&
+b10 I!
+b10 J!
+
+#10000
+0!
+0&
+
+#15000
+1!
+1&
+b10 I!
+b10 J!
+
+#20000
+0!
+0&
+
+#25000
+1!
+1&
+b10 I!
+b10 J!
+
+#30000
+0!
+0&
+
+#35000
+1!
+1&
+b10 I!
+b10 J!
+
+#40000
+0!
+0&
+
+#45000
+1!
+1"
+1&
+1'
+b10 I!
+b10 J!
+
+#50000
+0!
+0&
+
+#55000
+1!
+1%
+1&
+1*
+b10 I!
+b10 J!
+
+#60000
+0!
+0&
+
+#65000
+1!
+0%
+1&
+0*
+b1 2!
+b1 6
+b10 I!
+b10 J!
+b1 U
+b1 s
+
+#70000
+0!
+0&
+
+#75000
+1!
+1&
+b1 ,
+1-
+b10 2!
+b10 6
+b10 I!
+b10 J!
+b10 K
+1L
+b10 U
+b10 s
+
+#80000
+0!
+0&
+
+#85000
+1!
+1&
+b10 ,!
+0-
+b10 -!
+b10 .!
+b1 0
+b1 1
+b1 2
+b100 2!
+15!
+b100 6
+19
+1<!
+1@
+b10 I!
+b10 J!
+0L
+b10 O
+b10 P
+b10 Q
+b100 U
+1X
+1_
+b1 m
+b1 n
+b1 o
+b100 s
+1v
+1}
+
+#90000
+0!
+0&
+
+#95000
+1!
+1#
+1$
+1&
+1(
+1)
+b1 +
+b0 2!
+05!
+b0 6
+b10 7!
+09
+b1 ;
+0<!
+0@
+b10 I!
+b10 J!
+b0 U
+0X
+b10 Z
+0_
+b10 j
+b0 s
+0v
+b1 x
+0}
+
+#100000
+0!
+0&
+
+#105000
+1!
+0#
+0$
+1&
+0(
+0)
+b0 +
+b1 0!
+b1 1!
+b1 4
+b1 5
+b10 6!
+b1 :
+b10 I!
+b10 J!
+b1 S
+b1 T
+b1 Y
+b0 j
+b1 q
+b1 r
+b10 w
+
+#110000
+0!
+0&
+
+#115000
+1!
+1&
+b10 ,
+1-
+b10 0!
+b10 1!
+b10 4
+b10 5
+b0 6!
+b0 :
+b100 :!
+b1 >
+b10 I!
+b10 J!
+b1 K
+1L
+b10 S
+b10 T
+b0 Y
+b10 ]
+b10 q
+b10 r
+b0 w
+b10 {
+
+#120000
+0!
+0&
+
+#125000
+1!
+1!!
+b10 "!
+b10 $!
+1&
+1'!
+b1 ,!
+0-
+b1 -!
+b1 .!
+b100 /!
+b10 0
+b100 0!
+b10 1
+b100 1!
+b10 2
+b1 3
+13!
+b100 4
+14!
+b100 5
+17
+18
+b0 :!
+b100 ;!
+1=!
+b0 >
+1>!
+b1 ?
+b100 ?!
+1A
+b100 A!
+1B
+b1 C
+1D!
+b1 E
+1H
+b10 I!
+b10 J!
+0L
+b1 O
+b1 P
+b1 Q
+b10 R
+b100 S
+b100 T
+1V
+1W
+b0 ]
+b10 ^
+1`
+1a
+b10 b
+b10 d
+1g
+b10 m
+b10 n
+b10 o
+b10 p
+b100 q
+b100 r
+1t
+1u
+b0 {
+b10 |
+1~
+
+#130000
+0!
+0&
+
+#135000
+1!
+0!!
+b0 "!
+1#
+b10 #!
+b10 %!
+1&
+1&!
+0'!
+1(
+b10 )!
+b100 *!
+b10 +
+1+!
+b1 .
+1/
+b0 /!
+b0 0!
+b0 1!
+b0 3
+03!
+b0 4
+04!
+b0 5
+07
+b1 7!
+08
+b10 ;
+b0 ;!
+0=!
+0>!
+b0 ?
+b0 ?!
+b100 @!
+0A
+0B
+b100 B!
+b0 C
+1C!
+b1 D
+0D!
+b1 F
+b100 F!
+1G
+0H
+b10 I!
+b1 J
+b10 J!
+b10 M
+1N
+b0 R
+b0 S
+b0 T
+0V
+0W
+b1 Z
+b0 ^
+0`
+0a
+b0 b
+b10 c
+b10 e
+1f
+0g
+b10 i
+b1 j
+b10 k
+1l
+b0 p
+b0 q
+b0 r
+0t
+0u
+b10 x
+b0 |
+0~
+
+#140000
+0!
+0&
+
+#145000
+1!
+0#
+1&
+0&!
+0(
+b0 +
+b1 0!
+b1 4
+b1 6!
+b10 :
+0C!
+0G
+b10 I!
+b10 J!
+b1 S
+b10 Y
+0f
+b0 j
+b1 q
+b1 w
+
+#150000
+0!
+0&
+
+#155000
+1!
+1&
+b10 0!
+b10 4
+b0 6!
+b0 :
+b1 :!
+b100 >
+b10 I!
+b10 J!
+b10 S
+b0 Y
+b10 ]
+b10 q
+b0 w
+b10 {
+
+#160000
+0!
+0&
+
+#165000
+1!
+1!!
+b10 "!
+b100 $!
+1&
+b1 /!
+b100 0!
+b100 3
+13!
+b100 4
+17
+b0 :!
+b1 ;!
+b0 >
+1>!
+b100 ?
+b1 ?!
+b101 A!
+1B
+b100 C
+b101 E
+b10 I!
+b10 J!
+b10 R
+b100 S
+1V
+b0 ]
+b10 ^
+1a
+b10 b
+b100 d
+b10 p
+b100 q
+1t
+b0 {
+b10 |
+
+#170000
+0!
+0&
+
+#175000
+1!
+0!!
+b0 "!
+b100 #!
+b100 %!
+1&
+b100 )!
+b101 *!
+b101 .
+b0 /!
+b0 0!
+b0 3
+03!
+b0 4
+07
+b0 ;!
+0>!
+b0 ?
+b0 ?!
+b101 @!
+0B
+b101 B!
+b0 C
+b101 D
+b101 F
+b101 F!
+b10 I!
+b101 J
+b10 J!
+b100 M
+b0 R
+b0 S
+0V
+b0 ^
+0a
+b0 b
+b100 c
+b100 e
+b100 i
+b100 k
+b0 p
+b0 q
+0t
+b0 |
+
+#180000
+0!
+0&
+
+#185000
+1!
+1&
+b10 I!
+b10 J!
+
+#190000
+0!
+0&
+
+#195000
+1!
+1&
+b10 I!
+b10 J!
+
+#200000
+0!
+0&
+
+#205000
+1!
+1&
+b10 I!
+b10 J!
+
+#210000
+0!
+0&
+
+#215000
+1!
+1&
+b10 I!
+b10 J!
+
+#220000
+0!
+0&
+
+#225000
+1!
+1&
+b10 G!
+b10 H!
