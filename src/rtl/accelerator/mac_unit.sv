@@ -20,18 +20,17 @@ module mac_unit #(
     output logic signed [DATA_WIDTH*2:0] result
 );
 
-  localparam int CTRL_PIPE_DEPTH = 4;
+  localparam int CTRL_PIPE_DEPTH = 3;
 
   // output reg
   logic signed [(DATA_WIDTH*2)-1:0] product_o;
 
-  // Control signal pipeline registers (4 stages to match multiplier + accumulator sampling)
+  // Control signal pipeline registers (3 stages to match the registered multiplier output)
   logic [CTRL_PIPE_DEPTH-1:0] valid_pipe;
   logic [CTRL_PIPE_DEPTH-1:0] start_pipe;
   logic [CTRL_PIPE_DEPTH-1:0] clear_pipe;
 
   // Synchronization 
-  // Delay the control signals so the accumulator samples them with the matching product
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       valid_pipe <= '0;
@@ -41,17 +40,14 @@ module mac_unit #(
       valid_pipe[0] <= mac_valid_i;
       valid_pipe[1] <= valid_pipe[0];
       valid_pipe[2] <= valid_pipe[1];
-      valid_pipe[3] <= valid_pipe[2];
 
       start_pipe[0] <= mac_start;
       start_pipe[1] <= start_pipe[0];
       start_pipe[2] <= start_pipe[1];
-      start_pipe[3] <= start_pipe[2];
 
       clear_pipe[0] <= mac_acc_clear;
       clear_pipe[1] <= clear_pipe[0];
       clear_pipe[2] <= clear_pipe[1];
-      clear_pipe[3] <= clear_pipe[2];
     end
   end
 
@@ -66,14 +62,14 @@ module mac_unit #(
 
 
   // Instantiate
-  // Pipelined Multiplier - 3 internal stages, sampled by the accumulator on the 4th clock
+  // Pipelined Multiplier - 3 internal stages, with control aligned to the registered product
   multiplier #(
       .DATA_WIDTH(DATA_WIDTH)
   ) mul_inst (
-      .clk(clk),
-      .rst_n(rst_n),
-      .a_i(mac_a_i),
-      .b_i(mac_b_i),
+      .clk    (clk),
+      .rst_n  (rst_n),
+      .a_i    (mac_a_i),
+      .b_i    (mac_b_i),
       .product(product_o)
   );
 
@@ -81,10 +77,10 @@ module mac_unit #(
   accumulator #(
       .DATA_WIDTH(DATA_WIDTH)
   ) accum_inst (
-      .clk(clk),
-      .rst_n(rst_n),
-      .clear(acc_clear),
-      .start(acc_start),
+      .clk    (clk),
+      .rst_n  (rst_n),
+      .clear  (acc_clear),
+      .start  (acc_start),
       .valid_i(acc_valid_in),
       // Sign-extend the 34-bit product to 35 bits for the accumulator
       .accum_i({product_o[(DATA_WIDTH*2)-1], product_o}),

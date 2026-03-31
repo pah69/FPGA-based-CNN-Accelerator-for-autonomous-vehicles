@@ -7,21 +7,26 @@ module tb;
   localparam DATA_WIDTH = 17;
   localparam CLK_PERIOD = 10;
 
+  // general
   logic                         clk = 0;
   logic                         rst_n;
 
+  // input signals
   logic signed [DATA_WIDTH-1:0] act_in     [0:ROWS-1];
   logic                         valid_in;
   logic                         start_in;
   logic                         clear_in;
 
+  // weight input
   logic signed [DATA_WIDTH-1:0] weight_in  [0:COLS-1];
   logic                         weight_load[0:COLS-1];
 
+  // output signals
   logic signed [2*DATA_WIDTH:0] result_out [0:ROWS-1] [0:COLS-1];
   logic                         valid_out  [0:ROWS-1] [0:COLS-1];
-  logic signed [DATA_WIDTH-1:0] weight_dbg [0:ROWS-1] [0:COLS-1];
 
+  // debug signals
+  logic signed [DATA_WIDTH-1:0] weight_dbg [0:ROWS-1] [0:COLS-1];
   logic signed [2*DATA_WIDTH:0] expected   [0:ROWS-1] [0:COLS-1];
 
   systolic_array #(
@@ -134,7 +139,7 @@ module tb;
     compute_step(17'sd2, 17'sd1, 1'b0);
 
     // Drain MAC pipeline (mult=3 + acc=1)
-    repeat (8) @(posedge clk);
+    repeat (20) @(posedge clk);
 
     $display("\n[%0t] === FINAL RESULT MATRIX ===", $time);
     $display("C = [ %0d %0d ; %0d %0d ]", result_out[0][0], result_out[0][1], result_out[1][0],
