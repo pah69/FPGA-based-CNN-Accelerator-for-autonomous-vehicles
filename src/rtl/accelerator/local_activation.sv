@@ -1,54 +1,99 @@
+// // `timescale 1ns / 1ps
+// module local_activation #(
+//     parameter DATA_WIDTH = 8,
+//     parameter ROWS       = 4
+// ) (
+//     input logic clk,
+//     input logic rst,
+
+//     input logic valid_in,
+//     input logic start_in,
+//     input logic clear_in,
+
+//     input logic [ROWS*DATA_WIDTH-1:0] act_vec_in,
+
+//     output logic [DATA_WIDTH-1:0] act_out[ROWS],
+//     output logic valid_out,
+//     output logic start_out,
+//     output logic clear_out
+// );
+
+//   logic [ROWS*DATA_WIDTH-1:0] act_reg;
+
+//   always_ff @(posedge clk) begin
+//     if (rst) begin
+//       act_reg   <= '0;
+//       valid_out <= 0;
+//       start_out <= 0;
+//       clear_out <= 0;
+//     end else begin
+//       if (valid_in) act_reg <= act_vec_in;
+
+//       valid_out <= valid_in;
+//       start_out <= start_in;
+//       clear_out <= clear_in;
+//     end
+//   end
+
+//   genvar i;
+
+//   generate
+//     for (i = 0; i < ROWS; i++) begin
+//       assign act_out[i] = act_reg[i*DATA_WIDTH+:DATA_WIDTH];
+//     end
+//   endgenerate
+
+// endmodule
 `timescale 1ns / 1ps
 
 module local_activation #(
-    parameter int DATA_WIDTH = 17,
-    parameter int ROWS       = 4
-) (
+    parameter DATA_WIDTH = 17,
+    parameter ROWS       = 4
+)(
     input  logic clk,
-    input  logic rst_n,
+    input  logic rst,
 
-    // Load one activation vector from activation_buffer.
-    // Packing convention:
-    //   act_vec_i[(r+1)*DATA_WIDTH-1 -: DATA_WIDTH] = activation for row r
-    input  logic                         load_i,
-    input  logic [ROWS*DATA_WIDTH-1:0]  act_vec_i,
+    // phase 1: load local staging registers
+    input  logic local_load_i,
+    input  logic [ROWS*DATA_WIDTH-1:0] act_vec_in,
 
-    // Control aligned with the activation vector.
-    input  logic                         act_valid_i,
-    input  logic                         start_i,
-    input  logic                         clear_i,
+    // phase 2: fire staged activations into the array
+    input  logic act_fire_i,
+    input  logic start_fire_i,
+    input  logic clear_fire_i,
 
-    // Registered outputs that drive the systolic array.
-    output logic signed [DATA_WIDTH-1:0] act_out   [0:ROWS-1],
-    output logic                         valid_out,
-    output logic                         start_out,
-    output logic                         clear_out
+    output logic signed [DATA_WIDTH-1:0] act_out [0:ROWS-1],
+    output logic                  valid_out,
+    output logic                  start_out,
+    output logic                  clear_out
 );
 
-  integer r;
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      for (r = 0; r < ROWS; r++) begin
-        act_out[r] <= '0;
-      end
-      valid_out <= 1'b0;
-      start_out <= 1'b0;
-      clear_out <= 1'b0;
-    end else begin
-      // Control signals are pulses aligned to the current load event.
-      valid_out <= 1'b0;
-      start_out <= 1'b0;
-      clear_out <= 1'b0;
+    logic [ROWS*DATA_WIDTH-1:0] act_reg;
 
-      if (load_i) begin
-        for (r = 0; r < ROWS; r++) begin
-          act_out[r] <= act_vec_i[(r*DATA_WIDTH) +: DATA_WIDTH];
+    integer i;
+
+    always_ff @(posedge clk) begin
+        if (rst) begin
+            act_reg    <= '0;
+            valid_out  <= 1'b0;
+            start_out  <= 1'b0;
+            clear_out  <= 1'b0;
+        end else begin
+            if (local_load_i)
+                act_reg <= act_vec_in;
+
+            // pulses generated only when explicitly fired
+            valid_out <= act_fire_i;
+            start_out <= start_fire_i;
+            clear_out <= clear_fire_i;
         end
-        valid_out <= act_valid_i;
-        start_out <= start_i;
-        clear_out <= clear_i;
-      end
     end
-  end
 
-endmodule : local_activation
+    generate
+        genvar r;
+        for (r = 0; r < ROWS; r++) begin : GEN_ACT_UNPACK
+            assign act_out[r] = act_reg[r*DATA_WIDTH +: DATA_WIDTH];
+        end
+    endgenerate
+
+endmodule

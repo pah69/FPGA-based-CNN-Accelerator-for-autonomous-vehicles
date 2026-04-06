@@ -1,15 +1,16 @@
-#!/bin/sh
+#!/bin/bash
 
 # 
 # Vivado(TM)
 # runme.sh: a Vivado-generated Runs Script for UNIX
-# Copyright 1986-2023 Xilinx, Inc. All Rights Reserved.
+# Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+# Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # 
 
 if [ -z "$PATH" ]; then
-  PATH=/home/pah/tools/Xilinx/Vitis/2022.2/bin:/home/pah/tools/Xilinx/Vivado/2022.2/ids_lite/ISE/bin/lin64:/home/pah/tools/Xilinx/Vivado/2022.2/bin
+  PATH=/home/pah/tools/Xilinx_20252/2025.2/Vitis/bin:/home/pah/tools/Xilinx_20252/2025.2/Vivado/ids_lite/ISE/bin/lin64:/home/pah/tools/Xilinx_20252/2025.2/Vivado/bin
 else
-  PATH=/home/pah/tools/Xilinx/Vitis/2022.2/bin:/home/pah/tools/Xilinx/Vivado/2022.2/ids_lite/ISE/bin/lin64:/home/pah/tools/Xilinx/Vivado/2022.2/bin:$PATH
+  PATH=/home/pah/tools/Xilinx_20252/2025.2/Vitis/bin:/home/pah/tools/Xilinx_20252/2025.2/Vivado/ids_lite/ISE/bin/lin64:/home/pah/tools/Xilinx_20252/2025.2/Vivado/bin:$PATH
 fi
 export PATH
 
@@ -36,4 +37,4 @@ EAStep()
      fi
 }
 
-EAStep vivado -log pe_wrapper.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source pe_wrapper.tcl
+EAStep vivado -log systolic_array_4x4.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source systolic_array_4x4.tcl

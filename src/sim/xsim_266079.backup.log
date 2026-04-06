@@ -1,0 +1,48 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Mon Apr  6 16:03:22 2026
+# Process ID         : 266079
+# Current directory  : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim
+# Command line       : xsim -mode tcl -source {xsim.dir/my_sim_snapshot/xsim_script.tcl}
+# Log file           : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/xsim.log
+# Journal file       : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/xsim.jou
+# Running On         : pah-PC
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 24.04.4 LTS
+# Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
+# CPU Frequency      : 1750.631 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 32887 MB
+# Swap memory        : 25033 MB
+# Total Virtual      : 57921 MB
+# Available Virtual  : 51368 MB
+#-----------------------------------------------------------
+source xsim.dir/my_sim_snapshot/xsim_script.tcl
+# xsim {my_sim_snapshot} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+=== tb start ===
+TEST2: act shift all rows
+t=86000
+row0: pe00=11 v0=1 | pe01=0 v1=0 | pe02=0 v2=0
+row1: pe10=22 v0=1 | pe11=0 v1=0 | pe12=0 v2=0
+row2: pe20=33 v0=1 | pe21=0 v1=0 | pe22=0 v2=0
+row3: pe30=44 v0=1 | pe31=0 v1=0 | pe32=0 v2=0
+t=126000
+row0: pe00=0 v0=0 | pe01=11 v1=1 | pe02=0 v2=0
+row1: pe10=0 v0=0 | pe11=22 v1=1 | pe12=0 v2=0
+row2: pe20=0 v0=0 | pe21=33 v1=1 | pe22=0 v2=0
+row3: pe30=0 v0=0 | pe31=44 v1=1 | pe32=0 v2=0
+t=166000
+row0: pe00=0 v0=0 | pe01=0 v1=0 | pe02=11 v2=1
+row1: pe10=0 v0=0 | pe11=0 v1=0 | pe12=22 v2=1
+row2: pe20=0 v0=0 | pe21=0 v1=0 | pe22=33 v2=1
+row3: pe30=0 v0=0 | pe31=0 v1=0 | pe32=44 v2=1
+$finish called at time : 665 ns : File "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_systolic_array_4x4.sv" Line 383
+exit
+INFO: xsimkernel Simulation Memory Usage: 290576 KB (Peak: 343748 KB), Simulation CPU Usage: 710 ms
+INFO: [Common 17-206] Exiting xsim at Mon Apr  6 16:03:24 2026...

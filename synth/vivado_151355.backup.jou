@@ -1,0 +1,75 @@
+#-----------------------------------------------------------
+# Vivado v2022.2.2 (64-bit)
+# SW Build 3788238 on Tue Feb 21 19:59:23 MST 2023
+# IP Build 3783773 on Tue Feb 21 23:41:56 MST 2023
+# Start of session at: Fri Mar 20 16:59:55 2026
+# Process ID: 287488
+# Current directory: /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/synth
+# Command line: vivado
+# Log file: /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/synth/vivado.log
+# Journal file: /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/synth/vivado.jou
+# Running On: pah-PC, OS: Linux, CPU Frequency: 3550.366 MHz, CPU Physical cores: 16, Host memory: 32887 MB
+#-----------------------------------------------------------
+start_gui
+create_project single_pe /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/synth/single_pe -part xczu7ev-ffvc1156-2-e
+set_property board_part xilinx.com:zcu104:part0:1.1 [current_project]
+add_files {/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/processing_element/multiplier.sv /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/processing_element/mac_unit.sv /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/processing_element/pe.sv /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/processing_element/accumulator.sv /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/processing_element/ram.sv /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/processing_element/adder.sv /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/processing_element/archive/ram.sv /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/processing_element/archive/archive.sv /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/processing_element/archive/mac_pkg.sv /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/processing_element/archive/sign_extend.sv}
+import_files -force
+set_property compxlib.questa_compiled_library_dir /home/pah/questasim [current_project]
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+export_ip_user_files -of_objects  [get_files /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/synth/single_pe/single_pe.srcs/sources_1/imports/processing_element/archive/archive.sv] -no_script -reset -force -quiet
+remove_files  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/synth/single_pe/single_pe.srcs/sources_1/imports/processing_element/archive/archive.sv
+export_ip_user_files -of_objects  [get_files /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/synth/single_pe/single_pe.srcs/sources_1/imports/processing_element/archive/ram.sv] -no_script -reset -force -quiet
+remove_files  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/synth/single_pe/single_pe.srcs/sources_1/imports/processing_element/archive/ram.sv
+export_ip_user_files -of_objects  [get_files /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/synth/single_pe/single_pe.srcs/sources_1/imports/processing_element/archive/sign_extend.sv] -no_script -reset -force -quiet
+remove_files  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/synth/single_pe/single_pe.srcs/sources_1/imports/processing_element/archive/sign_extend.sv
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+import_files -fileset sim_1 -norecurse /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_top.sv
+update_compile_order -fileset sim_1
+update_compile_order -fileset sim_1
+create_bd_design "design_1"
+update_compile_order -fileset sources_1
+file mkdir /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/synth/single_pe/single_pe.srcs/sources_1/new
+close [ open /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/synth/single_pe/single_pe.srcs/sources_1/new/pe_wrapper.v w ]
+add_files /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/synth/single_pe/single_pe.srcs/sources_1/new/pe_wrapper.v
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+create_bd_cell -type module -reference pe_wrapper pe_wrapper_0
+set_property location {0.5 -255 66} [get_bd_cells pe_wrapper_0]
+make_wrapper -files [get_files /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/synth/single_pe/single_pe.srcs/sources_1/bd/design_1/design_1.bd] -top
+apply_bd_automation -rule xilinx.com:bd_rule:clkrst -config { Clk {New Clocking Wizard} Freq {100} Ref_Clk0 {} Ref_Clk1 {} Ref_Clk2 {}}  [get_bd_pins pe_wrapper_0/clk]
+startgroup
+apply_bd_automation -rule xilinx.com:bd_rule:board -config { Clk {New External Port} Manual_Source {Auto}}  [get_bd_pins clk_wiz/clk_in1]
+apply_bd_automation -rule xilinx.com:bd_rule:board -config { Board_Interface {reset ( FPGA Reset ) } Manual_Source {New External Port (ACTIVE_HIGH)}}  [get_bd_pins clk_wiz/reset]
+endgroup
+make_wrapper -files [get_files /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/synth/single_pe/single_pe.srcs/sources_1/bd/design_1/design_1.bd] -top
+add_files -norecurse /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/synth/single_pe/single_pe.gen/sources_1/bd/design_1/hdl/design_1_wrapper.v
+update_compile_order -fileset sources_1
+export_ip_user_files -of_objects  [get_files /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/synth/single_pe/single_pe.gen/sources_1/bd/design_1/hdl/design_1_wrapper.v] -no_script -reset -force -quiet
+remove_files  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/synth/single_pe/single_pe.gen/sources_1/bd/design_1/hdl/design_1_wrapper.v
+delete_bd_objs [get_bd_nets clk_wiz_clk_out1] [get_bd_cells pe_wrapper_0]
+set_property location {1 -251 4} [get_bd_cells clk_wiz]
+startgroup
+delete_bd_objs [get_bd_nets clk_100MHz_1] [get_bd_nets reset_1]
+delete_bd_objs [get_bd_cells clk_wiz]
+delete_bd_objs [get_bd_ports reset] [get_bd_ports clk_100MHz]
+endgroup
+export_ip_user_files -of_objects  [get_files /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/synth/single_pe/single_pe.srcs/sources_1/bd/design_1/design_1.bd] -no_script -reset -force -quiet
+remove_files  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/synth/single_pe/single_pe.srcs/sources_1/bd/design_1/design_1.bd
+launch_runs synth_1 -jobs 16
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 16
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 16
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 16
+wait_on_run synth_1
+open_run synth_1 -name synth_1
+launch_runs impl_1 -jobs 16
+wait_on_run impl_1
+close_design
+open_run impl_1

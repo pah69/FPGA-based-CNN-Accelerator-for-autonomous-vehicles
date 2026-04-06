@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module tb;
+module tb_lol;
 
   localparam ROWS = 2;
   localparam COLS = 2;
@@ -170,7 +170,7 @@ module tb;
   end
 
   initial begin
-    $dumpfile("tb_top_ws_reg.vcd");
+    $dumpfile("tb.vcd");
     $dumpvars(0, tb);
   end
 

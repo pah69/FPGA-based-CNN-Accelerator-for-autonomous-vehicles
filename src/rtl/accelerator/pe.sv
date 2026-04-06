@@ -1,153 +1,150 @@
 `timescale 1ns / 1ps
+
 module pe #(
-    parameter DATA_WIDTH = 17
+    parameter int DATA_WIDTH = 17,
+    parameter int PSUM_WIDTH = (2*DATA_WIDTH) + 8
 ) (
     input  logic clk,
     input  logic rst_n,
 
-    // Activation stream for this PE
-    input  logic signed [DATA_WIDTH-1:0] activation_i,
-    input  logic                         valid_i,
+    // Activation stream: left -> right
+    input  logic signed [DATA_WIDTH-1:0] act_i,
+    input  logic                         act_valid_i,
 
-    // Weight load from global buffer
+    // Partial sum stream: top -> bottom
+    input  logic signed [PSUM_WIDTH-1:0] psum_i,
+    input  logic                         psum_valid_i,
+
+    // Stationary weight load
     input  logic signed [DATA_WIDTH-1:0] weight_i,
-    input  logic                         weight_load_i,
+    input  logic                         weight_load_i, // control signal
 
-    // MAC lifecycle control
-    input  logic                         start_i,
-    input  logic                         clear_i,
+    // Forwarded activation stream
+    output logic signed [DATA_WIDTH-1:0] act_o,
+    output logic                         act_valid_o,
 
-    // Observation / result
-    output logic signed [2*DATA_WIDTH:0] result_o,
-    output logic                         valid_o,
+    // Forwarded partial sum stream
+    output logic signed [PSUM_WIDTH-1:0] psum_o,
+    output logic                         psum_valid_o,
+
+    // Debug
     output logic signed [DATA_WIDTH-1:0] weight_o
 );
 
-  logic signed [DATA_WIDTH-1:0] weight_reg;
+  localparam int PROD_WIDTH = 2 * DATA_WIDTH;
 
-  // Local stationary weight register
+  logic signed [DATA_WIDTH-1:0] weight_reg;
+  logic signed [PROD_WIDTH-1:0] product_w;
+  logic signed [PSUM_WIDTH-1:0] product_ext;
+  logic signed [PSUM_WIDTH-1:0] sum_w;
+
+  // Delay lines to align with multiplier latency
+  logic signed [DATA_WIDTH-1:0] act_d0, act_d1, act_d2, act_d3;
+  logic                         val_d0, val_d1, val_d2, val_d3;
+
+  logic signed [PSUM_WIDTH-1:0] psum_d0, psum_d1, psum_d2;
+  logic                         psum_val_d0, psum_val_d1, psum_val_d2;
+
+  // --------------------------------------------------------------------------
+  // Stationary weight register
+  // --------------------------------------------------------------------------
   always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
+    if (!rst_n)
       weight_reg <= '0;
-    end else if (weight_load_i) begin
+    else if (weight_load_i)
       weight_reg <= weight_i;
-    end
   end
 
   assign weight_o = weight_reg;
 
-  // Existing MAC reused directly
-  mac_unit #(
+  // --------------------------------------------------------------------------
+  // Pipelined multiplier
+  // --------------------------------------------------------------------------
+  multiplier #(
       .DATA_WIDTH(DATA_WIDTH)
-  ) mac_inst (
-      .clk          (clk),
-      .rst_n        (rst_n),
-      .mac_a_i      (activation_i),
-      .mac_b_i      (weight_reg),
-      .mac_valid_i  (valid_i),
-      .mac_start    (start_i),
-      .mac_acc_clear(clear_i),
-      .mac_valid_o  (valid_o),
-      .result       (result_o)
+  ) u_multiplier (
+      .clk    (clk),
+      .rst_n  (rst_n),
+      .a_i    (act_i),
+      .b_i    (weight_reg),
+      .product(product_w)
   );
 
+  // --------------------------------------------------------------------------
+  // Delay activation by 4 cycles so it aligns with registered psum_o timing
+  // --------------------------------------------------------------------------
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      act_d0 <= '0;
+      act_d1 <= '0;
+      act_d2 <= '0;
+      act_d3 <= '0;
+
+      val_d0 <= 1'b0;
+      val_d1 <= 1'b0;
+      val_d2 <= 1'b0;
+      val_d3 <= 1'b0;
+    end else begin
+      act_d0 <= act_i;
+      act_d1 <= act_d0;
+      act_d2 <= act_d1;
+      act_d3 <= act_d2;
+
+      val_d0 <= act_valid_i;
+      val_d1 <= val_d0;
+      val_d2 <= val_d1;
+      val_d3 <= val_d2;
+    end
+  end
+
+  assign act_o       = act_d3;
+  assign act_valid_o = val_d3;
+
+  // --------------------------------------------------------------------------
+  // Delay psum input by 3 cycles to align with multiplier product output
+  // --------------------------------------------------------------------------
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      psum_d0     <= '0;
+      psum_d1     <= '0;
+      psum_d2     <= '0;
+
+      psum_val_d0 <= 1'b0;
+      psum_val_d1 <= 1'b0;
+      psum_val_d2 <= 1'b0;
+    end else begin
+      psum_d0     <= psum_i;
+      psum_d1     <= psum_d0;
+      psum_d2     <= psum_d1;
+
+      psum_val_d0 <= psum_valid_i;
+      psum_val_d1 <= psum_val_d0;
+      psum_val_d2 <= psum_val_d1;
+    end
+  end
+
+  // --------------------------------------------------------------------------
+  // Extend product and add
+  // --------------------------------------------------------------------------
+  assign product_ext = {{(PSUM_WIDTH-PROD_WIDTH){product_w[PROD_WIDTH-1]}}, product_w};
+  assign sum_w       = psum_d2 + product_ext;
+
+  // --------------------------------------------------------------------------
+  // Registered downward psum output
+  // --------------------------------------------------------------------------
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      psum_o       <= '0;
+      psum_valid_o <= 1'b0;
+    end else begin
+      if (val_d3 && psum_val_d2) begin
+        psum_o       <= sum_w;
+        psum_valid_o <= 1'b1;
+      end else begin
+        psum_o       <= '0;
+        psum_valid_o <= 1'b0;
+      end
+    end
+  end
+
 endmodule : pe
-
-// // ////////////////////////////////////////////////////////////////////////////////
-// // // Company:
-// // // Engineer: Anh Ho Pham
-// // //
-// // // Create Date: 03/03/2026
-// // // Design Name: CNN_Accelerator
-// // // Module Name: pe (Processing Element)
-// // // Target Device: ZCU104
-// // // Tool versions: Vivado 2025.2
-// // // 
-// // ////////////////////////////////////////////////////////////////////////////////
-
-// `timescale 1ns / 1ps
-// module pe #(
-//     parameter DATA_WIDTH = 17,
-//     parameter ADDR_WIDTH = 16,
-//     parameter MAC_PIPELINE_DEPTH = 4
-// ) (
-//     // clock
-//     input logic clk,
-//     input logic rst_n,
-
-//     // dataflow - Activation
-//     input  logic signed [DATA_WIDTH-1:0] activation_i,
-//     output logic signed [DATA_WIDTH-1:0] activation_o,
-
-//     // ram ctrl - Weight
-//     input logic                         weight_we,
-//     input logic        [ADDR_WIDTH-1:0] weight_addr,
-//     input logic signed [DATA_WIDTH-1:0] weight_i,
-
-//     // MAC control
-//     input logic valid_i,
-//     input logic start,
-//     input logic acc_clear,
-
-//     // MAC output
-//     output logic valid_o,
-//     output logic signed [2*DATA_WIDTH:0] result_o
-// );
-
-//   // Internal
-//   logic signed [DATA_WIDTH-1:0] weight_rd_data;
-
-//   // Array to delay the activation signal
-//   logic signed [DATA_WIDTH-1:0] act_pipe[0:MAC_PIPELINE_DEPTH-1];
-
-
-//   // Instantiations
-
-//   // Local Weight RAM
-//   ram #(
-//       .ADDR_WIDTH(ADDR_WIDTH),
-//       .DATA_WIDTH(DATA_WIDTH),
-//       .DEPTH(1 << ADDR_WIDTH)
-//   ) ram_inst (
-//       .clk    (clk),
-//       .cs     (1'b1),
-//       .we     (weight_we),
-//       .addr   (weight_addr),
-//       .wr_data(weight_i),
-//       .rd_data(weight_rd_data)
-//   );
-
-//   // MAC Unit (3-stage mult + 1-stage acc)
-//   mac_unit #(
-//       .DATA_WIDTH(DATA_WIDTH)
-//   ) mac_inst (
-//       .clk          (clk),
-//       .rst_n        (rst_n),
-//       .mac_a_i      (activation_i),
-//       .mac_b_i      (weight_rd_data),
-//       .mac_valid_i  (valid_i),
-//       .mac_start    (start),
-//       .mac_acc_clear(acc_clear),
-//       .mac_valid_o  (valid_o),
-//       .result       (result_o)
-//   );
-
-//   // Delay by 4 clock cycles to match the MACactivation_o
-//   always_ff @(posedge clk or negedge rst_n) begin
-//     if (!rst_n) begin
-//       act_pipe[0] <= '0;
-//       act_pipe[1] <= '0;
-//       act_pipe[2] <= '0;
-//       act_pipe[3] <= '0;
-//     end else begin
-//       act_pipe[0] <= activation_i;
-//       act_pipe[1] <= act_pipe[0];
-//       act_pipe[2] <= act_pipe[1];
-//       act_pipe[3] <= act_pipe[2];
-//     end
-//   end
-
-//   // output assign
-//   assign activation_o = act_pipe[3];
-
-// endmodule : pe
