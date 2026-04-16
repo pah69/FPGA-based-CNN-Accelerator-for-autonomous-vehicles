@@ -1,5 +1,5 @@
 # Variables
-TOP_MODULE = tb_systolic_array_4x4
+TOP_MODULE = ws_sa_3x3_full_image_tb
 SNAPSHOT   = my_sim_snapshot
 
 # Directories
@@ -9,9 +9,9 @@ SIM_DIR = /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomo
 # Source Files
 RTL_FILES = $(wildcard $(RTL_DIR)/*.sv) $(wildcard $(RTL_DIR)/*/*.sv)
 # TB_FILE   = $(SIM_DIR)/tb.sv
-TB_FILE = $(SIM_DIR)/tb_systolic_array_4x4.sv
+TB_FILE = $(SIM_DIR)/ws_sa_3x3_full_image_tb.sv
 # Targets
-all: simulate
+all: simulate clean
 
 # Step 1: Parse (Compile)
 compile: 
@@ -31,4 +31,4 @@ gui: elaborate
 
 # Cleanup temporary files
 clean:
-	rm -rf *.log *.jou *.pb *.wdb xsim.dir .Xil *.vcd
+	rm -rf *.log *.jou *.pb *.wdb xsim.dir .Xil *.str

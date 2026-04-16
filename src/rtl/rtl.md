@@ -3,10 +3,8 @@ This rtl folder contains rtl files about the systolic arrays design.
 - Inside path ../rtl/processing_element contains design files.
 - Ignore ../rtl/reference/ folder.
 
-
-
 core :
-- accumulator.sv
+
 - multiplier.sv
 - adder.sv
 - mac_unit.sv
@@ -19,4 +17,3 @@ core :
 - controller.sv
 
 - top.sv
-
