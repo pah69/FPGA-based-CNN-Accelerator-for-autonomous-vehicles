@@ -1,15 +1,15 @@
 # Variables
-TOP_MODULE = tb_bp_accel_core
+TOP_MODULE = tb_bp_sa_3x3
 SNAPSHOT   = my_sim_snapshot
 
 # Directories
 RTL_DIR = /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/accelerator/
-SIM_DIR = /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/
+SIM_DIR = /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_sa_NxN
 
 # Source Files
 RTL_FILES = $(wildcard $(RTL_DIR)/*.sv) $(wildcard $(RTL_DIR)/*/*.sv)
 # TB_FILE   = $(SIM_DIR)/tb.sv
-TB_FILE = $(SIM_DIR)/tb_bp_accel_core.sv
+TB_FILE = $(SIM_DIR)/tb_bp_sa_3x3.sv
 # Targets
 all: simulate clean
 

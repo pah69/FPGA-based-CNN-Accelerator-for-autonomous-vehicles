@@ -62,6 +62,7 @@ module bp_local_out_buff #(
                     rd_ptr <= rd_ptr + 1'b1;
                     // Count không đổi
                 end
+                default: ;
             endcase
         end
     end

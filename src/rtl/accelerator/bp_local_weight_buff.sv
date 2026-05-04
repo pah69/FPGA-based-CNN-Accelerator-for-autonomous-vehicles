@@ -1,67 +1,115 @@
 `timescale 1ns / 1ps
 
-// ==============================================================================
-// Module: npu_weight_buffer (Local Weight Buffer)
-// Type: Serial-In, Parallel-Out (SIPO) Shift Register
-// ==============================================================================
 module bp_local_weight_buff #(
     parameter int DATA_WIDTH = 17,
-    parameter int SIZE       = 64
+    parameter int SIZE       = 32
 ) (
     input logic clk,
     input logic rst_n,
 
-    // ========================================
-    // Giao tiếp với Global SRAM / FSM Controller
-    // ========================================
-    input logic [DATA_WIDTH-1:0] sram_wgt_i,  // Dữ liệu 1 weight từ SRAM
-    input logic sram_wgt_valid_i,  // Tín hiệu báo SRAM đang gửi data hợp lệ
+    // Nhận toàn bộ 544-bit từ RAM thay vì 17-bit
+    input  logic [(DATA_WIDTH*SIZE)-1:0] sram_wgt_i, 
+    input  logic                         sram_wgt_valid_i,
 
-    // ========================================
-    // Giao tiếp với Systolic Array (npu_sa_64x64)
-    // ========================================
-    output logic [(DATA_WIDTH*SIZE)-1:0] sa_wgt_flatten_o, // Bó dây 1088-bit nối thẳng vào SA
-    output logic sa_wgt_load_o  // Tín hiệu kích hoạt nạp (Pulse)
+    // Đẩy 544-bit vào Systolic Array
+    output logic [(DATA_WIDTH*SIZE)-1:0] sa_wgt_flatten_o, 
+    output logic                         sa_wgt_load_o
 );
 
-  // ========================================
-  // Khai báo nội bộ
-  // ========================================
-  // Khai báo mảng 2D cho dễ quản lý, tự động flatten ở output
-  logic [      SIZE-1:0][DATA_WIDTH-1:0] shift_reg;
-  logic [$clog2(SIZE):0]                 count;  // Bộ đếm (đếm từ 0 đến SIZE)
-
-  // ========================================
-  // Logic Thanh ghi dịch và Bắn tín hiệu Load
-  // ========================================
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      shift_reg     <= '0;
-      count         <= '0;
-      sa_wgt_load_o <= 1'b0;
-    end else begin
-      // Mặc định hạ cờ load xuống (chỉ giật lên 1 chu kỳ khi đủ dữ liệu)
-      sa_wgt_load_o <= 1'b0;
-
-      if (sram_wgt_valid_i) begin
-        // Dịch dữ liệu: Đẩy dữ liệu cũ sang trái, nhét dữ liệu mới vào bên phải (Index 0)
-        // Lưu ý cho FSM: Weight của Cột 63 phải được SRAM gửi vào ĐẦU TIÊN.
-        shift_reg <= {shift_reg[SIZE-2:0], sram_wgt_i};
-
-        if (count == SIZE - 1) begin
-          // Đã gom đủ 64 weights
-          count <= '0;  // Reset bộ đếm để chuẩn bị cho đợt nạp Layer tiếp theo
-          sa_wgt_load_o <= 1'b1;  // Bắn tín hiệu Load vào Systolic Array!
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            sa_wgt_flatten_o <= '0;
+            sa_wgt_load_o    <= 1'b0;
         end else begin
-          count <= count + 1'b1;
+            // Đẩy thẳng qua 1 tầng thanh ghi (Pipeline)
+            sa_wgt_flatten_o <= sram_wgt_i;
+            // Bắn xung Load mỗi khi có Valid từ Controller
+            sa_wgt_load_o    <= sram_wgt_valid_i; 
         end
-      end
     end
-  end
-
-  // ========================================
-  // Chuyển mảng 2D thành dây 1D (Flattening)
-  // ========================================
-  assign sa_wgt_flatten_o = shift_reg;
 
 endmodule
+
+ module fifo #(
+    WIDTH = 32,
+    DEPTH = 16
+ )
+ (
+    input  logic             clk_i,
+    input  logic             rst_n_i,
+    //--------------------------------
+    // Write
+    input  logic [WIDTH-1:0] wdata_i,
+    input  logic             wr_en_i,
+    output logic             full_o,
+    //--------------------------------
+    // Read
+    output logic [WIDTH-1:0] rdata_o,
+    input  logic             rd_en_i,
+    output logic             empty_o
+ );
+    timeunit 1ns; timeprecision 100ps;
+    // Check if DEPTH is power of 2
+    // Power of 2 means only one bit should be set (e.g. 2=10, 4=100, 8=1000, etc)
+    initial begin : depth_power_of_2_check
+        assert((DEPTH & (DEPTH-1)) == 0) else
+            $error("FIFO depth must be a power of 2");
+    end
+
+    localparam ADDR_WIDTH = $clog2(DEPTH);
+    logic [ADDR_WIDTH-1:0] rptr, wptr;
+    logic full, empty;
+    logic last_was_read;
+
+    // Register Array
+    logic [WIDTH-1:0] mem [0:DEPTH-1];
+
+    // Write operation
+    always_ff @(posedge clk_i or negedge rst_n_i) begin
+        if (!rst_n_i) begin
+            wptr <= 0;
+        end else begin
+            if (wr_en_i && !full) begin
+                mem[wptr] <= wdata_i;
+                wptr      <= wptr + 1'b1;
+            end
+        end
+    end
+
+    // Read operation
+    always_ff @(posedge clk_i or negedge rst_n_i) begin
+        if (!rst_n_i) begin
+            rptr <= 0;
+        end else begin
+            if (rd_en_i && !empty) begin
+                rptr    <= rptr + 1'b1;
+                rdata_o <= mem[rptr];
+            end
+        end
+    end
+
+    // assign rdata_o = mem[rptr];
+
+    // Last operation tracker
+    always_ff @(posedge clk_i or negedge rst_n_i) begin
+        if (!rst_n_i) begin
+            last_was_read <= 1; // Initialize as empty
+        end else begin
+            if (rd_en_i && !empty) begin
+                last_was_read <= 1;
+            end else if (wr_en_i && !full) begin
+                last_was_read <= 0;
+            end else begin
+                last_was_read <= last_was_read;
+            end
+        end
+    end
+
+    assign full    = (wptr == rptr) && !last_was_read; // Last operation was write
+    assign empty   = (wptr == rptr) &&  last_was_read; // Last operation was read
+
+    assign full_o  = full;
+    assign empty_o = empty;
+
+
+endmodule : fifo

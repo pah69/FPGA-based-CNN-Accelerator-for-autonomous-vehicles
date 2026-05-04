@@ -1,10 +1,10 @@
 `timescale 1ns / 1ps
 
 module bp_post_proc #(
-    parameter int DATA_WIDTH  = 17,
+    parameter int DATA_WIDTH  = 16,
     parameter int PSUM_WIDTH  = (2 * DATA_WIDTH) + 8, // 42-bit
     parameter int SIZE        = 64,
-    parameter int QUANT_SHIFT = 8   // Số bit dịch phải để ép kiểu về 17-bit
+    parameter int QUANT_SHIFT = 8   // Số bit dịch phải để ép kiểu về 16-bit
 ) (
     input  logic                         clk,
     input  logic                         rst_n,
