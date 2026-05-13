@@ -1,15 +1,16 @@
 # Variables
-TOP_MODULE = tb_bp_sa_3x3
+# TOP_MODULE = test_staggered_activation
+TOP_MODULE = test_sa_2x2_computation
 SNAPSHOT   = my_sim_snapshot
 
 # Directories
-RTL_DIR = /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/accelerator/
+RTL_DIR = /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/
 SIM_DIR = /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_sa_NxN
 
 # Source Files
 RTL_FILES = $(wildcard $(RTL_DIR)/*.sv) $(wildcard $(RTL_DIR)/*/*.sv)
 # TB_FILE   = $(SIM_DIR)/tb.sv
-TB_FILE = $(SIM_DIR)/tb_bp_sa_3x3.sv
+TB_FILE = $(SIM_DIR)/test_sa_2x2_computation.sv
 # Targets
 all: simulate clean
 
@@ -32,3 +33,4 @@ gui: elaborate
 # Cleanup temporary files
 clean:
 	rm -rf *.log *.jou *.pb *.wdb xsim.dir .Xil *.str
+`

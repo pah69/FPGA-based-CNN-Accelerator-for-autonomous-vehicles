@@ -1,35 +1,14 @@
 `timescale 1ns / 1ps
 
-/**
- * Systolic Array Processing Element (PE) - No For Loops Version
- * 
- * Architecture:
- *   - Multiply-Accumulate (MAC) operation: psum_out = psum_in + (activation × weight)
- *   - Stationary weight (stored in PE)
- *   - Pipelined multiplier: 3-cycle latency
- *   - Delay lines align activation and partial sum streams to multiplier output
- *   - All validity signals propagate through pipeline
- * 
- * Data Flow:
- *   Activation stream:    left → multiply → delay 4 cycles → right
- *   Weight (stationary):  loaded via weight_load_i
- *   Partial sum stream:   top → delay 3 cycles → adder → register → bottom
- * 
- * Latency:
- *   - Multiplier: 3 cycles (a_i → product_o)
- *   - Activation forwarding: 4 cycles (to align with psum output)
- *   - Partial sum path: 3 cycles + 1 output register = 4 total
- *   - PE output valid when both psum and activation are valid
- */
 module pe #(
-    parameter int DATA_WIDTH = 8,
+    parameter int DATA_WIDTH       = 8,
     parameter int LOCAL_PSUM_WIDTH = (2 * DATA_WIDTH) + 2
 ) (
     input logic clk,
     input logic rst_n,
 
     // ========================================
-    // Activation stream (left → right)
+    // Activation stream: left -> right
     // ========================================
     input  logic signed [DATA_WIDTH-1:0] act_i,
     input  logic                         act_valid_i,
@@ -37,190 +16,276 @@ module pe #(
     output logic                         act_valid_o,
 
     // ========================================
-    // Partial sum stream (top → bottom)
+    // Partial sum stream: top -> bottom
     // ========================================
     input  logic signed [LOCAL_PSUM_WIDTH-1:0] psum_i,
-    input  logic                         psum_valid_i,
+    input  logic                               psum_valid_i,
     output logic signed [LOCAL_PSUM_WIDTH-1:0] psum_o,
-    output logic                         psum_valid_o,
+    output logic                               psum_valid_o,
 
     // ========================================
-    // Stationary weight (PE-local storage)
+    // Weight stream / stationary weight control
     // ========================================
-    input  logic signed [DATA_WIDTH-1:0] weight_i,
-    input  logic                         weight_load_i,
-    output logic signed [DATA_WIDTH-1:0] weight_o
+    input logic signed [DATA_WIDTH-1:0] weight_i,
+    input logic                         weight_load_i,
+    input logic                         weight_switch_i,
+
+    output logic signed [DATA_WIDTH-1:0] weight_o,
+    output logic                         weight_valid_o,
+
+    // ========================================
+    // Debug / status
+    // ========================================
+    input  logic overflow_clr_i,
+    output logic overflow_o
 );
 
   // ========================================
-  // Local Parameters & Constants
+  // Local parameters
   // ========================================
   localparam int MULT_WIDTH = 2 * DATA_WIDTH;
 
-  // ========================================
-  // Signal Declarations
-  // ========================================
+  // Requirement:
+  // LOCAL_PSUM_WIDTH must be >= MULT_WIDTH.
+  // Example:
+  // DATA_WIDTH = 8
+  // MULT_WIDTH = 16
+  // LOCAL_PSUM_WIDTH should be at least 16, usually larger.
 
+  // ========================================
   // Weight storage
-  logic signed [DATA_WIDTH-1:0] weight_reg;
+  // ========================================
+  logic signed [      DATA_WIDTH-1:0] weight_active;
+  logic signed [      DATA_WIDTH-1:0] weight_shadow;
 
+  // ========================================
   // Multiplier interface
-  logic signed [MULT_WIDTH-1:0] mult_product;
-  logic mult_valid;
-
-  // Activation delay line (4 stages)
-  logic signed [DATA_WIDTH-1:0] act_d1, act_d2, act_d3, act_d4;
-  logic act_valid_d1, act_valid_d2, act_valid_d3, act_valid_d4;
-
-  // Partial sum delay line (3 stages)
-  logic signed [LOCAL_PSUM_WIDTH-1:0] psum_d1, psum_d2, psum_d3;
-  logic psum_valid_d1, psum_valid_d2, psum_valid_d3;
-
-  // MAC operation signals
-  logic signed [LOCAL_PSUM_WIDTH-1:0] mult_product_ext;  // Extended to LOCAL_PSUM_WIDTH
-  logic signed [LOCAL_PSUM_WIDTH-1:0] sum_result;  // Adder output
-  logic                         sum_valid;  // Valid signal for sum
+  // ========================================
+  logic signed [      MULT_WIDTH-1:0] mult_product;
+  logic                               mult_valid;
 
   // ========================================
-  // 1. Weight Register (Stationary)
+  // Activation delay line
+  // Multiplier latency = 3 cycles
+  // PE output register adds 1 more cycle
+  // So activation forwarding is delayed 4 cycles.
   // ========================================
+  logic signed [      DATA_WIDTH-1:0] act_d1;
+  logic signed [      DATA_WIDTH-1:0] act_d2;
+  logic signed [      DATA_WIDTH-1:0] act_d3;
+  logic signed [      DATA_WIDTH-1:0] act_d4;
+
+  logic                               act_valid_d1;
+  logic                               act_valid_d2;
+  logic                               act_valid_d3;
+  logic                               act_valid_d4;
+
+  // ========================================
+  // Partial sum delay line
+  // Psum must align with multiplier output.
+  // Multiplier output appears after 3 cycles.
+  // ========================================
+  logic signed [LOCAL_PSUM_WIDTH-1:0] psum_d1;
+  logic signed [LOCAL_PSUM_WIDTH-1:0] psum_d2;
+  logic signed [LOCAL_PSUM_WIDTH-1:0] psum_d3;
+
+  logic                               psum_valid_d1;
+  logic                               psum_valid_d2;
+  logic                               psum_valid_d3;
+
+  // ========================================
+  // MAC signals
+  // ========================================
+  logic signed [LOCAL_PSUM_WIDTH-1:0] mult_product_ext;
+  logic signed [  LOCAL_PSUM_WIDTH:0] add_full;
+  logic signed [LOCAL_PSUM_WIDTH-1:0] sum_result;
+
+  logic                               sum_valid;
+  logic                               add_overflow;
+
+  // ========================================
+  // 1. Double-buffered stationary weight
+  // ========================================
+  //
+  // weight_shadow:
+  //   Loaded with the next weight.
+  //
+  // weight_active:
+  //   Used by the multiplier.
+  //
+  // weight_switch_i:
+  //   Copies shadow weight into active weight.
+  //
+  // Timing note:
+  //   Assert weight_switch_i at least 1 cycle before the first act_valid_i
+  //   that should use the new active weight.
+  //
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      weight_reg <= '0;
-    end else if (weight_load_i) begin
-      weight_reg <= weight_i;
+      weight_active <= '0;
+      weight_shadow <= '0;
+    end else begin
+      if (weight_load_i) begin
+        weight_shadow <= weight_i;
+      end
+
+      if (weight_switch_i) begin
+        weight_active <= weight_shadow;
+      end
     end
   end
 
-  assign weight_o = weight_reg;
+  // ========================================
+  // 2. Weight forwarding
+  // ========================================
+  //
+  // This lets you daisy-chain weight loading through PEs.
+  // The next PE can use weight_o only when weight_valid_o is high.
+  //
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      weight_o       <= '0;
+      weight_valid_o <= 1'b0;
+    end else begin
+      weight_o       <= weight_i;
+      weight_valid_o <= weight_load_i;
+    end
+  end
 
   // ========================================
-  // 2. Pipelined Multiplier Instantiation
+  // 3. Pipelined multiplier
   // ========================================
+  //
+  // Uses the active stationary weight.
+  //
   multiplier #(
       .DATA_WIDTH(DATA_WIDTH)
   ) u_multiplier (
-      .clk(clk),
-      .rst_n(rst_n),
-      .a_i(act_i),
-      .b_i(weight_reg),
-      .valid_i(act_valid_i),
+      .clk      (clk),
+      .rst_n    (rst_n),
+      .a_i      (act_i),
+      .b_i      (weight_active),
+      .valid_i  (act_valid_i),
       .product_o(mult_product),
-      .valid_o(mult_valid)
+      .valid_o  (mult_valid)
   );
 
   // ========================================
-  // 3. Activation Stream Delay Line (4 stages)
+  // 4. Activation delay line
   // ========================================
-  // Stage 1 of delay
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      act_d1 <= '0;
-      act_valid_d1 <= '0;
+      act_d1       <= '0;
+      act_d2       <= '0;
+      act_d3       <= '0;
+      act_d4       <= '0;
+
+      act_valid_d1 <= 1'b0;
+      act_valid_d2 <= 1'b0;
+      act_valid_d3 <= 1'b0;
+      act_valid_d4 <= 1'b0;
     end else begin
-      act_d1 <= act_i;
+      act_d1 <= act_valid_i ? act_i : '0;
+      act_d2 <= act_valid_d1 ? act_d1 : '0;
+      act_d3 <= act_valid_d2 ? act_d2 : '0;
+      act_d4 <= act_valid_d3 ? act_d3 : '0;
+
       act_valid_d1 <= act_valid_i;
-    end
-  end
-
-  // Stage 2 of delay
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      act_d2 <= '0;
-      act_valid_d2 <= '0;
-    end else begin
-      act_d2 <= act_d1;
       act_valid_d2 <= act_valid_d1;
-    end
-  end
-
-  // Stage 3 of delay
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      act_d3 <= '0;
-      act_valid_d3 <= '0;
-    end else begin
-      act_d3 <= act_d2;
       act_valid_d3 <= act_valid_d2;
-    end
-  end
-
-  // Stage 4 of delay
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      act_d4 <= '0;
-      act_valid_d4 <= '0;
-    end else begin
-      act_d4 <= act_d3;
       act_valid_d4 <= act_valid_d3;
     end
   end
 
-  assign act_o = act_d4;
+  assign act_o       = act_d4;
   assign act_valid_o = act_valid_d4;
 
   // ========================================
-  // 4. Partial Sum Stream Delay Line (3 stages)
+  // 5. Partial sum delay line
   // ========================================
-  // Stage 1 of delay
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      psum_d1 <= '0;
-      psum_valid_d1 <= '0;
+      psum_d1       <= '0;
+      psum_d2       <= '0;
+      psum_d3       <= '0;
+
+      psum_valid_d1 <= 1'b0;
+      psum_valid_d2 <= 1'b0;
+      psum_valid_d3 <= 1'b0;
     end else begin
-      psum_d1 <= psum_i;
+      psum_d1 <= psum_valid_i ? psum_i : '0;
+      psum_d2 <= psum_valid_d1 ? psum_d1 : '0;
+      psum_d3 <= psum_valid_d2 ? psum_d2 : '0;
+
       psum_valid_d1 <= psum_valid_i;
-    end
-  end
-
-  // Stage 2 of delay
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      psum_d2 <= '0;
-      psum_valid_d2 <= '0;
-    end else begin
-      psum_d2 <= psum_d1;
       psum_valid_d2 <= psum_valid_d1;
-    end
-  end
-
-  // Stage 3 of delay
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      psum_d3 <= '0;
-      psum_valid_d3 <= '0;
-    end else begin
-      psum_d3 <= psum_d2;
       psum_valid_d3 <= psum_valid_d2;
     end
   end
 
   // ========================================
-  // 5. MAC Operation: Multiply & Accumulate
+  // 6. Product sign extension
   // ========================================
-
-  // Sign-extend multiplier product to LOCAL_PSUM_WIDTH
+  //
+  // mult_product is DATA_WIDTH * DATA_WIDTH.
+  // It must be sign-extended before adding to psum.
+  //
   assign mult_product_ext = {
     {(LOCAL_PSUM_WIDTH - MULT_WIDTH) {mult_product[MULT_WIDTH-1]}}, mult_product
   };
 
-  // Add delayed psum with extended product
-  assign sum_result = psum_d3 + mult_product_ext;
+  // ========================================
+  // 7. MAC operation with overflow detection
+  // ========================================
+  //
+  // Add one extra sign bit to detect signed overflow.
+  //
+  assign add_full = {
+      psum_d3[LOCAL_PSUM_WIDTH-1],
+      psum_d3
+  } + {
+      mult_product_ext[LOCAL_PSUM_WIDTH-1],
+      mult_product_ext
+  };
 
-  // Valid only when both streams have valid data
+  assign sum_result = add_full[LOCAL_PSUM_WIDTH-1:0];
+
+  // Signed overflow happens when the top two bits disagree.
+  assign add_overflow = add_full[LOCAL_PSUM_WIDTH] ^ add_full[LOCAL_PSUM_WIDTH-1];
+
   assign sum_valid = mult_valid && psum_valid_d3;
 
   // ========================================
-  // 6. Output Registration
+  // 8. Output register
   // ========================================
-  // Register the MAC result and validity signal
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      psum_o <= '0;
-      psum_valid_o <= '0;
+      psum_o       <= '0;
+      psum_valid_o <= 1'b0;
     end else begin
-      psum_o <= sum_result;
+      if (sum_valid) begin
+        psum_o <= sum_result;
+      end else begin
+        psum_o <= '0;
+      end
+
       psum_valid_o <= sum_valid;
+    end
+  end
+
+  // ========================================
+  // 9. Sticky overflow flag
+  // ========================================
+  //
+  // Once overflow_o becomes 1, it stays 1 until overflow_clr_i or reset.
+  //
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      overflow_o <= 1'b0;
+    end else if (overflow_clr_i) begin
+      overflow_o <= 1'b0;
+    end else if (sum_valid && add_overflow) begin
+      overflow_o <= 1'b1;
     end
   end
 

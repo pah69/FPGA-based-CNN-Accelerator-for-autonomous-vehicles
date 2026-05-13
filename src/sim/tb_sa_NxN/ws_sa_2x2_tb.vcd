@@ -1,0 +1,802 @@
+$date
+   Tue May 12 15:33:15 2026
+$end
+
+$version
+  2025.2
+  $dumpfile ("ws_sa_2x2_tb.vcd") 
+$end
+
+$timescale
+  1ps
+$end
+
+$scope module ws_sa_2x2_tb $end
+$var reg 1 ! clk $end
+$var reg 1 " rst_n $end
+$var reg 1 # work_i $end
+$var reg 16 $ wgt_flatten_i [15:0] $end
+$var reg 2 % wgt_load_i [1:0] $end
+$var reg 1 & weight_switch_i $end
+$var reg 16 ' act_flatten_i [15:0] $end
+$var reg 2 ( act_valid_i [1:0] $end
+$var reg 34 ) psum_flatten_o [33:0] $end
+$var reg 2 * psum_valid_o [1:0] $end
+$var reg 64 + result_flatten_o [63:0] $end
+$var reg 1 , done_o $end
+$var reg 2 - wgt_load_done_o [1:0] $end
+$var reg 1 . overflow_clr_i $end
+$var reg 4 / overflow_flatten_o [3:0] $end
+$var reg 32 0 cycle_count [31:0] $end
+$var reg 32 1 test_count [31:0] $end
+$var reg 32 2 pass_count [31:0] $end
+$var reg 32 3 fail_count [31:0] $end
+$scope module dut $end
+$var wire 1 4 clk $end
+$var wire 1 5 rst_n $end
+$var wire 1 6 work_i $end
+$var wire 16 7 wgt_flatten_i [15:0] $end
+$var wire 2 8 wgt_load_i [1:0] $end
+$var wire 1 9 weight_switch_i $end
+$var wire 16 : act_flatten_i [15:0] $end
+$var wire 2 ; act_valid_i [1:0] $end
+$var reg 34 ) psum_flatten_o [33:0] $end
+$var reg 2 * psum_valid_o [1:0] $end
+$var reg 64 + result_flatten_o [63:0] $end
+$var reg 1 , done_o $end
+$var reg 2 - wgt_load_done_o [1:0] $end
+$var wire 1 < overflow_clr_i $end
+$var reg 4 / overflow_flatten_o [3:0] $end
+$var reg 8 = act_row0_i [7:0] $end
+$var reg 8 > act_row1_i [7:0] $end
+$var reg 8 ? wgt_col0_i [7:0] $end
+$var reg 8 @ wgt_col1_i [7:0] $end
+$var reg 8 A act_0_0_to_0_1 [7:0] $end
+$var reg 1 B act_v_0_0_to_0_1 $end
+$var reg 8 C wgt_0_0_to_1_0 [7:0] $end
+$var reg 1 D wgt_v_0_0_to_1_0 $end
+$var reg 17 E psum_0_0_to_1_0 [16:0] $end
+$var reg 1 F psum_v_0_0_to_1_0 $end
+$var reg 8 G wgt_0_1_to_1_1 [7:0] $end
+$var reg 1 H wgt_v_0_1_to_1_1 $end
+$var reg 17 I psum_0_1_to_1_1 [16:0] $end
+$var reg 1 J psum_v_0_1_to_1_1 $end
+$var reg 8 K act_1_0_to_1_1 [7:0] $end
+$var reg 1 L act_v_1_0_to_1_1 $end
+$var reg 1 M wgt_v_1_0_done $end
+$var reg 17 N psum_1_0_out [16:0] $end
+$var reg 1 O psum_v_1_0_out $end
+$var reg 1 P wgt_v_1_1_done $end
+$var reg 17 Q psum_1_1_out [16:0] $end
+$var reg 1 R psum_v_1_1_out $end
+$var reg 32 S result_1_0_acc [31:0] $end
+$var reg 32 T result_1_1_acc [31:0] $end
+$var reg 1 U acc_done_1_0 $end
+$var reg 1 V acc_done_1_1 $end
+$scope module pe_0_0 $end
+$var wire 1 4 clk $end
+$var wire 1 5 rst_n $end
+$var wire 8 W act_i [7:0] $end
+$var wire 1 X act_valid_i $end
+$var reg 8 A act_o [7:0] $end
+$var reg 1 B act_valid_o $end
+$var wire 17 Y psum_i [16:0] $end
+$var wire 1 X psum_valid_i $end
+$var reg 17 E psum_o [16:0] $end
+$var reg 1 F psum_valid_o $end
+$var wire 8 Z weight_i [7:0] $end
+$var wire 1 [ weight_load_i $end
+$var wire 1 9 weight_switch_i $end
+$var reg 8 C weight_o [7:0] $end
+$var reg 1 D weight_valid_o $end
+$var wire 1 < overflow_clr_i $end
+$var reg 1 \ overflow_o $end
+$var reg 8 ] weight_active [7:0] $end
+$var reg 8 ^ weight_shadow [7:0] $end
+$var reg 16 _ mult_product [15:0] $end
+$var reg 1 ` mult_valid $end
+$var reg 8 a act_d1 [7:0] $end
+$var reg 8 b act_d2 [7:0] $end
+$var reg 8 c act_d3 [7:0] $end
+$var reg 8 d act_d4 [7:0] $end
+$var reg 1 e act_valid_d1 $end
+$var reg 1 f act_valid_d2 $end
+$var reg 1 g act_valid_d3 $end
+$var reg 1 h act_valid_d4 $end
+$var reg 17 i psum_d1 [16:0] $end
+$var reg 17 j psum_d2 [16:0] $end
+$var reg 17 k psum_d3 [16:0] $end
+$var reg 1 l psum_valid_d1 $end
+$var reg 1 m psum_valid_d2 $end
+$var reg 1 n psum_valid_d3 $end
+$var reg 17 o mult_product_ext [16:0] $end
+$var reg 18 p add_full [17:0] $end
+$var reg 17 q sum_result [16:0] $end
+$var reg 1 r sum_valid $end
+$var reg 1 s add_overflow $end
+$scope module u_multiplier $end
+$var wire 1 4 clk $end
+$var wire 1 5 rst_n $end
+$var wire 8 W a_i [7:0] $end
+$var wire 8 t b_i [7:0] $end
+$var wire 1 X valid_i $end
+$var reg 16 _ product_o [15:0] $end
+$var reg 1 ` valid_o $end
+$var reg 8 u a_s1 [7:0] $end
+$var reg 8 v b_s1 [7:0] $end
+$var reg 1 w valid_s1 $end
+$var reg 16 x product_s2 [15:0] $end
+$var reg 1 y valid_s2 $end
+$upscope $end
+$upscope $end
+$scope module pe_0_1 $end
+$var wire 1 4 clk $end
+$var wire 1 5 rst_n $end
+$var wire 8 z act_i [7:0] $end
+$var wire 1 { act_valid_i $end
+$var reg 8 | act_o [7:0] $end
+$var reg 1 } act_valid_o $end
+$var wire 17 Y psum_i [16:0] $end
+$var wire 1 ~ psum_valid_i $end
+$var reg 17 I psum_o [16:0] $end
+$var reg 1 J psum_valid_o $end
+$var wire 8 !! weight_i [7:0] $end
+$var wire 1 "! weight_load_i $end
+$var wire 1 9 weight_switch_i $end
+$var reg 8 G weight_o [7:0] $end
+$var reg 1 H weight_valid_o $end
+$var wire 1 < overflow_clr_i $end
+$var reg 1 #! overflow_o $end
+$var reg 8 $! weight_active [7:0] $end
+$var reg 8 %! weight_shadow [7:0] $end
+$var reg 16 &! mult_product [15:0] $end
+$var reg 1 '! mult_valid $end
+$var reg 8 (! act_d1 [7:0] $end
+$var reg 8 )! act_d2 [7:0] $end
+$var reg 8 *! act_d3 [7:0] $end
+$var reg 8 +! act_d4 [7:0] $end
+$var reg 1 ,! act_valid_d1 $end
+$var reg 1 -! act_valid_d2 $end
+$var reg 1 .! act_valid_d3 $end
+$var reg 1 /! act_valid_d4 $end
+$var reg 17 0! psum_d1 [16:0] $end
+$var reg 17 1! psum_d2 [16:0] $end
+$var reg 17 2! psum_d3 [16:0] $end
+$var reg 1 3! psum_valid_d1 $end
+$var reg 1 4! psum_valid_d2 $end
+$var reg 1 5! psum_valid_d3 $end
+$var reg 17 6! mult_product_ext [16:0] $end
+$var reg 18 7! add_full [17:0] $end
+$var reg 17 8! sum_result [16:0] $end
+$var reg 1 9! sum_valid $end
+$var reg 1 :! add_overflow $end
+$scope module u_multiplier $end
+$var wire 1 4 clk $end
+$var wire 1 5 rst_n $end
+$var wire 8 z a_i [7:0] $end
+$var wire 8 ;! b_i [7:0] $end
+$var wire 1 { valid_i $end
+$var reg 16 &! product_o [15:0] $end
+$var reg 1 '! valid_o $end
+$var reg 8 <! a_s1 [7:0] $end
+$var reg 8 =! b_s1 [7:0] $end
+$var reg 1 >! valid_s1 $end
+$var reg 16 ?! product_s2 [15:0] $end
+$var reg 1 @! valid_s2 $end
+$upscope $end
+$upscope $end
+$scope module pe_1_0 $end
+$var wire 1 4 clk $end
+$var wire 1 5 rst_n $end
+$var wire 8 A! act_i [7:0] $end
+$var wire 1 B! act_valid_i $end
+$var reg 8 K act_o [7:0] $end
+$var reg 1 L act_valid_o $end
+$var wire 17 C! psum_i [16:0] $end
+$var wire 1 D! psum_valid_i $end
+$var reg 17 N psum_o [16:0] $end
+$var reg 1 O psum_valid_o $end
+$var wire 8 E! weight_i [7:0] $end
+$var wire 1 F! weight_load_i $end
+$var wire 1 9 weight_switch_i $end
+$var reg 8 G! weight_o [7:0] $end
+$var reg 1 M weight_valid_o $end
+$var wire 1 < overflow_clr_i $end
+$var reg 1 H! overflow_o $end
+$var reg 8 I! weight_active [7:0] $end
+$var reg 8 J! weight_shadow [7:0] $end
+$var reg 16 K! mult_product [15:0] $end
+$var reg 1 L! mult_valid $end
+$var reg 8 M! act_d1 [7:0] $end
+$var reg 8 N! act_d2 [7:0] $end
+$var reg 8 O! act_d3 [7:0] $end
+$var reg 8 P! act_d4 [7:0] $end
+$var reg 1 Q! act_valid_d1 $end
+$var reg 1 R! act_valid_d2 $end
+$var reg 1 S! act_valid_d3 $end
+$var reg 1 T! act_valid_d4 $end
+$var reg 17 U! psum_d1 [16:0] $end
+$var reg 17 V! psum_d2 [16:0] $end
+$var reg 17 W! psum_d3 [16:0] $end
+$var reg 1 X! psum_valid_d1 $end
+$var reg 1 Y! psum_valid_d2 $end
+$var reg 1 Z! psum_valid_d3 $end
+$var reg 17 [! mult_product_ext [16:0] $end
+$var reg 18 \! add_full [17:0] $end
+$var reg 17 ]! sum_result [16:0] $end
+$var reg 1 ^! sum_valid $end
+$var reg 1 _! add_overflow $end
+$scope module u_multiplier $end
+$var wire 1 4 clk $end
+$var wire 1 5 rst_n $end
+$var wire 8 A! a_i [7:0] $end
+$var wire 8 `! b_i [7:0] $end
+$var wire 1 B! valid_i $end
+$var reg 16 K! product_o [15:0] $end
+$var reg 1 L! valid_o $end
+$var reg 8 a! a_s1 [7:0] $end
+$var reg 8 b! b_s1 [7:0] $end
+$var reg 1 c! valid_s1 $end
+$var reg 16 d! product_s2 [15:0] $end
+$var reg 1 e! valid_s2 $end
+$upscope $end
+$upscope $end
+$scope module pe_1_1 $end
+$var wire 1 4 clk $end
+$var wire 1 5 rst_n $end
+$var wire 8 f! act_i [7:0] $end
+$var wire 1 g! act_valid_i $end
+$var reg 8 h! act_o [7:0] $end
+$var reg 1 i! act_valid_o $end
+$var wire 17 j! psum_i [16:0] $end
+$var wire 1 k! psum_valid_i $end
+$var reg 17 Q psum_o [16:0] $end
+$var reg 1 R psum_valid_o $end
+$var wire 8 l! weight_i [7:0] $end
+$var wire 1 m! weight_load_i $end
+$var wire 1 9 weight_switch_i $end
+$var reg 8 n! weight_o [7:0] $end
+$var reg 1 P weight_valid_o $end
+$var wire 1 < overflow_clr_i $end
+$var reg 1 o! overflow_o $end
+$var reg 8 p! weight_active [7:0] $end
+$var reg 8 q! weight_shadow [7:0] $end
+$var reg 16 r! mult_product [15:0] $end
+$var reg 1 s! mult_valid $end
+$var reg 8 t! act_d1 [7:0] $end
+$var reg 8 u! act_d2 [7:0] $end
+$var reg 8 v! act_d3 [7:0] $end
+$var reg 8 w! act_d4 [7:0] $end
+$var reg 1 x! act_valid_d1 $end
+$var reg 1 y! act_valid_d2 $end
+$var reg 1 z! act_valid_d3 $end
+$var reg 1 {! act_valid_d4 $end
+$var reg 17 |! psum_d1 [16:0] $end
+$var reg 17 }! psum_d2 [16:0] $end
+$var reg 17 ~! psum_d3 [16:0] $end
+$var reg 1 !" psum_valid_d1 $end
+$var reg 1 "" psum_valid_d2 $end
+$var reg 1 #" psum_valid_d3 $end
+$var reg 17 $" mult_product_ext [16:0] $end
+$var reg 18 %" add_full [17:0] $end
+$var reg 17 &" sum_result [16:0] $end
+$var reg 1 '" sum_valid $end
+$var reg 1 (" add_overflow $end
+$scope module u_multiplier $end
+$var wire 1 4 clk $end
+$var wire 1 5 rst_n $end
+$var wire 8 f! a_i [7:0] $end
+$var wire 8 )" b_i [7:0] $end
+$var wire 1 g! valid_i $end
+$var reg 16 r! product_o [15:0] $end
+$var reg 1 s! valid_o $end
+$var reg 8 *" a_s1 [7:0] $end
+$var reg 8 +" b_s1 [7:0] $end
+$var reg 1 ," valid_s1 $end
+$var reg 16 -" product_s2 [15:0] $end
+$var reg 1 ." valid_s2 $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope function pack_data_pair $end
+$upscope $end
+$scope task print_header $end
+$upscope $end
+$scope task display_weight_state $end
+$upscope $end
+$scope task expect_flag $end
+$upscope $end
+$scope task expect_data_eq $end
+$upscope $end
+$scope task init_signals $end
+$upscope $end
+$scope task reset_dut $end
+$upscope $end
+$scope task configure_weight_sets $end
+$upscope $end
+$scope task drive_weight_cycle $end
+$upscope $end
+$scope task expect_active_initial_weights $end
+$upscope $end
+$scope task expect_shadow_buffered_weights $end
+$upscope $end
+$scope task expect_active_buffered_weights $end
+$upscope $end
+$scope task load_initial_weights_and_switch $end
+$upscope $end
+$scope task preload_next_weights_without_switch $end
+$upscope $end
+$scope task switch_to_buffered_weights $end
+$upscope $end
+$scope task test_pe_double_buffer_only $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+
+#0
+$dumpvars
+0!
+b0 !!
+0!"
+0"
+0"!
+0""
+0#
+0#!
+0#"
+b0 $
+b0 $!
+b0 $"
+b0 %
+b0 %!
+b0 %"
+0&
+b0 &!
+b0 &"
+b0 '
+0'!
+0'"
+b0 (
+b0 (!
+0("
+b0 )
+b0 )!
+b0 )"
+b0 *
+b0 *!
+b0 *"
+b0 +
+b0 +!
+b0 +"
+0,
+0,!
+0,"
+b0 -
+0-!
+b0 -"
+0.
+0.!
+0."
+b0 /
+0/!
+b0 0
+b0 0!
+b0 1
+b0 1!
+b0 2
+b0 2!
+b0 3
+03!
+04
+04!
+05
+05!
+06
+b0 6!
+b0 7
+b0 7!
+b0 8
+b0 8!
+09
+09!
+b0 :
+0:!
+b0 ;
+b0 ;!
+0<
+b0 <!
+b0 =
+b0 =!
+b0 >
+0>!
+b0 ?
+b0 ?!
+b0 @
+0@!
+b0 A
+b0 A!
+0B
+0B!
+b0 C
+b0 C!
+0D
+0D!
+b0 E
+b0 E!
+0F
+0F!
+b0 G
+b0 G!
+0H
+0H!
+b0 I
+b0 I!
+0J
+b0 J!
+b0 K
+b0 K!
+0L
+0L!
+0M
+b0 M!
+b0 N
+b0 N!
+0O
+b0 O!
+0P
+b0 P!
+b0 Q
+0Q!
+0R
+0R!
+b0 S
+0S!
+b0 T
+0T!
+0U
+b0 U!
+0V
+b0 V!
+b0 W
+b0 W!
+0X
+0X!
+b0 Y
+0Y!
+b0 Z
+0Z!
+0[
+b0 [!
+0\
+b0 \!
+b0 ]
+b0 ]!
+b0 ^
+0^!
+b0 _
+0_!
+0`
+b0 `!
+b0 a
+b0 a!
+b0 b
+b0 b!
+b0 c
+0c!
+b0 d
+b0 d!
+0e
+0e!
+0f
+b0 f!
+0g
+0g!
+0h
+b0 h!
+b0 i
+0i!
+b0 j
+b0 j!
+b0 k
+0k!
+0l
+b0 l!
+0m
+0m!
+0n
+b0 n!
+b0 o
+0o!
+b0 p
+b0 p!
+b0 q
+b0 q!
+0r
+b0 r!
+0s
+0s!
+b0 t
+b0 t!
+b0 u
+b0 u!
+b0 v
+b0 v!
+0w
+b0 w!
+b0 x
+0x!
+0y
+0y!
+b0 z
+0z!
+0{
+0{!
+b0 |
+b0 |!
+0}
+b0 }!
+0~
+b0 ~!
+$end
+
+#5000
+1!
+14
+
+#10000
+0!
+04
+
+#15000
+1!
+14
+
+#20000
+0!
+04
+
+#25000
+1!
+1"
+b1 0
+14
+15
+
+#30000
+0!
+04
+
+#35000
+1!
+b10 0
+14
+
+#40000
+0!
+b11 !!
+1"!
+b1100000111 $
+b11 %
+04
+b1100000111 7
+b11 8
+b111 ?
+b11 @
+b111 Z
+1[
+
+#45000
+1!
+b11 %!
+b11 0
+14
+b111 C
+1D
+b111 E!
+1F!
+b11 G
+1H
+b111 ^
+b11 l!
+1m!
+
+#50000
+0!
+b11111110 !!
+b1111111000000101 $
+04
+b1111111000000101 7
+b101 ?
+b11111110 @
+b101 Z
+
+#55000
+1!
+b11111110 %!
+b11 -
+b100 0
+14
+b101 C
+b101 E!
+b11111110 G
+b111 G!
+b111 J!
+1M
+1P
+b101 ^
+b11111110 l!
+b11 n!
+b11 q!
+
+#60000
+0!
+b0 !!
+0"!
+b0 $
+b0 %
+1&
+04
+b0 7
+b0 8
+19
+b0 ?
+b0 @
+b0 Z
+0[
+
+#65000
+1!
+b11111110 $!
+b11 )"
+b101 0
+14
+b11111110 ;!
+b0 C
+0D
+b0 E!
+0F!
+b0 G
+b101 G!
+0H
+b111 I!
+b101 J!
+b101 ]
+b111 `!
+b0 l!
+0m!
+b11111110 n!
+b11 p!
+b11111110 q!
+b101 t
+
+#70000
+0!
+0&
+04
+09
+
+#75000
+1!
+b11 +"
+b0 -
+b110 0
+b101 1
+b101 2
+14
+b11111110 =!
+b0 G!
+0M
+0P
+b111 b!
+b0 n!
+b101 v
+
+#80000
+0!
+b11111010 !!
+1"!
+b1111101000001011 $
+b11 %
+04
+b1111101000001011 7
+b11 8
+b1011 ?
+b11111010 @
+b1011 Z
+1[
+
+#85000
+1!
+b11111010 %!
+b111 0
+14
+b1011 C
+1D
+b1011 E!
+1F!
+b11111010 G
+1H
+b1011 ^
+b11111010 l!
+1m!
+
+#90000
+0!
+04
+
+#95000
+1!
+b11 -
+b1000 0
+14
+b1011 G!
+b1011 J!
+1M
+1P
+b11111010 n!
+b11111010 q!
+
+#100000
+0!
+b0 !!
+0"!
+b0 $
+b0 %
+04
+b0 7
+b0 8
+b0 ?
+b0 @
+b0 Z
+0[
+
+#105000
+1!
+b1001 0
+b1101 1
+b1101 2
+14
+b0 C
+0D
+b0 E!
+0F!
+b0 G
+0H
+b0 l!
+0m!
+
+#110000
+0!
+1&
+04
+19
+
+#115000
+1!
+b11111010 $!
+b11111010 )"
+b0 -
+b1010 0
+14
+b11111010 ;!
+b0 G!
+b1011 I!
+0M
+0P
+b1011 ]
+b1011 `!
+b0 n!
+b11111010 p!
+b1011 t
+
+#120000
+0!
+0&
+04
+09
+
+#125000
+1!
+b10011 1
+b10011 2
+14

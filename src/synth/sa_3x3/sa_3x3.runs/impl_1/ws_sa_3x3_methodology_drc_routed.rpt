@@ -1,0 +1,1021 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
+| Date         : Thu May  7 11:05:59 2026
+| Host         : pah-PC running 64-bit Ubuntu 24.04.4 LTS
+| Command      : report_methodology -file ws_sa_3x3_methodology_drc_routed.rpt -pb ws_sa_3x3_methodology_drc_routed.pb -rpx ws_sa_3x3_methodology_drc_routed.rpx
+| Design       : ws_sa_3x3
+| Device       : xczu7ev-ffvc1156-2-e
+| Speed File   : -2
+| Design State : Fully Routed
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Report Methodology
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: design_1
+      Design limits: <entire design considered>
+             Max checks: <unlimited>
+             Checks found: 197
++-----------+----------+-------------------------------+--------+
+| Rule      | Severity | Description                   | Checks |
++-----------+----------+-------------------------------+--------+
+| SYNTH-9   | Warning  | Small multiplier              | 72     |
+| TIMING-18 | Warning  | Missing input or output delay | 125    |
++-----------+----------+-------------------------------+--------+
+
+2. REPORT DETAILS
+-----------------
+SYNTH-9#1 Warning
+Small multiplier  
+Detected multiplier at pe_0_0/u_multiplier/product_s2_reg[11]_i_1 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#2 Warning
+Small multiplier  
+Detected multiplier at pe_0_0/u_multiplier/product_s2_reg[11]_i_18 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#3 Warning
+Small multiplier  
+Detected multiplier at pe_0_0/u_multiplier/product_s2_reg[15]_i_1 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#4 Warning
+Small multiplier  
+Detected multiplier at pe_0_0/u_multiplier/product_s2_reg[15]_i_11 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#5 Warning
+Small multiplier  
+Detected multiplier at pe_0_0/u_multiplier/product_s2_reg[15]_i_2 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#6 Warning
+Small multiplier  
+Detected multiplier at pe_0_0/u_multiplier/product_s2_reg[15]_i_8 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#7 Warning
+Small multiplier  
+Detected multiplier at pe_0_0/u_multiplier/product_s2_reg[2]_i_1 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#8 Warning
+Small multiplier  
+Detected multiplier at pe_0_0/u_multiplier/product_s2_reg[3]_i_2 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#9 Warning
+Small multiplier  
+Detected multiplier at pe_0_1/u_multiplier/product_s2_reg[11]_i_1 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#10 Warning
+Small multiplier  
+Detected multiplier at pe_0_1/u_multiplier/product_s2_reg[11]_i_18 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#11 Warning
+Small multiplier  
+Detected multiplier at pe_0_1/u_multiplier/product_s2_reg[15]_i_1 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#12 Warning
+Small multiplier  
+Detected multiplier at pe_0_1/u_multiplier/product_s2_reg[15]_i_11 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#13 Warning
+Small multiplier  
+Detected multiplier at pe_0_1/u_multiplier/product_s2_reg[15]_i_2 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#14 Warning
+Small multiplier  
+Detected multiplier at pe_0_1/u_multiplier/product_s2_reg[15]_i_8 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#15 Warning
+Small multiplier  
+Detected multiplier at pe_0_1/u_multiplier/product_s2_reg[2]_i_1 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#16 Warning
+Small multiplier  
+Detected multiplier at pe_0_1/u_multiplier/product_s2_reg[3]_i_2 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#17 Warning
+Small multiplier  
+Detected multiplier at pe_0_2/u_multiplier/product_s2_reg[11]_i_1 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#18 Warning
+Small multiplier  
+Detected multiplier at pe_0_2/u_multiplier/product_s2_reg[11]_i_18 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#19 Warning
+Small multiplier  
+Detected multiplier at pe_0_2/u_multiplier/product_s2_reg[15]_i_1 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#20 Warning
+Small multiplier  
+Detected multiplier at pe_0_2/u_multiplier/product_s2_reg[15]_i_11 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#21 Warning
+Small multiplier  
+Detected multiplier at pe_0_2/u_multiplier/product_s2_reg[15]_i_2 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#22 Warning
+Small multiplier  
+Detected multiplier at pe_0_2/u_multiplier/product_s2_reg[15]_i_8 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#23 Warning
+Small multiplier  
+Detected multiplier at pe_0_2/u_multiplier/product_s2_reg[2]_i_1 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#24 Warning
+Small multiplier  
+Detected multiplier at pe_0_2/u_multiplier/product_s2_reg[3]_i_2 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#25 Warning
+Small multiplier  
+Detected multiplier at pe_1_0/u_multiplier/product_s2_reg[11]_i_1 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#26 Warning
+Small multiplier  
+Detected multiplier at pe_1_0/u_multiplier/product_s2_reg[11]_i_18 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#27 Warning
+Small multiplier  
+Detected multiplier at pe_1_0/u_multiplier/product_s2_reg[15]_i_1 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#28 Warning
+Small multiplier  
+Detected multiplier at pe_1_0/u_multiplier/product_s2_reg[15]_i_11 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#29 Warning
+Small multiplier  
+Detected multiplier at pe_1_0/u_multiplier/product_s2_reg[15]_i_2 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#30 Warning
+Small multiplier  
+Detected multiplier at pe_1_0/u_multiplier/product_s2_reg[15]_i_8 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#31 Warning
+Small multiplier  
+Detected multiplier at pe_1_0/u_multiplier/product_s2_reg[2]_i_1 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#32 Warning
+Small multiplier  
+Detected multiplier at pe_1_0/u_multiplier/product_s2_reg[3]_i_2 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#33 Warning
+Small multiplier  
+Detected multiplier at pe_1_1/u_multiplier/product_s2_reg[11]_i_1 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#34 Warning
+Small multiplier  
+Detected multiplier at pe_1_1/u_multiplier/product_s2_reg[11]_i_18 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#35 Warning
+Small multiplier  
+Detected multiplier at pe_1_1/u_multiplier/product_s2_reg[15]_i_1 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#36 Warning
+Small multiplier  
+Detected multiplier at pe_1_1/u_multiplier/product_s2_reg[15]_i_11 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#37 Warning
+Small multiplier  
+Detected multiplier at pe_1_1/u_multiplier/product_s2_reg[15]_i_2 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#38 Warning
+Small multiplier  
+Detected multiplier at pe_1_1/u_multiplier/product_s2_reg[15]_i_8 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#39 Warning
+Small multiplier  
+Detected multiplier at pe_1_1/u_multiplier/product_s2_reg[2]_i_1 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#40 Warning
+Small multiplier  
+Detected multiplier at pe_1_1/u_multiplier/product_s2_reg[3]_i_2 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#41 Warning
+Small multiplier  
+Detected multiplier at pe_1_2/u_multiplier/product_s2_reg[11]_i_1 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#42 Warning
+Small multiplier  
+Detected multiplier at pe_1_2/u_multiplier/product_s2_reg[11]_i_18 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#43 Warning
+Small multiplier  
+Detected multiplier at pe_1_2/u_multiplier/product_s2_reg[15]_i_1 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#44 Warning
+Small multiplier  
+Detected multiplier at pe_1_2/u_multiplier/product_s2_reg[15]_i_11 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#45 Warning
+Small multiplier  
+Detected multiplier at pe_1_2/u_multiplier/product_s2_reg[15]_i_2 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#46 Warning
+Small multiplier  
+Detected multiplier at pe_1_2/u_multiplier/product_s2_reg[15]_i_8 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#47 Warning
+Small multiplier  
+Detected multiplier at pe_1_2/u_multiplier/product_s2_reg[2]_i_1 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#48 Warning
+Small multiplier  
+Detected multiplier at pe_1_2/u_multiplier/product_s2_reg[3]_i_2 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#49 Warning
+Small multiplier  
+Detected multiplier at pe_2_0/u_multiplier/product_s2_reg[11]_i_1 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#50 Warning
+Small multiplier  
+Detected multiplier at pe_2_0/u_multiplier/product_s2_reg[11]_i_18 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#51 Warning
+Small multiplier  
+Detected multiplier at pe_2_0/u_multiplier/product_s2_reg[15]_i_1 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#52 Warning
+Small multiplier  
+Detected multiplier at pe_2_0/u_multiplier/product_s2_reg[15]_i_11 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#53 Warning
+Small multiplier  
+Detected multiplier at pe_2_0/u_multiplier/product_s2_reg[15]_i_2 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#54 Warning
+Small multiplier  
+Detected multiplier at pe_2_0/u_multiplier/product_s2_reg[15]_i_8 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#55 Warning
+Small multiplier  
+Detected multiplier at pe_2_0/u_multiplier/product_s2_reg[2]_i_1 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#56 Warning
+Small multiplier  
+Detected multiplier at pe_2_0/u_multiplier/product_s2_reg[3]_i_2 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#57 Warning
+Small multiplier  
+Detected multiplier at pe_2_1/u_multiplier/product_s2_reg[11]_i_1 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#58 Warning
+Small multiplier  
+Detected multiplier at pe_2_1/u_multiplier/product_s2_reg[11]_i_18 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#59 Warning
+Small multiplier  
+Detected multiplier at pe_2_1/u_multiplier/product_s2_reg[15]_i_1 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#60 Warning
+Small multiplier  
+Detected multiplier at pe_2_1/u_multiplier/product_s2_reg[15]_i_11 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#61 Warning
+Small multiplier  
+Detected multiplier at pe_2_1/u_multiplier/product_s2_reg[15]_i_2 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#62 Warning
+Small multiplier  
+Detected multiplier at pe_2_1/u_multiplier/product_s2_reg[15]_i_8 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#63 Warning
+Small multiplier  
+Detected multiplier at pe_2_1/u_multiplier/product_s2_reg[2]_i_1 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#64 Warning
+Small multiplier  
+Detected multiplier at pe_2_1/u_multiplier/product_s2_reg[3]_i_2 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#65 Warning
+Small multiplier  
+Detected multiplier at pe_2_2/u_multiplier/product_s2_reg[11]_i_1 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#66 Warning
+Small multiplier  
+Detected multiplier at pe_2_2/u_multiplier/product_s2_reg[11]_i_18 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#67 Warning
+Small multiplier  
+Detected multiplier at pe_2_2/u_multiplier/product_s2_reg[15]_i_1 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#68 Warning
+Small multiplier  
+Detected multiplier at pe_2_2/u_multiplier/product_s2_reg[15]_i_11 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#69 Warning
+Small multiplier  
+Detected multiplier at pe_2_2/u_multiplier/product_s2_reg[15]_i_2 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#70 Warning
+Small multiplier  
+Detected multiplier at pe_2_2/u_multiplier/product_s2_reg[15]_i_8 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#71 Warning
+Small multiplier  
+Detected multiplier at pe_2_2/u_multiplier/product_s2_reg[2]_i_1 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#72 Warning
+Small multiplier  
+Detected multiplier at pe_2_2/u_multiplier/product_s2_reg[3]_i_2 of size 8x8, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+TIMING-18#1 Warning
+Missing input or output delay  
+An input delay is missing on act_flatten_i[0] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#2 Warning
+Missing input or output delay  
+An input delay is missing on act_flatten_i[10] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#3 Warning
+Missing input or output delay  
+An input delay is missing on act_flatten_i[11] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#4 Warning
+Missing input or output delay  
+An input delay is missing on act_flatten_i[12] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#5 Warning
+Missing input or output delay  
+An input delay is missing on act_flatten_i[13] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#6 Warning
+Missing input or output delay  
+An input delay is missing on act_flatten_i[14] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#7 Warning
+Missing input or output delay  
+An input delay is missing on act_flatten_i[15] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#8 Warning
+Missing input or output delay  
+An input delay is missing on act_flatten_i[16] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#9 Warning
+Missing input or output delay  
+An input delay is missing on act_flatten_i[17] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#10 Warning
+Missing input or output delay  
+An input delay is missing on act_flatten_i[18] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#11 Warning
+Missing input or output delay  
+An input delay is missing on act_flatten_i[19] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#12 Warning
+Missing input or output delay  
+An input delay is missing on act_flatten_i[1] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#13 Warning
+Missing input or output delay  
+An input delay is missing on act_flatten_i[20] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#14 Warning
+Missing input or output delay  
+An input delay is missing on act_flatten_i[21] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#15 Warning
+Missing input or output delay  
+An input delay is missing on act_flatten_i[22] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#16 Warning
+Missing input or output delay  
+An input delay is missing on act_flatten_i[23] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#17 Warning
+Missing input or output delay  
+An input delay is missing on act_flatten_i[2] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#18 Warning
+Missing input or output delay  
+An input delay is missing on act_flatten_i[3] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#19 Warning
+Missing input or output delay  
+An input delay is missing on act_flatten_i[4] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#20 Warning
+Missing input or output delay  
+An input delay is missing on act_flatten_i[5] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#21 Warning
+Missing input or output delay  
+An input delay is missing on act_flatten_i[6] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#22 Warning
+Missing input or output delay  
+An input delay is missing on act_flatten_i[7] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#23 Warning
+Missing input or output delay  
+An input delay is missing on act_flatten_i[8] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#24 Warning
+Missing input or output delay  
+An input delay is missing on act_flatten_i[9] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#25 Warning
+Missing input or output delay  
+An input delay is missing on act_valid_i[0] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#26 Warning
+Missing input or output delay  
+An input delay is missing on act_valid_i[1] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#27 Warning
+Missing input or output delay  
+An input delay is missing on act_valid_i[2] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#28 Warning
+Missing input or output delay  
+An input delay is missing on overflow_clr_i relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#29 Warning
+Missing input or output delay  
+An input delay is missing on weight_switch_i relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#30 Warning
+Missing input or output delay  
+An input delay is missing on wgt_flatten_i[0] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#31 Warning
+Missing input or output delay  
+An input delay is missing on wgt_flatten_i[10] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#32 Warning
+Missing input or output delay  
+An input delay is missing on wgt_flatten_i[11] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#33 Warning
+Missing input or output delay  
+An input delay is missing on wgt_flatten_i[12] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#34 Warning
+Missing input or output delay  
+An input delay is missing on wgt_flatten_i[13] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#35 Warning
+Missing input or output delay  
+An input delay is missing on wgt_flatten_i[14] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#36 Warning
+Missing input or output delay  
+An input delay is missing on wgt_flatten_i[15] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#37 Warning
+Missing input or output delay  
+An input delay is missing on wgt_flatten_i[16] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#38 Warning
+Missing input or output delay  
+An input delay is missing on wgt_flatten_i[17] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#39 Warning
+Missing input or output delay  
+An input delay is missing on wgt_flatten_i[18] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#40 Warning
+Missing input or output delay  
+An input delay is missing on wgt_flatten_i[19] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#41 Warning
+Missing input or output delay  
+An input delay is missing on wgt_flatten_i[1] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#42 Warning
+Missing input or output delay  
+An input delay is missing on wgt_flatten_i[20] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#43 Warning
+Missing input or output delay  
+An input delay is missing on wgt_flatten_i[21] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#44 Warning
+Missing input or output delay  
+An input delay is missing on wgt_flatten_i[22] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#45 Warning
+Missing input or output delay  
+An input delay is missing on wgt_flatten_i[23] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#46 Warning
+Missing input or output delay  
+An input delay is missing on wgt_flatten_i[2] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#47 Warning
+Missing input or output delay  
+An input delay is missing on wgt_flatten_i[3] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#48 Warning
+Missing input or output delay  
+An input delay is missing on wgt_flatten_i[4] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#49 Warning
+Missing input or output delay  
+An input delay is missing on wgt_flatten_i[5] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#50 Warning
+Missing input or output delay  
+An input delay is missing on wgt_flatten_i[6] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#51 Warning
+Missing input or output delay  
+An input delay is missing on wgt_flatten_i[7] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#52 Warning
+Missing input or output delay  
+An input delay is missing on wgt_flatten_i[8] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#53 Warning
+Missing input or output delay  
+An input delay is missing on wgt_flatten_i[9] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#54 Warning
+Missing input or output delay  
+An input delay is missing on wgt_load_i[0] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#55 Warning
+Missing input or output delay  
+An input delay is missing on wgt_load_i[1] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#56 Warning
+Missing input or output delay  
+An input delay is missing on wgt_load_i[2] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#57 Warning
+Missing input or output delay  
+An output delay is missing on overflow_flatten_o[0] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#58 Warning
+Missing input or output delay  
+An output delay is missing on overflow_flatten_o[1] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#59 Warning
+Missing input or output delay  
+An output delay is missing on overflow_flatten_o[2] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#60 Warning
+Missing input or output delay  
+An output delay is missing on overflow_flatten_o[3] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#61 Warning
+Missing input or output delay  
+An output delay is missing on overflow_flatten_o[4] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#62 Warning
+Missing input or output delay  
+An output delay is missing on overflow_flatten_o[5] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#63 Warning
+Missing input or output delay  
+An output delay is missing on overflow_flatten_o[6] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#64 Warning
+Missing input or output delay  
+An output delay is missing on overflow_flatten_o[7] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#65 Warning
+Missing input or output delay  
+An output delay is missing on overflow_flatten_o[8] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#66 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[0] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#67 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[10] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#68 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[11] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#69 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[12] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#70 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[13] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#71 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[14] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#72 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[15] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#73 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[16] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#74 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[17] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#75 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[18] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#76 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[19] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#77 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[1] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#78 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[20] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#79 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[21] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#80 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[22] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#81 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[23] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#82 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[24] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#83 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[25] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#84 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[26] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#85 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[27] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#86 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[28] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#87 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[29] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#88 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[2] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#89 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[30] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#90 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[31] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#91 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[32] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#92 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[33] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#93 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[34] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#94 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[35] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#95 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[36] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#96 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[37] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#97 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[38] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#98 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[39] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#99 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[3] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#100 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[40] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#101 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[41] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#102 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[42] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#103 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[43] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#104 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[44] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#105 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[45] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#106 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[46] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#107 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[47] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#108 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[48] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#109 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[49] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#110 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[4] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#111 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[50] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#112 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[51] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#113 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[52] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#114 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[53] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#115 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[5] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#116 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[6] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#117 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[7] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#118 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[8] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#119 Warning
+Missing input or output delay  
+An output delay is missing on psum_flatten_o[9] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#120 Warning
+Missing input or output delay  
+An output delay is missing on psum_valid_o[0] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#121 Warning
+Missing input or output delay  
+An output delay is missing on psum_valid_o[1] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#122 Warning
+Missing input or output delay  
+An output delay is missing on psum_valid_o[2] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#123 Warning
+Missing input or output delay  
+An output delay is missing on wgt_load_done_o[0] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#124 Warning
+Missing input or output delay  
+An output delay is missing on wgt_load_done_o[1] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+TIMING-18#125 Warning
+Missing input or output delay  
+An output delay is missing on wgt_load_done_o[2] relative to the rising and/or falling clock edge(s) of clk_300mhz.
+Related violations: <none>
+
+
