@@ -33,4 +33,3 @@ gui: elaborate
 # Cleanup temporary files
 clean:
 	rm -rf *.log *.jou *.pb *.wdb xsim.dir .Xil *.str
-`

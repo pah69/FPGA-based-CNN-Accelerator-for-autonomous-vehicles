@@ -48,6 +48,8 @@ module test_sa_2x2_computation;
   int pass_count;
   int fail_count;
   int out_count[0:SIZE-1];
+  logic capture_enabled;
+  int   capture_goal_rows;
 
   ws_sa_2x2 #(
       .SIZE(SIZE),
@@ -91,6 +93,21 @@ module test_sa_2x2_computation;
       cycle_count <= 0;
     end else begin
       cycle_count <= cycle_count + 1;
+    end
+  end
+
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      for (int col = 0; col < SIZE; col++) begin
+        out_count[col] <= 0;
+      end
+    end else if (capture_enabled) begin
+      for (int col = 0; col < SIZE; col++) begin
+        if (psum_valid_o[col] && (out_count[col] < capture_goal_rows)) begin
+          actual_y[out_count[col]][col] <= get_psum_col(col);
+          out_count[col] <= out_count[col] + 1;
+        end
+      end
     end
   end
 
@@ -187,6 +204,15 @@ module test_sa_2x2_computation;
     end
   endtask
 
+  task automatic start_capture(input int goal_rows);
+    capture_goal_rows = goal_rows;
+    capture_enabled   = 1'b1;
+  endtask
+
+  task automatic stop_capture();
+    capture_enabled = 1'b0;
+  endtask
+
   task automatic clear_case_data();
     case_name = "";
     case_act_rows = 0;
@@ -219,6 +245,8 @@ module test_sa_2x2_computation;
     act_flatten_i   = '0;
     act_valid_i     = '0;
     overflow_clr_i  = 1'b0;
+    capture_enabled = 1'b0;
+    capture_goal_rows = 0;
 
     cycle_count = 0;
     test_count  = 0;
@@ -237,6 +265,8 @@ module test_sa_2x2_computation;
     act_flatten_i   = '0;
     act_valid_i     = '0;
     overflow_clr_i  = 1'b0;
+    capture_enabled = 1'b0;
+    capture_goal_rows = 0;
     clear_outputs();
 
     rst_n = 1'b0;
@@ -386,6 +416,18 @@ module test_sa_2x2_computation;
              $signed(get_acc_col(1)));
   endtask
 
+  task automatic set_weight_tile(
+      input logic signed [DATA_WIDTH-1:0] w00,
+      input logic signed [DATA_WIDTH-1:0] w01,
+      input logic signed [DATA_WIDTH-1:0] w10,
+      input logic signed [DATA_WIDTH-1:0] w11
+  );
+    weight_matrix[0][0] = w00;
+    weight_matrix[0][1] = w01;
+    weight_matrix[1][0] = w10;
+    weight_matrix[1][1] = w11;
+  endtask
+
   task automatic drive_weight_cycle(
       input logic signed [(DATA_WIDTH*SIZE)-1:0] next_wgt_flatten,
       input logic [SIZE-1:0] next_wgt_load,
@@ -463,6 +505,19 @@ module test_sa_2x2_computation;
     drive_activation_cycle('0, '0, 1'b0);
   endtask
 
+  task automatic stream_one_pair(
+      input logic signed [DATA_WIDTH-1:0] lane0_value,
+      input logic signed [DATA_WIDTH-1:0] lane1_value,
+      input logic                         start_work
+  );
+    drive_activation_cycle(pack_data_pair(lane0_value, '0), 2'b01, start_work);
+    repeat (ACT_STAGGER_CYCLES - 1) begin
+      drive_activation_cycle('0, '0, 1'b0);
+    end
+    drive_activation_cycle(pack_data_pair('0, lane1_value), 2'b10, 1'b0);
+    drive_activation_cycle('0, '0, 1'b0);
+  endtask
+
   task automatic observe_results();
     logic done_seen;
     int timeout_cycles;
@@ -470,16 +525,9 @@ module test_sa_2x2_computation;
     done_seen = 1'b0;
     timeout_cycles = 0;
 
-    while ((((out_count[0] < case_act_rows) || (out_count[1] < case_act_rows)) || !done_seen)
+    while ((((out_count[0] < capture_goal_rows) || (out_count[1] < capture_goal_rows)) || !done_seen)
            && (timeout_cycles < 60)) begin
       @(posedge clk);
-
-      for (int col = 0; col < SIZE; col++) begin
-        if (psum_valid_o[col] && (out_count[col] < case_act_rows)) begin
-          actual_y[out_count[col]][col] = get_psum_col(col);
-          out_count[col]++;
-        end
-      end
 
       if (!done_seen && done_o) begin
         done_seen = 1'b1;
@@ -491,8 +539,8 @@ module test_sa_2x2_computation;
       timeout_cycles++;
     end
 
-    expect_flag("column 0 produced all streamed outputs", out_count[0] == case_act_rows);
-    expect_flag("column 1 produced all streamed outputs", out_count[1] == case_act_rows);
+    expect_flag("column 0 produced all streamed outputs", out_count[0] == capture_goal_rows);
+    expect_flag("column 1 produced all streamed outputs", out_count[1] == capture_goal_rows);
     expect_flag("local accumulator done asserted", done_seen);
   endtask
 
@@ -519,14 +567,221 @@ module test_sa_2x2_computation;
     expect_flag("weight load reached bottom row before compute", done_seen == 2'b11);
 
     clear_outputs();
+    start_capture(case_act_rows);
     stream_activation_matrix();
     observe_results();
+    stop_capture();
     check_results();
 
     if (fail_count == fail_before) begin
       $display("  PASS: %s", case_name);
     end else begin
       print_case_debug();
+    end
+  endtask
+
+  task automatic test_k_tiling_case();
+    logic [SIZE-1:0] done_seen;
+    int fail_before;
+    logic signed [LOCAL_PSUM_WIDTH-1:0] partial0_col0;
+    logic signed [LOCAL_PSUM_WIDTH-1:0] partial0_col1;
+    logic signed [LOCAL_PSUM_WIDTH-1:0] partial1_col0;
+    logic signed [LOCAL_PSUM_WIDTH-1:0] partial1_col1;
+    logic signed [ACC_WIDTH-1:0]        final_col0;
+    logic signed [ACC_WIDTH-1:0]        final_col1;
+
+    reset_dut();
+    case_name = "k_tiling_1x4_x_4x2";
+    case_act_rows = 2;
+    num_tiles_i = TILE_COUNT_WIDTH'(2);
+
+    partial0_col0 = dot_product_2(8'sd1, 8'sd2, 8'sd5, 8'sd7);
+    partial0_col1 = dot_product_2(8'sd1, 8'sd2, -8'sd2, 8'sd3);
+    partial1_col0 = dot_product_2(-8'sd3, 8'sd4, 8'sd1, -8'sd6);
+    partial1_col1 = dot_product_2(-8'sd3, 8'sd4, 8'sd4, 8'sd2);
+    final_col0    = partial0_col0 + partial1_col0;
+    final_col1    = partial0_col1 + partial1_col1;
+
+    $display("CASE 5: %s exp_acc={%0d,%0d}",
+             case_name, $signed(final_col0), $signed(final_col1));
+    fail_before = fail_count;
+
+    set_weight_tile(8'sd5, -8'sd2, 8'sd7, 8'sd3);
+    load_weights_and_switch(done_seen);
+    expect_flag("tile 0 weight load reached bottom row", done_seen == 2'b11);
+
+    clear_outputs();
+    start_capture(2);
+    stream_one_pair(8'sd1, 8'sd2, 1'b1);
+
+    set_weight_tile(8'sd1, 8'sd4, -8'sd6, 8'sd2);
+    load_weights_and_switch(done_seen);
+    expect_flag("tile 1 weight load reached bottom row", done_seen == 2'b11);
+    stream_one_pair(-8'sd3, 8'sd4, 1'b0);
+
+    observe_results();
+    stop_capture();
+
+    expect_psum_eq("partial[0][0]", actual_y[0][0], partial0_col0);
+    expect_psum_eq("partial[0][1]", actual_y[0][1], partial0_col1);
+    expect_psum_eq("partial[1][0]", actual_y[1][0], partial1_col0);
+    expect_psum_eq("partial[1][1]", actual_y[1][1], partial1_col1);
+    expect_acc_eq("final col0", get_acc_col(0), final_col0);
+    expect_acc_eq("final col1", get_acc_col(1), final_col1);
+    expect_flag("overflow stayed clear", overflow_flatten_o == '0);
+
+    if (fail_count == fail_before) begin
+      $display("  PASS: %s", case_name);
+    end else begin
+      $display("  Partial exp={[%0d %0d] [%0d %0d]} act={[%0d %0d] [%0d %0d]}",
+               $signed(partial0_col0), $signed(partial0_col1),
+               $signed(partial1_col0), $signed(partial1_col1),
+               $signed(actual_y[0][0]), $signed(actual_y[0][1]),
+               $signed(actual_y[1][0]), $signed(actual_y[1][1]));
+      $display("  Final exp={%0d,%0d} act={%0d,%0d}",
+               $signed(final_col0), $signed(final_col1),
+               $signed(get_acc_col(0)), $signed(get_acc_col(1)));
+    end
+  endtask
+
+  task automatic test_n_tiling_case();
+    logic [SIZE-1:0] done_seen;
+    int fail_before;
+
+    reset_dut();
+    case_name = "n_tiling_2x2_x_2x4";
+    case_act_rows = 2;
+    num_tiles_i = TILE_COUNT_WIDTH'(2);
+
+    act_matrix[0][0] = 8'sd1;
+    act_matrix[0][1] = 8'sd2;
+    act_matrix[1][0] = -8'sd3;
+    act_matrix[1][1] = 8'sd4;
+
+    $display("CASE 6: %s", case_name);
+    fail_before = fail_count;
+
+    set_weight_tile(8'sd5, -8'sd2, 8'sd7, 8'sd3);
+    load_weights_and_switch(done_seen);
+    expect_flag("tile 0 weight load reached bottom row", done_seen == 2'b11);
+    clear_outputs();
+    start_capture(2);
+    stream_activation_matrix();
+    observe_results();
+    stop_capture();
+    expect_psum_eq("tile0 Y[0][0]", actual_y[0][0], 18'sd19);
+    expect_psum_eq("tile0 Y[0][1]", actual_y[0][1], 18'sd4);
+    expect_psum_eq("tile0 Y[1][0]", actual_y[1][0], 18'sd13);
+    expect_psum_eq("tile0 Y[1][1]", actual_y[1][1], 18'sd18);
+    expect_acc_eq("tile0 acc col0", get_acc_col(0), 32'sd32);
+    expect_acc_eq("tile0 acc col1", get_acc_col(1), 32'sd22);
+
+    set_weight_tile(8'sd1, 8'sd6, -8'sd4, 8'sd2);
+    load_weights_and_switch(done_seen);
+    expect_flag("tile 1 weight load reached bottom row", done_seen == 2'b11);
+    clear_outputs();
+    start_capture(2);
+    stream_activation_matrix();
+    observe_results();
+    stop_capture();
+    expect_psum_eq("tile1 Y[0][0]", actual_y[0][0], -18'sd7);
+    expect_psum_eq("tile1 Y[0][1]", actual_y[0][1], 18'sd10);
+    expect_psum_eq("tile1 Y[1][0]", actual_y[1][0], -18'sd19);
+    expect_psum_eq("tile1 Y[1][1]", actual_y[1][1], -18'sd10);
+    expect_acc_eq("tile1 acc col0", get_acc_col(0), -32'sd26);
+    expect_acc_eq("tile1 acc col1", get_acc_col(1), 32'sd0);
+    expect_flag("overflow stayed clear", overflow_flatten_o == '0);
+
+    if (fail_count == fail_before) begin
+      $display("  PASS: %s", case_name);
+    end else begin
+      $display("  tile0 act={[%0d %0d] [%0d %0d]}",
+               $signed(18'sd19), $signed(18'sd4),
+               $signed(18'sd13), $signed(18'sd18));
+      $display("  tile1 act={[%0d %0d] [%0d %0d]}",
+               $signed(-18'sd7), $signed(18'sd10),
+               $signed(-18'sd19), $signed(-18'sd10));
+    end
+  endtask
+
+  task automatic test_padding_both_sides_case();
+    logic [SIZE-1:0] done_seen;
+    int fail_before;
+    logic signed [LOCAL_PSUM_WIDTH-1:0] partial0_col0;
+    logic signed [LOCAL_PSUM_WIDTH-1:0] partial0_col1;
+    logic signed [LOCAL_PSUM_WIDTH-1:0] partial1_col0;
+    logic signed [LOCAL_PSUM_WIDTH-1:0] partial1_col1;
+    logic signed [LOCAL_PSUM_WIDTH-1:0] partial0_col2;
+    logic signed [LOCAL_PSUM_WIDTH-1:0] partial1_col2;
+
+    reset_dut();
+    case_name = "padding_1x3_x_3x3";
+    case_act_rows = 2;
+    num_tiles_i = TILE_COUNT_WIDTH'(2);
+
+    partial0_col0 = dot_product_2(8'sd2, -8'sd1, 8'sd5, 8'sd7);
+    partial0_col1 = dot_product_2(8'sd2, -8'sd1, -8'sd2, 8'sd3);
+    partial1_col0 = dot_product_2(8'sd3, 8'sd0, -8'sd6, 8'sd0);
+    partial1_col1 = dot_product_2(8'sd3, 8'sd0, 8'sd2, 8'sd0);
+    partial0_col2 = dot_product_2(8'sd2, -8'sd1, 8'sd4, -8'sd1);
+    partial1_col2 = dot_product_2(8'sd3, 8'sd0, 8'sd8, 8'sd0);
+
+    $display("CASE 7: %s exp_acc={%0d,%0d,%0d}",
+             case_name,
+             $signed(partial0_col0 + partial1_col0),
+             $signed(partial0_col1 + partial1_col1),
+             $signed(partial0_col2 + partial1_col2));
+    fail_before = fail_count;
+
+    set_weight_tile(8'sd5, -8'sd2, 8'sd7, 8'sd3);
+    load_weights_and_switch(done_seen);
+    expect_flag("tile 0.0 weight load reached bottom row", done_seen == 2'b11);
+    clear_outputs();
+    start_capture(2);
+    stream_one_pair(8'sd2, -8'sd1, 1'b1);
+    set_weight_tile(-8'sd6, 8'sd2, 8'sd0, 8'sd0);
+    load_weights_and_switch(done_seen);
+    expect_flag("tile 0.1 weight load reached bottom row", done_seen == 2'b11);
+    stream_one_pair(8'sd3, 8'sd0, 1'b0);
+    observe_results();
+    stop_capture();
+    expect_psum_eq("tile0 partial[0][0]", actual_y[0][0], partial0_col0);
+    expect_psum_eq("tile0 partial[0][1]", actual_y[0][1], partial0_col1);
+    expect_psum_eq("tile0 partial[1][0]", actual_y[1][0], partial1_col0);
+    expect_psum_eq("tile0 partial[1][1]", actual_y[1][1], partial1_col1);
+    expect_acc_eq("tile0 final col0", get_acc_col(0), partial0_col0 + partial1_col0);
+    expect_acc_eq("tile0 final col1", get_acc_col(1), partial0_col1 + partial1_col1);
+
+    set_weight_tile(8'sd4, 8'sd0, -8'sd1, 8'sd0);
+    load_weights_and_switch(done_seen);
+    expect_flag("tile 1.0 weight load reached bottom row", done_seen == 2'b11);
+    clear_outputs();
+    start_capture(2);
+    stream_one_pair(8'sd2, -8'sd1, 1'b1);
+    set_weight_tile(8'sd8, 8'sd0, 8'sd0, 8'sd0);
+    load_weights_and_switch(done_seen);
+    expect_flag("tile 1.1 weight load reached bottom row", done_seen == 2'b11);
+    stream_one_pair(8'sd3, 8'sd0, 1'b0);
+    observe_results();
+    stop_capture();
+    expect_psum_eq("tile1 partial[0][0]", actual_y[0][0], partial0_col2);
+    expect_psum_eq("tile1 partial[0][1]", actual_y[0][1], 18'sd0);
+    expect_psum_eq("tile1 partial[1][0]", actual_y[1][0], partial1_col2);
+    expect_psum_eq("tile1 partial[1][1]", actual_y[1][1], 18'sd0);
+    expect_acc_eq("tile1 final col2", get_acc_col(0), partial0_col2 + partial1_col2);
+    expect_acc_eq("tile1 padded col", get_acc_col(1), 32'sd0);
+    expect_flag("overflow stayed clear", overflow_flatten_o == '0);
+
+    if (fail_count == fail_before) begin
+      $display("  PASS: %s", case_name);
+    end else begin
+      $display("  Final exp={%0d,%0d,%0d} act={%0d,%0d,%0d}",
+               $signed(partial0_col0 + partial1_col0),
+               $signed(partial0_col1 + partial1_col1),
+               $signed(partial0_col2 + partial1_col2),
+               $signed(partial0_col0 + partial1_col0),
+               $signed(partial0_col1 + partial1_col1),
+               $signed(get_acc_col(0)));
     end
   endtask
 
@@ -537,6 +792,9 @@ module test_sa_2x2_computation;
     for (int case_id = 0; case_id < NUM_CASES; case_id++) begin
       run_case(case_id);
     end
+    test_k_tiling_case();
+    test_n_tiling_case();
+    test_padding_both_sides_case();
 
     print_header("SUMMARY");
     $display("Total checks : %0d", test_count);
