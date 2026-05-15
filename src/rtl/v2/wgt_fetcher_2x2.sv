@@ -1,8 +1,10 @@
 `timescale 1ns / 1ps
 
 module wgt_fetcher_2x2 #(
-    parameter int SIZE       = 2,
-    parameter int DATA_WIDTH = 8
+    parameter int SIZE             = 2,
+    parameter int DATA_WIDTH       = 8,
+    parameter int FIFO_COUNT_WIDTH = 5,
+    parameter int ROW_COUNT_WIDTH  = (SIZE > 1) ? $clog2(SIZE + 1) : 1
 ) (
     input logic clk,
     input logic rst_n,
@@ -10,55 +12,72 @@ module wgt_fetcher_2x2 #(
     input  logic start_load_i,
     output logic ready_o,
 
-    // Giao tiếp với FIFO (Đã sửa cho Synchronous FIFO có trễ 1 nhịp)
+    // Synchronous FIFO interface. A pop makes fifo_data_i valid next cycle.
     input  logic [(DATA_WIDTH*SIZE)-1:0] fifo_data_i,
     input  logic                         fifo_empty_i,
-    output logic                         fifo_pop_o, // Nối với rd_en_i của FIFO
+    input  logic [FIFO_COUNT_WIDTH-1:0]  fifo_count_i,
+    output logic                         fifo_pop_o,
 
-    // Giao tiếp với Systolic Array
+    // Weight stream into the systolic array. FIFO must be filled bottom-row first.
     output logic signed [(DATA_WIDTH*SIZE)-1:0] wgt_flatten_o,
     output logic        [SIZE-1:0]              wgt_load_o,
     output logic                                weight_switch_o
 );
 
-    typedef enum logic [2:0] {
+    typedef enum logic [1:0] {
         IDLE,
-        READ_1, // Trạng thái phát lệnh đọc đầu tiên
-        PUMP_1, // Nhận dữ liệu hàng 1 và phát lệnh đọc hàng 0
-        PUMP_0, // Nhận dữ liệu hàng 0
-        SWITCH  // Chốt trọng số
+        POP_FIRST,
+        LOAD_ROWS,
+        SWITCH
     } state_t;
 
     state_t state, next_state;
+    logic [ROW_COUNT_WIDTH-1:0] rows_loaded_q;
+    logic                       enough_rows;
+
+    assign enough_rows = !fifo_empty_i && (fifo_count_i >= FIFO_COUNT_WIDTH'(SIZE));
 
     always_ff @(posedge clk or negedge rst_n) begin
-        if (!rst_n) state <= IDLE;
-        else        state <= next_state;
+        if (!rst_n) begin
+            state         <= IDLE;
+            rows_loaded_q <= '0;
+        end else begin
+            state <= next_state;
+
+            if (state == IDLE) begin
+                rows_loaded_q <= '0;
+            end else if (state == LOAD_ROWS) begin
+                rows_loaded_q <= rows_loaded_q + ROW_COUNT_WIDTH'(1);
+            end
+        end
     end
 
     always_comb begin
         next_state = state;
         case (state)
             IDLE: begin
-                if (start_load_i && !fifo_empty_i) next_state = READ_1;
+                if (start_load_i && enough_rows) begin
+                    next_state = POP_FIRST;
+                end
             end
-            READ_1: begin
-                next_state = PUMP_1;
+            POP_FIRST: begin
+                next_state = LOAD_ROWS;
             end
-            PUMP_1: begin
-                next_state = PUMP_0;
-            end
-            PUMP_0: begin
-                next_state = SWITCH;
+            LOAD_ROWS: begin
+                if (rows_loaded_q == ROW_COUNT_WIDTH'(SIZE - 1)) begin
+                    next_state = SWITCH;
+                end
             end
             SWITCH: begin
+                next_state = IDLE;
+            end
+            default: begin
                 next_state = IDLE;
             end
         endcase
     end
 
     always_comb begin
-        // Giá trị mặc định
         ready_o         = 1'b0;
         fifo_pop_o      = 1'b0;
         wgt_flatten_o   = '0;
@@ -67,28 +86,29 @@ module wgt_fetcher_2x2 #(
 
         case (state)
             IDLE: begin
-                ready_o = 1'b1;
+                ready_o = enough_rows;
             end
-            READ_1: begin
-                // Phát tín hiệu xin đọc hàng dưới cùng (Hàng 1)
-                fifo_pop_o = 1'b1; 
+
+            POP_FIRST: begin
+                fifo_pop_o = 1'b1;
             end
-            PUMP_1: begin
-                // Dữ liệu hàng 1 đã có sẵn ở cổng ra của FIFO
-                wgt_flatten_o = fifo_data_i;  
-                wgt_load_o    = {SIZE{1'b1}}; 
-                
-                // Đồng thời phát tín hiệu xin đọc hàng trên (Hàng 0)
-                fifo_pop_o = 1'b1; 
-            end
-            PUMP_0: begin
-                // Dữ liệu hàng 0 đã có sẵn
+
+            LOAD_ROWS: begin
                 wgt_flatten_o = fifo_data_i;
                 wgt_load_o    = {SIZE{1'b1}};
+
+                if (rows_loaded_q < ROW_COUNT_WIDTH'(SIZE - 1)) begin
+                    fifo_pop_o = 1'b1;
+                end
             end
+
             SWITCH: begin
                 weight_switch_o = 1'b1;
             end
+
+            default: begin
+            end
         endcase
     end
-endmodule
+
+endmodule : wgt_fetcher_2x2

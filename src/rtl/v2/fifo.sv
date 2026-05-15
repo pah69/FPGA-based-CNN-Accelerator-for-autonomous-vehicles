@@ -1,83 +1,80 @@
+`timescale 1ns / 1ps
+
 module fifo #(
-    WIDTH = 32,
-    DEPTH = 16
- )
- (
-    input  logic             clk_i,
-    input  logic             rst_n_i,
-    //--------------------------------
-    // Write
+    parameter int WIDTH = 32,
+    parameter int DEPTH = 16,
+    parameter int COUNT_WIDTH = (DEPTH > 0) ? $clog2(DEPTH + 1) : 1
+) (
+    input logic clk_i,
+    input logic rst_n_i,
+
     input  logic [WIDTH-1:0] wdata_i,
     input  logic             wr_en_i,
     output logic             full_o,
-    //--------------------------------
-    // Read
+
     output logic [WIDTH-1:0] rdata_o,
     input  logic             rd_en_i,
-    output logic             empty_o
- );
-    timeunit 1ns; timeprecision 100ps;
-    // Check if DEPTH is power of 2
-    // Power of 2 means only one bit should be set (e.g. 2=10, 4=100, 8=1000, etc)
-    initial begin : depth_power_of_2_check
-        assert((DEPTH & (DEPTH-1)) == 0) else
-            $error("FIFO depth must be a power of 2");
+    output logic             empty_o,
+    output logic [COUNT_WIDTH-1:0] count_o
+);
+  timeunit 1ns;
+  timeprecision 100ps;
+
+  localparam int PTR_WIDTH = (DEPTH > 1) ? $clog2(DEPTH) : 1;
+
+  initial begin : parameter_check
+    assert (DEPTH > 0) else $error("FIFO DEPTH must be greater than zero");
+    assert ((DEPTH & (DEPTH - 1)) == 0) else $error("FIFO DEPTH must be a power of two");
+  end
+
+  logic [PTR_WIDTH-1:0] wr_ptr_q;
+  logic [PTR_WIDTH-1:0] rd_ptr_q;
+  logic [COUNT_WIDTH-1:0] count_q;
+  logic [WIDTH-1:0] mem[0:DEPTH-1];
+
+  logic wr_fire;
+  logic rd_fire;
+
+  assign empty_o = (count_q == '0);
+  assign full_o  = (count_q == COUNT_WIDTH'(DEPTH));
+  assign count_o = count_q;
+
+  assign rd_fire = rd_en_i && !empty_o;
+  assign wr_fire = wr_en_i && (!full_o || rd_fire);
+
+  function automatic logic [PTR_WIDTH-1:0] next_ptr(input logic [PTR_WIDTH-1:0] ptr_i);
+    if (DEPTH == 1) begin
+      next_ptr = '0;
+    end else if (ptr_i == PTR_WIDTH'(DEPTH - 1)) begin
+      next_ptr = '0;
+    end else begin
+      next_ptr = ptr_i + PTR_WIDTH'(1);
     end
+  endfunction
 
-    localparam ADDR_WIDTH = $clog2(DEPTH);
-    logic [ADDR_WIDTH-1:0] rptr, wptr;
-    logic full, empty;
-    logic last_was_read;
+  always_ff @(posedge clk_i or negedge rst_n_i) begin
+    if (!rst_n_i) begin
+      wr_ptr_q <= '0;
+      rd_ptr_q <= '0;
+      count_q  <= '0;
+      rdata_o  <= '0;
+    end else begin
+      if (wr_fire) begin
+        mem[wr_ptr_q] <= wdata_i;
+        wr_ptr_q      <= next_ptr(wr_ptr_q);
+      end
 
-    // Register Array
-    logic [WIDTH-1:0] mem [0:DEPTH-1];
+      if (rd_fire) begin
+        rdata_o  <= mem[rd_ptr_q];
+        rd_ptr_q <= next_ptr(rd_ptr_q);
+      end
 
-    // Write operation
-    always_ff @(posedge clk_i or negedge rst_n_i) begin
-        if (!rst_n_i) begin
-            wptr <= 0;
-        end else begin
-            if (wr_en_i && !full) begin
-                mem[wptr] <= wdata_i;
-                wptr      <= wptr + 1'b1;
-            end
-        end
+      unique case ({wr_fire, rd_fire})
+        2'b10: count_q <= count_q + COUNT_WIDTH'(1);
+        2'b01: count_q <= count_q - COUNT_WIDTH'(1);
+        default: count_q <= count_q;
+      endcase
     end
-
-    // Read operation
-    always_ff @(posedge clk_i or negedge rst_n_i) begin
-        if (!rst_n_i) begin
-            rptr <= 0;
-        end else begin
-            if (rd_en_i && !empty) begin
-                rptr    <= rptr + 1'b1;
-                rdata_o <= mem[rptr];
-            end
-        end
-    end
-
-    // assign rdata_o = mem[rptr];
-
-    // Last operation tracker
-    always_ff @(posedge clk_i or negedge rst_n_i) begin
-        if (!rst_n_i) begin
-            last_was_read <= 1; // Initialize as empty
-        end else begin
-            if (rd_en_i && !empty) begin
-                last_was_read <= 1;
-            end else if (wr_en_i && !full) begin
-                last_was_read <= 0;
-            end else begin
-                last_was_read <= last_was_read;
-            end
-        end
-    end
-
-    assign full    = (wptr == rptr) && !last_was_read; // Last operation was write
-    assign empty   = (wptr == rptr) &&  last_was_read; // Last operation was read
-
-    assign full_o  = full;
-    assign empty_o = empty;
-
+  end
 
 endmodule : fifo

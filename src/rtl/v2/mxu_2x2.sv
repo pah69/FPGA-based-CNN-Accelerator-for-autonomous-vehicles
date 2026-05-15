@@ -8,6 +8,7 @@ module mxu_2x2 #(
     parameter int ACC_WIDTH        = 32,
     parameter bit ENABLE_LOCAL_ACCUM = 1'b1,
     parameter int WGT_FIFO_DEPTH   = 16, // Độ sâu của FIFO Trọng số
+    parameter int WGT_FIFO_COUNT_WIDTH = (WGT_FIFO_DEPTH > 0) ? $clog2(WGT_FIFO_DEPTH + 1) : 1,
     parameter int TILE_COUNT_WIDTH = (NUM_TILES > 1) ? $clog2(NUM_TILES + 1) : 1
 ) (
     input logic clk,
@@ -63,6 +64,7 @@ module mxu_2x2 #(
     logic [(DATA_WIDTH*SIZE)-1:0] internal_fifo_rdata;
     logic                         internal_fifo_empty;
     logic                         internal_fifo_rd_en;
+    logic [WGT_FIFO_COUNT_WIDTH-1:0] internal_fifo_count;
 
     // Giữa Fetcher và SA
     logic signed [(DATA_WIDTH*SIZE)-1:0] wgt_flatten_w;
@@ -73,8 +75,9 @@ module mxu_2x2 #(
     // 1. Tích hợp thiết kế FIFO của bạn!
     // ========================================================
     fifo #(
-        .WIDTH(DATA_WIDTH * SIZE),
-        .DEPTH(WGT_FIFO_DEPTH)
+        .WIDTH      (DATA_WIDTH * SIZE),
+        .DEPTH      (WGT_FIFO_DEPTH),
+        .COUNT_WIDTH(WGT_FIFO_COUNT_WIDTH)
     ) u_weight_fifo (
         .clk_i   (clk),
         .rst_n_i (rst_n),
@@ -85,7 +88,8 @@ module mxu_2x2 #(
         
         .rdata_o (internal_fifo_rdata),
         .rd_en_i (internal_fifo_rd_en),
-        .empty_o (internal_fifo_empty)
+        .empty_o (internal_fifo_empty),
+        .count_o (internal_fifo_count)
     );
 
     assign wgt_fifo_empty_o = internal_fifo_empty;
@@ -94,8 +98,9 @@ module mxu_2x2 #(
     // 2. Tích hợp Khối tự động lấy Trọng số (Weight Fetcher)
     // ========================================================
     wgt_fetcher_2x2 #(
-        .SIZE(SIZE),
-        .DATA_WIDTH(DATA_WIDTH)
+        .SIZE            (SIZE),
+        .DATA_WIDTH      (DATA_WIDTH),
+        .FIFO_COUNT_WIDTH(WGT_FIFO_COUNT_WIDTH)
     ) u_wgt_fetcher (
         .clk             (clk),
         .rst_n           (rst_n),
@@ -105,6 +110,7 @@ module mxu_2x2 #(
         // Giao tiếp với khối FIFO của bạn
         .fifo_data_i     (internal_fifo_rdata),
         .fifo_empty_i    (internal_fifo_empty),
+        .fifo_count_i    (internal_fifo_count),
         .fifo_pop_o      (internal_fifo_rd_en),
         
         // Giao tiếp với SA
