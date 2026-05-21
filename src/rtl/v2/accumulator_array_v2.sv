@@ -21,33 +21,32 @@ module accumulator_array_v2 #(
     input logic row_clear_i,
     input logic [ADDR_WIDTH-1:0] row_clear_addr_i,
 
-    input logic write_en_i,
-    input logic [ADDR_WIDTH-1:0] write_addr_i,
+    input logic                                      write_en_i,
+    input logic        [             ADDR_WIDTH-1:0] write_addr_i,
     input logic signed [(LOCAL_PSUM_WIDTH*SIZE)-1:0] psum_flatten_i,
-    input logic        [             SIZE-1:0]       psum_valid_i,
+    input logic        [                   SIZE-1:0] psum_valid_i,
 
-    input logic read_en_i,
-    input logic [ADDR_WIDTH-1:0] read_addr_i,
-    output logic signed [       (ACC_WIDTH*SIZE)-1:0] read_data_flatten_o,
-    output logic                                      read_valid_o,
+    input  logic                               read_en_i,
+    input  logic        [      ADDR_WIDTH-1:0] read_addr_i,
+    output logic signed [(ACC_WIDTH*SIZE)-1:0] read_data_flatten_o,
+    output logic                               read_valid_o,
 
-    output logic                 row_done_o,
+    output logic                  row_done_o,
     output logic [ADDR_WIDTH-1:0] row_done_addr_o,
-    output logic [DEPTH-1:0]         row_ready_o
+    output logic [     DEPTH-1:0] row_ready_o
 );
   localparam logic signed [ACC_WIDTH-1:0] ACC_MAX_VALUE = {1'b0, {(ACC_WIDTH - 1) {1'b1}}};
   localparam logic signed [ACC_WIDTH-1:0] ACC_MIN_VALUE = {1'b1, {(ACC_WIDTH - 1) {1'b0}}};
 
-  logic signed [ACC_WIDTH-1:0] acc_mem_q       [0:DEPTH-1][0:SIZE-1];
-  logic        [TILE_COUNT_WIDTH-1:0] tile_count_q  [0:DEPTH-1];
-  logic        [       DEPTH-1:0] row_ready_q;
+  logic signed [       ACC_WIDTH-1:0] acc_mem_q          [0:DEPTH-1] [0:SIZE-1];
+  logic        [TILE_COUNT_WIDTH-1:0] tile_count_q       [0:DEPTH-1];
+  logic        [           DEPTH-1:0] row_ready_q;
   logic        [TILE_COUNT_WIDTH-1:0] tile_count_limit_w;
   logic        [TILE_COUNT_WIDTH-1:0] last_tile_count_w;
 
   function automatic logic signed [ACC_WIDTH-1:0] sat_add(
       input logic signed [ACC_WIDTH-1:0] acc_value_i,
-      input logic signed [ACC_WIDTH-1:0] add_value_i
-  );
+      input logic signed [ACC_WIDTH-1:0] add_value_i);
     logic signed [ACC_WIDTH:0] sum_full;
     logic                      add_overflow;
     begin
@@ -62,8 +61,7 @@ module accumulator_array_v2 #(
   endfunction
 
   function automatic logic [TILE_COUNT_WIDTH-1:0] clamp_tile_count(
-      input logic [TILE_COUNT_WIDTH-1:0] tile_count_i
-  );
+      input logic [TILE_COUNT_WIDTH-1:0] tile_count_i);
     logic [TILE_COUNT_WIDTH-1:0] max_tiles;
     begin
       max_tiles = TILE_COUNT_WIDTH'(NUM_TILES);
@@ -123,8 +121,10 @@ module accumulator_array_v2 #(
         for (int lane = 0; lane < SIZE; lane++) begin
           logic signed [ACC_WIDTH-1:0] psum_ext_lane;
 
-          psum_ext_lane = {{(ACC_WIDTH - LOCAL_PSUM_WIDTH) {psum_flatten_i[(lane*LOCAL_PSUM_WIDTH)+LOCAL_PSUM_WIDTH-1]}},
-                           psum_flatten_i[(lane*LOCAL_PSUM_WIDTH)+:LOCAL_PSUM_WIDTH]};
+          psum_ext_lane = {
+            {(ACC_WIDTH - LOCAL_PSUM_WIDTH) {psum_flatten_i[(lane*LOCAL_PSUM_WIDTH)+LOCAL_PSUM_WIDTH-1]}},
+            psum_flatten_i[(lane*LOCAL_PSUM_WIDTH)+:LOCAL_PSUM_WIDTH]
+          };
 
           if (psum_valid_i[lane]) begin
             acc_mem_q[write_addr_i][lane] <= sat_add(acc_mem_q[write_addr_i][lane], psum_ext_lane);

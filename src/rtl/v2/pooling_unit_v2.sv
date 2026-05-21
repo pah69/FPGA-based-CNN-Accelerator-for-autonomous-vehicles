@@ -19,21 +19,19 @@ module pooling_unit_v2 #(
 );
 
   localparam int POOL_BYPASS = 0;
-  localparam int POOL_MAX    = 1;
-  localparam int POOL_AVG    = 2;
+  localparam int POOL_MAX = 1;
+  localparam int POOL_AVG = 2;
   localparam int COUNT_WIDTH = (POOL_WINDOW > 1) ? $clog2(POOL_WINDOW + 1) : 1;
-  localparam int SUM_WIDTH   = DATA_WIDTH + ((POOL_WINDOW > 1) ? $clog2(POOL_WINDOW) : 1);
+  localparam int SUM_WIDTH = DATA_WIDTH + ((POOL_WINDOW > 1) ? $clog2(POOL_WINDOW) : 1);
 
-  logic signed [DATA_WIDTH-1:0] lane_data_i[0:SIZE-1];
-  logic signed [  SUM_WIDTH-1:0] pool_sum_q[0:SIZE-1];
-  logic signed [DATA_WIDTH-1:0] pool_max_q[0:SIZE-1];
+  logic signed [ DATA_WIDTH-1:0] lane_data_i  [0:SIZE-1];
+  logic signed [  SUM_WIDTH-1:0] pool_sum_q   [0:SIZE-1];
+  logic signed [ DATA_WIDTH-1:0] pool_max_q   [0:SIZE-1];
   logic        [COUNT_WIDTH-1:0] pool_count_q;
 
   function automatic logic signed [DATA_WIDTH-1:0] pool_average(
-      input logic signed [SUM_WIDTH-1:0] sum_i,
-      input logic        [COUNT_WIDTH-1:0] count_i
-  );
-    logic signed [SUM_WIDTH-1:0] count_value;
+      input logic signed [SUM_WIDTH-1:0] sum_i, input logic [COUNT_WIDTH-1:0] count_i);
+    logic signed [ SUM_WIDTH-1:0] count_value;
     logic signed [DATA_WIDTH-1:0] avg_value;
     begin
       count_value  = SUM_WIDTH'(count_i);
@@ -78,11 +76,13 @@ module pooling_unit_v2 #(
         sample_count_next = int'(pool_count_q) + 1;
 
         for (int lane = 0; lane < SIZE; lane++) begin
-          logic signed [SUM_WIDTH-1:0] sum_next;
+          logic signed [ SUM_WIDTH-1:0] sum_next;
           logic signed [DATA_WIDTH-1:0] max_next;
 
           if (pool_count_q == 0) begin
-            sum_next = {{(SUM_WIDTH - DATA_WIDTH) {lane_data_i[lane][DATA_WIDTH-1]}}, lane_data_i[lane]};
+            sum_next = {
+              {(SUM_WIDTH - DATA_WIDTH) {lane_data_i[lane][DATA_WIDTH-1]}}, lane_data_i[lane]
+            };
             max_next = lane_data_i[lane];
           end else begin
             sum_next = pool_sum_q[lane] + lane_data_i[lane];
@@ -98,7 +98,8 @@ module pooling_unit_v2 #(
             if (POOL_MODE == POOL_MAX) begin
               data_flatten_o[(lane*DATA_WIDTH)+:DATA_WIDTH] <= max_next;
             end else if (POOL_MODE == POOL_AVG) begin
-              data_flatten_o[(lane*DATA_WIDTH)+:DATA_WIDTH] <= pool_average(sum_next, COUNT_WIDTH'(sample_count_next));
+              data_flatten_o[(lane*DATA_WIDTH)+:DATA_WIDTH] <=
+                  pool_average(sum_next, COUNT_WIDTH'(sample_count_next));
             end else begin
               data_flatten_o[(lane*DATA_WIDTH)+:DATA_WIDTH] <= lane_data_i[lane];
             end

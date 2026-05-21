@@ -1,0 +1,3136 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Fri May 22 00:55:26 2026
+# Process ID         : 89918
+# Current directory  : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_sa_NxN
+# Command line       : xsim -mode tcl -source {xsim.dir/test_tpu_top_end_to_end_snapshot/xsim_script.tcl}
+# Log file           : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_sa_NxN/xsim.log
+# Journal file       : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_sa_NxN/xsim.jou
+# Running On         : pah-PC
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 24.04.4 LTS
+# Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
+# CPU Frequency      : 4837.600 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 32887 MB
+# Swap memory        : 25033 MB
+# Total Virtual      : 57921 MB
+# Available Virtual  : 34701 MB
+#-----------------------------------------------------------
+source xsim.dir/test_tpu_top_end_to_end_snapshot/xsim_script.tcl
+# xsim {test_tpu_top_end_to_end_snapshot} -testplusarg E2E_FILE_CASES -testplusarg E2E_CASES=100 -testplusarg E2E_INPUT_HEX=../../../CNN_model/python/mnist_classification/18_05/e2e_cases/tpu_top_e2e_inputs_i8.hex -testplusarg E2E_LOGITS_HEX=../../../CNN_model/python/mnist_classification/18_05/e2e_cases/tpu_top_e2e_logits_i8.hex -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+  E2E file cases enabled: cases=100
+  inputs = ../../../CNN_model/python/mnist_classification/18_05/e2e_cases/tpu_top_e2e_inputs_i8.hex
+  logits = ../../../CNN_model/python/mnist_classification/18_05/e2e_cases/tpu_top_e2e_logits_i8.hex
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[0] = file_case_0
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-11,-30,22,23,-40,-26,-113,87,9,13}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[0] = file_case_0
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[0] = file_case_0
+  actual logits   {-11,-30,22,23,-40,-26,-113,87,9,13}
+  expected logits {-11,-30,22,23,-40,-26,-113,87,9,13}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[1] = file_case_1
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {23,11,107,6,-68,-15,19,-63,32,-49}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[1] = file_case_1
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[1] = file_case_1
+  actual logits   {23,11,107,6,-68,-15,19,-63,32,-49}
+  expected logits {23,11,107,6,-68,-15,19,-63,32,-49}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[2] = file_case_2
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-19,60,-6,-36,15,-26,-11,15,-5,-15}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[2] = file_case_2
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[2] = file_case_2
+  actual logits   {-19,60,-6,-36,15,-26,-11,15,-5,-15}
+  expected logits {-19,60,-6,-36,15,-26,-11,15,-5,-15}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[3] = file_case_3
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {73,-20,10,-39,-10,-20,21,2,-11,-13}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[3] = file_case_3
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[3] = file_case_3
+  actual logits   {73,-20,10,-39,-10,-20,21,2,-11,-13}
+  expected logits {73,-20,10,-39,-10,-20,21,2,-11,-13}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[4] = file_case_4
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-5,-2,-40,-37,88,-35,7,7,-7,22}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[4] = file_case_4
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[4] = file_case_4
+  actual logits   {-5,-2,-40,-37,88,-35,7,7,-7,22}
+  expected logits {-5,-2,-40,-37,88,-35,7,7,-7,22}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[5] = file_case_5
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-16,66,2,-36,17,-42,-18,11,7,-15}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[5] = file_case_5
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[5] = file_case_5
+  actual logits   {-16,66,2,-36,17,-42,-18,11,7,-15}
+  expected logits {-16,66,2,-36,17,-42,-18,11,7,-15}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[6] = file_case_6
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-40,7,-18,-43,78,-8,-45,5,31,24}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[6] = file_case_6
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[6] = file_case_6
+  actual logits   {-40,7,-18,-43,78,-8,-45,5,31,24}
+  expected logits {-40,7,-18,-43,78,-8,-45,5,31,24}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[7] = file_case_7
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-34,-18,-14,10,35,3,-44,-11,1,56}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[7] = file_case_7
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[7] = file_case_7
+  actual logits   {-34,-18,-14,10,35,3,-44,-11,1,56}
+  expected logits {-34,-18,-14,10,35,3,-44,-11,1,56}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[8] = file_case_8
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-40,-28,-48,3,-7,83,35,-17,17,-7}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[8] = file_case_8
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[8] = file_case_8
+  actual logits   {-40,-28,-48,3,-7,83,35,-17,17,-7}
+  expected logits {-40,-28,-48,3,-7,83,35,-17,17,-7}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[9] = file_case_9
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-26,-58,-43,-15,10,-6,-62,40,29,71}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[9] = file_case_9
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[9] = file_case_9
+  actual logits   {-26,-58,-43,-15,10,-6,-62,40,29,71}
+  expected logits {-26,-58,-43,-15,10,-6,-62,40,29,71}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[10] = file_case_10
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {95,-20,27,-54,-54,-18,6,15,-20,-5}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[10] = file_case_10
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[10] = file_case_10
+  actual logits   {95,-20,27,-54,-54,-18,6,15,-20,-5}
+  expected logits {95,-20,27,-54,-54,-18,6,15,-20,-5}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[11] = file_case_11
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {41,-5,-6,-29,-37,11,87,-53,29,-38}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[11] = file_case_11
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[11] = file_case_11
+  actual logits   {41,-5,-6,-29,-37,11,87,-53,29,-38}
+  expected logits {41,-5,-6,-29,-37,11,87,-53,29,-38}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[12] = file_case_12
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-19,-71,-51,9,41,-8,-55,14,11,91}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[12] = file_case_12
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[12] = file_case_12
+  actual logits   {-19,-71,-51,9,41,-8,-55,14,11,91}
+  expected logits {-19,-71,-51,9,41,-8,-55,14,11,91}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[13] = file_case_13
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {77,-16,-14,-69,-15,-14,10,32,-30,9}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[13] = file_case_13
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[13] = file_case_13
+  actual logits   {77,-16,-14,-69,-15,-14,10,32,-30,9}
+  expected logits {77,-16,-14,-69,-15,-14,10,32,-30,9}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[14] = file_case_14
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-27,65,-7,-5,-7,-3,-17,-9,8,-18}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[14] = file_case_14
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[14] = file_case_14
+  actual logits   {-27,65,-7,-5,-7,-3,-17,-9,8,-18}
+  expected logits {-27,65,-7,-5,-7,-3,-17,-9,8,-18}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[15] = file_case_15
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-32,-17,-27,22,-35,90,-25,14,11,-15}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[15] = file_case_15
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[15] = file_case_15
+  actual logits   {-32,-17,-27,22,-35,90,-25,14,11,-15}
+  expected logits {-32,-17,-27,22,-35,90,-25,14,11,-15}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[16] = file_case_16
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-13,-66,-50,-12,21,-12,-49,35,10,86}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[16] = file_case_16
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[16] = file_case_16
+  actual logits   {-13,-66,-50,-12,21,-12,-49,35,10,86}
+  expected logits {-13,-66,-50,-12,21,-12,-49,35,10,86}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[17] = file_case_17
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {2,-49,22,27,-47,-22,-119,92,7,13}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[17] = file_case_17
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[17] = file_case_17
+  actual logits   {2,-49,22,27,-47,-22,-119,92,7,13}
+  expected logits {2,-49,22,27,-47,-22,-119,92,7,13}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[18] = file_case_18
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-25,-62,16,52,-27,49,-22,-55,60,14}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[18] = file_case_18
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[18] = file_case_18
+  actual logits   {-25,-62,16,52,-27,49,-22,-55,60,14}
+  expected logits {-25,-62,16,52,-27,49,-22,-55,60,14}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[19] = file_case_19
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-41,-4,-18,-31,88,-15,-26,30,-6,2}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[19] = file_case_19
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[19] = file_case_19
+  actual logits   {-41,-4,-18,-31,88,-15,-26,30,-6,2}
+  expected logits {-41,-4,-18,-31,88,-15,-26,30,-6,2}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[20] = file_case_20
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-27,-17,-43,7,32,-3,-97,51,-7,61}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[20] = file_case_20
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[20] = file_case_20
+  actual logits   {-27,-17,-43,7,32,-3,-97,51,-7,61}
+  expected logits {-27,-17,-43,7,32,-3,-97,51,-7,61}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[21] = file_case_21
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-7,-20,4,-22,-21,49,108,-62,22,-59}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[21] = file_case_21
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[21] = file_case_21
+  actual logits   {-7,-20,4,-22,-21,49,108,-62,22,-59}
+  expected logits {-7,-20,4,-22,-21,49,108,-62,22,-59}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[22] = file_case_22
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {15,13,-38,-58,7,6,99,-16,8,-46}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[22] = file_case_22
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[22] = file_case_22
+  actual logits   {15,13,-38,-58,7,6,99,-16,8,-46}
+  expected logits {15,13,-38,-58,7,6,99,-16,8,-46}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[23] = file_case_23
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-30,-50,-50,5,2,92,15,-7,-8,20}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[23] = file_case_23
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[23] = file_case_23
+  actual logits   {-30,-50,-50,5,2,92,15,-7,-8,20}
+  expected logits {-30,-50,-50,5,2,92,15,-7,-8,20}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[24] = file_case_24
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-12,-7,-14,-28,63,-22,12,8,-6,-4}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[24] = file_case_24
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[24] = file_case_24
+  actual logits   {-12,-7,-14,-28,63,-22,12,8,-6,-4}
+  expected logits {-12,-7,-14,-28,63,-22,12,8,-6,-4}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[25] = file_case_25
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {76,-22,9,-47,-11,-34,21,12,-11,-6}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[25] = file_case_25
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[25] = file_case_25
+  actual logits   {76,-22,9,-47,-11,-34,21,12,-11,-6}
+  expected logits {76,-22,9,-47,-11,-34,21,12,-11,-6}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[26] = file_case_26
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {6,-26,13,8,-29,-32,-84,71,-3,16}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[26] = file_case_26
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[26] = file_case_26
+  actual logits   {6,-26,13,8,-29,-32,-84,71,-3,16}
+  expected logits {6,-26,13,8,-29,-32,-84,71,-3,16}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[27] = file_case_27
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-17,-2,-32,-27,117,-33,-6,-2,-11,21}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[27] = file_case_27
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[27] = file_case_27
+  actual logits   {-17,-2,-32,-27,117,-33,-6,-2,-11,21}
+  expected logits {-17,-2,-32,-27,117,-33,-6,-2,-11,21}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[28] = file_case_28
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {82,-41,26,-29,-37,-26,-11,16,-10,1}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[28] = file_case_28
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[28] = file_case_28
+  actual logits   {82,-41,26,-29,-37,-26,-11,16,-10,1}
+  expected logits {82,-41,26,-29,-37,-26,-11,16,-10,1}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[29] = file_case_29
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-26,47,3,-13,4,-3,-13,-5,7,-17}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[29] = file_case_29
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[29] = file_case_29
+  actual logits   {-26,47,3,-13,4,-3,-13,-5,7,-17}
+  expected logits {-26,47,3,-13,4,-3,-13,-5,7,-17}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[30] = file_case_30
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-25,-50,-3,102,-38,14,-93,2,9,33}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[30] = file_case_30
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[30] = file_case_30
+  actual logits   {-25,-50,-3,102,-38,14,-93,2,9,33}
+  expected logits {-25,-50,-3,102,-38,14,-93,2,9,33}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[31] = file_case_31
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-24,49,-10,-13,6,-1,-21,6,4,-9}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[31] = file_case_31
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[31] = file_case_31
+  actual logits   {-24,49,-10,-13,6,-1,-21,6,4,-9}
+  expected logits {-24,49,-10,-13,6,-1,-21,6,4,-9}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[32] = file_case_32
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-49,-17,4,104,-27,33,-48,-41,35,1}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[32] = file_case_32
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[32] = file_case_32
+  actual logits   {-49,-17,4,104,-27,33,-48,-41,35,1}
+  expected logits {-49,-17,4,104,-27,33,-48,-41,35,1}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[33] = file_case_33
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {40,4,5,-70,65,-5,18,17,-35,-11}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[33] = file_case_33
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[33] = file_case_33
+  actual logits   {40,4,5,-70,65,-5,18,17,-35,-11}
+  expected logits {40,4,5,-70,65,-5,18,17,-35,-11}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[34] = file_case_34
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-25,-12,19,19,-56,-35,-110,91,3,19}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[34] = file_case_34
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[34] = file_case_34
+  actual logits   {-25,-12,19,19,-56,-35,-110,91,3,19}
+  expected logits {-25,-12,19,19,-56,-35,-110,91,3,19}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[35] = file_case_35
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {3,39,96,5,-36,-65,-38,-10,23,-38}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[35] = file_case_35
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[35] = file_case_35
+  actual logits   {3,39,96,5,-36,-65,-38,-10,23,-38}
+  expected logits {3,39,96,5,-36,-65,-38,-10,23,-38}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[36] = file_case_36
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {11,-31,51,15,-66,-38,-91,70,26,-11}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[36] = file_case_36
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[36] = file_case_36
+  actual logits   {11,-31,51,15,-66,-38,-91,70,26,-11}
+  expected logits {11,-31,51,15,-66,-38,-91,70,26,-11}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[37] = file_case_37
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-19,51,-14,-28,8,2,-20,3,2,-2}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[37] = file_case_37
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[37] = file_case_37
+  actual logits   {-19,51,-14,-28,8,2,-20,3,2,-2}
+  expected logits {-19,51,-14,-28,8,2,-20,3,2,-2}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[38] = file_case_38
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {26,-11,80,20,-78,-40,-9,-8,32,-53}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[38] = file_case_38
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[38] = file_case_38
+  actual logits   {26,-11,80,20,-78,-40,-9,-8,32,-53}
+  expected logits {26,-11,80,20,-78,-40,-9,-8,32,-53}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[39] = file_case_39
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-5,58,5,-27,-2,-26,-6,-19,19,-14}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[39] = file_case_39
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[39] = file_case_39
+  actual logits   {-5,58,5,-27,-2,-26,-6,-19,19,-14}
+  expected logits {-5,58,5,-27,-2,-26,-6,-19,19,-14}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[40] = file_case_40
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-12,41,-3,-19,-2,-8,-11,6,-1,-11}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[40] = file_case_40
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[40] = file_case_40
+  actual logits   {-12,41,-3,-19,-2,-8,-11,6,-1,-11}
+  expected logits {-12,41,-3,-19,-2,-8,-11,6,-1,-11}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[41] = file_case_41
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-9,1,51,23,-28,-43,-102,66,4,-9}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[41] = file_case_41
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[41] = file_case_41
+  actual logits   {-9,1,51,23,-28,-43,-102,66,4,-9}
+  expected logits {-9,1,51,23,-28,-43,-102,66,4,-9}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[42] = file_case_42
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-23,16,-75,-65,95,-7,2,15,-8,33}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[42] = file_case_42
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[42] = file_case_42
+  actual logits   {-23,16,-75,-65,95,-7,2,15,-8,33}
+  expected logits {-23,16,-75,-65,95,-7,2,15,-8,33}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[43] = file_case_43
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-39,3,69,11,-3,3,-13,11,1,-74}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[43] = file_case_43
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[43] = file_case_43
+  actual logits   {-39,3,69,11,-3,3,-13,11,1,-74}
+  expected logits {-39,3,69,11,-3,3,-13,11,1,-74}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[44] = file_case_44
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-36,-44,16,70,-22,22,-38,-12,10,5}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[44] = file_case_44
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[44] = file_case_44
+  actual logits   {-36,-44,16,70,-22,22,-38,-12,10,5}
+  expected logits {-36,-44,16,70,-22,22,-38,-12,10,5}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[45] = file_case_45
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-13,-35,-29,-5,-42,75,19,-6,25,-5}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[45] = file_case_45
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[45] = file_case_45
+  actual logits   {-13,-35,-29,-5,-42,75,19,-6,25,-5}
+  expected logits {-13,-35,-29,-5,-42,75,19,-6,25,-5}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[46] = file_case_46
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-35,52,-1,12,-3,1,-18,-15,23,-21}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[46] = file_case_46
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[46] = file_case_46
+  actual logits   {-35,52,-1,12,-3,1,-18,-15,23,-21}
+  expected logits {-35,52,-1,12,-3,1,-18,-15,23,-21}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[47] = file_case_47
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-28,6,90,-6,7,-41,-35,-9,1,-19}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[47] = file_case_47
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[47] = file_case_47
+  actual logits   {-28,6,90,-6,7,-41,-35,-9,1,-19}
+  expected logits {-28,6,90,-6,7,-41,-35,-9,1,-19}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[48] = file_case_48
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-22,-16,-54,-31,88,-5,-29,21,-11,46}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[48] = file_case_48
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[48] = file_case_48
+  actual logits   {-22,-16,-54,-31,88,-5,-29,21,-11,46}
+  expected logits {-22,-16,-54,-31,88,-5,-29,21,-11,46}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[49] = file_case_49
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-2,-17,-54,-52,96,-24,22,7,1,19}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[49] = file_case_49
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[49] = file_case_49
+  actual logits   {-2,-17,-54,-52,96,-24,22,7,1,19}
+  expected logits {-2,-17,-54,-52,96,-24,22,7,1,19}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[50] = file_case_50
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {13,-20,3,-8,-26,35,86,-56,20,-49}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[50] = file_case_50
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[50] = file_case_50
+  actual logits   {13,-20,3,-8,-26,35,86,-56,20,-49}
+  expected logits {13,-20,3,-8,-26,35,86,-56,20,-49}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[51] = file_case_51
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-18,-42,11,118,-45,12,-89,-10,26,1}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[51] = file_case_51
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[51] = file_case_51
+  actual logits   {-18,-42,11,118,-45,12,-89,-10,26,1}
+  expected logits {-18,-42,11,118,-45,12,-89,-10,26,1}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[52] = file_case_52
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-42,-53,-46,28,-5,109,2,-18,22,18}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[52] = file_case_52
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[52] = file_case_52
+  actual logits   {-42,-53,-46,28,-5,109,2,-18,22,18}
+  expected logits {-42,-53,-46,28,-5,109,2,-18,22,18}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[53] = file_case_53
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-39,-47,-36,26,-31,85,-16,3,25,10}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[53] = file_case_53
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[53] = file_case_53
+  actual logits   {-39,-47,-36,26,-31,85,-16,3,25,10}
+  expected logits {-39,-47,-36,26,-31,85,-16,3,25,10}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[54] = file_case_54
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {17,18,-32,-62,4,36,112,-49,16,-55}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[54] = file_case_54
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[54] = file_case_54
+  actual logits   {17,18,-32,-62,4,36,112,-49,16,-55}
+  expected logits {17,18,-32,-62,4,36,112,-49,16,-55}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[55] = file_case_55
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {79,-9,10,-71,-17,-20,23,13,-5,-9}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[55] = file_case_55
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[55] = file_case_55
+  actual logits   {79,-9,10,-71,-17,-20,23,13,-5,-9}
+  expected logits {79,-9,10,-71,-17,-20,23,13,-5,-9}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[56] = file_case_56
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {0,-1,-46,-63,127,-22,12,12,-15,8}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[56] = file_case_56
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[56] = file_case_56
+  actual logits   {0,-1,-46,-63,127,-22,12,12,-15,8}
+  expected logits {0,-1,-46,-63,127,-22,12,12,-15,8}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[57] = file_case_57
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-16,62,5,-29,15,-38,-20,5,8,-11}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[57] = file_case_57
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[57] = file_case_57
+  actual logits   {-16,62,5,-29,15,-38,-20,5,8,-11}
+  expected logits {-16,62,5,-29,15,-38,-20,5,8,-11}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[58] = file_case_58
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-14,-80,-48,8,30,-2,-58,31,1,93}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[58] = file_case_58
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[58] = file_case_58
+  actual logits   {-14,-80,-48,8,30,-2,-58,31,1,93}
+  expected logits {-14,-80,-48,8,30,-2,-58,31,1,93}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[59] = file_case_59
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-38,-21,-74,7,6,71,-22,22,10,32}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[59] = file_case_59
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[59] = file_case_59
+  actual logits   {-38,-21,-74,7,6,71,-22,22,10,32}
+  expected logits {-38,-21,-74,7,6,71,-22,22,10,32}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[60] = file_case_60
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-15,-47,-16,37,-38,9,-114,77,18,27}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[60] = file_case_60
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[60] = file_case_60
+  actual logits   {-15,-47,-16,37,-38,9,-114,77,18,27}
+  expected logits {-15,-47,-16,37,-38,9,-114,77,18,27}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[61] = file_case_61
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-26,-53,42,25,-37,8,-12,-72,98,1}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[61] = file_case_61
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[61] = file_case_61
+  actual logits   {-26,-53,42,25,-37,8,-12,-72,98,1}
+  expected logits {-26,-53,42,25,-37,8,-12,-72,98,1}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[62] = file_case_62
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-24,-29,-34,-22,-14,41,-31,23,0,48}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[62] = file_case_62
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[62] = file_case_62
+  actual logits   {-24,-29,-34,-22,-14,41,-31,23,0,48}
+  expected logits {-24,-29,-34,-22,-14,41,-31,23,0,48}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[63] = file_case_63
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-46,-30,24,92,-24,-4,-90,-13,18,25}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[63] = file_case_63
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[63] = file_case_63
+  actual logits   {-46,-30,24,92,-24,-4,-90,-13,18,25}
+  expected logits {-46,-30,24,92,-24,-4,-90,-13,18,25}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[64] = file_case_64
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-36,-18,31,10,-19,1,-104,107,-8,-31}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[64] = file_case_64
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[64] = file_case_64
+  actual logits   {-36,-18,31,10,-19,1,-104,107,-8,-31}
+  expected logits {-36,-18,31,10,-19,1,-104,107,-8,-31}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[65] = file_case_65
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-22,-2,-29,-2,47,2,-47,5,-6,43}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[65] = file_case_65
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[65] = file_case_65
+  actual logits   {-22,-2,-29,-2,47,2,-47,5,-6,43}
+  expected logits {-22,-2,-29,-2,47,2,-47,5,-6,43}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[66] = file_case_66
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {26,11,-26,-43,-14,4,88,-34,18,-38}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[66] = file_case_66
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[66] = file_case_66
+  actual logits   {26,11,-26,-43,-14,4,88,-34,18,-38}
+  expected logits {26,11,-26,-43,-14,4,88,-34,18,-38}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[67] = file_case_67
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-18,-10,-30,-17,88,-14,-18,6,-8,25}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[67] = file_case_67
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[67] = file_case_67
+  actual logits   {-18,-10,-30,-17,88,-14,-18,6,-8,25}
+  expected logits {-18,-10,-30,-17,88,-14,-18,6,-8,25}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[68] = file_case_68
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-37,-18,11,105,-57,2,-88,3,23,5}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[68] = file_case_68
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[68] = file_case_68
+  actual logits   {-37,-18,11,105,-57,2,-88,3,23,5}
+  expected logits {-37,-18,11,105,-57,2,-88,3,23,5}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[69] = file_case_69
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {84,-29,34,-32,-53,11,8,-11,-16,8}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[69] = file_case_69
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[69] = file_case_69
+  actual logits   {84,-29,34,-32,-53,11,8,-11,-16,8}
+  expected logits {84,-29,34,-32,-53,11,8,-11,-16,8}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[70] = file_case_70
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {8,-53,21,34,-52,-22,-116,82,5,17}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[70] = file_case_70
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[70] = file_case_70
+  actual logits   {8,-53,21,34,-52,-22,-116,82,5,17}
+  expected logits {8,-53,21,34,-52,-22,-116,82,5,17}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[71] = file_case_71
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {108,-20,27,-72,-34,-30,10,20,-38,6}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[71] = file_case_71
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[71] = file_case_71
+  actual logits   {108,-20,27,-72,-34,-30,10,20,-38,6}
+  expected logits {108,-20,27,-72,-34,-30,10,20,-38,6}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[72] = file_case_72
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {32,-15,87,16,-47,-64,-66,20,4,-1}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[72] = file_case_72
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[72] = file_case_72
+  actual logits   {32,-15,87,16,-47,-64,-66,20,4,-1}
+  expected logits {32,-15,87,16,-47,-64,-66,20,4,-1}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[73] = file_case_73
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-23,-46,10,6,-13,-19,-80,12,42,63}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[73] = file_case_73
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[73] = file_case_73
+  actual logits   {-23,-46,10,6,-13,-19,-80,12,42,63}
+  expected logits {-23,-46,10,6,-13,-19,-80,12,42,63}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[74] = file_case_74
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-17,56,-13,-34,9,-4,-9,-5,6,-9}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[74] = file_case_74
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[74] = file_case_74
+  actual logits   {-17,56,-13,-34,9,-4,-9,-5,6,-9}
+  expected logits {-17,56,-13,-34,9,-4,-9,-5,6,-9}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[75] = file_case_75
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-43,8,-10,30,9,-12,-120,94,-21,7}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[75] = file_case_75
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[75] = file_case_75
+  actual logits   {-43,8,-10,30,9,-12,-120,94,-21,7}
+  expected logits {-43,8,-10,30,9,-12,-120,94,-21,7}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[76] = file_case_76
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-44,-21,0,98,-35,23,-50,-39,37,12}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[76] = file_case_76
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[76] = file_case_76
+  actual logits   {-44,-21,0,98,-35,23,-50,-39,37,12}
+  expected logits {-44,-21,0,98,-35,23,-50,-39,37,12}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[77] = file_case_77
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {27,10,82,-4,-30,-47,-51,17,-10,-8}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[77] = file_case_77
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[77] = file_case_77
+  actual logits   {27,10,82,-4,-30,-47,-51,17,-10,-8}
+  expected logits {27,10,82,-4,-30,-47,-51,17,-10,-8}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[78] = file_case_78
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-20,-27,-11,2,19,-30,-53,-4,31,52}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[78] = file_case_78
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[78] = file_case_78
+  actual logits   {-20,-27,-11,2,19,-30,-53,-4,31,52}
+  expected logits {-20,-27,-11,2,19,-30,-53,-4,31,52}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[79] = file_case_79
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {14,-26,32,9,-28,-38,-91,69,-9,11}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[79] = file_case_79
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[79] = file_case_79
+  actual logits   {14,-26,32,9,-28,-38,-91,69,-9,11}
+  expected logits {14,-26,32,9,-28,-38,-91,69,-9,11}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[80] = file_case_80
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-10,-16,-47,-41,26,21,-54,73,-24,43}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[80] = file_case_80
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[80] = file_case_80
+  actual logits   {-10,-16,-47,-41,26,21,-54,73,-24,43}
+  expected logits {-10,-16,-47,-41,26,21,-54,73,-24,43}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[81] = file_case_81
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {3,-11,-5,-16,-30,41,88,-42,15,-54}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[81] = file_case_81
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[81] = file_case_81
+  actual logits   {3,-11,-5,-16,-30,41,88,-42,15,-54}
+  expected logits {3,-11,-5,-16,-30,41,88,-42,15,-54}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[82] = file_case_82
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-32,13,117,7,-18,-65,-34,7,-6,-36}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[82] = file_case_82
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[82] = file_case_82
+  actual logits   {-32,13,117,7,-18,-65,-34,7,-6,-36}
+  expected logits {-32,13,117,7,-18,-65,-34,7,-6,-36}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[83] = file_case_83
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-16,-21,-31,-21,-3,-4,-71,90,-3,23}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[83] = file_case_83
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[83] = file_case_83
+  actual logits   {-16,-21,-31,-21,-3,-4,-71,90,-3,23}
+  expected logits {-16,-21,-31,-21,-3,-4,-71,90,-3,23}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[84] = file_case_84
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-36,-26,-43,21,4,38,15,-53,93,2}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[84] = file_case_84
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[84] = file_case_84
+  actual logits   {-36,-26,-43,21,4,38,15,-53,93,2}
+  expected logits {-36,-26,-43,21,4,38,15,-53,93,2}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[85] = file_case_85
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-20,1,-76,-35,95,9,-18,32,-24,30}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[85] = file_case_85
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[85] = file_case_85
+  actual logits   {-20,1,-76,-35,95,9,-18,32,-24,30}
+  expected logits {-20,1,-76,-35,95,9,-18,32,-24,30}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[86] = file_case_86
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-20,-17,11,16,-43,-21,-102,75,21,23}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[86] = file_case_86
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[86] = file_case_86
+  actual logits   {-20,-17,11,16,-43,-21,-102,75,21,23}
+  expected logits {-20,-17,11,16,-43,-21,-102,75,21,23}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[87] = file_case_87
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-39,-27,26,80,1,14,-78,11,10,-13}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[87] = file_case_87
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[87] = file_case_87
+  actual logits   {-39,-27,26,80,1,14,-78,11,10,-13}
+  expected logits {-39,-27,26,80,1,14,-78,11,10,-13}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[88] = file_case_88
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {4,-4,-4,-53,-15,15,103,-25,22,-67}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[88] = file_case_88
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[88] = file_case_88
+  actual logits   {4,-4,-4,-53,-15,15,103,-25,22,-67}
+  expected logits {4,-4,-4,-53,-15,15,103,-25,22,-67}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[89] = file_case_89
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-26,42,-4,-11,7,-14,2,-10,8,-20}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[89] = file_case_89
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[89] = file_case_89
+  actual logits   {-26,42,-4,-11,7,-14,2,-10,8,-20}
+  expected logits {-26,42,-4,-11,7,-14,2,-10,8,-20}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[90] = file_case_90
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-21,-47,-15,85,-60,30,-72,-10,38,32}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[90] = file_case_90
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[90] = file_case_90
+  actual logits   {-21,-47,-15,85,-60,30,-72,-10,38,32}
+  expected logits {-21,-47,-15,85,-60,30,-72,-10,38,32}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[91] = file_case_91
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-11,-27,7,-8,-31,37,111,-67,33,-62}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[91] = file_case_91
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[91] = file_case_91
+  actual logits   {-11,-27,7,-8,-31,37,111,-67,33,-62}
+  expected logits {-11,-27,7,-8,-31,37,111,-67,33,-62}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[92] = file_case_92
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-27,-12,-25,6,33,-25,-57,23,3,42}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[92] = file_case_92
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[92] = file_case_92
+  actual logits   {-27,-12,-25,6,33,-25,-57,23,3,42}
+  expected logits {-27,-12,-25,6,33,-25,-57,23,3,42}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[93] = file_case_93
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-21,-14,-8,92,-15,9,-113,-1,14,46}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[93] = file_case_93
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[93] = file_case_93
+  actual logits   {-21,-14,-8,92,-15,9,-113,-1,14,46}
+  expected logits {-21,-14,-8,92,-15,9,-113,-1,14,46}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[94] = file_case_94
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-13,74,5,-31,9,-4,16,-33,20,-39}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[94] = file_case_94
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[94] = file_case_94
+  actual logits   {-13,74,5,-31,9,-4,16,-33,20,-39}
+  expected logits {-13,74,5,-31,9,-4,16,-33,20,-39}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[95] = file_case_95
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-9,-16,-56,-37,63,-24,20,-19,24,29}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[95] = file_case_95
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[95] = file_case_95
+  actual logits   {-9,-16,-56,-37,63,-24,20,-19,24,29}
+  expected logits {-9,-16,-56,-37,63,-24,20,-19,24,29}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[96] = file_case_96
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-30,36,-10,3,10,0,-33,0,17,3}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[96] = file_case_96
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[96] = file_case_96
+  actual logits   {-30,36,-10,3,10,0,-33,0,17,3}
+  expected logits {-30,36,-10,3,10,0,-33,0,17,3}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[97] = file_case_97
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-28,-11,19,19,-36,-24,-71,75,1,-26}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[97] = file_case_97
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[97] = file_case_97
+  actual logits   {-28,-11,19,19,-36,-24,-71,75,1,-26}
+  expected logits {-28,-11,19,19,-36,-24,-71,75,1,-26}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[98] = file_case_98
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {19,-6,17,-44,-20,49,86,-62,27,-44}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[98] = file_case_98
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[98] = file_case_98
+  actual logits   {19,-6,17,-44,-20,49,86,-62,27,-44}
+  expected logits {19,-6,17,-44,-20,49,86,-62,27,-44}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[99] = file_case_99
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-10,-72,-47,7,16,-6,-46,20,7,90}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[99] = file_case_99
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=136104 layer_state=0 pool_state=0
+  stage=3 cycle=155037 layer_state=0 pool_state=0
+  stage=4 cycle=349186 layer_state=0 pool_state=0
+  stage=5 cycle=352691 layer_state=0 pool_state=0
+  stage=6 cycle=384815 layer_state=0 pool_state=0
+  stage=0 cycle=386174 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=386174 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[99] = file_case_99
+  actual logits   {-10,-72,-47,7,16,-6,-46,20,7,90}
+  expected logits {-10,-72,-47,7,16,-6,-46,20,7,90}
+  mismatches: 0
+test_tpu_top_end_to_end: checks=1300 pass=1300 fail=0
+$finish called at time : 387766 us : File "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_sa_NxN/test_tpu_top_end_to_end.sv" Line 454
+run: Time (s): cpu = 00:00:00.3 ; elapsed = 00:01:34 . Memory (MB): peak = 1450.883 ; gain = 0.000 ; free physical = 1318 ; free virtual = 32527
+exit
+INFO: xsimkernel Simulation Memory Usage: 300080 KB (Peak: 344540 KB), Simulation CPU Usage: 94440 ms
+INFO: [Common 17-206] Exiting xsim at Fri May 22 00:57:02 2026...
