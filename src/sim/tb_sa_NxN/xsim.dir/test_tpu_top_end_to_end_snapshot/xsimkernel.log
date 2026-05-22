@@ -1,7 +1,0 @@
-Running: xsim.dir/test_tpu_top_end_to_end_snapshot/xsimk -runall -simmode gui -testplusarg E2E_FILE_CASES -testplusarg E2E_CASES=256 -testplusarg E2E_INPUT_HEX=../../../CNN_model/python/mnist_classification/18_05/e2e_cases/tpu_top_e2e_inputs_i8.hex -testplusarg E2E_LOGITS_HEX=../../../CNN_model/python/mnist_classification/18_05/e2e_cases/tpu_top_e2e_logits_i8.hex -wdb test_tpu_top_end_to_end_snapshot.wdb -simrunnum 0 -socket 52939
-Design successfully loaded
-Design Loading Memory Usage: 205276 KB (Peak: 205284 KB)
-Design Loading CPU Usage: 650 ms
-Simulation completed
-Simulation Memory Usage: 300084 KB (Peak: 344544 KB)
-Simulation CPU Usage: 238530 ms

@@ -1,1 +1,0 @@
-xsim {test_tpu_top_end_to_end_snapshot} -testplusarg E2E_FILE_CASES -testplusarg E2E_CASES=256 -testplusarg E2E_INPUT_HEX=../../../CNN_model/python/mnist_classification/18_05/e2e_cases/tpu_top_e2e_inputs_i8.hex -testplusarg E2E_LOGITS_HEX=../../../CNN_model/python/mnist_classification/18_05/e2e_cases/tpu_top_e2e_logits_i8.hex -autoloadwcfg -runall

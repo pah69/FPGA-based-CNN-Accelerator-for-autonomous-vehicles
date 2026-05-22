@@ -1,0 +1,571 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
+| Date         : Fri May 22 23:35:07 2026
+| Host         : pah-PC running 64-bit Ubuntu 24.04.4 LTS
+| Command      : report_drc -file design_1_wrapper_drc_opted.rpt -pb design_1_wrapper_drc_opted.pb -rpx design_1_wrapper_drc_opted.rpx
+| Design       : design_1_wrapper
+| Device       : xc7z010clg400-1
+| Speed File   : -1
+| Design State : Synthesized
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Report DRC
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: design_1
+      Design limits: <entire design considered>
+           Ruledeck: default
+             Max checks: <unlimited>
+             Checks found: 106
++-----------+----------+----------------------------+--------+
+| Rule      | Severity | Description                | Checks |
++-----------+----------+----------------------------+--------+
+| CHECK-3   | Warning  | Report rule limit reached  | 1      |
+| DPIP-1    | Warning  | Input pipelining           | 40     |
+| DPOP-1    | Warning  | PREG Output pipelining     | 18     |
+| DPOP-2    | Warning  | MREG Output pipelining     | 14     |
+| DPOR-1    | Warning  | Asynchronous load check    | 13     |
+| REQP-1839 | Warning  | RAMB36 async control check | 20     |
++-----------+----------+----------------------------+--------+
+
+2. REPORT DETAILS
+-----------------
+CHECK-3#1 Warning
+Report rule limit reached  
+REQP-1839 rule limit reached: 20 violations have been found.
+Related violations: <none>
+
+DPIP-1#1 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#2 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#3 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#4 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#5 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#6 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#7 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__2 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__2/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#8 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__3 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__3/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#9 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__3 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__3/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#10 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__4 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__4/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#11 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__4 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__4/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#12 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__5 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__5/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#13 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__5 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__5/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#14 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__6 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__6/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#15 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/output_addr0_w input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/output_addr0_w/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#16 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/output_addr0_w1 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/output_addr0_w1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#17 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/output_addr0_w1 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/output_addr0_w1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#18 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/output_addr1_w input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/output_addr1_w/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#19 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/output_addr1_w1 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/output_addr1_w1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#20 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/output_addr1_w1 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/output_addr1_w1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#21 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/in_channel_stride_w input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/in_channel_stride_w/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#22 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/in_channel_stride_w input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/in_channel_stride_w/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#23 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/out_channel_stride_w input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/out_channel_stride_w/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#24 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/out_channel_stride_w input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/out_channel_stride_w/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#25 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#26 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w1 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#27 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w1 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#28 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w2 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w2/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#29 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w2 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w2/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#30 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w2__0 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w2__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#31 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w2__0 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w2__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#32 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w__0 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#33 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w__0 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w__0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#34 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/write_addr_w input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/write_addr_w/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#35 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/write_addr_w1 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/write_addr_w1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#36 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/write_addr_w1 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/write_addr_w1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#37 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/write_addr_w2 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/write_addr_w2/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#38 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/write_addr_w2 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/write_addr_w2/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#39 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/write_addr_w2__0 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/write_addr_w2__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#40 Warning
+Input pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/write_addr_w2__0 input design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/write_addr_w2__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPOP-1#1 Warning
+PREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0 output design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#2 Warning
+PREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0 output design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#3 Warning
+PREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1 output design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#4 Warning
+PREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__2 output design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__2/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#5 Warning
+PREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__3 output design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__3/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#6 Warning
+PREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__4 output design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__4/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#7 Warning
+PREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__5 output design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__5/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#8 Warning
+PREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__6 output design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__6/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#9 Warning
+PREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/output_addr0_w output design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/output_addr0_w/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#10 Warning
+PREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/output_addr1_w output design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/output_addr1_w/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#11 Warning
+PREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/in_channel_stride_w output design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/in_channel_stride_w/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#12 Warning
+PREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/out_channel_stride_w output design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/out_channel_stride_w/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#13 Warning
+PREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w2 output design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w2/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#14 Warning
+PREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w2__0 output design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w2__0/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#15 Warning
+PREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w__0/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#16 Warning
+PREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/write_addr_w output design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/write_addr_w/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#17 Warning
+PREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/write_addr_w2 output design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/write_addr_w2/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#18 Warning
+PREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/write_addr_w2__0 output design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/write_addr_w2__0/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-2#1 Warning
+MREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0 multiplier stage design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#2 Warning
+MREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0 multiplier stage design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#3 Warning
+MREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1 multiplier stage design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#4 Warning
+MREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__2 multiplier stage design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__2/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#5 Warning
+MREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__3 multiplier stage design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__3/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#6 Warning
+MREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__4 multiplier stage design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__4/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#7 Warning
+MREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__5 multiplier stage design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__5/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#8 Warning
+MREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__6 multiplier stage design_1_i/tpu_zybo_0/inst/u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__6/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#9 Warning
+MREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/in_channel_stride_w multiplier stage design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/in_channel_stride_w/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#10 Warning
+MREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/out_channel_stride_w multiplier stage design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/out_channel_stride_w/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#11 Warning
+MREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w2 multiplier stage design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w2/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#12 Warning
+MREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w2__0 multiplier stage design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w2__0/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#13 Warning
+MREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/write_addr_w2 multiplier stage design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/write_addr_w2/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#14 Warning
+MREG Output pipelining  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/write_addr_w2__0 multiplier stage design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/write_addr_w2__0/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOR-1#1 Warning
+Asynchronous load check  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output is connected to registers with an asynchronous reset (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/ub_rd_addr_o_reg[0]). This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
+Related violations: <none>
+
+DPOR-1#2 Warning
+Asynchronous load check  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output is connected to registers with an asynchronous reset (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/ub_rd_addr_o_reg[10]). This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
+Related violations: <none>
+
+DPOR-1#3 Warning
+Asynchronous load check  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output is connected to registers with an asynchronous reset (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/ub_rd_addr_o_reg[11]). This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
+Related violations: <none>
+
+DPOR-1#4 Warning
+Asynchronous load check  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output is connected to registers with an asynchronous reset (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/ub_rd_addr_o_reg[12]). This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
+Related violations: <none>
+
+DPOR-1#5 Warning
+Asynchronous load check  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output is connected to registers with an asynchronous reset (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/ub_rd_addr_o_reg[1]). This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
+Related violations: <none>
+
+DPOR-1#6 Warning
+Asynchronous load check  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output is connected to registers with an asynchronous reset (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/ub_rd_addr_o_reg[2]). This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
+Related violations: <none>
+
+DPOR-1#7 Warning
+Asynchronous load check  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output is connected to registers with an asynchronous reset (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/ub_rd_addr_o_reg[3]). This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
+Related violations: <none>
+
+DPOR-1#8 Warning
+Asynchronous load check  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output is connected to registers with an asynchronous reset (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/ub_rd_addr_o_reg[4]). This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
+Related violations: <none>
+
+DPOR-1#9 Warning
+Asynchronous load check  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output is connected to registers with an asynchronous reset (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/ub_rd_addr_o_reg[5]). This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
+Related violations: <none>
+
+DPOR-1#10 Warning
+Asynchronous load check  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output is connected to registers with an asynchronous reset (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/ub_rd_addr_o_reg[6]). This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
+Related violations: <none>
+
+DPOR-1#11 Warning
+Asynchronous load check  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output is connected to registers with an asynchronous reset (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/ub_rd_addr_o_reg[7]). This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
+Related violations: <none>
+
+DPOR-1#12 Warning
+Asynchronous load check  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output is connected to registers with an asynchronous reset (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/ub_rd_addr_o_reg[8]). This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
+Related violations: <none>
+
+DPOR-1#13 Warning
+Asynchronous load check  
+DSP design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output is connected to registers with an asynchronous reset (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_maxpool2d_unit/ub_rd_addr_o_reg[9]). This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
+Related violations: <none>
+
+REQP-1839#1 Warning
+RAMB36 async control check  
+The RAMB36E1 design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0 has an input control pin design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0/ADDRARDADDR[14] (net: design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/weight_addr_flatten_w[11]) which is driven by a register (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/k_tile_q_reg[0]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#2 Warning
+RAMB36 async control check  
+The RAMB36E1 design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0 has an input control pin design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0/ADDRARDADDR[14] (net: design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/weight_addr_flatten_w[11]) which is driven by a register (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/k_tile_q_reg[10]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#3 Warning
+RAMB36 async control check  
+The RAMB36E1 design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0 has an input control pin design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0/ADDRARDADDR[14] (net: design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/weight_addr_flatten_w[11]) which is driven by a register (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/k_tile_q_reg[11]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#4 Warning
+RAMB36 async control check  
+The RAMB36E1 design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0 has an input control pin design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0/ADDRARDADDR[14] (net: design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/weight_addr_flatten_w[11]) which is driven by a register (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/k_tile_q_reg[12]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#5 Warning
+RAMB36 async control check  
+The RAMB36E1 design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0 has an input control pin design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0/ADDRARDADDR[14] (net: design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/weight_addr_flatten_w[11]) which is driven by a register (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/k_tile_q_reg[13]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#6 Warning
+RAMB36 async control check  
+The RAMB36E1 design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0 has an input control pin design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0/ADDRARDADDR[14] (net: design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/weight_addr_flatten_w[11]) which is driven by a register (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/k_tile_q_reg[14]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#7 Warning
+RAMB36 async control check  
+The RAMB36E1 design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0 has an input control pin design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0/ADDRARDADDR[14] (net: design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/weight_addr_flatten_w[11]) which is driven by a register (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/k_tile_q_reg[15]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#8 Warning
+RAMB36 async control check  
+The RAMB36E1 design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0 has an input control pin design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0/ADDRARDADDR[14] (net: design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/weight_addr_flatten_w[11]) which is driven by a register (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/k_tile_q_reg[1]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#9 Warning
+RAMB36 async control check  
+The RAMB36E1 design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0 has an input control pin design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0/ADDRARDADDR[14] (net: design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/weight_addr_flatten_w[11]) which is driven by a register (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/k_tile_q_reg[2]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#10 Warning
+RAMB36 async control check  
+The RAMB36E1 design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0 has an input control pin design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0/ADDRARDADDR[14] (net: design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/weight_addr_flatten_w[11]) which is driven by a register (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/k_tile_q_reg[3]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#11 Warning
+RAMB36 async control check  
+The RAMB36E1 design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0 has an input control pin design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0/ADDRARDADDR[14] (net: design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/weight_addr_flatten_w[11]) which is driven by a register (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/k_tile_q_reg[4]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#12 Warning
+RAMB36 async control check  
+The RAMB36E1 design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0 has an input control pin design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0/ADDRARDADDR[14] (net: design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/weight_addr_flatten_w[11]) which is driven by a register (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/k_tile_q_reg[5]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#13 Warning
+RAMB36 async control check  
+The RAMB36E1 design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0 has an input control pin design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0/ADDRARDADDR[14] (net: design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/weight_addr_flatten_w[11]) which is driven by a register (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/k_tile_q_reg[6]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#14 Warning
+RAMB36 async control check  
+The RAMB36E1 design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0 has an input control pin design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0/ADDRARDADDR[14] (net: design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/weight_addr_flatten_w[11]) which is driven by a register (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/k_tile_q_reg[7]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#15 Warning
+RAMB36 async control check  
+The RAMB36E1 design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0 has an input control pin design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0/ADDRARDADDR[14] (net: design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/weight_addr_flatten_w[11]) which is driven by a register (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/k_tile_q_reg[8]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#16 Warning
+RAMB36 async control check  
+The RAMB36E1 design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0 has an input control pin design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0/ADDRARDADDR[14] (net: design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/weight_addr_flatten_w[11]) which is driven by a register (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/k_tile_q_reg[9]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#17 Warning
+RAMB36 async control check  
+The RAMB36E1 design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0 has an input control pin design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0/ADDRARDADDR[14] (net: design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/weight_addr_flatten_w[11]) which is driven by a register (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/layer_idx_q_reg[0]_rep__0) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#18 Warning
+RAMB36 async control check  
+The RAMB36E1 design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0 has an input control pin design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0/ADDRARDADDR[14] (net: design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/weight_addr_flatten_w[11]) which is driven by a register (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/layer_idx_q_reg[0]_rep__1) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#19 Warning
+RAMB36 async control check  
+The RAMB36E1 design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0 has an input control pin design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0/ADDRARDADDR[14] (net: design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/weight_addr_flatten_w[11]) which is driven by a register (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/layer_idx_q_reg[1]_rep) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#20 Warning
+RAMB36 async control check  
+The RAMB36E1 design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0 has an input control pin design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0/ADDRARDADDR[14] (net: design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/weight_addr_flatten_w[11]) which is driven by a register (design_1_i/tpu_zybo_0/inst/u_tpu_top/u_layer_controller/u_tile_controller/layer_idx_q_reg[1]_rep__0) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+

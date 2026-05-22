@@ -1,0 +1,61 @@
+sv xil_defaultlib -i "../../../../../../../../../tools/Xilinx_20252/2025.2/data/rsb/busdef" --include "/home/pah/tools/Xilinx_20252/2025.2/data/xilinx_vip/include" --include "../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/ec67/hdl" --include "../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/9a25/hdl" --include "../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/f0b6/hdl/verilog" --include "../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/00fe/hdl/verilog" \
+"../../../bd/design_1/ipshared/38af/src/accumulator_array_v2.sv" \
+"../../../bd/design_1/ipshared/38af/src/act_skew_buffer.sv" \
+"../../../bd/design_1/ipshared/38af/src/activation_array_v2.sv" \
+"../../../bd/design_1/ipshared/38af/src/bias_requantize_v2.sv" \
+"../../../bd/design_1/ipshared/38af/src/bias_rom.sv" \
+"../../../bd/design_1/ipshared/38af/src/conv_fc_address_generator.sv" \
+"../../../bd/design_1/ipshared/38af/src/fifo.sv" \
+"../../../bd/design_1/ipshared/38af/src/layer_descriptor_pkg.sv" \
+"../../../bd/design_1/ipshared/38af/src/layer_descriptor_rom.sv" \
+"../../../bd/design_1/ipshared/38af/src/maxpool2d_unit.sv" \
+"../../../bd/design_1/ipshared/38af/src/multiplier.sv" \
+"../../../bd/design_1/ipshared/38af/src/mxu_2x2.sv" \
+"../../../bd/design_1/ipshared/38af/src/normalizer_v2.sv" \
+"../../../bd/design_1/ipshared/38af/src/pe.sv" \
+"../../../bd/design_1/ipshared/38af/src/pooling_unit_v2.sv" \
+"../../../bd/design_1/ipshared/38af/src/post_process_v2.sv" \
+"../../../bd/design_1/ipshared/38af/src/psum_packer_v2.sv" \
+"../../../bd/design_1/ipshared/38af/src/requant_mult_rom.sv" \
+"../../../bd/design_1/ipshared/38af/src/requant_shift_rom.sv" \
+"../../../bd/design_1/ipshared/38af/src/tpu_controller_rom_kloop.sv" \
+"../../../bd/design_1/ipshared/38af/src/tpu_controller_rom_layer.sv" \
+"../../../bd/design_1/ipshared/38af/src/tpu_datapath_v2.sv" \
+"../../../bd/design_1/ipshared/38af/src/tpu_top.sv" \
+"../../../bd/design_1/ipshared/38af/src/unified_buffer.sv" \
+"../../../bd/design_1/ipshared/38af/src/vector_processing_unit_v2.sv" \
+"../../../bd/design_1/ipshared/38af/src/weight_rom.sv" \
+"../../../bd/design_1/ipshared/38af/src/wgt_fetcher_2x2.sv" \
+"../../../bd/design_1/ipshared/38af/src/ws_sa_2x2.sv" \
+"../../../bd/design_1/ipshared/38af/src/tpu_top_axi_lite.sv" \
+"../../../bd/design_1/ip/design_1_tpu_zybo_0_0/sim/design_1_tpu_zybo_0_0.sv" \
+
+verilog xil_defaultlib -i "../../../../../../../../../tools/Xilinx_20252/2025.2/data/rsb/busdef" --include "/home/pah/tools/Xilinx_20252/2025.2/data/xilinx_vip/include" --include "../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/ec67/hdl" --include "../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/9a25/hdl" --include "../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/f0b6/hdl/verilog" --include "../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/00fe/hdl/verilog" \
+"../../../bd/design_1/ip/design_1_processing_system7_0_0/sim/design_1_processing_system7_0_0.v" \
+
+sv xil_defaultlib -i "../../../../../../../../../tools/Xilinx_20252/2025.2/data/rsb/busdef" --include "/home/pah/tools/Xilinx_20252/2025.2/data/xilinx_vip/include" --include "../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/ec67/hdl" --include "../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/9a25/hdl" --include "../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/f0b6/hdl/verilog" --include "../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/00fe/hdl/verilog" \
+"../../../bd/design_1/ip/design_1_axi_smc_0/bd_0/ip/ip_2/sim/bd_afc3_s00mmu_0.sv" \
+"../../../bd/design_1/ip/design_1_axi_smc_0/bd_0/ip/ip_3/sim/bd_afc3_s00tr_0.sv" \
+"../../../bd/design_1/ip/design_1_axi_smc_0/bd_0/ip/ip_4/sim/bd_afc3_s00sic_0.sv" \
+"../../../bd/design_1/ip/design_1_axi_smc_0/bd_0/ip/ip_5/sim/bd_afc3_s00a2s_0.sv" \
+"../../../bd/design_1/ip/design_1_axi_smc_0/bd_0/ip/ip_6/sim/bd_afc3_sarn_0.sv" \
+"../../../bd/design_1/ip/design_1_axi_smc_0/bd_0/ip/ip_7/sim/bd_afc3_srn_0.sv" \
+"../../../bd/design_1/ip/design_1_axi_smc_0/bd_0/ip/ip_8/sim/bd_afc3_sawn_0.sv" \
+"../../../bd/design_1/ip/design_1_axi_smc_0/bd_0/ip/ip_9/sim/bd_afc3_swn_0.sv" \
+"../../../bd/design_1/ip/design_1_axi_smc_0/bd_0/ip/ip_10/sim/bd_afc3_sbn_0.sv" \
+"../../../bd/design_1/ip/design_1_axi_smc_0/bd_0/ip/ip_11/sim/bd_afc3_m00s2a_0.sv" \
+"../../../bd/design_1/ip/design_1_axi_smc_0/bd_0/ip/ip_12/sim/bd_afc3_m00e_0.sv" \
+
+verilog xil_defaultlib -i "../../../../../../../../../tools/Xilinx_20252/2025.2/data/rsb/busdef" --include "/home/pah/tools/Xilinx_20252/2025.2/data/xilinx_vip/include" --include "../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/ec67/hdl" --include "../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/9a25/hdl" --include "../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/f0b6/hdl/verilog" --include "../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/00fe/hdl/verilog" \
+"../../../bd/design_1/ip/design_1_axi_smc_0/bd_0/sim/bd_afc3.v" \
+
+sv xil_defaultlib -i "../../../../../../../../../tools/Xilinx_20252/2025.2/data/rsb/busdef" --include "/home/pah/tools/Xilinx_20252/2025.2/data/xilinx_vip/include" --include "../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/ec67/hdl" --include "../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/9a25/hdl" --include "../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/f0b6/hdl/verilog" --include "../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/00fe/hdl/verilog" \
+"../../../bd/design_1/ip/design_1_axi_smc_0/sim/design_1_axi_smc_0.sv" \
+
+verilog xil_defaultlib -i "../../../../../../../../../tools/Xilinx_20252/2025.2/data/rsb/busdef" --include "/home/pah/tools/Xilinx_20252/2025.2/data/xilinx_vip/include" --include "../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/ec67/hdl" --include "../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/9a25/hdl" --include "../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/f0b6/hdl/verilog" --include "../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/00fe/hdl/verilog" \
+"../../../bd/design_1/sim/design_1.v" \
+
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort
