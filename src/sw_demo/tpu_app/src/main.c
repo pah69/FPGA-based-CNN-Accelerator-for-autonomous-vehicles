@@ -1,4 +1,5 @@
 #include "tpu_axi_lite.h"
+#include "mnist_real_cases.h"
 
 #include "xil_printf.h"
 #include "xil_types.h"
@@ -16,6 +17,59 @@ static void print_logits(const char *label, const s8 logits[TPU_LOGIT_COUNT])
                (int)logits[0], (int)logits[1], (int)logits[2], (int)logits[3],
                (int)logits[4], (int)logits[5], (int)logits[6], (int)logits[7],
                (int)logits[8], (int)logits[9]);
+}
+
+static s8 argmax_logits(const s8 logits[TPU_LOGIT_COUNT])
+{
+    s8 best_idx = 0;
+    s8 best_value = logits[0];
+
+    for (u32 idx = 1U; idx < TPU_LOGIT_COUNT; idx++) {
+        if (logits[idx] > best_value) {
+            best_value = logits[idx];
+            best_idx = (s8)idx;
+        }
+    }
+
+    return best_idx;
+}
+
+static char image_pixel_char(s8 value)
+{
+    if (value <= 0) {
+        return '.';
+    }
+    if (value < 24) {
+        return ':';
+    }
+    if (value < 64) {
+        return '*';
+    }
+    return '#';
+}
+
+static void print_image_preview_14x14(const s8 image[TPU_IMAGE_SIZE])
+{
+    xil_printf("image preview 14x14:\r\n");
+    for (u32 y = 0U; y < 28U; y += 2U) {
+        for (u32 x = 0U; x < 28U; x += 2U) {
+            s8 max_value = image[(y * 28U) + x];
+            s8 value = image[(y * 28U) + x + 1U];
+            if (value > max_value) {
+                max_value = value;
+            }
+            value = image[((y + 1U) * 28U) + x];
+            if (value > max_value) {
+                max_value = value;
+            }
+            value = image[((y + 1U) * 28U) + x + 1U];
+            if (value > max_value) {
+                max_value = value;
+            }
+            xil_printf("%c", image_pixel_char(max_value));
+        }
+        xil_printf("\r\n");
+    }
 }
 
 static int run_ub_smoke_test(void)
@@ -49,10 +103,10 @@ static int run_ub_smoke_test(void)
     return 0;
 }
 
-static int load_zero_image(void)
+static int load_image(const s8 image[TPU_IMAGE_SIZE])
 {
     for (u32 idx = 0U; idx < TPU_IMAGE_SIZE; idx++) {
-        if (tpu_ub_write(0U, idx, 0) != 0) {
+        if (tpu_ub_write(0U, idx, image[idx]) != 0) {
             xil_printf("FAIL: image write addr=%u status=0x%08x\r\n", idx, tpu_status());
             return -1;
         }
@@ -89,15 +143,29 @@ static int compare_logits(const s8 actual[TPU_LOGIT_COUNT],
     return fail_count;
 }
 
-static int run_zero_image_inference(void)
+static int run_inference_case(const char *name,
+                              const s8 image[TPU_IMAGE_SIZE],
+                              const s8 expected_logits[TPU_LOGIT_COUNT],
+                              s8 expected_label,
+                              s8 expected_prediction_ref,
+                              int show_preview)
 {
     s8 logits[TPU_LOGIT_COUNT] = {0};
+    s8 actual_prediction = 0;
+    s8 expected_prediction = 0;
     u32 status = 0U;
 
-    xil_printf("TEST: zero-image inference\r\n");
+    xil_printf("CASE: %s\r\n", name);
+    if (expected_label >= 0) {
+        xil_printf("label=%d\r\n", (int)expected_label);
+    }
+    if (show_preview != 0) {
+        print_image_preview_14x14(image);
+    }
+
     tpu_clear_status();
 
-    if (load_zero_image() != 0) {
+    if (load_image(image) != 0) {
         return -1;
     }
 
@@ -116,13 +184,80 @@ static int run_zero_image_inference(void)
     }
 
     print_logits("actual logits  ", logits);
-    print_logits("expected logits", expected_zero_logits);
+    print_logits("expected logits", expected_logits);
 
-    if (compare_logits(logits, expected_zero_logits) != 0) {
+    actual_prediction = argmax_logits(logits);
+    expected_prediction = argmax_logits(expected_logits);
+    if ((expected_prediction_ref >= 0) && (expected_prediction_ref != expected_prediction)) {
+        xil_printf("FAIL: golden prediction=%d does not match expected logits argmax=%d\r\n",
+                   (int)expected_prediction_ref, (int)expected_prediction);
+        return -1;
+    }
+
+    if (expected_prediction_ref >= 0) {
+        expected_prediction = expected_prediction_ref;
+    }
+
+    xil_printf("prediction actual=%d expected=%d",
+               (int)actual_prediction, (int)expected_prediction);
+    if (expected_label >= 0) {
+        xil_printf(" label=%d", (int)expected_label);
+    }
+    xil_printf("\r\n");
+
+    if (compare_logits(logits, expected_logits) != 0) {
+        return -1;
+    }
+
+    if (actual_prediction != expected_prediction) {
+        xil_printf("FAIL: prediction mismatch\r\n");
+        return -1;
+    }
+
+    if ((expected_label >= 0) && (actual_prediction != expected_label)) {
+        xil_printf("FAIL: predicted class does not match label\r\n");
+        return -1;
+    }
+
+    xil_printf("PASS: %s\r\n", name);
+    return 0;
+}
+
+static int run_zero_image_inference(void)
+{
+    static const s8 zero_image[TPU_IMAGE_SIZE] = {0};
+
+    xil_printf("TEST: zero-image inference\r\n");
+    if (run_inference_case("zero_image", zero_image, expected_zero_logits, (s8)-1, (s8)-1, 0) != 0) {
         return -1;
     }
 
     xil_printf("PASS: zero-image inference\r\n");
+    return 0;
+}
+
+static int run_real_mnist_inference(void)
+{
+    u32 pass_count = 0U;
+
+    xil_printf("TEST: real MNIST inference\r\n");
+    xil_printf("cases=%u source=18_05/e2e_cases\r\n", MNIST_REAL_CASE_COUNT);
+
+    for (u32 idx = 0U; idx < MNIST_REAL_CASE_COUNT; idx++) {
+        xil_printf("\r\nMNIST case %u/%u\r\n", idx + 1U, MNIST_REAL_CASE_COUNT);
+        if (run_inference_case(mnist_real_cases[idx].name,
+                               mnist_real_cases[idx].input,
+                               mnist_real_cases[idx].expected_logits,
+                               mnist_real_cases[idx].label,
+                               mnist_real_cases[idx].expected_prediction,
+                               1) != 0) {
+            xil_printf("FAIL: real MNIST case %u\r\n", idx);
+            return -1;
+        }
+        pass_count++;
+    }
+
+    xil_printf("PASS: real MNIST cases %u/%u\r\n", pass_count, MNIST_REAL_CASE_COUNT);
     return 0;
 }
 
@@ -138,6 +273,11 @@ int main(void)
     }
 
     if (run_zero_image_inference() != 0) {
+        xil_printf("RESULT: FAIL\r\n");
+        return 1;
+    }
+
+    if (run_real_mnist_inference() != 0) {
         xil_printf("RESULT: FAIL\r\n");
         return 1;
     }

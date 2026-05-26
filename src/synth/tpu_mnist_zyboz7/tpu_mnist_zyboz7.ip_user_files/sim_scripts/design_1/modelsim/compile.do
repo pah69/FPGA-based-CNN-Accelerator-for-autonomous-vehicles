@@ -83,6 +83,7 @@ vlog -work processing_system7_vip_v1_0_24 -64 -incr -mfcu  -sv -L smartconnect_v
 
 vlog -work xil_defaultlib -64 -incr -mfcu  "+incdir+../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/ec67/hdl" "+incdir+../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/9a25/hdl" "+incdir+../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/f0b6/hdl/verilog" "+incdir+../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/00fe/hdl/verilog" "+incdir+../../../../../../../../../tools/Xilinx_20252/2025.2/data/rsb/busdef" "+incdir+/home/pah/tools/Xilinx_20252/2025.2/data/xilinx_vip/include" \
 "../../../bd/design_1/ip/design_1_processing_system7_0_0/sim/design_1_processing_system7_0_0.v" \
+"../../../bd/design_1/ip/design_1_axi_smc_0/bd_0/sim/bd_afc3.v" \
 
 vcom -work proc_sys_reset_v5_0_17 -64 -93  \
 "../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/9438/hdl/proc_sys_reset_v5_0_vh_rfs.vhd" \
@@ -136,9 +137,6 @@ vlog -work smartconnect_v1_0 -64 -incr -mfcu  -sv -L smartconnect_v1_0 -L axi_vi
 
 vlog -work xil_defaultlib -64 -incr -mfcu  -sv -L smartconnect_v1_0 -L axi_vip_v1_1_22 -L processing_system7_vip_v1_0_24 -L xilinx_vip "+incdir+../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/ec67/hdl" "+incdir+../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/9a25/hdl" "+incdir+../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/f0b6/hdl/verilog" "+incdir+../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/00fe/hdl/verilog" "+incdir+../../../../../../../../../tools/Xilinx_20252/2025.2/data/rsb/busdef" "+incdir+/home/pah/tools/Xilinx_20252/2025.2/data/xilinx_vip/include" \
 "../../../bd/design_1/ip/design_1_axi_smc_0/bd_0/ip/ip_12/sim/bd_afc3_m00e_0.sv" \
-
-vlog -work xil_defaultlib -64 -incr -mfcu  "+incdir+../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/ec67/hdl" "+incdir+../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/9a25/hdl" "+incdir+../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/f0b6/hdl/verilog" "+incdir+../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/00fe/hdl/verilog" "+incdir+../../../../../../../../../tools/Xilinx_20252/2025.2/data/rsb/busdef" "+incdir+/home/pah/tools/Xilinx_20252/2025.2/data/xilinx_vip/include" \
-"../../../bd/design_1/ip/design_1_axi_smc_0/bd_0/sim/bd_afc3.v" \
 
 vcom -work smartconnect_v1_0 -64 -93  \
 "../../../../tpu_mnist_zyboz7.gen/sources_1/bd/design_1/ipshared/cb42/hdl/sc_ultralite_v1_0_rfs.vhd" \

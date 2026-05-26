@@ -1,0 +1,4 @@
+domain_path: /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sw_demo_zyboz7/platform/zynq_fsbl/zynq_fsbl_bsp
+app_src_dir: /home/pah/tools/Xilinx_20252/2025.2/Vitis/data/embeddedsw/lib/sw_apps/zynq_fsbl
+template: zynq_fsbl
+lang: c
