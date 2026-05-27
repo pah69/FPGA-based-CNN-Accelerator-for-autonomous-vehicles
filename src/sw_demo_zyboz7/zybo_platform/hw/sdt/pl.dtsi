@@ -1,0 +1,43 @@
+/ {
+	amba_pl: amba_pl {
+		ranges;
+		compatible = "simple-bus";
+		#address-cells = <1>;
+		#size-cells = <1>;
+		firmware-name = "tpu_zybo.bit.bin";
+		clocking0: clocking0 {
+			compatible = "xlnx,fclk";
+			assigned-clocks = <&clkc 15>;
+			assigned-clock-rates = <25000000>;
+			#clock-cells = <0>;
+			clock-output-names = "fabric_clk";
+			clocks = <&clkc 15>;
+		};
+		tpu_zybo_0: tpu_zybo@40000000 {
+			compatible = "xlnx,tpu-zybo-1.0";
+			xlnx,acc-width = <32>;
+			xlnx,wgt-fifo-depth = <16>;
+			xlnx,out-width = <8>;
+			xlnx,bank-depth = <8192>;
+			xlnx,ip-name = "tpu_zybo";
+			xlnx,axi-addr-width = <8>;
+			xlnx,requant-shift-width = <6>;
+			reg = <0x40000000 0x1000>;
+			clocks = <&clkc 15>;
+			xlnx,tile-count-width = <8>;
+			xlnx,max-num-tiles = <128>;
+			xlnx,acc-depth = <16>;
+			xlnx,size = <2>;
+			xlnx,ub-addr-width = <13>;
+			xlnx,requant-mult-width = <32>;
+			xlnx,edk-iptype = "PERIPHERAL";
+			xlnx,acc-addr-width = <4>;
+			xlnx,bias-width = <32>;
+			status = "okay";
+			xlnx,axi-data-width = <32>;
+			clock-names = "s_axi_aclk";
+			xlnx,data-width = <8>;
+			xlnx,name = "tpu_zybo_0";
+		};
+	};
+};

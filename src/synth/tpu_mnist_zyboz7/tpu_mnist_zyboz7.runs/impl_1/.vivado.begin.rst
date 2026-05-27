@@ -18,3 +18,8 @@
     <Process Command="vivado" Owner="pah" Host="pah-PC" Pid="3289101" HostCore="16" HostMemory="32117176">
     </Process>
 </ProcessHandle>
+<?xml version="1.0"?>
+<ProcessHandle Version="1" Minor="0">
+    <Process Command="vivado" Owner="pah" Host="pah-PC" Pid="433672" HostCore="16" HostMemory="32117176">
+    </Process>
+</ProcessHandle>

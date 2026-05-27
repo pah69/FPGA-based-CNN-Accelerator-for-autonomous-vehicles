@@ -1,4 +1,4 @@
-# 2026-05-26T08:31:01.252586698
+# 2026-05-27T15:48:39.720869001
 import vitis
 
 client = vitis.create_client()
@@ -8,9 +8,5 @@ platform = client.get_component(name="platform")
 status = platform.build()
 
 comp = client.get_component(name="tpu_app")
-comp.build()
-
-status = platform.build()
-
 comp.build()
 
