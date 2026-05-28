@@ -18,4 +18,4 @@ set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==design_1_ax
 # IP: bd/design_1/ip/design_1_rst_ps8_0_100M_0/design_1_rst_ps8_0_100M_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==design_1_rst_ps8_0_100M_0 || ORIG_REF_NAME==design_1_rst_ps8_0_100M_0} -quiet] -quiet
 
-# XDC: /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist/tpu_mnist.gen/sources_1/bd/design_1/design_1_ooc.xdc
+# XDC: /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/design_1_ooc.xdc

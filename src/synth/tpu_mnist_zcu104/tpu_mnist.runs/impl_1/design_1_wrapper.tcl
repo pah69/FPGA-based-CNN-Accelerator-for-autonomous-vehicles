@@ -1,5 +1,5 @@
 namespace eval ::optrace {
-  variable script "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist/tpu_mnist.runs/impl_1/design_1_wrapper.tcl"
+  variable script "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.runs/impl_1/design_1_wrapper.tcl"
   variable category "vivado_impl"
 }
 
@@ -97,7 +97,6 @@ proc step_failed { step } {
 OPTRACE "impl_1" END { }
 }
 
-set_msg_config -id {HDL-1065} -limit 10000
 
 OPTRACE "impl_1" START { ROLLUP_1 }
 OPTRACE "Phase: Write Bitstream" START { ROLLUP_AUTO }
@@ -111,11 +110,12 @@ set rc [catch {
   set_param power.enableCarry8RouteBelPower 1
   set_param power.enableUnconnectedCarry8PinPower 1
   set_param physdb.placeDBImplUsesPlaceStorage 0
+  set_param bd.open.in_stealth_mode 1
   set_param chipscope.maxJobs 4
   set_param general.usePosixSpawnForFork 1
   set_param runs.launchOptions { -jobs 16  }
   open_checkpoint design_1_wrapper_routed.dcp
-  set_property webtalk.parent_dir /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist/tpu_mnist.cache/wt [current_project]
+  set_property webtalk.parent_dir /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.cache/wt [current_project]
 set_property TOP design_1_wrapper [current_fileset]
 OPTRACE "read constraints: write_bitstream" START { }
 OPTRACE "read constraints: write_bitstream" END { }

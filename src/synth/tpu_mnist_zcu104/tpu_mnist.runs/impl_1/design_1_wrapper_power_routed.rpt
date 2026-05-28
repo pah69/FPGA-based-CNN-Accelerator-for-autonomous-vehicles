@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
-| Date             : Fri May 22 14:33:48 2026
+| Date             : Wed May 27 17:17:18 2026
 | Host             : pah-PC running 64-bit Ubuntu 24.04.4 LTS
 | Command          : report_power -file design_1_wrapper_power_routed.rpt -pb design_1_wrapper_power_summary_routed.pb -rpx design_1_wrapper_power_routed.rpx
 | Design           : design_1_wrapper
@@ -33,7 +33,7 @@ Table of Contents
 | Total On-Chip Power (W)  | 3.370        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 2.678        |
+| Dynamic (W)              | 2.679        |
 | Device Static (W)        | 0.692        |
 | Effective TJA (C/W)      | 1.0          |
 | Max Ambient (C)          | 96.7         |
@@ -52,16 +52,16 @@ Table of Contents
 +-------------------------+-----------+----------+-----------+-----------------+
 | On-Chip                 | Power (W) | Used     | Available | Utilization (%) |
 +-------------------------+-----------+----------+-----------+-----------------+
-| Clocks                  |     0.013 |        4 |       --- |             --- |
-| CLB Logic               |     0.011 |    11354 |       --- |             --- |
-|   LUT as Logic          |     0.010 |     5172 |    230400 |            2.24 |
+| Clocks                  |     0.014 |        3 |       --- |             --- |
+| CLB Logic               |     0.011 |    11364 |       --- |             --- |
+|   LUT as Logic          |     0.010 |     5176 |    230400 |            2.25 |
 |   CARRY8                |    <0.001 |      232 |     28800 |            0.81 |
-|   Register              |    <0.001 |     3912 |    460800 |            0.85 |
+|   Register              |    <0.001 |     3913 |    460800 |            0.85 |
 |   LUT as Shift Register |    <0.001 |       10 |    101760 |           <0.01 |
 |   Others                |     0.000 |      153 |       --- |             --- |
-|   F7/F8 Muxes           |     0.000 |      162 |    230400 |            0.07 |
+|   F7/F8 Muxes           |     0.000 |      163 |    230400 |            0.07 |
 |   BUFG                  |     0.000 |        1 |        64 |            1.56 |
-| Signals                 |     0.012 |     8539 |       --- |             --- |
+| Signals                 |     0.012 |     8549 |       --- |             --- |
 | Block RAM               |     0.002 |        8 |       312 |            2.56 |
 | DSPs                    |     0.003 |       20 |      1728 |            1.16 |
 | PS8                     |     2.637 |        1 |       --- |             --- |
@@ -78,7 +78,7 @@ Table of Contents
 +------------------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Source           | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
 +------------------+-------------+-----------+-------------+------------+-------------+-------------+------------+
-| Vccint           |       0.850 |     0.199 |       0.048 |      0.151 |       NA    | Unspecified | NA         |
+| Vccint           |       0.850 |     0.200 |       0.049 |      0.151 |       NA    | Unspecified | NA         |
 | Vccint_io        |       0.850 |     0.071 |       0.000 |      0.071 |       NA    | Unspecified | NA         |
 | Vccbram          |       0.850 |     0.002 |       0.000 |      0.002 |       NA    | Unspecified | NA         |
 | Vccaux           |       1.800 |     0.147 |       0.000 |      0.147 |       NA    | Unspecified | NA         |
@@ -153,7 +153,6 @@ Table of Contents
 +----------+--------------------------------------------------------+-----------------+
 | Clock    | Domain                                                 | Constraint (ns) |
 +----------+--------------------------------------------------------+-----------------+
-| clk_pl_0 | design_1_i/zynq_ultra_ps_e_0/inst/pl_clk0              |            10.0 |
 | clk_pl_0 | design_1_i/zynq_ultra_ps_e_0/inst/pl_clk_unbuffered[0] |            10.0 |
 +----------+--------------------------------------------------------+-----------------+
 
@@ -167,12 +166,12 @@ Table of Contents
 +-----------------------+-----------+
 | Name                  | Power (W) |
 +-----------------------+-----------+
-| design_1_wrapper      |     2.678 |
-|   design_1_i          |     2.678 |
-|     axi_smc           |     0.009 |
-|       inst            |     0.009 |
-|     tpu_mnist_0       |     0.031 |
-|       inst            |     0.031 |
+| design_1_wrapper      |     2.679 |
+|   design_1_i          |     2.679 |
+|     axi_smc           |     0.010 |
+|       inst            |     0.010 |
+|     tpu_mnist_0       |     0.030 |
+|       inst            |     0.030 |
 |     zynq_ultra_ps_e_0 |     2.638 |
 |       inst            |     2.638 |
 +-----------------------+-----------+

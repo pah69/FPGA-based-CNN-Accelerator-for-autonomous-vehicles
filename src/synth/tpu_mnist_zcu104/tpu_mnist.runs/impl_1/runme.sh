@@ -21,7 +21,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist/tpu_mnist.runs/impl_1'
+HD_PWD='/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.runs/impl_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log

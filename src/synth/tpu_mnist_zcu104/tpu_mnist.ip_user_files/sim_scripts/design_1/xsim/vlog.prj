@@ -32,6 +32,11 @@ sv xil_defaultlib -i "../../../../../../../../../tools/Xilinx_20252/2025.2/data/
 "../../../bd/design_1/ipshared/3129/src/ws_sa_2x2.sv" \
 "../../../bd/design_1/ipshared/3129/src/tpu_top_axi_lite.sv" \
 "../../../bd/design_1/ip/design_1_tpu_mnist_0_0/sim/design_1_tpu_mnist_0_0.sv" \
+
+verilog xil_defaultlib -i "../../../../../../../../../tools/Xilinx_20252/2025.2/data/rsb/busdef" --include "/home/pah/tools/Xilinx_20252/2025.2/data/xilinx_vip/include" --include "../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/ec67/hdl" --include "../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/a0fe/hdl" --include "../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/f0b6/hdl/verilog" --include "../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/00fe/hdl/verilog" \
+"../../../bd/design_1/ip/design_1_axi_smc_0/bd_0/sim/bd_afc3.v" \
+
+sv xil_defaultlib -i "../../../../../../../../../tools/Xilinx_20252/2025.2/data/rsb/busdef" --include "/home/pah/tools/Xilinx_20252/2025.2/data/xilinx_vip/include" --include "../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/ec67/hdl" --include "../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/a0fe/hdl" --include "../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/f0b6/hdl/verilog" --include "../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/00fe/hdl/verilog" \
 "../../../bd/design_1/ip/design_1_axi_smc_0/bd_0/ip/ip_2/sim/bd_afc3_s00mmu_0.sv" \
 "../../../bd/design_1/ip/design_1_axi_smc_0/bd_0/ip/ip_3/sim/bd_afc3_s00tr_0.sv" \
 "../../../bd/design_1/ip/design_1_axi_smc_0/bd_0/ip/ip_4/sim/bd_afc3_s00sic_0.sv" \
@@ -43,11 +48,6 @@ sv xil_defaultlib -i "../../../../../../../../../tools/Xilinx_20252/2025.2/data/
 "../../../bd/design_1/ip/design_1_axi_smc_0/bd_0/ip/ip_10/sim/bd_afc3_sbn_0.sv" \
 "../../../bd/design_1/ip/design_1_axi_smc_0/bd_0/ip/ip_11/sim/bd_afc3_m00s2a_0.sv" \
 "../../../bd/design_1/ip/design_1_axi_smc_0/bd_0/ip/ip_12/sim/bd_afc3_m00e_0.sv" \
-
-verilog xil_defaultlib -i "../../../../../../../../../tools/Xilinx_20252/2025.2/data/rsb/busdef" --include "/home/pah/tools/Xilinx_20252/2025.2/data/xilinx_vip/include" --include "../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/ec67/hdl" --include "../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/a0fe/hdl" --include "../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/f0b6/hdl/verilog" --include "../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/00fe/hdl/verilog" \
-"../../../bd/design_1/ip/design_1_axi_smc_0/bd_0/sim/bd_afc3.v" \
-
-sv xil_defaultlib -i "../../../../../../../../../tools/Xilinx_20252/2025.2/data/rsb/busdef" --include "/home/pah/tools/Xilinx_20252/2025.2/data/xilinx_vip/include" --include "../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/ec67/hdl" --include "../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/a0fe/hdl" --include "../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/f0b6/hdl/verilog" --include "../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/00fe/hdl/verilog" \
 "../../../bd/design_1/ip/design_1_axi_smc_0/sim/design_1_axi_smc_0.sv" \
 
 verilog xil_defaultlib -i "../../../../../../../../../tools/Xilinx_20252/2025.2/data/rsb/busdef" --include "/home/pah/tools/Xilinx_20252/2025.2/data/xilinx_vip/include" --include "../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/ec67/hdl" --include "../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/a0fe/hdl" --include "../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/f0b6/hdl/verilog" --include "../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/00fe/hdl/verilog" \

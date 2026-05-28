@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
-| Date         : Fri May 22 14:31:30 2026
+| Date         : Wed May 27 17:12:13 2026
 | Host         : pah-PC running 64-bit Ubuntu 24.04.4 LTS
 | Command      : report_utilization -file design_1_tpu_mnist_0_0_utilization_synth.rpt -pb design_1_tpu_mnist_0_0_utilization_synth.pb
 | Design       : design_1_tpu_mnist_0_0
@@ -32,16 +32,16 @@ Table of Contents
 +----------------------------+------+-------+------------+-----------+-------+
 |          Site Type         | Used | Fixed | Prohibited | Available | Util% |
 +----------------------------+------+-------+------------+-----------+-------+
-| CLB LUTs*                  | 4488 |     0 |          0 |    230400 |  1.95 |
-|   LUT as Logic             | 4480 |     0 |          0 |    230400 |  1.94 |
+| CLB LUTs*                  | 4491 |     0 |          0 |    230400 |  1.95 |
+|   LUT as Logic             | 4483 |     0 |          0 |    230400 |  1.95 |
 |   LUT as Memory            |    8 |     0 |          0 |    101760 | <0.01 |
 |     LUT as Distributed RAM |    0 |     0 |            |           |       |
 |     LUT as Shift Register  |    8 |     0 |            |           |       |
-| CLB Registers              | 3106 |     0 |          0 |    460800 |  0.67 |
-|   Register as Flip Flop    | 3106 |     0 |          0 |    460800 |  0.67 |
+| CLB Registers              | 3107 |     0 |          0 |    460800 |  0.67 |
+|   Register as Flip Flop    | 3107 |     0 |          0 |    460800 |  0.67 |
 |   Register as Latch        |    0 |     0 |          0 |    460800 |  0.00 |
 | CARRY8                     |  227 |     0 |          0 |     28800 |  0.79 |
-| F7 Muxes                   |  139 |     0 |          0 |    115200 |  0.12 |
+| F7 Muxes                   |  140 |     0 |          0 |    115200 |  0.12 |
 | F8 Muxes                   |   16 |     0 |          0 |     57600 |  0.03 |
 | F9 Muxes                   |    0 |     0 |          0 |     28800 |  0.00 |
 | Unique Control Sets        |  108 |       |          0 |     57600 |  0.19 |
@@ -65,7 +65,7 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 | 0     |            _ |       Reset |            - |
 | 0     |          Yes |           - |            - |
 | 4     |          Yes |           - |          Set |
-| 2822  |          Yes |           - |        Reset |
+| 2823  |          Yes |           - |        Reset |
 | 0     |          Yes |         Set |            - |
 | 280   |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
@@ -175,16 +175,16 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 +----------+------+---------------------+
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
-| FDCE     | 2822 |            Register |
-| LUT6     | 1623 |                 CLB |
-| LUT2     | 1368 |                 CLB |
-| LUT4     | 1175 |                 CLB |
-| LUT5     |  928 |                 CLB |
-| LUT3     |  696 |                 CLB |
+| FDCE     | 2823 |            Register |
+| LUT6     | 1628 |                 CLB |
+| LUT2     | 1374 |                 CLB |
+| LUT4     | 1181 |                 CLB |
+| LUT5     |  924 |                 CLB |
+| LUT3     |  691 |                 CLB |
 | FDRE     |  280 |            Register |
 | CARRY8   |  227 |                 CLB |
-| MUXF7    |  139 |                 CLB |
-| LUT1     |   88 |                 CLB |
+| MUXF7    |  140 |                 CLB |
+| LUT1     |   87 |                 CLB |
 | DSP48E2  |   20 |          Arithmetic |
 | MUXF8    |   16 |                 CLB |
 | SRL16E   |    8 |                 CLB |

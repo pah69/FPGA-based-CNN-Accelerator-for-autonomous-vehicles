@@ -107,14 +107,23 @@ static u32 speedup_x100_from_ticks(u64 baseline_ticks, u64 measured_ticks)
 
 static u32 speedup_x100_from_kernel_cycles(u64 baseline_ticks, u32 kernel_cycles)
 {
-    u64 denominator = (u64)COUNTS_PER_SECOND * (u64)kernel_cycles;
+    u64 cpu_us;
+    u64 kernel_us;
 
-    if (denominator == 0ULL) {
+    if (kernel_cycles == 0U) {
         return 0U;
     }
 
-    return (u32)((((baseline_ticks * (u64)TPU_PL_CLOCK_HZ) * 100ULL) + (denominator / 2ULL)) /
-                 denominator);
+    cpu_us = ((baseline_ticks * 1000000ULL) + ((u64)COUNTS_PER_SECOND / 2ULL)) /
+             (u64)COUNTS_PER_SECOND;
+    kernel_us = ((((u64)kernel_cycles * 1000000ULL) + ((u64)TPU_PL_CLOCK_HZ / 2ULL)) /
+                 (u64)TPU_PL_CLOCK_HZ);
+
+    if (kernel_us == 0ULL) {
+        return 0U;
+    }
+
+    return (u32)(((cpu_us * 100ULL) + (kernel_us / 2ULL)) / kernel_us);
 }
 
 static int run_ub_smoke_test(void)

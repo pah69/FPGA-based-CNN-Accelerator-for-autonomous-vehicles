@@ -2,10 +2,10 @@
 // Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
-// Date        : Fri May 22 14:31:13 2026
+// Date        : Fri May 22 14:31:11 2026
 // Host        : pah-PC running 64-bit Ubuntu 24.04.4 LTS
-// Command     : write_verilog -force -mode synth_stub
-//               /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist/tpu_mnist.gen/sources_1/bd/design_1/ip/design_1_axi_smc_0/design_1_axi_smc_0_stub.v
+// Command     : write_verilog -force -mode synth_stub -rename_top design_1_axi_smc_0 -prefix
+//               design_1_axi_smc_0_ design_1_axi_smc_0_stub.v
 // Design      : design_1_axi_smc_0
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xczu7ev-ffvc1156-2-e

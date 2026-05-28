@@ -1052,17 +1052,17 @@
       "rst_ps8_0_100M_peripheral_aresetn": {
         "ports": [
           "rst_ps8_0_100M/peripheral_aresetn",
-          "tpu_mnist_0/s_axi_aresetn",
-          "axi_smc/aresetn"
+          "axi_smc/aresetn",
+          "tpu_mnist_0/s_axi_aresetn"
         ]
       },
       "zynq_ultra_ps_e_0_pl_clk0": {
         "ports": [
           "zynq_ultra_ps_e_0/pl_clk0",
           "axi_smc/aclk",
-          "tpu_mnist_0/s_axi_aclk",
           "rst_ps8_0_100M/slowest_sync_clk",
-          "zynq_ultra_ps_e_0/maxihpm0_fpd_aclk"
+          "zynq_ultra_ps_e_0/maxihpm0_fpd_aclk",
+          "tpu_mnist_0/s_axi_aclk"
         ]
       },
       "zynq_ultra_ps_e_0_pl_resetn0": {
