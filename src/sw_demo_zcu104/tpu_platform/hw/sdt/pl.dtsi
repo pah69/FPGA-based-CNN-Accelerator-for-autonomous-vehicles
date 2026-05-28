@@ -1,0 +1,50 @@
+/ {
+	amba_pl: amba_pl {
+		ranges;
+		compatible = "simple-bus";
+		#address-cells = <2>;
+		#size-cells = <2>;
+		firmware-name = "tpu_mnist_zcu104.bit.bin";
+		clocking0: clocking0 {
+			compatible = "xlnx,fclk";
+			status = "okay";
+			assigned-clocks = <&zynqmp_clk 71>;
+			assigned-clock-rates = <100000000>;
+			#clock-cells = <0>;
+			clock-output-names = "fabric_clk";
+			clocks = <&zynqmp_clk 71>;
+		};
+		afi0: afi0 {
+			status = "okay";
+			compatible = "xlnx,afi-fpga";
+			resets = <&zynqmp_reset 116>, <&zynqmp_reset 117>, <&zynqmp_reset 118>, <&zynqmp_reset 119>;
+			config-afi = < 0 0>, <1 0>, <2 0>, <3 0>, <4 0>, <5 0>, <6 0>, <7 0>, <8 0>, <9 0>, <10 0>, <11 0>, <12 0>, <13 0>, <14 0xa00>, <15 0x000>;
+		};
+		tpu_mnist_ip_0: tpu_mnist_ip@a0000000 {
+			compatible = "xlnx,tpu-mnist-ip-1.0";
+			xlnx,acc-width = <32>;
+			xlnx,wgt-fifo-depth = <16>;
+			xlnx,out-width = <8>;
+			xlnx,bank-depth = <8192>;
+			xlnx,ip-name = "tpu_mnist_ip";
+			xlnx,axi-addr-width = <8>;
+			xlnx,requant-shift-width = <6>;
+			reg = <0x0 0xa0000000 0x0 0x1000>;
+			clocks = <&zynqmp_clk 71>;
+			xlnx,tile-count-width = <8>;
+			xlnx,max-num-tiles = <128>;
+			xlnx,acc-depth = <16>;
+			xlnx,size = <2>;
+			xlnx,ub-addr-width = <13>;
+			xlnx,requant-mult-width = <32>;
+			xlnx,edk-iptype = "PERIPHERAL";
+			xlnx,acc-addr-width = <4>;
+			xlnx,bias-width = <32>;
+			status = "okay";
+			xlnx,axi-data-width = <32>;
+			clock-names = "s_axi_aclk";
+			xlnx,data-width = <8>;
+			xlnx,name = "tpu_mnist_ip_0";
+		};
+	};
+};

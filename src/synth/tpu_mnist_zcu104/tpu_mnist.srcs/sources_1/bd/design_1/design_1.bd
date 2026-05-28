@@ -12,9 +12,9 @@
     },
     "design_tree": {
       "zynq_ultra_ps_e_0": "",
-      "tpu_mnist_0": "",
       "axi_smc": "",
-      "rst_ps8_0_100M": ""
+      "rst_ps8_0_100M": "",
+      "tpu_mnist_ip_0": ""
     },
     "components": {
       "zynq_ultra_ps_e_0": {
@@ -938,21 +938,6 @@
           }
         }
       },
-      "tpu_mnist_0": {
-        "vlnv": "pah.org:pah_lib:tpu_mnist:1.0",
-        "ip_revision": "2",
-        "xci_name": "design_1_tpu_mnist_0_0",
-        "xci_path": "ip/design_1_tpu_mnist_0_0/design_1_tpu_mnist_0_0.xci",
-        "inst_hier_path": "tpu_mnist_0",
-        "has_run_ip_tcl": "true",
-        "interface_ports": {
-          "s_axi": {
-            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
-            "mode": "Slave",
-            "memory_map_ref": "s_axi"
-          }
-        }
-      },
       "axi_smc": {
         "vlnv": "xilinx.com:ip:smartconnect:1.0",
         "ip_revision": "28",
@@ -1032,13 +1017,28 @@
         "xci_path": "ip/design_1_rst_ps8_0_100M_0/design_1_rst_ps8_0_100M_0.xci",
         "inst_hier_path": "rst_ps8_0_100M",
         "has_run_ip_tcl": "true"
+      },
+      "tpu_mnist_ip_0": {
+        "vlnv": "user.org:user:tpu_mnist_ip:1.0",
+        "ip_revision": "4",
+        "xci_name": "design_1_tpu_mnist_ip_0_0",
+        "xci_path": "ip/design_1_tpu_mnist_ip_0_0/design_1_tpu_mnist_ip_0_0.xci",
+        "inst_hier_path": "tpu_mnist_ip_0",
+        "has_run_ip_tcl": "true",
+        "interface_ports": {
+          "s_axi": {
+            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
+            "mode": "Slave",
+            "memory_map_ref": "s_axi"
+          }
+        }
       }
     },
     "interface_nets": {
       "axi_smc_M00_AXI": {
         "interface_ports": [
           "axi_smc/M00_AXI",
-          "tpu_mnist_0/s_axi"
+          "tpu_mnist_ip_0/s_axi"
         ]
       },
       "zynq_ultra_ps_e_0_M_AXI_HPM0_FPD": {
@@ -1053,7 +1053,7 @@
         "ports": [
           "rst_ps8_0_100M/peripheral_aresetn",
           "axi_smc/aresetn",
-          "tpu_mnist_0/s_axi_aresetn"
+          "tpu_mnist_ip_0/s_axi_aresetn"
         ]
       },
       "zynq_ultra_ps_e_0_pl_clk0": {
@@ -1062,7 +1062,7 @@
           "axi_smc/aclk",
           "rst_ps8_0_100M/slowest_sync_clk",
           "zynq_ultra_ps_e_0/maxihpm0_fpd_aclk",
-          "tpu_mnist_0/s_axi_aclk"
+          "tpu_mnist_ip_0/s_axi_aclk"
         ]
       },
       "zynq_ultra_ps_e_0_pl_resetn0": {
@@ -1077,8 +1077,8 @@
         "address_spaces": {
           "Data": {
             "segments": {
-              "SEG_tpu_mnist_0_reg0": {
-                "address_block": "/tpu_mnist_0/s_axi/reg0",
+              "SEG_tpu_mnist_ip_0_reg0": {
+                "address_block": "/tpu_mnist_ip_0/s_axi/reg0",
                 "offset": "0x00A0000000",
                 "range": "4K"
               }

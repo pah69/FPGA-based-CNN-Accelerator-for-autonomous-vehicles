@@ -1,16 +1,16 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
-| Date         : Wed May 27 17:11:01 2026
+| Date         : Thu May 28 16:15:30 2026
 | Host         : pah-PC running 64-bit Ubuntu 24.04.4 LTS
 | Command      : upgrade_ip
 | Device       : xczu7ev-ffvc1156-2-e
 ---------------------------------------------------------------------------------------------------------------------------------------------
 
-Upgrade Log for IP 'design_1_tpu_mnist_0_0'
+Upgrade Log for IP 'design_1_tpu_mnist_ip_0_0'
 
 1. Summary
 ----------
 
-SUCCESS in the update of design_1_tpu_mnist_0_0 (pah.org:pah_lib:tpu_mnist:1.0 (Rev. 2)) to current project options.
+SUCCESS in the upgrade of design_1_tpu_mnist_ip_0_0 (user.org:user:tpu_mnist_ip:1.0) from (Rev. 2) to (Rev. 4)
 

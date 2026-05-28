@@ -54,40 +54,6 @@ vlog -work zynq_ultra_ps_e_vip_v1_0_22  -incr "+incdir+../../../../tpu_mnist.gen
 
 vlog -work xil_defaultlib  -incr -v2k5 "+incdir+../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/ec67/hdl" "+incdir+../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/a0fe/hdl" "+incdir+../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/f0b6/hdl/verilog" "+incdir+../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/00fe/hdl/verilog" "+incdir+../../../../../../../../../tools/Xilinx_20252/2025.2/data/rsb/busdef" "+incdir+/home/pah/tools/Xilinx_20252/2025.2/data/xilinx_vip/include" -l xilinx_vip -l xpm -l axi_infrastructure_v1_1_0 -l axi_vip_v1_1_22 -l zynq_ultra_ps_e_vip_v1_0_22 -l xil_defaultlib -l proc_sys_reset_v5_0_17 -l smartconnect_v1_0 -l axi_register_slice_v2_1_36 \
 "../../../bd/design_1/ip/design_1_zynq_ultra_ps_e_0_0/sim/design_1_zynq_ultra_ps_e_0_0_vip_wrapper.v" \
-
-vlog -work xil_defaultlib  -incr "+incdir+../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/ec67/hdl" "+incdir+../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/a0fe/hdl" "+incdir+../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/f0b6/hdl/verilog" "+incdir+../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/00fe/hdl/verilog" "+incdir+../../../../../../../../../tools/Xilinx_20252/2025.2/data/rsb/busdef" "+incdir+/home/pah/tools/Xilinx_20252/2025.2/data/xilinx_vip/include" -l xilinx_vip -l xpm -l axi_infrastructure_v1_1_0 -l axi_vip_v1_1_22 -l zynq_ultra_ps_e_vip_v1_0_22 -l xil_defaultlib -l proc_sys_reset_v5_0_17 -l smartconnect_v1_0 -l axi_register_slice_v2_1_36 \
-"../../../bd/design_1/ipshared/3129/src/accumulator_array_v2.sv" \
-"../../../bd/design_1/ipshared/3129/src/act_skew_buffer.sv" \
-"../../../bd/design_1/ipshared/3129/src/activation_array_v2.sv" \
-"../../../bd/design_1/ipshared/3129/src/bias_requantize_v2.sv" \
-"../../../bd/design_1/ipshared/3129/src/bias_rom.sv" \
-"../../../bd/design_1/ipshared/3129/src/conv_fc_address_generator.sv" \
-"../../../bd/design_1/ipshared/3129/src/fifo.sv" \
-"../../../bd/design_1/ipshared/3129/src/layer_descriptor_pkg.sv" \
-"../../../bd/design_1/ipshared/3129/src/layer_descriptor_rom.sv" \
-"../../../bd/design_1/ipshared/3129/src/maxpool2d_unit.sv" \
-"../../../bd/design_1/ipshared/3129/src/multiplier.sv" \
-"../../../bd/design_1/ipshared/3129/src/mxu_2x2.sv" \
-"../../../bd/design_1/ipshared/3129/src/normalizer_v2.sv" \
-"../../../bd/design_1/ipshared/3129/src/pe.sv" \
-"../../../bd/design_1/ipshared/3129/src/pooling_unit_v2.sv" \
-"../../../bd/design_1/ipshared/3129/src/post_process_v2.sv" \
-"../../../bd/design_1/ipshared/3129/src/psum_packer_v2.sv" \
-"../../../bd/design_1/ipshared/3129/src/requant_mult_rom.sv" \
-"../../../bd/design_1/ipshared/3129/src/requant_shift_rom.sv" \
-"../../../bd/design_1/ipshared/3129/src/tpu_controller_rom_kloop.sv" \
-"../../../bd/design_1/ipshared/3129/src/tpu_controller_rom_layer.sv" \
-"../../../bd/design_1/ipshared/3129/src/tpu_datapath_v2.sv" \
-"../../../bd/design_1/ipshared/3129/src/tpu_top.sv" \
-"../../../bd/design_1/ipshared/3129/src/unified_buffer.sv" \
-"../../../bd/design_1/ipshared/3129/src/vector_processing_unit_v2.sv" \
-"../../../bd/design_1/ipshared/3129/src/weight_rom.sv" \
-"../../../bd/design_1/ipshared/3129/src/wgt_fetcher_2x2.sv" \
-"../../../bd/design_1/ipshared/3129/src/ws_sa_2x2.sv" \
-"../../../bd/design_1/ipshared/3129/src/tpu_top_axi_lite.sv" \
-"../../../bd/design_1/ip/design_1_tpu_mnist_0_0/sim/design_1_tpu_mnist_0_0.sv" \
-
-vlog -work xil_defaultlib  -incr -v2k5 "+incdir+../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/ec67/hdl" "+incdir+../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/a0fe/hdl" "+incdir+../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/f0b6/hdl/verilog" "+incdir+../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/00fe/hdl/verilog" "+incdir+../../../../../../../../../tools/Xilinx_20252/2025.2/data/rsb/busdef" "+incdir+/home/pah/tools/Xilinx_20252/2025.2/data/xilinx_vip/include" -l xilinx_vip -l xpm -l axi_infrastructure_v1_1_0 -l axi_vip_v1_1_22 -l zynq_ultra_ps_e_vip_v1_0_22 -l xil_defaultlib -l proc_sys_reset_v5_0_17 -l smartconnect_v1_0 -l axi_register_slice_v2_1_36 \
 "../../../bd/design_1/ip/design_1_axi_smc_0/bd_0/sim/bd_afc3.v" \
 
 vcom -work proc_sys_reset_v5_0_17 -93  -incr \
@@ -158,6 +124,38 @@ vlog -work xil_defaultlib  -incr "+incdir+../../../../tpu_mnist.gen/sources_1/bd
 
 vcom -work xil_defaultlib -93  -incr \
 "../../../bd/design_1/ip/design_1_rst_ps8_0_100M_0/sim/design_1_rst_ps8_0_100M_0.vhd" \
+
+vlog -work xil_defaultlib  -incr "+incdir+../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/ec67/hdl" "+incdir+../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/a0fe/hdl" "+incdir+../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/f0b6/hdl/verilog" "+incdir+../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/00fe/hdl/verilog" "+incdir+../../../../../../../../../tools/Xilinx_20252/2025.2/data/rsb/busdef" "+incdir+/home/pah/tools/Xilinx_20252/2025.2/data/xilinx_vip/include" -l xilinx_vip -l xpm -l axi_infrastructure_v1_1_0 -l axi_vip_v1_1_22 -l zynq_ultra_ps_e_vip_v1_0_22 -l xil_defaultlib -l proc_sys_reset_v5_0_17 -l smartconnect_v1_0 -l axi_register_slice_v2_1_36 \
+"../../../bd/design_1/ipshared/2859/src/accumulator_array_v2.sv" \
+"../../../bd/design_1/ipshared/2859/src/act_skew_buffer.sv" \
+"../../../bd/design_1/ipshared/2859/src/activation_array_v2.sv" \
+"../../../bd/design_1/ipshared/2859/src/bias_requantize_v2.sv" \
+"../../../bd/design_1/ipshared/2859/src/bias_rom.sv" \
+"../../../bd/design_1/ipshared/2859/src/conv_fc_address_generator.sv" \
+"../../../bd/design_1/ipshared/2859/src/fifo.sv" \
+"../../../bd/design_1/ipshared/2859/src/layer_descriptor_pkg.sv" \
+"../../../bd/design_1/ipshared/2859/src/layer_descriptor_rom.sv" \
+"../../../bd/design_1/ipshared/2859/src/maxpool2d_unit.sv" \
+"../../../bd/design_1/ipshared/2859/src/multiplier.sv" \
+"../../../bd/design_1/ipshared/2859/src/mxu_2x2.sv" \
+"../../../bd/design_1/ipshared/2859/src/normalizer_v2.sv" \
+"../../../bd/design_1/ipshared/2859/src/pe.sv" \
+"../../../bd/design_1/ipshared/2859/src/pooling_unit_v2.sv" \
+"../../../bd/design_1/ipshared/2859/src/post_process_v2.sv" \
+"../../../bd/design_1/ipshared/2859/src/psum_packer_v2.sv" \
+"../../../bd/design_1/ipshared/2859/src/requant_mult_rom.sv" \
+"../../../bd/design_1/ipshared/2859/src/requant_shift_rom.sv" \
+"../../../bd/design_1/ipshared/2859/src/tpu_controller_rom_kloop.sv" \
+"../../../bd/design_1/ipshared/2859/src/tpu_controller_rom_layer.sv" \
+"../../../bd/design_1/ipshared/2859/src/tpu_datapath_v2.sv" \
+"../../../bd/design_1/ipshared/2859/src/tpu_top.sv" \
+"../../../bd/design_1/ipshared/2859/src/unified_buffer.sv" \
+"../../../bd/design_1/ipshared/2859/src/vector_processing_unit_v2.sv" \
+"../../../bd/design_1/ipshared/2859/src/weight_rom.sv" \
+"../../../bd/design_1/ipshared/2859/src/wgt_fetcher_2x2.sv" \
+"../../../bd/design_1/ipshared/2859/src/ws_sa_2x2.sv" \
+"../../../bd/design_1/ipshared/2859/src/tpu_top_axi_lite.sv" \
+"../../../bd/design_1/ip/design_1_tpu_mnist_ip_0_0/sim/design_1_tpu_mnist_ip_0_0.sv" \
 
 vlog -work xil_defaultlib  -incr -v2k5 "+incdir+../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/ec67/hdl" "+incdir+../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/a0fe/hdl" "+incdir+../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/f0b6/hdl/verilog" "+incdir+../../../../tpu_mnist.gen/sources_1/bd/design_1/ipshared/00fe/hdl/verilog" "+incdir+../../../../../../../../../tools/Xilinx_20252/2025.2/data/rsb/busdef" "+incdir+/home/pah/tools/Xilinx_20252/2025.2/data/xilinx_vip/include" -l xilinx_vip -l xpm -l axi_infrastructure_v1_1_0 -l axi_vip_v1_1_22 -l zynq_ultra_ps_e_vip_v1_0_22 -l xil_defaultlib -l proc_sys_reset_v5_0_17 -l smartconnect_v1_0 -l axi_register_slice_v2_1_36 \
 "../../../bd/design_1/sim/design_1.v" \

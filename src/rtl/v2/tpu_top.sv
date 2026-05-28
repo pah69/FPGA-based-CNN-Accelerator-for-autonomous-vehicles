@@ -29,7 +29,7 @@ module tpu_top #(
     output logic error_o,
     output logic [4:0] dbg_state_o,
     output logic [2:0] dbg_stage_o,
-    output logic [15:0] dbg_cycle_count_o,
+    output logic [31:0] dbg_cycle_count_o,
     output logic [31:0] dbg_error_code_o,
 
     input  logic                         host_rd_en_i,
@@ -477,7 +477,7 @@ module tpu_top #(
       pool_start_q <= 1'b0;
 
       if (busy_o) begin
-        dbg_cycle_count_o <= dbg_cycle_count_o + 16'd1;
+        dbg_cycle_count_o <= dbg_cycle_count_o + 31'd1;
       end
 
       unique case (state_q)

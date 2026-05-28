@@ -1,0 +1,798 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Thu May 28 16:15:38 2026
+# Process ID         : 1859240
+# Current directory  : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.runs/design_1_tpu_mnist_ip_0_0_synth_1
+# Command line       : vivado -log design_1_tpu_mnist_ip_0_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source design_1_tpu_mnist_ip_0_0.tcl
+# Log file           : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.runs/design_1_tpu_mnist_ip_0_0_synth_1/design_1_tpu_mnist_ip_0_0.vds
+# Journal file       : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.runs/design_1_tpu_mnist_ip_0_0_synth_1/vivado.jou
+# Running On         : pah-PC
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 24.04.4 LTS
+# Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
+# CPU Frequency      : 4679.737 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 32887 MB
+# Swap memory        : 25033 MB
+# Total Virtual      : 57921 MB
+# Available Virtual  : 41695 MB
+#-----------------------------------------------------------
+source design_1_tpu_mnist_ip_0_0.tcl -notrace
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/ip_repo'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/pah/tools/Xilinx_20252/2025.2/data/ip'.
+Command: synth_design -top design_1_tpu_mnist_ip_0_0 -part xczu7ev-ffvc1156-2-e -incremental_mode off -mode out_of_context
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xczu7ev'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xczu7ev'
+INFO: [Device 21-403] Loading part xczu7ev-ffvc1156-2-e
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 1859316
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 2943.422 ; gain = 147.688 ; free physical = 3706 ; free virtual = 37582
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'design_1_tpu_mnist_ip_0_0' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ip/design_1_tpu_mnist_ip_0_0/synth/design_1_tpu_mnist_ip_0_0.sv:53]
+INFO: [Synth 8-6157] synthesizing module 'tpu_top_axi_lite' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/tpu_top_axi_lite.sv:4]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/tpu_top_axi_lite.sv:141]
+INFO: [Synth 8-6157] synthesizing module 'tpu_top' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/tpu_top.sv:6]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/tpu_top.sv:184]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/tpu_top.sv:211]
+INFO: [Synth 8-6157] synthesizing module 'unified_buffer' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/unified_buffer.sv:4]
+INFO: [Synth 8-6155] done synthesizing module 'unified_buffer' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/unified_buffer.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'tpu_controller_rom_layer' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/tpu_controller_rom_layer.sv:6]
+INFO: [Synth 8-6157] synthesizing module 'layer_descriptor_rom' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/layer_descriptor_rom.sv:6]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/layer_descriptor_rom.sv:53]
+INFO: [Synth 8-226] default block is never used [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/layer_descriptor_rom.sv:53]
+INFO: [Synth 8-6155] done synthesizing module 'layer_descriptor_rom' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/layer_descriptor_rom.sv:6]
+INFO: [Synth 8-6157] synthesizing module 'tpu_controller_rom_kloop' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/tpu_controller_rom_kloop.sv:6]
+INFO: [Synth 8-6157] synthesizing module 'weight_rom' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/weight_rom.sv:4]
+INFO: [Synth 8-3876] $readmem data file 'small_cnn_sym_weights_i8.mem' is read successfully [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/weight_rom.sv:22]
+INFO: [Synth 8-6155] done synthesizing module 'weight_rom' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/weight_rom.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'bias_rom' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/bias_rom.sv:4]
+INFO: [Synth 8-3876] $readmem data file 'small_cnn_sym_biases_i32.mem' is read successfully [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/bias_rom.sv:22]
+INFO: [Synth 8-6155] done synthesizing module 'bias_rom' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/bias_rom.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'requant_mult_rom' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/requant_mult_rom.sv:4]
+INFO: [Synth 8-3876] $readmem data file 'small_cnn_sym_requant_mult_i32.mem' is read successfully [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/requant_mult_rom.sv:22]
+INFO: [Synth 8-6155] done synthesizing module 'requant_mult_rom' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/requant_mult_rom.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'requant_shift_rom' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/requant_shift_rom.sv:4]
+INFO: [Synth 8-3876] $readmem data file 'small_cnn_sym_requant_shift_u6.mem' is read successfully [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/requant_shift_rom.sv:22]
+INFO: [Synth 8-6155] done synthesizing module 'requant_shift_rom' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/requant_shift_rom.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'conv_fc_address_generator' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/conv_fc_address_generator.sv:4]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/conv_fc_address_generator.sv:144]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/conv_fc_address_generator.sv:205]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/conv_fc_address_generator.sv:205]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/conv_fc_address_generator.sv:246]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/conv_fc_address_generator.sv:130]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/conv_fc_address_generator.sv:246]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/conv_fc_address_generator.sv:246]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/conv_fc_address_generator.sv:246]
+INFO: [Synth 8-6155] done synthesizing module 'conv_fc_address_generator' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/conv_fc_address_generator.sv:4]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/tpu_controller_rom_kloop.sv:512]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/tpu_controller_rom_kloop.sv:532]
+INFO: [Synth 8-6155] done synthesizing module 'tpu_controller_rom_kloop' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/tpu_controller_rom_kloop.sv:6]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/tpu_controller_rom_layer.sv:303]
+INFO: [Synth 8-6155] done synthesizing module 'tpu_controller_rom_layer' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/tpu_controller_rom_layer.sv:6]
+INFO: [Synth 8-6157] synthesizing module 'tpu_datapath_v2' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/tpu_datapath_v2.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'mxu_2x2' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/mxu_2x2.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'fifo' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/fifo.sv:3]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/fifo.sv:79]
+INFO: [Synth 8-6155] done synthesizing module 'fifo' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/fifo.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'wgt_fetcher_2x2' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/wgt_fetcher_2x2.sv:3]
+INFO: [Synth 8-226] default block is never used [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/wgt_fetcher_2x2.sv:57]
+INFO: [Synth 8-226] default block is never used [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/wgt_fetcher_2x2.sv:87]
+INFO: [Synth 8-6155] done synthesizing module 'wgt_fetcher_2x2' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/wgt_fetcher_2x2.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'act_skew_buffer_2x2' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/act_skew_buffer.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'act_skew_buffer_2x2' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/act_skew_buffer.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'ws_sa_2x2' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/ws_sa_2x2.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'pe' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/pe.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'multiplier' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/multiplier.sv:15]
+INFO: [Synth 8-6155] done synthesizing module 'multiplier' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/multiplier.sv:15]
+INFO: [Synth 8-6155] done synthesizing module 'pe' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/pe.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'ws_sa_2x2' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/ws_sa_2x2.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'mxu_2x2' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/mxu_2x2.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'psum_packer_v2' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/psum_packer_v2.sv:4]
+INFO: [Synth 8-6155] done synthesizing module 'psum_packer_v2' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/psum_packer_v2.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'accumulator_array_v2' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/accumulator_array_v2.sv:4]
+INFO: [Synth 8-6155] done synthesizing module 'accumulator_array_v2' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/accumulator_array_v2.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'vector_processing_unit_v2' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/vector_processing_unit_v2.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'post_process_v2' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/post_process_v2.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'bias_requantize_v2' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/bias_requantize_v2.sv:4]
+INFO: [Synth 8-6155] done synthesizing module 'bias_requantize_v2' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/bias_requantize_v2.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'activation_array_v2' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/activation_array_v2.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'activation_array_v2' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/activation_array_v2.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'normalizer_v2' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/normalizer_v2.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'normalizer_v2' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/normalizer_v2.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'pooling_unit_v2' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/pooling_unit_v2.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'pooling_unit_v2' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/pooling_unit_v2.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'post_process_v2' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/post_process_v2.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'vector_processing_unit_v2' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/vector_processing_unit_v2.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'tpu_datapath_v2' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/tpu_datapath_v2.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'maxpool2d_unit' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/maxpool2d_unit.sv:4]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/maxpool2d_unit.sv:154]
+INFO: [Synth 8-6155] done synthesizing module 'maxpool2d_unit' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/maxpool2d_unit.sv:4]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/tpu_top.sv:483]
+INFO: [Synth 8-6155] done synthesizing module 'tpu_top' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/tpu_top.sv:6]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/tpu_top_axi_lite.sv:298]
+INFO: [Synth 8-6155] done synthesizing module 'tpu_top_axi_lite' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/tpu_top_axi_lite.sv:4]
+INFO: [Synth 8-6155] done synthesizing module 'design_1_tpu_mnist_ip_0_0' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ip/design_1_tpu_mnist_ip_0_0/synth/design_1_tpu_mnist_ip_0_0.sv:53]
+WARNING: [Synth 8-6014] Unused sequential element pool_count_q_reg was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/pooling_unit_v2.sv:54]
+WARNING: [Synth 8-6014] Unused sequential element pool_sum_q_reg[0] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/pooling_unit_v2.sv:57]
+WARNING: [Synth 8-6014] Unused sequential element pool_sum_q_reg[1] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/pooling_unit_v2.sv:57]
+WARNING: [Synth 8-6014] Unused sequential element pool_max_q_reg[0] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/pooling_unit_v2.sv:58]
+WARNING: [Synth 8-6014] Unused sequential element pool_max_q_reg[1] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/pooling_unit_v2.sv:58]
+WARNING: [Synth 8-6014] Unused sequential element merged_addr_reg was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.gen/sources_1/bd/design_1/ipshared/2859/src/tpu_top_axi_lite.sv:323]
+INFO: [Synth 8-7129] Port work_i in module ws_sa_2x2 is either unconnected or has no load
+INFO: [Synth 8-7129] Port num_tiles_i[7] in module ws_sa_2x2 is either unconnected or has no load
+INFO: [Synth 8-7129] Port num_tiles_i[6] in module ws_sa_2x2 is either unconnected or has no load
+INFO: [Synth 8-7129] Port num_tiles_i[5] in module ws_sa_2x2 is either unconnected or has no load
+INFO: [Synth 8-7129] Port num_tiles_i[4] in module ws_sa_2x2 is either unconnected or has no load
+INFO: [Synth 8-7129] Port num_tiles_i[3] in module ws_sa_2x2 is either unconnected or has no load
+INFO: [Synth 8-7129] Port num_tiles_i[2] in module ws_sa_2x2 is either unconnected or has no load
+INFO: [Synth 8-7129] Port num_tiles_i[1] in module ws_sa_2x2 is either unconnected or has no load
+INFO: [Synth 8-7129] Port num_tiles_i[0] in module ws_sa_2x2 is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[15] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[14] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[13] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[12] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[11] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[10] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[9] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[8] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[7] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[6] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[5] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[4] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[3] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[2] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[1] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[0] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_w_i[15] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_w_i[14] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_w_i[13] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_w_i[12] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_w_i[11] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_w_i[10] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_w_i[9] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_w_i[8] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_w_i[7] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_w_i[6] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_w_i[5] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_w_i[4] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_w_i[3] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_w_i[2] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_w_i[1] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_w_i[0] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_h_i[15] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_h_i[14] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_h_i[13] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_h_i[12] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_h_i[11] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_h_i[10] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_h_i[9] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_h_i[8] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_h_i[7] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_h_i[6] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_h_i[5] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_h_i[4] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_h_i[3] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_h_i[2] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_h_i[1] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_h_i[0] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_w_i[15] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_w_i[14] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_w_i[13] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_w_i[12] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_w_i[11] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_w_i[10] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_w_i[9] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_w_i[8] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_w_i[7] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_w_i[6] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_w_i[5] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_w_i[4] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_w_i[3] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_w_i[2] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_w_i[1] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port kernel_w_i[0] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_axi_wdata[23] in module tpu_top_axi_lite is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_axi_wdata[22] in module tpu_top_axi_lite is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_axi_wdata[21] in module tpu_top_axi_lite is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_axi_wdata[20] in module tpu_top_axi_lite is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_axi_wdata[19] in module tpu_top_axi_lite is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_axi_wdata[18] in module tpu_top_axi_lite is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_axi_wdata[17] in module tpu_top_axi_lite is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_axi_wdata[16] in module tpu_top_axi_lite is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_axi_wstrb[2] in module tpu_top_axi_lite is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 3081.391 ; gain = 285.656 ; free physical = 3534 ; free virtual = 37413
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 3081.391 ; gain = 285.656 ; free physical = 3534 ; free virtual = 37412
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 3081.391 ; gain = 285.656 ; free physical = 3534 ; free virtual = 37412
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.06 ; elapsed = 00:00:00.06 . Memory (MB): peak = 3081.391 ; gain = 0.000 ; free physical = 3534 ; free virtual = 37412
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3154.043 ; gain = 0.000 ; free physical = 3533 ; free virtual = 37411
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.1 ; elapsed = 00:00:00.04 . Memory (MB): peak = 3154.078 ; gain = 0.000 ; free physical = 3533 ; free virtual = 37411
+INFO: [Designutils 20-5008] Incremental synthesis strategy off
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 3154.078 ; gain = 358.344 ; free physical = 3597 ; free virtual = 37476
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xczu7ev-ffvc1156-2-e
+INFO: [Synth 8-6742] Reading net delay rules and data
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 3162.047 ; gain = 366.312 ; free physical = 3597 ; free virtual = 37476
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 3162.047 ; gain = 366.312 ; free physical = 3597 ; free virtual = 37476
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'state_q_reg' in module 'tpu_controller_rom_layer'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'wgt_fetcher_2x2'
+INFO: [Synth 8-802] inferred FSM for state register 'state_q_reg' in module 'maxpool2d_unit'
+INFO: [Synth 8-802] inferred FSM for state register 'state_q_reg' in module 'tpu_top'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                  S_IDLE |                              000 |                            00000
+            S_START_TILE |                              001 |                            00001
+              S_RUN_TILE |                              010 |                            00010
+                 S_ERROR |                              011 |                            00100
+                  S_DONE |                              100 |                            00011
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_q_reg' using encoding 'sequential' in module 'tpu_controller_rom_layer'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    IDLE |                             0001 |                               00
+               POP_FIRST |                             0010 |                               01
+               LOAD_ROWS |                             0100 |                               10
+                  SWITCH |                             1000 |                               11
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'one-hot' in module 'wgt_fetcher_2x2'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                  S_IDLE |                              000 |                             0000
+              S_VALIDATE |                              001 |                             0001
+              S_READ_REQ |                              010 |                             0010
+             S_READ_WAIT |                              011 |                             0011
+                 S_WRITE |                              100 |                             0100
+                 S_ERROR |                              101 |                             0111
+               S_ADVANCE |                              110 |                             0101
+                  S_DONE |                              111 |                             0110
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_q_reg' using encoding 'sequential' in module 'maxpool2d_unit'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                  S_IDLE |                             0001 |                            00000
+           S_START_CONV1 |                             0010 |                            00001
+             S_RUN_CONV1 |                             1100 |                            00010
+           S_START_POOL1 |                             1001 |                            00011
+             S_RUN_POOL1 |                             1010 |                            00100
+           S_START_CONV2 |                             1000 |                            00101
+             S_RUN_CONV2 |                             0111 |                            00110
+           S_START_POOL2 |                             0011 |                            00111
+             S_RUN_POOL2 |                             0100 |                            01000
+             S_START_FC1 |                             0101 |                            01001
+               S_RUN_FC1 |                             0110 |                            01010
+             S_START_FC2 |                             1110 |                            01011
+               S_RUN_FC2 |                             1101 |                            01100
+                 S_ERROR |                             0000 |                            01110
+                  S_DONE |                             1011 |                            01101
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_q_reg' using encoding 'sequential' in module 'tpu_top'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 3162.047 ; gain = 366.312 ; free physical = 3601 ; free virtual = 37481
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   3 Input   66 Bit       Adders := 2     
+	   2 Input   66 Bit       Adders := 2     
+	   2 Input   65 Bit       Adders := 2     
+	   2 Input   33 Bit       Adders := 2     
+	   3 Input   32 Bit       Adders := 1     
+	   2 Input   32 Bit       Adders := 3     
+	   4 Input   18 Bit       Adders := 1     
+	   2 Input   18 Bit       Adders := 4     
+	   2 Input   17 Bit       Adders := 1     
+	   5 Input   16 Bit       Adders := 2     
+	   3 Input   16 Bit       Adders := 10    
+	   6 Input   16 Bit       Adders := 2     
+	   2 Input   16 Bit       Adders := 15    
+	   3 Input   11 Bit       Adders := 1     
+	   3 Input    8 Bit       Adders := 1     
+	   2 Input    8 Bit       Adders := 3     
+	   2 Input    6 Bit       Adders := 8     
+	   2 Input    5 Bit       Adders := 5     
+	   2 Input    4 Bit       Adders := 4     
+	   2 Input    2 Bit       Adders := 2     
++---XORs : 
+	   2 Input      1 Bit         XORs := 8     
++---Registers : 
+	               64 Bit    Registers := 7     
+	               34 Bit    Registers := 2     
+	               32 Bit    Registers := 43    
+	               17 Bit    Registers := 16    
+	               16 Bit    Registers := 48    
+	               13 Bit    Registers := 11    
+	               12 Bit    Registers := 2     
+	                8 Bit    Registers := 70    
+	                6 Bit    Registers := 2     
+	                5 Bit    Registers := 7     
+	                4 Bit    Registers := 24    
+	                2 Bit    Registers := 10    
+	                1 Bit    Registers := 121   
++---Multipliers : 
+	              16x32  Multipliers := 2     
++---RAMs : 
+	              64K Bit	(8192 X 8 bit)          RAMs := 2     
++---ROMs : 
+	                    ROMs := 4     
++---Muxes : 
+	   2 Input   66 Bit        Muxes := 2     
+	   2 Input   64 Bit        Muxes := 1     
+	   2 Input   34 Bit        Muxes := 3     
+	   2 Input   32 Bit        Muxes := 138   
+	   5 Input   32 Bit        Muxes := 3     
+	   3 Input   32 Bit        Muxes := 2     
+	   8 Input   32 Bit        Muxes := 1     
+	  15 Input   32 Bit        Muxes := 2     
+	   5 Input   18 Bit        Muxes := 1     
+	   3 Input   18 Bit        Muxes := 1     
+	   2 Input   17 Bit        Muxes := 14    
+	   2 Input   16 Bit        Muxes := 52    
+	   3 Input   16 Bit        Muxes := 4     
+	  22 Input   16 Bit        Muxes := 2     
+	   5 Input   16 Bit        Muxes := 3     
+	   4 Input   16 Bit        Muxes := 1     
+	   8 Input   16 Bit        Muxes := 3     
+	   4 Input   13 Bit        Muxes := 2     
+	   2 Input   13 Bit        Muxes := 6     
+	   2 Input   11 Bit        Muxes := 2     
+	   4 Input   10 Bit        Muxes := 2     
+	   2 Input    8 Bit        Muxes := 83    
+	   4 Input    8 Bit        Muxes := 4     
+	   3 Input    8 Bit        Muxes := 2     
+	  22 Input    8 Bit        Muxes := 2     
+	   8 Input    8 Bit        Muxes := 1     
+	   4 Input    7 Bit        Muxes := 2     
+	   4 Input    6 Bit        Muxes := 2     
+	   4 Input    5 Bit        Muxes := 6     
+	   2 Input    5 Bit        Muxes := 10    
+	   6 Input    5 Bit        Muxes := 1     
+	   3 Input    5 Bit        Muxes := 3     
+	  22 Input    5 Bit        Muxes := 2     
+	   5 Input    5 Bit        Muxes := 1     
+	  15 Input    5 Bit        Muxes := 1     
+	   4 Input    4 Bit        Muxes := 2     
+	   2 Input    4 Bit        Muxes := 17    
+	   8 Input    4 Bit        Muxes := 1     
+	  15 Input    4 Bit        Muxes := 1     
+	   5 Input    3 Bit        Muxes := 1     
+	   2 Input    3 Bit        Muxes := 15    
+	   8 Input    3 Bit        Muxes := 1     
+	   7 Input    3 Bit        Muxes := 1     
+	   4 Input    2 Bit        Muxes := 4     
+	   2 Input    2 Bit        Muxes := 9     
+	   3 Input    2 Bit        Muxes := 2     
+	  22 Input    2 Bit        Muxes := 2     
+	   8 Input    2 Bit        Muxes := 1     
+	   4 Input    1 Bit        Muxes := 28    
+	   2 Input    1 Bit        Muxes := 325   
+	  22 Input    1 Bit        Muxes := 14    
+	   5 Input    1 Bit        Muxes := 12    
+	   3 Input    1 Bit        Muxes := 2     
+	   8 Input    1 Bit        Muxes := 17    
+	  15 Input    1 Bit        Muxes := 5     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 1728 (col length:144)
+BRAMs: 624 (col length: RAMB18 144 RAMB36 72)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+DSP Report: Generating DSP output_addr1_w1, operation Mode is: A*B.
+DSP Report: operator output_addr1_w1 is absorbed into DSP output_addr1_w1.
+DSP Report: Generating DSP output_addr1_w, operation Mode is: PCIN+(A:0x0):B+C.
+DSP Report: operator output_addr1_w is absorbed into DSP output_addr1_w.
+DSP Report: Generating DSP output_addr0_w1, operation Mode is: A*B.
+DSP Report: operator output_addr0_w1 is absorbed into DSP output_addr0_w1.
+DSP Report: Generating DSP output_addr0_w, operation Mode is: PCIN+(A:0x0):B+C.
+DSP Report: operator output_addr0_w is absorbed into DSP output_addr0_w.
+DSP Report: Generating DSP (null)[0].shifted_value0, operation Mode is: A*B.
+DSP Report: operator (null)[0].shifted_value0 is absorbed into DSP (null)[0].shifted_value0.
+DSP Report: operator (null)[0].shifted_value0 is absorbed into DSP (null)[0].shifted_value0.
+DSP Report: Generating DSP (null)[0].shifted_value0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator (null)[0].shifted_value0 is absorbed into DSP (null)[0].shifted_value0.
+DSP Report: operator (null)[0].shifted_value0 is absorbed into DSP (null)[0].shifted_value0.
+DSP Report: Generating DSP (null)[0].shifted_value0, operation Mode is: A*B.
+DSP Report: operator (null)[0].shifted_value0 is absorbed into DSP (null)[0].shifted_value0.
+DSP Report: operator (null)[0].shifted_value0 is absorbed into DSP (null)[0].shifted_value0.
+DSP Report: Generating DSP (null)[0].shifted_value0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator (null)[0].shifted_value0 is absorbed into DSP (null)[0].shifted_value0.
+DSP Report: operator (null)[0].shifted_value0 is absorbed into DSP (null)[0].shifted_value0.
+DSP Report: Generating DSP (null)[0].shifted_value0, operation Mode is: A*B.
+DSP Report: operator (null)[0].shifted_value0 is absorbed into DSP (null)[0].shifted_value0.
+DSP Report: operator (null)[0].shifted_value0 is absorbed into DSP (null)[0].shifted_value0.
+DSP Report: Generating DSP (null)[0].shifted_value0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator (null)[0].shifted_value0 is absorbed into DSP (null)[0].shifted_value0.
+DSP Report: operator (null)[0].shifted_value0 is absorbed into DSP (null)[0].shifted_value0.
+DSP Report: Generating DSP (null)[0].shifted_value0, operation Mode is: A*B.
+DSP Report: operator (null)[0].shifted_value0 is absorbed into DSP (null)[0].shifted_value0.
+DSP Report: operator (null)[0].shifted_value0 is absorbed into DSP (null)[0].shifted_value0.
+DSP Report: Generating DSP (null)[0].shifted_value0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator (null)[0].shifted_value0 is absorbed into DSP (null)[0].shifted_value0.
+DSP Report: operator (null)[0].shifted_value0 is absorbed into DSP (null)[0].shifted_value0.
+DSP Report: Generating DSP read_addr_w1, operation Mode is: (D+A)*B.
+DSP Report: operator read_addr_w1 is absorbed into DSP read_addr_w1.
+DSP Report: operator in_row_w is absorbed into DSP read_addr_w1.
+DSP Report: Generating DSP read_addr_w, operation Mode is: PCIN+(A:0x0):B+C.
+DSP Report: operator read_addr_w is absorbed into DSP read_addr_w.
+DSP Report: Generating DSP in_channel_stride_w, operation Mode is: A*B.
+DSP Report: operator in_channel_stride_w is absorbed into DSP in_channel_stride_w.
+DSP Report: Generating DSP read_addr_w2, operation Mode is: A*B.
+DSP Report: operator read_addr_w2 is absorbed into DSP read_addr_w2.
+DSP Report: operator read_addr_w2 is absorbed into DSP read_addr_w2.
+DSP Report: Generating DSP read_addr_w2, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator read_addr_w2 is absorbed into DSP read_addr_w2.
+DSP Report: operator read_addr_w2 is absorbed into DSP read_addr_w2.
+DSP Report: Generating DSP read_addr_w, operation Mode is: PCIN+(A:0x0):B+C.
+DSP Report: operator read_addr_w is absorbed into DSP read_addr_w.
+DSP Report: Generating DSP write_addr_w1, operation Mode is: A*B.
+DSP Report: operator write_addr_w1 is absorbed into DSP write_addr_w1.
+DSP Report: Generating DSP write_addr_w, operation Mode is: PCIN+(A:0x0):B+C.
+DSP Report: operator write_addr_w is absorbed into DSP write_addr_w.
+DSP Report: Generating DSP out_channel_stride_w, operation Mode is: A*B.
+DSP Report: operator out_channel_stride_w is absorbed into DSP out_channel_stride_w.
+DSP Report: Generating DSP write_addr_w2, operation Mode is: A*B.
+DSP Report: operator write_addr_w2 is absorbed into DSP write_addr_w2.
+DSP Report: operator write_addr_w2 is absorbed into DSP write_addr_w2.
+DSP Report: Generating DSP write_addr_w2, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator write_addr_w2 is absorbed into DSP write_addr_w2.
+DSP Report: operator write_addr_w2 is absorbed into DSP write_addr_w2.
+INFO: [Synth 8-3917] design design_1_tpu_mnist_ip_0_0 has port s_axi_bresp[1] driven by constant 0
+INFO: [Synth 8-3917] design design_1_tpu_mnist_ip_0_0 has port s_axi_bresp[0] driven by constant 0
+INFO: [Synth 8-3917] design design_1_tpu_mnist_ip_0_0 has port s_axi_rresp[1] driven by constant 0
+INFO: [Synth 8-3917] design design_1_tpu_mnist_ip_0_0 has port s_axi_rresp[0] driven by constant 0
+INFO: [Synth 8-7129] Port work_i in module tpu_datapath_v2 is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[15] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[14] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[13] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[12] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[11] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[10] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[9] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[8] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[7] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[6] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[5] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[4] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[3] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[2] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[1] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_h_i[0] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Synth 8-7129] Port in_w_i[15] in module conv_fc_address_generator is either unconnected or has no load
+INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:28 ; elapsed = 00:00:29 . Memory (MB): peak = 3263.062 ; gain = 467.328 ; free physical = 3637 ; free virtual = 37518
+---------------------------------------------------------------------------------
+ Sort Area is  (null)[0].shifted_value0_4 : 0 0 : 2701 4864 : Used 1 time 0
+ Sort Area is  (null)[0].shifted_value0_4 : 0 1 : 2163 4864 : Used 1 time 0
+ Sort Area is  (null)[0].shifted_value0_a : 0 0 : 2701 4864 : Used 1 time 0
+ Sort Area is  (null)[0].shifted_value0_a : 0 1 : 2163 4864 : Used 1 time 0
+ Sort Area is  read_addr_w2_d : 0 0 : 2588 4841 : Used 1 time 0
+ Sort Area is  read_addr_w2_d : 0 1 : 2253 4841 : Used 1 time 0
+ Sort Area is  write_addr_w2_15 : 0 0 : 2588 4841 : Used 1 time 0
+ Sort Area is  write_addr_w2_15 : 0 1 : 2253 4841 : Used 1 time 0
+ Sort Area is  (null)[0].shifted_value0_7 : 0 0 : 2304 4199 : Used 1 time 0
+ Sort Area is  (null)[0].shifted_value0_7 : 0 1 : 1895 4199 : Used 1 time 0
+ Sort Area is  (null)[0].shifted_value0_b : 0 0 : 2304 4199 : Used 1 time 0
+ Sort Area is  (null)[0].shifted_value0_b : 0 1 : 1895 4199 : Used 1 time 0
+ Sort Area is  read_addr_w1_10 : 0 0 : 2193 2456 : Used 1 time 0
+ Sort Area is  read_addr_w1_10 : 0 1 : 168 2456 : Used 1 time 0
+ Sort Area is  read_addr_w1_10 : 0 2 : 95 2456 : Used 1 time 0
+ Sort Area is  output_addr0_w1_3 : 0 0 : 1946 2114 : Used 1 time 0
+ Sort Area is  output_addr0_w1_3 : 0 1 : 168 2114 : Used 1 time 0
+ Sort Area is  output_addr1_w1_0 : 0 0 : 1946 2114 : Used 1 time 0
+ Sort Area is  output_addr1_w1_0 : 0 1 : 168 2114 : Used 1 time 0
+ Sort Area is  write_addr_w1_16 : 0 0 : 1946 2112 : Used 1 time 0
+ Sort Area is  write_addr_w1_16 : 0 1 : 166 2112 : Used 1 time 0
+ Sort Area is  in_channel_stride_w_c : 0 0 : 1946 1946 : Used 1 time 0
+ Sort Area is  out_channel_stride_w_14 : 0 0 : 1946 1946 : Used 1 time 0
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+ROM: Preliminary Mapping Report
++-------------------------+--------------------------------------------------------------+---------------+----------------+
+|Module Name              | RTL Object                                                   | Depth x Width | Implemented As | 
++-------------------------+--------------------------------------------------------------+---------------+----------------+
+|bias_rom                 | rom_q                                                        | 64x32         | LUT            | 
+|requant_mult_rom         | rom_q                                                        | 64x32         | LUT            | 
+|requant_shift_rom        | rom_q                                                        | 64x6          | LUT            | 
+|tpu_controller_rom_kloop | p_0_out                                                      | 64x32         | LUT            | 
+|tpu_controller_rom_kloop | p_0_out                                                      | 64x32         | LUT            | 
+|tpu_controller_rom_kloop | p_0_out                                                      | 64x32         | LUT            | 
+|tpu_controller_rom_kloop | p_0_out                                                      | 64x6          | LUT            | 
+|tpu_controller_rom_kloop | p_0_out                                                      | 64x6          | LUT            | 
+|tpu_controller_rom_layer | u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg | 8192x8        | Block RAM      | 
+|tpu_controller_rom_layer | u_tile_controller/GEN_WEIGHT_ROMS[1].u_weight_rom/data_o_reg | 8192x8        | Block RAM      | 
+|tpu_controller_rom_layer | u_tile_controller/GEN_WEIGHT_ROMS[2].u_weight_rom/data_o_reg | 8192x8        | Block RAM      | 
+|tpu_controller_rom_layer | u_tile_controller/GEN_WEIGHT_ROMS[3].u_weight_rom/data_o_reg | 8192x8        | Block RAM      | 
++-------------------------+--------------------------------------------------------------+---------------+----------------+
+
+
+Block RAM: Preliminary Mapping Report (see note below)
++----------------------------------+---------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+|Module Name                       | RTL Object    | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | Cascade Heights | 
++----------------------------------+---------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+|\inst/u_tpu_top /u_unified_buffer | bank0_mem_reg | 8 K x 8(READ_FIRST)    | W |   | 8 K x 8(WRITE_FIRST)   |   | R | Port A and B     | 0      | 2      | 2               | 
+|\inst/u_tpu_top /u_unified_buffer | bank1_mem_reg | 8 K x 8(READ_FIRST)    | W |   | 8 K x 8(WRITE_FIRST)   |   | R | Port A and B     | 0      | 2      | 2               | 
++----------------------------------+---------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+
+Note: The table above is a preliminary report that shows the Block RAMs at the current stage of the synthesis flow. Some Block RAMs may be reimplemented as non Block RAM primitives later in the synthesis flow. Multiple instantiated Block RAMs are reported only once. 
+
+DSP: Preliminary Mapping Report (see note below. The ' indicates corresponding REG is set)
++-------------------------+------------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name              | DSP Mapping      | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++-------------------------+------------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|tpu_controller_rom_kloop | A*B              | 16     | 16     | -      | -      | 32     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|tpu_controller_rom_kloop | PCIN+(A:0x0):B+C | 30     | 17     | 13     | -      | -1     | 0    | 0    | 0    | -    | -     | 0    | 0    | 
+|tpu_controller_rom_kloop | A*B              | 16     | 16     | -      | -      | 32     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|tpu_controller_rom_kloop | PCIN+(A:0x0):B+C | 30     | 17     | 13     | -      | -1     | 0    | 0    | 0    | -    | -     | 0    | 0    | 
+|bias_requantize_v2       | A*B              | 18     | 16     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|bias_requantize_v2       | (PCIN>>17)+A*B   | 16     | 15     | -      | -      | 31     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|bias_requantize_v2       | A*B              | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|bias_requantize_v2       | (PCIN>>17)+A*B   | 18     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|bias_requantize_v2       | A*B              | 18     | 16     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|bias_requantize_v2       | (PCIN>>17)+A*B   | 16     | 15     | -      | -      | 31     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|bias_requantize_v2       | A*B              | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|bias_requantize_v2       | (PCIN>>17)+A*B   | 18     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|maxpool2d_unit           | (D+A)*B          | 1      | 16     | -      | 17     | 34     | 0    | 0    | -    | 0    | 0     | 0    | 0    | 
+|maxpool2d_unit           | PCIN+(A:0x0):B+C | 30     | 13     | 17     | -      | -1     | 0    | 0    | 0    | -    | -     | 0    | 0    | 
+|maxpool2d_unit           | A*B              | 16     | 16     | -      | -      | 32     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|maxpool2d_unit           | A*B              | 18     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|maxpool2d_unit           | (PCIN>>17)+A*B   | 17     | 16     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|maxpool2d_unit           | PCIN+(A:0x0):B+C | 30     | 1      | 32     | -      | -1     | 0    | 0    | 0    | -    | -     | 0    | 0    | 
+|maxpool2d_unit           | A*B              | 16     | 16     | -      | -      | 32     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|maxpool2d_unit           | PCIN+(A:0x0):B+C | 30     | 16     | 13     | -      | -1     | 0    | 0    | 0    | -    | -     | 0    | 0    | 
+|maxpool2d_unit           | A*B              | 16     | 16     | -      | -      | 32     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|maxpool2d_unit           | A*B              | 18     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|maxpool2d_unit           | (PCIN>>17)+A*B   | 17     | 16     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
++-------------------------+------------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+Note: The table above is a preliminary report that shows the DSPs inferred at the current stage of the synthesis flow. Some DSP may be reimplemented as non DSP primitives later in the synthesis flow. Multiple instantiated DSPs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:28 ; elapsed = 00:00:29 . Memory (MB): peak = 3263.062 ; gain = 467.328 ; free physical = 3636 ; free virtual = 37517
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Final Mapping Report
++----------------------------------+---------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+|Module Name                       | RTL Object    | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | Cascade Heights | 
++----------------------------------+---------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+|\inst/u_tpu_top /u_unified_buffer | bank0_mem_reg | 8 K x 8(READ_FIRST)    | W |   | 8 K x 8(WRITE_FIRST)   |   | R | Port A and B     | 0      | 2      | 2               | 
+|\inst/u_tpu_top /u_unified_buffer | bank1_mem_reg | 8 K x 8(READ_FIRST)    | W |   | 8 K x 8(WRITE_FIRST)   |   | R | Port A and B     | 0      | 2      | 2               | 
++----------------------------------+---------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+INFO: [Synth 8-7052] The timing for the instance inst/u_tpu_top/u_unified_buffer/bank0_mem_reg_bram_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance inst/u_tpu_top/u_unified_buffer/bank1_mem_reg_bram_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[2].u_weight_rom/data_o_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[2].u_weight_rom/data_o_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[2].u_weight_rom/data_o_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[2].u_weight_rom/data_o_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:30 ; elapsed = 00:00:30 . Memory (MB): peak = 3263.062 ; gain = 467.328 ; free physical = 3651 ; free virtual = 37530
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 3286.875 ; gain = 491.141 ; free physical = 3654 ; free virtual = 37532
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 3286.875 ; gain = 491.141 ; free physical = 3654 ; free virtual = 37532
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 3286.875 ; gain = 491.141 ; free physical = 3650 ; free virtual = 37528
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 3286.875 ; gain = 491.141 ; free physical = 3650 ; free virtual = 37528
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 3286.875 ; gain = 491.141 ; free physical = 3650 ; free virtual = 37528
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 3286.875 ; gain = 491.141 ; free physical = 3650 ; free virtual = 37528
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Static Shift Register Report:
++--------------------------+---------------------------------------------------------------------------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
+|Module Name               | RTL Name                                                                                    | Length | Width | Reset Signal | Pull out first Reg | Pull out last Reg | SRL16E | SRLC32E | 
++--------------------------+---------------------------------------------------------------------------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
+|design_1_tpu_mnist_ip_0_0 | inst/u_tpu_top/u_datapath/u_mxu/u_skew_buffer/GEN_ROW_SKEW[1].GEN_DELAY.data_pipe_reg[3][7] | 5      | 8     | YES          | NO                 | YES               | 8      | 0       | 
++--------------------------+---------------------------------------------------------------------------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+DSP Final Report (the ' indicates corresponding REG is set)
++-------------------------+--------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name              | DSP Mapping  | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++-------------------------+--------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|bias_requantize_v2       | A*B          | 17     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|bias_requantize_v2       | PCIN>>17+A*B | 30     | 7      | -      | -      | 31     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|bias_requantize_v2       | A*B          | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|bias_requantize_v2       | PCIN>>17+A*B | 0      | 7      | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|bias_requantize_v2       | A*B          | 17     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|bias_requantize_v2       | PCIN>>17+A*B | 30     | 7      | -      | -      | 31     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|bias_requantize_v2       | A*B          | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|bias_requantize_v2       | PCIN>>17+A*B | 0      | 7      | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|tpu_controller_rom_kloop | C+RND+A*B    | 16     | 10     | 17     | -      | 48     | 0    | 0    | 0    | -    | -     | 0    | 0    | 
+|tpu_controller_rom_kloop | C+RND+A*B    | 16     | 10     | 17     | -      | 48     | 0    | 0    | 0    | -    | -     | 0    | 0    | 
+|maxpool2d_unit           | D+A*B        | 1      | 5      | -      | 17     | 0      | 0    | 0    | -    | 0    | 0     | 0    | 0    | 
+|maxpool2d_unit           | PCIN+A:B+C   | 0      | 0      | -      | -      | 0      | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|maxpool2d_unit           | A*B          | 5      | 5      | -      | -      | 32     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|maxpool2d_unit           | A*B          | 17     | 16     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|maxpool2d_unit           | PCIN>>17+A*B | 16     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|maxpool2d_unit           | PCIN+A:B+C   | 0      | 1      | -      | -      | 32     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|maxpool2d_unit           | C+RND+A*B    | 16     | 4      | 16     | -      | 48     | 0    | 0    | 0    | -    | -     | 0    | 0    | 
+|maxpool2d_unit           | A*B          | 4      | 4      | -      | -      | 32     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|maxpool2d_unit           | A*B          | 17     | 16     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|maxpool2d_unit           | PCIN>>17+A*B | 16     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
++-------------------------+--------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+---------+------+
+|      |Cell     |Count |
++------+---------+------+
+|1     |CARRY8   |   231|
+|2     |DSP48E2  |    20|
+|3     |LUT1     |    87|
+|4     |LUT2     |  1368|
+|5     |LUT3     |   686|
+|6     |LUT4     |  1177|
+|7     |LUT5     |   929|
+|8     |LUT6     |  1646|
+|9     |MUXF7    |   140|
+|10    |MUXF8    |    16|
+|11    |RAMB36E2 |     8|
+|12    |SRL16E   |     8|
+|13    |FDCE     |  2839|
+|14    |FDPE     |     4|
+|15    |FDRE     |   280|
++------+---------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 3286.875 ; gain = 491.141 ; free physical = 3650 ; free virtual = 37528
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:31 ; elapsed = 00:00:32 . Memory (MB): peak = 3286.875 ; gain = 418.453 ; free physical = 3650 ; free virtual = 37528
+Synthesis Optimization Complete : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 3286.883 ; gain = 491.141 ; free physical = 3650 ; free virtual = 37528
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.05 ; elapsed = 00:00:00.04 . Memory (MB): peak = 3304.719 ; gain = 0.000 ; free physical = 3794 ; free virtual = 37672
+INFO: [Netlist 29-17] Analyzing 407 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Opt 31-422] The CLOCK_DOMAINS attribute on the BRAM cell inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_0 has been changed from INDEPENDENT to COMMON to match the clocking topology used for the BRAM.
+INFO: [Opt 31-422] The CLOCK_DOMAINS attribute on the BRAM cell inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[0].u_weight_rom/data_o_reg_1 has been changed from INDEPENDENT to COMMON to match the clocking topology used for the BRAM.
+INFO: [Opt 31-422] The CLOCK_DOMAINS attribute on the BRAM cell inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[2].u_weight_rom/data_o_reg_0 has been changed from INDEPENDENT to COMMON to match the clocking topology used for the BRAM.
+INFO: [Opt 31-422] The CLOCK_DOMAINS attribute on the BRAM cell inst/u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[2].u_weight_rom/data_o_reg_1 has been changed from INDEPENDENT to COMMON to match the clocking topology used for the BRAM.
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3459.090 ; gain = 0.000 ; free physical = 3697 ; free virtual = 37575
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 20 instances were transformed.
+  DSP48E2 => DSP48E2 (DSP_ALU, DSP_A_B_DATA, DSP_C_DATA, DSP_MULTIPLIER, DSP_M_DATA, DSP_OUTPUT, DSP_PREADD, DSP_PREADD_DATA): 20 instances
+
+Synth Design complete | Checksum: 839b9cc5
+INFO: [Common 17-83] Releasing license: Synthesis
+230 Infos, 6 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:39 ; elapsed = 00:00:39 . Memory (MB): peak = 3459.125 ; gain = 1811.922 ; free physical = 3697 ; free virtual = 37575
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 2640.729; main = 2535.703; forked = 282.103
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 4276.273; main = 3459.094; forked = 1013.207
+Write ShapeDB Complete: Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3483.102 ; gain = 0.000 ; free physical = 3696 ; free virtual = 37575
+INFO: [Common 17-1381] The checkpoint '/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.runs/design_1_tpu_mnist_ip_0_0_synth_1/design_1_tpu_mnist_ip_0_0.dcp' has been generated.
+INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP design_1_tpu_mnist_ip_0_0, cache-ID = dd571d79ede24f36
+INFO: [Coretcl 2-1174] Renamed 36 cell refs.
+Write ShapeDB Complete: Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00 . Memory (MB): peak = 3483.102 ; gain = 0.000 ; free physical = 3669 ; free virtual = 37557
+INFO: [Common 17-1381] The checkpoint '/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.runs/design_1_tpu_mnist_ip_0_0_synth_1/design_1_tpu_mnist_ip_0_0.dcp' has been generated.
+INFO: [Vivado 12-24828] Executing command : report_utilization -file design_1_tpu_mnist_ip_0_0_utilization_synth.rpt -pb design_1_tpu_mnist_ip_0_0_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Thu May 28 16:16:21 2026...

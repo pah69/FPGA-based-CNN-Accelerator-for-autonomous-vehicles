@@ -84,7 +84,7 @@ module tpu_top_axi_lite #(
   logic top_error_w;
   logic [4:0] top_state_w;
   logic [2:0] top_stage_w;
-  logic [15:0] top_cycle_count_w;
+  logic [31:0] top_cycle_count_w;
   logic [31:0] top_error_code_w;
   logic signed [DATA_WIDTH-1:0] top_host_rd_data_w;
   logic top_host_rd_valid_w;
@@ -161,7 +161,7 @@ module tpu_top_axi_lite #(
       end
 
       REG_CYCLES: begin
-        axi_read_data_w[15:0] = top_cycle_count_w;
+        axi_read_data_w = top_cycle_count_w;
       end
 
       REG_DEBUG0: begin
