@@ -1,0 +1,1555 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version      : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
+| Date              : Mon Jun  1 10:33:43 2026
+| Host              : pah-PC running 64-bit Ubuntu 24.04.4 LTS
+| Command           : report_timing_summary -max_paths 10 -routable_nets -report_unconstrained -file tpu_top_axi_lite_timing_summary_routed.rpt -pb tpu_top_axi_lite_timing_summary_routed.pb -rpx tpu_top_axi_lite_timing_summary_routed.rpx -warn_on_violation
+| Design            : tpu_top_axi_lite
+| Device            : xczu7ev-ffvc1156
+| Speed File        : -2  PRODUCTION 1.30 05-15-2022
+| Design State      : Routed
+| Temperature Grade : E
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Summary Report
+
+------------------------------------------------------------------------------------------------
+| Timer Settings
+| --------------
+------------------------------------------------------------------------------------------------
+
+  Enable Multi Corner Analysis               :  Yes
+  Enable Pessimism Removal                   :  Yes
+  Pessimism Removal Resolution               :  Nearest Common Node
+  Enable Input Delay Default Clock           :  No
+  Enable Preset / Clear Arcs                 :  No
+  Disable Flight Delays                      :  No
+  Ignore I/O Paths                           :  No
+  Timing Early Launch at Borrowing Latches   :  No
+  Borrow Time for Max Delay Exceptions       :  Yes
+  Merge Timing Exceptions                    :  Yes
+  Inter-SLR Compensation                     :  Conservative
+
+  Corner  Analyze    Analyze    
+  Name    Max Paths  Min Paths  
+  ------  ---------  ---------  
+  Slow    Yes        Yes        
+  Fast    Yes        Yes        
+
+
+------------------------------------------------------------------------------------------------
+| Report Methodology
+| ------------------
+------------------------------------------------------------------------------------------------
+
+Rule       Severity          Description                                 Violations  
+---------  ----------------  ------------------------------------------  ----------  
+TIMING-17  Critical Warning  Non-clocked sequential cell                 1000        
+DPIR-2     Warning           Asynchronous driver check                   277         
+SYNTH-6    Warning           Timing of a RAM block might be sub-optimal  6           
+SYNTH-9    Warning           Small multiplier                            32          
+SYNTH-10   Warning           Wide multiplier                             8           
+
+Note: This report is based on the most recent report_methodology run and may not be up-to-date. Run report_methodology on the current design for the latest report.
+
+
+
+check_timing report
+
+Table of Contents
+-----------------
+1. checking no_clock (4568)
+2. checking constant_clock (0)
+3. checking pulse_width_clock (0)
+4. checking unconstrained_internal_endpoints (12944)
+5. checking no_input_delay (39)
+6. checking no_output_delay (37)
+7. checking multiple_clock (0)
+8. checking generated_clocks (0)
+9. checking loops (0)
+10. checking partial_input_delay (0)
+11. checking partial_output_delay (0)
+12. checking latch_loops (0)
+
+1. checking no_clock (4568)
+---------------------------
+ There are 4568 register/latch pins with no clock driven by root clock pin: s_axi_aclk (HIGH)
+
+
+2. checking constant_clock (0)
+------------------------------
+ There are 0 register/latch pins with constant_clock.
+
+
+3. checking pulse_width_clock (0)
+---------------------------------
+ There are 0 register/latch pins which need pulse_width check
+
+
+4. checking unconstrained_internal_endpoints (12944)
+----------------------------------------------------
+ There are 12944 pins that are not constrained for maximum delay. (HIGH)
+
+ There are 0 pins that are not constrained for maximum delay due to constant clock.
+
+
+5. checking no_input_delay (39)
+-------------------------------
+ There are 39 input ports with no input delay specified. (HIGH)
+
+ There are 0 input ports with no input delay but user has a false path constraint.
+
+
+6. checking no_output_delay (37)
+--------------------------------
+ There are 37 ports with no output delay specified. (HIGH)
+
+ There are 0 ports with no output delay but user has a false path constraint
+
+ There are 0 ports with no output delay but with a timing clock defined on it or propagating through it
+
+
+7. checking multiple_clock (0)
+------------------------------
+ There are 0 register/latch pins with multiple clocks.
+
+
+8. checking generated_clocks (0)
+--------------------------------
+ There are 0 generated clocks that are not connected to a clock source.
+
+
+9. checking loops (0)
+---------------------
+ There are 0 combinational loops in the design.
+
+
+10. checking partial_input_delay (0)
+------------------------------------
+ There are 0 input ports with partial input delay specified.
+
+
+11. checking partial_output_delay (0)
+-------------------------------------
+ There are 0 ports with partial output delay specified.
+
+
+12. checking latch_loops (0)
+----------------------------
+ There are 0 combinational latch loops in the design through latch input
+
+
+
+------------------------------------------------------------------------------------------------
+| Design Timing Summary
+| ---------------------
+------------------------------------------------------------------------------------------------
+
+    WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+    -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
+        inf        0.000                      0                 8717          inf        0.000                      0                 8717           NA           NA                      NA                    NA  
+
+
+There are no user specified timing constraints.
+
+
+------------------------------------------------------------------------------------------------
+| Clock Summary
+| -------------
+------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------
+| Intra Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+Clock             WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+-----             -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
+
+
+------------------------------------------------------------------------------------------------
+| Inter Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints  
+----------    --------          -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------  
+
+
+------------------------------------------------------------------------------------------------
+| Other Path Groups Table
+| -----------------------
+------------------------------------------------------------------------------------------------
+
+Path Group    From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints  
+----------    ----------    --------          -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------  
+
+
+------------------------------------------------------------------------------------------------
+| User Ignored Path Table
+| -----------------------
+------------------------------------------------------------------------------------------------
+
+Path Group    From Clock    To Clock    
+----------    ----------    --------    
+
+
+------------------------------------------------------------------------------------------------
+| Unconstrained Path Table
+| ------------------------
+------------------------------------------------------------------------------------------------
+
+Path Group    From Clock    To Clock    
+----------    ----------    --------    
+(none)                                    
+
+
+------------------------------------------------------------------------------------------------
+| Timing Details
+| --------------
+------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------
+Path Group:  (none)
+From Clock:  
+  To Clock:  
+
+Max Delay          8717 Endpoints
+Min Delay          8717 Endpoints
+--------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack:                    inf
+  Source:                 u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/C
+                            (rising edge-triggered cell FDCE)
+  Destination:            u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[2]/D
+  Path Group:             (none)
+  Path Type:              Max at Slow Process Corner
+  Data Path Delay:        10.466ns  (logic 4.621ns (44.152%)  route 5.845ns (55.848%))
+  Logic Levels:           33  (CARRY8=17 DSP_A_B_DATA=1 DSP_ALU=2 DSP_M_DATA=1 DSP_MULTIPLIER=1 DSP_OUTPUT=2 DSP_PREADD_DATA=1 FDCE=1 LUT2=4 LUT3=2 LUT6=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+    SLICE_X84Y225        FDCE                         0.000     0.000 r  u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/C
+    SLICE_X84Y225        FDCE (Prop_DFF_SLICEM_C_Q)
+                                                      0.078     0.078 r  u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/Q
+                         net (fo=2, routed)           0.403     0.481    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__4_0[9]
+    SLICE_X92Y226        LUT2 (Prop_B6LUT_SLICEL_I0_O)
+                                                      0.098     0.579 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_9/O
+                         net (fo=1, routed)           0.009     0.588    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_9_n_0
+    SLICE_X92Y226        CARRY8 (Prop_CARRY8_SLICEL_S[1]_CO[7])
+                                                      0.186     0.774 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_1/CO[7]
+                         net (fo=1, routed)           0.026     0.800    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_1_n_0
+    SLICE_X92Y227        CARRY8 (Prop_CARRY8_SLICEL_CI_O[5])
+                                                      0.116     0.916 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0_i_3/O[5]
+                         net (fo=2, routed)           0.776     1.692    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/B[4]
+    DSP48E2_X12Y92       DSP_A_B_DATA (Prop_DSP_A_B_DATA_DSP48E2_B[4]_B2_DATA[4])
+                                                      0.151     1.843 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_A_B_DATA_INST/B2_DATA[4]
+                         net (fo=1, routed)           0.000     1.843    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_A_B_DATA.B2_DATA<4>
+    DSP48E2_X12Y92       DSP_PREADD_DATA (Prop_DSP_PREADD_DATA_DSP48E2_B2_DATA[4]_B2B1[4])
+                                                      0.073     1.916 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_PREADD_DATA_INST/B2B1[4]
+                         net (fo=1, routed)           0.000     1.916    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_PREADD_DATA.B2B1<4>
+    DSP48E2_X12Y92       DSP_MULTIPLIER (Prop_DSP_MULTIPLIER_DSP48E2_B2B1[4]_V[34])
+                                                      0.609     2.525 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_MULTIPLIER_INST/V[34]
+                         net (fo=1, routed)           0.000     2.525    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_MULTIPLIER.V<34>
+    DSP48E2_X12Y92       DSP_M_DATA (Prop_DSP_M_DATA_DSP48E2_V[34]_V_DATA[34])
+                                                      0.046     2.571 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_M_DATA_INST/V_DATA[34]
+                         net (fo=1, routed)           0.000     2.571    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_M_DATA.V_DATA<34>
+    DSP48E2_X12Y92       DSP_ALU (Prop_DSP_ALU_DSP48E2_V_DATA[34]_ALU_OUT[47])
+                                                      0.571     3.142 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_ALU_INST/ALU_OUT[47]
+                         net (fo=1, routed)           0.000     3.142    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_ALU.ALU_OUT<47>
+    DSP48E2_X12Y92       DSP_OUTPUT (Prop_DSP_OUTPUT_DSP48E2_ALU_OUT[47]_PCOUT[47])
+                                                      0.122     3.264 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_OUTPUT_INST/PCOUT[47]
+                         net (fo=1, routed)           0.014     3.278    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/PCIN[47]
+    DSP48E2_X12Y93       DSP_ALU (Prop_DSP_ALU_DSP48E2_PCIN[47]_ALU_OUT[13])
+                                                      0.546     3.824 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_ALU_INST/ALU_OUT[13]
+                         net (fo=1, routed)           0.000     3.824    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_ALU.ALU_OUT<13>
+    DSP48E2_X12Y93       DSP_OUTPUT (Prop_DSP_OUTPUT_DSP48E2_ALU_OUT[13]_P[13])
+                                                      0.109     3.933 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_OUTPUT_INST/P[13]
+                         net (fo=1, routed)           0.512     4.445    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0_n_92
+    SLICE_X93Y226        LUT2 (Prop_H6LUT_SLICEM_I1_O)
+                                                      0.152     4.597 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_25/O
+                         net (fo=1, routed)           0.015     4.612    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_25_n_0
+    SLICE_X93Y226        CARRY8 (Prop_CARRY8_SLICEM_S[7]_CO[7])
+                                                      0.117     4.729 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_7/CO[7]
+                         net (fo=1, routed)           0.026     4.755    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_7_n_0
+    SLICE_X93Y227        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     4.770 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_33/CO[7]
+                         net (fo=1, routed)           0.026     4.796    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_33_n_0
+    SLICE_X93Y228        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     4.811 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_73/CO[7]
+                         net (fo=1, routed)           0.026     4.837    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_73_n_0
+    SLICE_X93Y229        CARRY8 (Prop_CARRY8_SLICEM_CI_O[0])
+                                                      0.056     4.893 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_6/O[0]
+                         net (fo=125, routed)         1.661     6.553    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_6_n_15
+    SLICE_X94Y221        LUT2 (Prop_A6LUT_SLICEM_I0_O)
+                                                      0.150     6.703 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[6]_i_28/O
+                         net (fo=1, routed)           0.013     6.716    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[6]_i_28_n_0
+    SLICE_X94Y221        CARRY8 (Prop_CARRY8_SLICEM_S[0]_CO[7])
+                                                      0.192     6.908 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_12/CO[7]
+                         net (fo=1, routed)           0.026     6.934    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_12_n_0
+    SLICE_X94Y222        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     6.949 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     6.975    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_3_n_0
+    SLICE_X94Y223        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     6.990 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     7.016    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_2_n_0
+    SLICE_X94Y224        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.031 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[14]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     7.057    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[14]_i_2_n_0
+    SLICE_X94Y225        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.072 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_4/CO[7]
+                         net (fo=1, routed)           0.026     7.098    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_4_n_0
+    SLICE_X94Y226        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.113 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[30]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     7.139    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[30]_i_3_n_0
+    SLICE_X94Y227        CARRY8 (Prop_CARRY8_SLICEM_CI_O[1])
+                                                      0.076     7.215 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_18/O[1]
+                         net (fo=7, routed)           0.322     7.537    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_18_n_14
+    SLICE_X95Y224        LUT3 (Prop_H6LUT_SLICEL_I1_O)
+                                                      0.150     7.687 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_244/O
+                         net (fo=1, routed)           0.241     7.928    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_244_n_0
+    SLICE_X95Y225        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.151     8.079 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_162/CO[7]
+                         net (fo=1, routed)           0.026     8.105    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_162_n_0
+    SLICE_X95Y226        CARRY8 (Prop_CARRY8_SLICEL_CI_O[7])
+                                                      0.116     8.221 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_161/O[7]
+                         net (fo=4, routed)           0.552     8.774    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_161_n_8
+    SLICE_X95Y223        LUT2 (Prop_F6LUT_SLICEL_I1_O)
+                                                      0.148     8.922 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_130/O
+                         net (fo=1, routed)           0.011     8.933    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_130_n_0
+    SLICE_X95Y223        CARRY8 (Prop_CARRY8_SLICEL_S[5]_CO[7])
+                                                      0.155     9.088 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_44/CO[7]
+                         net (fo=1, routed)           0.026     9.114    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_44_n_0
+    SLICE_X95Y224        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[5])
+                                                      0.077     9.191 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_6/CO[5]
+                         net (fo=15, routed)          0.464     9.655    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_6_n_2
+    SLICE_X98Y223        LUT3 (Prop_D6LUT_SLICEL_I0_O)
+                                                      0.146     9.801 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_2/O
+                         net (fo=18, routed)          0.481    10.282    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_2_n_0
+    SLICE_X96Y225        LUT6 (Prop_B6LUT_SLICEM_I5_O)
+                                                      0.125    10.407 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[2]_i_1/O
+                         net (fo=1, routed)           0.059    10.466    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[2]_i_1_n_0
+    SLICE_X96Y225        FDCE                                         r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[2]/D
+  -------------------------------------------------------------------    -------------------
+
+Slack:                    inf
+  Source:                 u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/C
+                            (rising edge-triggered cell FDCE)
+  Destination:            u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[16]/D
+  Path Group:             (none)
+  Path Type:              Max at Slow Process Corner
+  Data Path Delay:        10.453ns  (logic 4.533ns (43.367%)  route 5.920ns (56.633%))
+  Logic Levels:           33  (CARRY8=17 DSP_A_B_DATA=1 DSP_ALU=2 DSP_M_DATA=1 DSP_MULTIPLIER=1 DSP_OUTPUT=2 DSP_PREADD_DATA=1 FDCE=1 LUT2=4 LUT3=2 LUT5=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+    SLICE_X84Y225        FDCE                         0.000     0.000 r  u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/C
+    SLICE_X84Y225        FDCE (Prop_DFF_SLICEM_C_Q)
+                                                      0.078     0.078 r  u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/Q
+                         net (fo=2, routed)           0.403     0.481    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__4_0[9]
+    SLICE_X92Y226        LUT2 (Prop_B6LUT_SLICEL_I0_O)
+                                                      0.098     0.579 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_9/O
+                         net (fo=1, routed)           0.009     0.588    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_9_n_0
+    SLICE_X92Y226        CARRY8 (Prop_CARRY8_SLICEL_S[1]_CO[7])
+                                                      0.186     0.774 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_1/CO[7]
+                         net (fo=1, routed)           0.026     0.800    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_1_n_0
+    SLICE_X92Y227        CARRY8 (Prop_CARRY8_SLICEL_CI_O[5])
+                                                      0.116     0.916 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0_i_3/O[5]
+                         net (fo=2, routed)           0.776     1.692    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/B[4]
+    DSP48E2_X12Y92       DSP_A_B_DATA (Prop_DSP_A_B_DATA_DSP48E2_B[4]_B2_DATA[4])
+                                                      0.151     1.843 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_A_B_DATA_INST/B2_DATA[4]
+                         net (fo=1, routed)           0.000     1.843    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_A_B_DATA.B2_DATA<4>
+    DSP48E2_X12Y92       DSP_PREADD_DATA (Prop_DSP_PREADD_DATA_DSP48E2_B2_DATA[4]_B2B1[4])
+                                                      0.073     1.916 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_PREADD_DATA_INST/B2B1[4]
+                         net (fo=1, routed)           0.000     1.916    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_PREADD_DATA.B2B1<4>
+    DSP48E2_X12Y92       DSP_MULTIPLIER (Prop_DSP_MULTIPLIER_DSP48E2_B2B1[4]_V[34])
+                                                      0.609     2.525 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_MULTIPLIER_INST/V[34]
+                         net (fo=1, routed)           0.000     2.525    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_MULTIPLIER.V<34>
+    DSP48E2_X12Y92       DSP_M_DATA (Prop_DSP_M_DATA_DSP48E2_V[34]_V_DATA[34])
+                                                      0.046     2.571 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_M_DATA_INST/V_DATA[34]
+                         net (fo=1, routed)           0.000     2.571    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_M_DATA.V_DATA<34>
+    DSP48E2_X12Y92       DSP_ALU (Prop_DSP_ALU_DSP48E2_V_DATA[34]_ALU_OUT[47])
+                                                      0.571     3.142 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_ALU_INST/ALU_OUT[47]
+                         net (fo=1, routed)           0.000     3.142    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_ALU.ALU_OUT<47>
+    DSP48E2_X12Y92       DSP_OUTPUT (Prop_DSP_OUTPUT_DSP48E2_ALU_OUT[47]_PCOUT[47])
+                                                      0.122     3.264 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_OUTPUT_INST/PCOUT[47]
+                         net (fo=1, routed)           0.014     3.278    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/PCIN[47]
+    DSP48E2_X12Y93       DSP_ALU (Prop_DSP_ALU_DSP48E2_PCIN[47]_ALU_OUT[13])
+                                                      0.546     3.824 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_ALU_INST/ALU_OUT[13]
+                         net (fo=1, routed)           0.000     3.824    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_ALU.ALU_OUT<13>
+    DSP48E2_X12Y93       DSP_OUTPUT (Prop_DSP_OUTPUT_DSP48E2_ALU_OUT[13]_P[13])
+                                                      0.109     3.933 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_OUTPUT_INST/P[13]
+                         net (fo=1, routed)           0.512     4.445    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0_n_92
+    SLICE_X93Y226        LUT2 (Prop_H6LUT_SLICEM_I1_O)
+                                                      0.152     4.597 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_25/O
+                         net (fo=1, routed)           0.015     4.612    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_25_n_0
+    SLICE_X93Y226        CARRY8 (Prop_CARRY8_SLICEM_S[7]_CO[7])
+                                                      0.117     4.729 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_7/CO[7]
+                         net (fo=1, routed)           0.026     4.755    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_7_n_0
+    SLICE_X93Y227        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     4.770 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_33/CO[7]
+                         net (fo=1, routed)           0.026     4.796    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_33_n_0
+    SLICE_X93Y228        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     4.811 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_73/CO[7]
+                         net (fo=1, routed)           0.026     4.837    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_73_n_0
+    SLICE_X93Y229        CARRY8 (Prop_CARRY8_SLICEM_CI_O[0])
+                                                      0.056     4.893 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_6/O[0]
+                         net (fo=125, routed)         1.661     6.553    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_6_n_15
+    SLICE_X94Y221        LUT2 (Prop_A6LUT_SLICEM_I0_O)
+                                                      0.150     6.703 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[6]_i_28/O
+                         net (fo=1, routed)           0.013     6.716    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[6]_i_28_n_0
+    SLICE_X94Y221        CARRY8 (Prop_CARRY8_SLICEM_S[0]_CO[7])
+                                                      0.192     6.908 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_12/CO[7]
+                         net (fo=1, routed)           0.026     6.934    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_12_n_0
+    SLICE_X94Y222        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     6.949 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     6.975    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_3_n_0
+    SLICE_X94Y223        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     6.990 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     7.016    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_2_n_0
+    SLICE_X94Y224        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.031 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[14]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     7.057    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[14]_i_2_n_0
+    SLICE_X94Y225        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.072 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_4/CO[7]
+                         net (fo=1, routed)           0.026     7.098    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_4_n_0
+    SLICE_X94Y226        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.113 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[30]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     7.139    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[30]_i_3_n_0
+    SLICE_X94Y227        CARRY8 (Prop_CARRY8_SLICEM_CI_O[1])
+                                                      0.076     7.215 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_18/O[1]
+                         net (fo=7, routed)           0.322     7.537    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_18_n_14
+    SLICE_X95Y224        LUT3 (Prop_H6LUT_SLICEL_I1_O)
+                                                      0.150     7.687 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_244/O
+                         net (fo=1, routed)           0.241     7.928    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_244_n_0
+    SLICE_X95Y225        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.151     8.079 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_162/CO[7]
+                         net (fo=1, routed)           0.026     8.105    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_162_n_0
+    SLICE_X95Y226        CARRY8 (Prop_CARRY8_SLICEL_CI_O[7])
+                                                      0.116     8.221 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_161/O[7]
+                         net (fo=4, routed)           0.552     8.774    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_161_n_8
+    SLICE_X95Y223        LUT2 (Prop_F6LUT_SLICEL_I1_O)
+                                                      0.148     8.922 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_130/O
+                         net (fo=1, routed)           0.011     8.933    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_130_n_0
+    SLICE_X95Y223        CARRY8 (Prop_CARRY8_SLICEL_S[5]_CO[7])
+                                                      0.155     9.088 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_44/CO[7]
+                         net (fo=1, routed)           0.026     9.114    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_44_n_0
+    SLICE_X95Y224        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[5])
+                                                      0.077     9.191 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_6/CO[5]
+                         net (fo=15, routed)          0.464     9.655    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_6_n_2
+    SLICE_X98Y223        LUT3 (Prop_D6LUT_SLICEL_I0_O)
+                                                      0.146     9.801 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_2/O
+                         net (fo=18, routed)          0.549    10.350    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_2_n_0
+    SLICE_X96Y228        LUT5 (Prop_C6LUT_SLICEM_I0_O)
+                                                      0.037    10.387 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[16]_i_1/O
+                         net (fo=1, routed)           0.066    10.453    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/p_4_out[16]
+    SLICE_X96Y228        FDCE                                         r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[16]/D
+  -------------------------------------------------------------------    -------------------
+
+Slack:                    inf
+  Source:                 u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/C
+                            (rising edge-triggered cell FDCE)
+  Destination:            u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[11]/D
+  Path Group:             (none)
+  Path Type:              Max at Slow Process Corner
+  Data Path Delay:        10.422ns  (logic 4.547ns (43.630%)  route 5.875ns (56.370%))
+  Logic Levels:           33  (CARRY8=17 DSP_A_B_DATA=1 DSP_ALU=2 DSP_M_DATA=1 DSP_MULTIPLIER=1 DSP_OUTPUT=2 DSP_PREADD_DATA=1 FDCE=1 LUT2=4 LUT3=2 LUT5=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+    SLICE_X84Y225        FDCE                         0.000     0.000 r  u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/C
+    SLICE_X84Y225        FDCE (Prop_DFF_SLICEM_C_Q)
+                                                      0.078     0.078 r  u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/Q
+                         net (fo=2, routed)           0.403     0.481    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__4_0[9]
+    SLICE_X92Y226        LUT2 (Prop_B6LUT_SLICEL_I0_O)
+                                                      0.098     0.579 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_9/O
+                         net (fo=1, routed)           0.009     0.588    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_9_n_0
+    SLICE_X92Y226        CARRY8 (Prop_CARRY8_SLICEL_S[1]_CO[7])
+                                                      0.186     0.774 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_1/CO[7]
+                         net (fo=1, routed)           0.026     0.800    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_1_n_0
+    SLICE_X92Y227        CARRY8 (Prop_CARRY8_SLICEL_CI_O[5])
+                                                      0.116     0.916 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0_i_3/O[5]
+                         net (fo=2, routed)           0.776     1.692    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/B[4]
+    DSP48E2_X12Y92       DSP_A_B_DATA (Prop_DSP_A_B_DATA_DSP48E2_B[4]_B2_DATA[4])
+                                                      0.151     1.843 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_A_B_DATA_INST/B2_DATA[4]
+                         net (fo=1, routed)           0.000     1.843    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_A_B_DATA.B2_DATA<4>
+    DSP48E2_X12Y92       DSP_PREADD_DATA (Prop_DSP_PREADD_DATA_DSP48E2_B2_DATA[4]_B2B1[4])
+                                                      0.073     1.916 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_PREADD_DATA_INST/B2B1[4]
+                         net (fo=1, routed)           0.000     1.916    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_PREADD_DATA.B2B1<4>
+    DSP48E2_X12Y92       DSP_MULTIPLIER (Prop_DSP_MULTIPLIER_DSP48E2_B2B1[4]_V[34])
+                                                      0.609     2.525 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_MULTIPLIER_INST/V[34]
+                         net (fo=1, routed)           0.000     2.525    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_MULTIPLIER.V<34>
+    DSP48E2_X12Y92       DSP_M_DATA (Prop_DSP_M_DATA_DSP48E2_V[34]_V_DATA[34])
+                                                      0.046     2.571 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_M_DATA_INST/V_DATA[34]
+                         net (fo=1, routed)           0.000     2.571    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_M_DATA.V_DATA<34>
+    DSP48E2_X12Y92       DSP_ALU (Prop_DSP_ALU_DSP48E2_V_DATA[34]_ALU_OUT[47])
+                                                      0.571     3.142 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_ALU_INST/ALU_OUT[47]
+                         net (fo=1, routed)           0.000     3.142    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_ALU.ALU_OUT<47>
+    DSP48E2_X12Y92       DSP_OUTPUT (Prop_DSP_OUTPUT_DSP48E2_ALU_OUT[47]_PCOUT[47])
+                                                      0.122     3.264 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_OUTPUT_INST/PCOUT[47]
+                         net (fo=1, routed)           0.014     3.278    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/PCIN[47]
+    DSP48E2_X12Y93       DSP_ALU (Prop_DSP_ALU_DSP48E2_PCIN[47]_ALU_OUT[13])
+                                                      0.546     3.824 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_ALU_INST/ALU_OUT[13]
+                         net (fo=1, routed)           0.000     3.824    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_ALU.ALU_OUT<13>
+    DSP48E2_X12Y93       DSP_OUTPUT (Prop_DSP_OUTPUT_DSP48E2_ALU_OUT[13]_P[13])
+                                                      0.109     3.933 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_OUTPUT_INST/P[13]
+                         net (fo=1, routed)           0.512     4.445    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0_n_92
+    SLICE_X93Y226        LUT2 (Prop_H6LUT_SLICEM_I1_O)
+                                                      0.152     4.597 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_25/O
+                         net (fo=1, routed)           0.015     4.612    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_25_n_0
+    SLICE_X93Y226        CARRY8 (Prop_CARRY8_SLICEM_S[7]_CO[7])
+                                                      0.117     4.729 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_7/CO[7]
+                         net (fo=1, routed)           0.026     4.755    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_7_n_0
+    SLICE_X93Y227        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     4.770 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_33/CO[7]
+                         net (fo=1, routed)           0.026     4.796    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_33_n_0
+    SLICE_X93Y228        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     4.811 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_73/CO[7]
+                         net (fo=1, routed)           0.026     4.837    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_73_n_0
+    SLICE_X93Y229        CARRY8 (Prop_CARRY8_SLICEM_CI_O[0])
+                                                      0.056     4.893 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_6/O[0]
+                         net (fo=125, routed)         1.661     6.553    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_6_n_15
+    SLICE_X94Y221        LUT2 (Prop_A6LUT_SLICEM_I0_O)
+                                                      0.150     6.703 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[6]_i_28/O
+                         net (fo=1, routed)           0.013     6.716    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[6]_i_28_n_0
+    SLICE_X94Y221        CARRY8 (Prop_CARRY8_SLICEM_S[0]_CO[7])
+                                                      0.192     6.908 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_12/CO[7]
+                         net (fo=1, routed)           0.026     6.934    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_12_n_0
+    SLICE_X94Y222        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     6.949 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     6.975    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_3_n_0
+    SLICE_X94Y223        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     6.990 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     7.016    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_2_n_0
+    SLICE_X94Y224        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.031 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[14]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     7.057    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[14]_i_2_n_0
+    SLICE_X94Y225        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.072 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_4/CO[7]
+                         net (fo=1, routed)           0.026     7.098    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_4_n_0
+    SLICE_X94Y226        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.113 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[30]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     7.139    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[30]_i_3_n_0
+    SLICE_X94Y227        CARRY8 (Prop_CARRY8_SLICEM_CI_O[1])
+                                                      0.076     7.215 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_18/O[1]
+                         net (fo=7, routed)           0.322     7.537    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_18_n_14
+    SLICE_X95Y224        LUT3 (Prop_H6LUT_SLICEL_I1_O)
+                                                      0.150     7.687 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_244/O
+                         net (fo=1, routed)           0.241     7.928    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_244_n_0
+    SLICE_X95Y225        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.151     8.079 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_162/CO[7]
+                         net (fo=1, routed)           0.026     8.105    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_162_n_0
+    SLICE_X95Y226        CARRY8 (Prop_CARRY8_SLICEL_CI_O[7])
+                                                      0.116     8.221 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_161/O[7]
+                         net (fo=4, routed)           0.552     8.774    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_161_n_8
+    SLICE_X95Y223        LUT2 (Prop_F6LUT_SLICEL_I1_O)
+                                                      0.148     8.922 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_130/O
+                         net (fo=1, routed)           0.011     8.933    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_130_n_0
+    SLICE_X95Y223        CARRY8 (Prop_CARRY8_SLICEL_S[5]_CO[7])
+                                                      0.155     9.088 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_44/CO[7]
+                         net (fo=1, routed)           0.026     9.114    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_44_n_0
+    SLICE_X95Y224        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[5])
+                                                      0.077     9.191 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_6/CO[5]
+                         net (fo=15, routed)          0.464     9.655    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_6_n_2
+    SLICE_X98Y223        LUT3 (Prop_D6LUT_SLICEL_I0_O)
+                                                      0.146     9.801 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_2/O
+                         net (fo=18, routed)          0.498    10.299    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_2_n_0
+    SLICE_X96Y228        LUT5 (Prop_D6LUT_SLICEM_I0_O)
+                                                      0.051    10.350 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[11]_i_1/O
+                         net (fo=1, routed)           0.072    10.422    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/p_4_out[11]
+    SLICE_X96Y228        FDCE                                         r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[11]/D
+  -------------------------------------------------------------------    -------------------
+
+Slack:                    inf
+  Source:                 u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/C
+                            (rising edge-triggered cell FDCE)
+  Destination:            u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[3]/D
+  Path Group:             (none)
+  Path Type:              Max at Slow Process Corner
+  Data Path Delay:        10.414ns  (logic 4.621ns (44.372%)  route 5.793ns (55.628%))
+  Logic Levels:           33  (CARRY8=17 DSP_A_B_DATA=1 DSP_ALU=2 DSP_M_DATA=1 DSP_MULTIPLIER=1 DSP_OUTPUT=2 DSP_PREADD_DATA=1 FDCE=1 LUT2=4 LUT3=2 LUT6=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+    SLICE_X84Y225        FDCE                         0.000     0.000 r  u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/C
+    SLICE_X84Y225        FDCE (Prop_DFF_SLICEM_C_Q)
+                                                      0.078     0.078 r  u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/Q
+                         net (fo=2, routed)           0.403     0.481    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__4_0[9]
+    SLICE_X92Y226        LUT2 (Prop_B6LUT_SLICEL_I0_O)
+                                                      0.098     0.579 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_9/O
+                         net (fo=1, routed)           0.009     0.588    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_9_n_0
+    SLICE_X92Y226        CARRY8 (Prop_CARRY8_SLICEL_S[1]_CO[7])
+                                                      0.186     0.774 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_1/CO[7]
+                         net (fo=1, routed)           0.026     0.800    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_1_n_0
+    SLICE_X92Y227        CARRY8 (Prop_CARRY8_SLICEL_CI_O[5])
+                                                      0.116     0.916 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0_i_3/O[5]
+                         net (fo=2, routed)           0.776     1.692    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/B[4]
+    DSP48E2_X12Y92       DSP_A_B_DATA (Prop_DSP_A_B_DATA_DSP48E2_B[4]_B2_DATA[4])
+                                                      0.151     1.843 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_A_B_DATA_INST/B2_DATA[4]
+                         net (fo=1, routed)           0.000     1.843    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_A_B_DATA.B2_DATA<4>
+    DSP48E2_X12Y92       DSP_PREADD_DATA (Prop_DSP_PREADD_DATA_DSP48E2_B2_DATA[4]_B2B1[4])
+                                                      0.073     1.916 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_PREADD_DATA_INST/B2B1[4]
+                         net (fo=1, routed)           0.000     1.916    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_PREADD_DATA.B2B1<4>
+    DSP48E2_X12Y92       DSP_MULTIPLIER (Prop_DSP_MULTIPLIER_DSP48E2_B2B1[4]_V[34])
+                                                      0.609     2.525 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_MULTIPLIER_INST/V[34]
+                         net (fo=1, routed)           0.000     2.525    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_MULTIPLIER.V<34>
+    DSP48E2_X12Y92       DSP_M_DATA (Prop_DSP_M_DATA_DSP48E2_V[34]_V_DATA[34])
+                                                      0.046     2.571 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_M_DATA_INST/V_DATA[34]
+                         net (fo=1, routed)           0.000     2.571    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_M_DATA.V_DATA<34>
+    DSP48E2_X12Y92       DSP_ALU (Prop_DSP_ALU_DSP48E2_V_DATA[34]_ALU_OUT[47])
+                                                      0.571     3.142 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_ALU_INST/ALU_OUT[47]
+                         net (fo=1, routed)           0.000     3.142    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_ALU.ALU_OUT<47>
+    DSP48E2_X12Y92       DSP_OUTPUT (Prop_DSP_OUTPUT_DSP48E2_ALU_OUT[47]_PCOUT[47])
+                                                      0.122     3.264 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_OUTPUT_INST/PCOUT[47]
+                         net (fo=1, routed)           0.014     3.278    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/PCIN[47]
+    DSP48E2_X12Y93       DSP_ALU (Prop_DSP_ALU_DSP48E2_PCIN[47]_ALU_OUT[13])
+                                                      0.546     3.824 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_ALU_INST/ALU_OUT[13]
+                         net (fo=1, routed)           0.000     3.824    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_ALU.ALU_OUT<13>
+    DSP48E2_X12Y93       DSP_OUTPUT (Prop_DSP_OUTPUT_DSP48E2_ALU_OUT[13]_P[13])
+                                                      0.109     3.933 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_OUTPUT_INST/P[13]
+                         net (fo=1, routed)           0.512     4.445    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0_n_92
+    SLICE_X93Y226        LUT2 (Prop_H6LUT_SLICEM_I1_O)
+                                                      0.152     4.597 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_25/O
+                         net (fo=1, routed)           0.015     4.612    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_25_n_0
+    SLICE_X93Y226        CARRY8 (Prop_CARRY8_SLICEM_S[7]_CO[7])
+                                                      0.117     4.729 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_7/CO[7]
+                         net (fo=1, routed)           0.026     4.755    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_7_n_0
+    SLICE_X93Y227        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     4.770 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_33/CO[7]
+                         net (fo=1, routed)           0.026     4.796    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_33_n_0
+    SLICE_X93Y228        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     4.811 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_73/CO[7]
+                         net (fo=1, routed)           0.026     4.837    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_73_n_0
+    SLICE_X93Y229        CARRY8 (Prop_CARRY8_SLICEM_CI_O[0])
+                                                      0.056     4.893 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_6/O[0]
+                         net (fo=125, routed)         1.661     6.553    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_6_n_15
+    SLICE_X94Y221        LUT2 (Prop_A6LUT_SLICEM_I0_O)
+                                                      0.150     6.703 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[6]_i_28/O
+                         net (fo=1, routed)           0.013     6.716    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[6]_i_28_n_0
+    SLICE_X94Y221        CARRY8 (Prop_CARRY8_SLICEM_S[0]_CO[7])
+                                                      0.192     6.908 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_12/CO[7]
+                         net (fo=1, routed)           0.026     6.934    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_12_n_0
+    SLICE_X94Y222        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     6.949 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     6.975    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_3_n_0
+    SLICE_X94Y223        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     6.990 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     7.016    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_2_n_0
+    SLICE_X94Y224        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.031 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[14]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     7.057    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[14]_i_2_n_0
+    SLICE_X94Y225        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.072 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_4/CO[7]
+                         net (fo=1, routed)           0.026     7.098    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_4_n_0
+    SLICE_X94Y226        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.113 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[30]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     7.139    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[30]_i_3_n_0
+    SLICE_X94Y227        CARRY8 (Prop_CARRY8_SLICEM_CI_O[1])
+                                                      0.076     7.215 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_18/O[1]
+                         net (fo=7, routed)           0.322     7.537    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_18_n_14
+    SLICE_X95Y224        LUT3 (Prop_H6LUT_SLICEL_I1_O)
+                                                      0.150     7.687 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_244/O
+                         net (fo=1, routed)           0.241     7.928    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_244_n_0
+    SLICE_X95Y225        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.151     8.079 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_162/CO[7]
+                         net (fo=1, routed)           0.026     8.105    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_162_n_0
+    SLICE_X95Y226        CARRY8 (Prop_CARRY8_SLICEL_CI_O[7])
+                                                      0.116     8.221 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_161/O[7]
+                         net (fo=4, routed)           0.552     8.774    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_161_n_8
+    SLICE_X95Y223        LUT2 (Prop_F6LUT_SLICEL_I1_O)
+                                                      0.148     8.922 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_130/O
+                         net (fo=1, routed)           0.011     8.933    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_130_n_0
+    SLICE_X95Y223        CARRY8 (Prop_CARRY8_SLICEL_S[5]_CO[7])
+                                                      0.155     9.088 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_44/CO[7]
+                         net (fo=1, routed)           0.026     9.114    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_44_n_0
+    SLICE_X95Y224        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[5])
+                                                      0.077     9.191 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_6/CO[5]
+                         net (fo=15, routed)          0.464     9.655    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_6_n_2
+    SLICE_X98Y223        LUT3 (Prop_D6LUT_SLICEL_I0_O)
+                                                      0.146     9.801 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_2/O
+                         net (fo=18, routed)          0.435    10.236    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_2_n_0
+    SLICE_X96Y225        LUT6 (Prop_A6LUT_SLICEM_I5_O)
+                                                      0.125    10.361 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[3]_i_1/O
+                         net (fo=1, routed)           0.053    10.414    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[3]_i_1_n_0
+    SLICE_X96Y225        FDCE                                         r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[3]/D
+  -------------------------------------------------------------------    -------------------
+
+Slack:                    inf
+  Source:                 u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/C
+                            (rising edge-triggered cell FDCE)
+  Destination:            u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]/D
+  Path Group:             (none)
+  Path Type:              Max at Slow Process Corner
+  Data Path Delay:        10.405ns  (logic 4.642ns (44.615%)  route 5.763ns (55.385%))
+  Logic Levels:           33  (CARRY8=17 DSP_A_B_DATA=1 DSP_ALU=2 DSP_M_DATA=1 DSP_MULTIPLIER=1 DSP_OUTPUT=2 DSP_PREADD_DATA=1 FDCE=1 LUT2=4 LUT3=2 LUT6=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+    SLICE_X84Y225        FDCE                         0.000     0.000 r  u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/C
+    SLICE_X84Y225        FDCE (Prop_DFF_SLICEM_C_Q)
+                                                      0.078     0.078 r  u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/Q
+                         net (fo=2, routed)           0.403     0.481    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__4_0[9]
+    SLICE_X92Y226        LUT2 (Prop_B6LUT_SLICEL_I0_O)
+                                                      0.098     0.579 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_9/O
+                         net (fo=1, routed)           0.009     0.588    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_9_n_0
+    SLICE_X92Y226        CARRY8 (Prop_CARRY8_SLICEL_S[1]_CO[7])
+                                                      0.186     0.774 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_1/CO[7]
+                         net (fo=1, routed)           0.026     0.800    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_1_n_0
+    SLICE_X92Y227        CARRY8 (Prop_CARRY8_SLICEL_CI_O[5])
+                                                      0.116     0.916 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0_i_3/O[5]
+                         net (fo=2, routed)           0.776     1.692    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/B[4]
+    DSP48E2_X12Y92       DSP_A_B_DATA (Prop_DSP_A_B_DATA_DSP48E2_B[4]_B2_DATA[4])
+                                                      0.151     1.843 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_A_B_DATA_INST/B2_DATA[4]
+                         net (fo=1, routed)           0.000     1.843    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_A_B_DATA.B2_DATA<4>
+    DSP48E2_X12Y92       DSP_PREADD_DATA (Prop_DSP_PREADD_DATA_DSP48E2_B2_DATA[4]_B2B1[4])
+                                                      0.073     1.916 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_PREADD_DATA_INST/B2B1[4]
+                         net (fo=1, routed)           0.000     1.916    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_PREADD_DATA.B2B1<4>
+    DSP48E2_X12Y92       DSP_MULTIPLIER (Prop_DSP_MULTIPLIER_DSP48E2_B2B1[4]_V[34])
+                                                      0.609     2.525 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_MULTIPLIER_INST/V[34]
+                         net (fo=1, routed)           0.000     2.525    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_MULTIPLIER.V<34>
+    DSP48E2_X12Y92       DSP_M_DATA (Prop_DSP_M_DATA_DSP48E2_V[34]_V_DATA[34])
+                                                      0.046     2.571 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_M_DATA_INST/V_DATA[34]
+                         net (fo=1, routed)           0.000     2.571    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_M_DATA.V_DATA<34>
+    DSP48E2_X12Y92       DSP_ALU (Prop_DSP_ALU_DSP48E2_V_DATA[34]_ALU_OUT[47])
+                                                      0.571     3.142 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_ALU_INST/ALU_OUT[47]
+                         net (fo=1, routed)           0.000     3.142    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_ALU.ALU_OUT<47>
+    DSP48E2_X12Y92       DSP_OUTPUT (Prop_DSP_OUTPUT_DSP48E2_ALU_OUT[47]_PCOUT[47])
+                                                      0.122     3.264 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_OUTPUT_INST/PCOUT[47]
+                         net (fo=1, routed)           0.014     3.278    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/PCIN[47]
+    DSP48E2_X12Y93       DSP_ALU (Prop_DSP_ALU_DSP48E2_PCIN[47]_ALU_OUT[13])
+                                                      0.546     3.824 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_ALU_INST/ALU_OUT[13]
+                         net (fo=1, routed)           0.000     3.824    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_ALU.ALU_OUT<13>
+    DSP48E2_X12Y93       DSP_OUTPUT (Prop_DSP_OUTPUT_DSP48E2_ALU_OUT[13]_P[13])
+                                                      0.109     3.933 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_OUTPUT_INST/P[13]
+                         net (fo=1, routed)           0.512     4.445    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0_n_92
+    SLICE_X93Y226        LUT2 (Prop_H6LUT_SLICEM_I1_O)
+                                                      0.152     4.597 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_25/O
+                         net (fo=1, routed)           0.015     4.612    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_25_n_0
+    SLICE_X93Y226        CARRY8 (Prop_CARRY8_SLICEM_S[7]_CO[7])
+                                                      0.117     4.729 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_7/CO[7]
+                         net (fo=1, routed)           0.026     4.755    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_7_n_0
+    SLICE_X93Y227        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     4.770 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_33/CO[7]
+                         net (fo=1, routed)           0.026     4.796    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_33_n_0
+    SLICE_X93Y228        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     4.811 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_73/CO[7]
+                         net (fo=1, routed)           0.026     4.837    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_73_n_0
+    SLICE_X93Y229        CARRY8 (Prop_CARRY8_SLICEM_CI_O[0])
+                                                      0.056     4.893 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_6/O[0]
+                         net (fo=125, routed)         1.661     6.553    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_6_n_15
+    SLICE_X94Y221        LUT2 (Prop_A6LUT_SLICEM_I0_O)
+                                                      0.150     6.703 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[6]_i_28/O
+                         net (fo=1, routed)           0.013     6.716    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[6]_i_28_n_0
+    SLICE_X94Y221        CARRY8 (Prop_CARRY8_SLICEM_S[0]_CO[7])
+                                                      0.192     6.908 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_12/CO[7]
+                         net (fo=1, routed)           0.026     6.934    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_12_n_0
+    SLICE_X94Y222        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     6.949 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     6.975    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_3_n_0
+    SLICE_X94Y223        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     6.990 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     7.016    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_2_n_0
+    SLICE_X94Y224        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.031 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[14]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     7.057    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[14]_i_2_n_0
+    SLICE_X94Y225        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.072 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_4/CO[7]
+                         net (fo=1, routed)           0.026     7.098    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_4_n_0
+    SLICE_X94Y226        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.113 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[30]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     7.139    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[30]_i_3_n_0
+    SLICE_X94Y227        CARRY8 (Prop_CARRY8_SLICEM_CI_O[1])
+                                                      0.076     7.215 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_18/O[1]
+                         net (fo=7, routed)           0.322     7.537    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_18_n_14
+    SLICE_X95Y224        LUT3 (Prop_H6LUT_SLICEL_I1_O)
+                                                      0.150     7.687 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_244/O
+                         net (fo=1, routed)           0.241     7.928    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_244_n_0
+    SLICE_X95Y225        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.151     8.079 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_162/CO[7]
+                         net (fo=1, routed)           0.026     8.105    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_162_n_0
+    SLICE_X95Y226        CARRY8 (Prop_CARRY8_SLICEL_CI_O[7])
+                                                      0.116     8.221 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_161/O[7]
+                         net (fo=4, routed)           0.552     8.774    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_161_n_8
+    SLICE_X95Y223        LUT2 (Prop_F6LUT_SLICEL_I1_O)
+                                                      0.148     8.922 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_130/O
+                         net (fo=1, routed)           0.011     8.933    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_130_n_0
+    SLICE_X95Y223        CARRY8 (Prop_CARRY8_SLICEL_S[5]_CO[7])
+                                                      0.155     9.088 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_44/CO[7]
+                         net (fo=1, routed)           0.026     9.114    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_44_n_0
+    SLICE_X95Y224        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[5])
+                                                      0.077     9.191 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_6/CO[5]
+                         net (fo=15, routed)          0.464     9.655    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_6_n_2
+    SLICE_X98Y223        LUT3 (Prop_D6LUT_SLICEL_I0_O)
+                                                      0.146     9.801 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_2/O
+                         net (fo=18, routed)          0.409    10.210    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_2_n_0
+    SLICE_X97Y228        LUT6 (Prop_D6LUT_SLICEL_I5_O)
+                                                      0.146    10.356 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[6]_i_1/O
+                         net (fo=1, routed)           0.049    10.405    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[6]_i_1_n_0
+    SLICE_X97Y228        FDCE                                         r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]/D
+  -------------------------------------------------------------------    -------------------
+
+Slack:                    inf
+  Source:                 u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/C
+                            (rising edge-triggered cell FDCE)
+  Destination:            u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[10]/D
+  Path Group:             (none)
+  Path Type:              Max at Slow Process Corner
+  Data Path Delay:        10.402ns  (logic 4.646ns (44.664%)  route 5.756ns (55.336%))
+  Logic Levels:           33  (CARRY8=17 DSP_A_B_DATA=1 DSP_ALU=2 DSP_M_DATA=1 DSP_MULTIPLIER=1 DSP_OUTPUT=2 DSP_PREADD_DATA=1 FDCE=1 LUT2=4 LUT3=2 LUT5=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+    SLICE_X84Y225        FDCE                         0.000     0.000 r  u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/C
+    SLICE_X84Y225        FDCE (Prop_DFF_SLICEM_C_Q)
+                                                      0.078     0.078 r  u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/Q
+                         net (fo=2, routed)           0.403     0.481    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__4_0[9]
+    SLICE_X92Y226        LUT2 (Prop_B6LUT_SLICEL_I0_O)
+                                                      0.098     0.579 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_9/O
+                         net (fo=1, routed)           0.009     0.588    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_9_n_0
+    SLICE_X92Y226        CARRY8 (Prop_CARRY8_SLICEL_S[1]_CO[7])
+                                                      0.186     0.774 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_1/CO[7]
+                         net (fo=1, routed)           0.026     0.800    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_1_n_0
+    SLICE_X92Y227        CARRY8 (Prop_CARRY8_SLICEL_CI_O[5])
+                                                      0.116     0.916 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0_i_3/O[5]
+                         net (fo=2, routed)           0.776     1.692    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/B[4]
+    DSP48E2_X12Y92       DSP_A_B_DATA (Prop_DSP_A_B_DATA_DSP48E2_B[4]_B2_DATA[4])
+                                                      0.151     1.843 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_A_B_DATA_INST/B2_DATA[4]
+                         net (fo=1, routed)           0.000     1.843    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_A_B_DATA.B2_DATA<4>
+    DSP48E2_X12Y92       DSP_PREADD_DATA (Prop_DSP_PREADD_DATA_DSP48E2_B2_DATA[4]_B2B1[4])
+                                                      0.073     1.916 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_PREADD_DATA_INST/B2B1[4]
+                         net (fo=1, routed)           0.000     1.916    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_PREADD_DATA.B2B1<4>
+    DSP48E2_X12Y92       DSP_MULTIPLIER (Prop_DSP_MULTIPLIER_DSP48E2_B2B1[4]_V[34])
+                                                      0.609     2.525 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_MULTIPLIER_INST/V[34]
+                         net (fo=1, routed)           0.000     2.525    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_MULTIPLIER.V<34>
+    DSP48E2_X12Y92       DSP_M_DATA (Prop_DSP_M_DATA_DSP48E2_V[34]_V_DATA[34])
+                                                      0.046     2.571 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_M_DATA_INST/V_DATA[34]
+                         net (fo=1, routed)           0.000     2.571    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_M_DATA.V_DATA<34>
+    DSP48E2_X12Y92       DSP_ALU (Prop_DSP_ALU_DSP48E2_V_DATA[34]_ALU_OUT[47])
+                                                      0.571     3.142 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_ALU_INST/ALU_OUT[47]
+                         net (fo=1, routed)           0.000     3.142    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_ALU.ALU_OUT<47>
+    DSP48E2_X12Y92       DSP_OUTPUT (Prop_DSP_OUTPUT_DSP48E2_ALU_OUT[47]_PCOUT[47])
+                                                      0.122     3.264 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_OUTPUT_INST/PCOUT[47]
+                         net (fo=1, routed)           0.014     3.278    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/PCIN[47]
+    DSP48E2_X12Y93       DSP_ALU (Prop_DSP_ALU_DSP48E2_PCIN[47]_ALU_OUT[13])
+                                                      0.546     3.824 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_ALU_INST/ALU_OUT[13]
+                         net (fo=1, routed)           0.000     3.824    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_ALU.ALU_OUT<13>
+    DSP48E2_X12Y93       DSP_OUTPUT (Prop_DSP_OUTPUT_DSP48E2_ALU_OUT[13]_P[13])
+                                                      0.109     3.933 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_OUTPUT_INST/P[13]
+                         net (fo=1, routed)           0.512     4.445    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0_n_92
+    SLICE_X93Y226        LUT2 (Prop_H6LUT_SLICEM_I1_O)
+                                                      0.152     4.597 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_25/O
+                         net (fo=1, routed)           0.015     4.612    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_25_n_0
+    SLICE_X93Y226        CARRY8 (Prop_CARRY8_SLICEM_S[7]_CO[7])
+                                                      0.117     4.729 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_7/CO[7]
+                         net (fo=1, routed)           0.026     4.755    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_7_n_0
+    SLICE_X93Y227        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     4.770 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_33/CO[7]
+                         net (fo=1, routed)           0.026     4.796    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_33_n_0
+    SLICE_X93Y228        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     4.811 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_73/CO[7]
+                         net (fo=1, routed)           0.026     4.837    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_73_n_0
+    SLICE_X93Y229        CARRY8 (Prop_CARRY8_SLICEM_CI_O[0])
+                                                      0.056     4.893 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_6/O[0]
+                         net (fo=125, routed)         1.661     6.553    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_6_n_15
+    SLICE_X94Y221        LUT2 (Prop_A6LUT_SLICEM_I0_O)
+                                                      0.150     6.703 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[6]_i_28/O
+                         net (fo=1, routed)           0.013     6.716    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[6]_i_28_n_0
+    SLICE_X94Y221        CARRY8 (Prop_CARRY8_SLICEM_S[0]_CO[7])
+                                                      0.192     6.908 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_12/CO[7]
+                         net (fo=1, routed)           0.026     6.934    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_12_n_0
+    SLICE_X94Y222        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     6.949 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     6.975    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_3_n_0
+    SLICE_X94Y223        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     6.990 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     7.016    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_2_n_0
+    SLICE_X94Y224        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.031 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[14]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     7.057    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[14]_i_2_n_0
+    SLICE_X94Y225        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.072 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_4/CO[7]
+                         net (fo=1, routed)           0.026     7.098    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_4_n_0
+    SLICE_X94Y226        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.113 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[30]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     7.139    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[30]_i_3_n_0
+    SLICE_X94Y227        CARRY8 (Prop_CARRY8_SLICEM_CI_O[1])
+                                                      0.076     7.215 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_18/O[1]
+                         net (fo=7, routed)           0.322     7.537    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_18_n_14
+    SLICE_X95Y224        LUT3 (Prop_H6LUT_SLICEL_I1_O)
+                                                      0.150     7.687 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_244/O
+                         net (fo=1, routed)           0.241     7.928    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_244_n_0
+    SLICE_X95Y225        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.151     8.079 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_162/CO[7]
+                         net (fo=1, routed)           0.026     8.105    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_162_n_0
+    SLICE_X95Y226        CARRY8 (Prop_CARRY8_SLICEL_CI_O[7])
+                                                      0.116     8.221 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_161/O[7]
+                         net (fo=4, routed)           0.552     8.774    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_161_n_8
+    SLICE_X95Y223        LUT2 (Prop_F6LUT_SLICEL_I1_O)
+                                                      0.148     8.922 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_130/O
+                         net (fo=1, routed)           0.011     8.933    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_130_n_0
+    SLICE_X95Y223        CARRY8 (Prop_CARRY8_SLICEL_S[5]_CO[7])
+                                                      0.155     9.088 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_44/CO[7]
+                         net (fo=1, routed)           0.026     9.114    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_44_n_0
+    SLICE_X95Y224        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[5])
+                                                      0.077     9.191 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_6/CO[5]
+                         net (fo=15, routed)          0.464     9.655    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_6_n_2
+    SLICE_X98Y223        LUT3 (Prop_D6LUT_SLICEL_I0_O)
+                                                      0.146     9.801 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_2/O
+                         net (fo=18, routed)          0.398    10.199    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_2_n_0
+    SLICE_X96Y228        LUT5 (Prop_A6LUT_SLICEM_I0_O)
+                                                      0.150    10.349 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[10]_i_1/O
+                         net (fo=1, routed)           0.053    10.402    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/p_4_out[10]
+    SLICE_X96Y228        FDCE                                         r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[10]/D
+  -------------------------------------------------------------------    -------------------
+
+Slack:                    inf
+  Source:                 u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/C
+                            (rising edge-triggered cell FDCE)
+  Destination:            u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[12]/D
+  Path Group:             (none)
+  Path Type:              Max at Slow Process Corner
+  Data Path Delay:        10.391ns  (logic 4.642ns (44.675%)  route 5.749ns (55.325%))
+  Logic Levels:           33  (CARRY8=17 DSP_A_B_DATA=1 DSP_ALU=2 DSP_M_DATA=1 DSP_MULTIPLIER=1 DSP_OUTPUT=2 DSP_PREADD_DATA=1 FDCE=1 LUT2=4 LUT3=2 LUT5=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+    SLICE_X84Y225        FDCE                         0.000     0.000 r  u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/C
+    SLICE_X84Y225        FDCE (Prop_DFF_SLICEM_C_Q)
+                                                      0.078     0.078 r  u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/Q
+                         net (fo=2, routed)           0.403     0.481    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__4_0[9]
+    SLICE_X92Y226        LUT2 (Prop_B6LUT_SLICEL_I0_O)
+                                                      0.098     0.579 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_9/O
+                         net (fo=1, routed)           0.009     0.588    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_9_n_0
+    SLICE_X92Y226        CARRY8 (Prop_CARRY8_SLICEL_S[1]_CO[7])
+                                                      0.186     0.774 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_1/CO[7]
+                         net (fo=1, routed)           0.026     0.800    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_1_n_0
+    SLICE_X92Y227        CARRY8 (Prop_CARRY8_SLICEL_CI_O[5])
+                                                      0.116     0.916 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0_i_3/O[5]
+                         net (fo=2, routed)           0.776     1.692    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/B[4]
+    DSP48E2_X12Y92       DSP_A_B_DATA (Prop_DSP_A_B_DATA_DSP48E2_B[4]_B2_DATA[4])
+                                                      0.151     1.843 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_A_B_DATA_INST/B2_DATA[4]
+                         net (fo=1, routed)           0.000     1.843    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_A_B_DATA.B2_DATA<4>
+    DSP48E2_X12Y92       DSP_PREADD_DATA (Prop_DSP_PREADD_DATA_DSP48E2_B2_DATA[4]_B2B1[4])
+                                                      0.073     1.916 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_PREADD_DATA_INST/B2B1[4]
+                         net (fo=1, routed)           0.000     1.916    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_PREADD_DATA.B2B1<4>
+    DSP48E2_X12Y92       DSP_MULTIPLIER (Prop_DSP_MULTIPLIER_DSP48E2_B2B1[4]_V[34])
+                                                      0.609     2.525 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_MULTIPLIER_INST/V[34]
+                         net (fo=1, routed)           0.000     2.525    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_MULTIPLIER.V<34>
+    DSP48E2_X12Y92       DSP_M_DATA (Prop_DSP_M_DATA_DSP48E2_V[34]_V_DATA[34])
+                                                      0.046     2.571 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_M_DATA_INST/V_DATA[34]
+                         net (fo=1, routed)           0.000     2.571    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_M_DATA.V_DATA<34>
+    DSP48E2_X12Y92       DSP_ALU (Prop_DSP_ALU_DSP48E2_V_DATA[34]_ALU_OUT[47])
+                                                      0.571     3.142 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_ALU_INST/ALU_OUT[47]
+                         net (fo=1, routed)           0.000     3.142    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_ALU.ALU_OUT<47>
+    DSP48E2_X12Y92       DSP_OUTPUT (Prop_DSP_OUTPUT_DSP48E2_ALU_OUT[47]_PCOUT[47])
+                                                      0.122     3.264 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_OUTPUT_INST/PCOUT[47]
+                         net (fo=1, routed)           0.014     3.278    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/PCIN[47]
+    DSP48E2_X12Y93       DSP_ALU (Prop_DSP_ALU_DSP48E2_PCIN[47]_ALU_OUT[13])
+                                                      0.546     3.824 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_ALU_INST/ALU_OUT[13]
+                         net (fo=1, routed)           0.000     3.824    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_ALU.ALU_OUT<13>
+    DSP48E2_X12Y93       DSP_OUTPUT (Prop_DSP_OUTPUT_DSP48E2_ALU_OUT[13]_P[13])
+                                                      0.109     3.933 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_OUTPUT_INST/P[13]
+                         net (fo=1, routed)           0.512     4.445    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0_n_92
+    SLICE_X93Y226        LUT2 (Prop_H6LUT_SLICEM_I1_O)
+                                                      0.152     4.597 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_25/O
+                         net (fo=1, routed)           0.015     4.612    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_25_n_0
+    SLICE_X93Y226        CARRY8 (Prop_CARRY8_SLICEM_S[7]_CO[7])
+                                                      0.117     4.729 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_7/CO[7]
+                         net (fo=1, routed)           0.026     4.755    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_7_n_0
+    SLICE_X93Y227        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     4.770 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_33/CO[7]
+                         net (fo=1, routed)           0.026     4.796    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_33_n_0
+    SLICE_X93Y228        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     4.811 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_73/CO[7]
+                         net (fo=1, routed)           0.026     4.837    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_73_n_0
+    SLICE_X93Y229        CARRY8 (Prop_CARRY8_SLICEM_CI_O[0])
+                                                      0.056     4.893 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_6/O[0]
+                         net (fo=125, routed)         1.661     6.553    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_6_n_15
+    SLICE_X94Y221        LUT2 (Prop_A6LUT_SLICEM_I0_O)
+                                                      0.150     6.703 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[6]_i_28/O
+                         net (fo=1, routed)           0.013     6.716    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[6]_i_28_n_0
+    SLICE_X94Y221        CARRY8 (Prop_CARRY8_SLICEM_S[0]_CO[7])
+                                                      0.192     6.908 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_12/CO[7]
+                         net (fo=1, routed)           0.026     6.934    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_12_n_0
+    SLICE_X94Y222        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     6.949 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     6.975    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_3_n_0
+    SLICE_X94Y223        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     6.990 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     7.016    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_2_n_0
+    SLICE_X94Y224        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.031 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[14]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     7.057    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[14]_i_2_n_0
+    SLICE_X94Y225        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.072 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_4/CO[7]
+                         net (fo=1, routed)           0.026     7.098    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_4_n_0
+    SLICE_X94Y226        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.113 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[30]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     7.139    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[30]_i_3_n_0
+    SLICE_X94Y227        CARRY8 (Prop_CARRY8_SLICEM_CI_O[1])
+                                                      0.076     7.215 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_18/O[1]
+                         net (fo=7, routed)           0.322     7.537    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_18_n_14
+    SLICE_X95Y224        LUT3 (Prop_H6LUT_SLICEL_I1_O)
+                                                      0.150     7.687 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_244/O
+                         net (fo=1, routed)           0.241     7.928    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_244_n_0
+    SLICE_X95Y225        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.151     8.079 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_162/CO[7]
+                         net (fo=1, routed)           0.026     8.105    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_162_n_0
+    SLICE_X95Y226        CARRY8 (Prop_CARRY8_SLICEL_CI_O[7])
+                                                      0.116     8.221 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_161/O[7]
+                         net (fo=4, routed)           0.552     8.774    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_161_n_8
+    SLICE_X95Y223        LUT2 (Prop_F6LUT_SLICEL_I1_O)
+                                                      0.148     8.922 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_130/O
+                         net (fo=1, routed)           0.011     8.933    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_130_n_0
+    SLICE_X95Y223        CARRY8 (Prop_CARRY8_SLICEL_S[5]_CO[7])
+                                                      0.155     9.088 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_44/CO[7]
+                         net (fo=1, routed)           0.026     9.114    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_44_n_0
+    SLICE_X95Y224        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[5])
+                                                      0.077     9.191 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_6/CO[5]
+                         net (fo=15, routed)          0.464     9.655    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_6_n_2
+    SLICE_X98Y223        LUT3 (Prop_D6LUT_SLICEL_I0_O)
+                                                      0.146     9.801 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_2/O
+                         net (fo=18, routed)          0.395    10.196    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_2_n_0
+    SLICE_X97Y221        LUT5 (Prop_D6LUT_SLICEL_I0_O)
+                                                      0.146    10.342 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[12]_i_1/O
+                         net (fo=1, routed)           0.049    10.391    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/p_4_out[12]
+    SLICE_X97Y221        FDCE                                         r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[12]/D
+  -------------------------------------------------------------------    -------------------
+
+Slack:                    inf
+  Source:                 u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/C
+                            (rising edge-triggered cell FDCE)
+  Destination:            u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[17]/D
+  Path Group:             (none)
+  Path Type:              Max at Slow Process Corner
+  Data Path Delay:        10.351ns  (logic 4.548ns (43.938%)  route 5.803ns (56.062%))
+  Logic Levels:           33  (CARRY8=17 DSP_A_B_DATA=1 DSP_ALU=2 DSP_M_DATA=1 DSP_MULTIPLIER=1 DSP_OUTPUT=2 DSP_PREADD_DATA=1 FDCE=1 LUT2=4 LUT3=2 LUT5=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+    SLICE_X84Y225        FDCE                         0.000     0.000 r  u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/C
+    SLICE_X84Y225        FDCE (Prop_DFF_SLICEM_C_Q)
+                                                      0.078     0.078 r  u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/Q
+                         net (fo=2, routed)           0.403     0.481    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__4_0[9]
+    SLICE_X92Y226        LUT2 (Prop_B6LUT_SLICEL_I0_O)
+                                                      0.098     0.579 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_9/O
+                         net (fo=1, routed)           0.009     0.588    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_9_n_0
+    SLICE_X92Y226        CARRY8 (Prop_CARRY8_SLICEL_S[1]_CO[7])
+                                                      0.186     0.774 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_1/CO[7]
+                         net (fo=1, routed)           0.026     0.800    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_1_n_0
+    SLICE_X92Y227        CARRY8 (Prop_CARRY8_SLICEL_CI_O[5])
+                                                      0.116     0.916 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0_i_3/O[5]
+                         net (fo=2, routed)           0.776     1.692    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/B[4]
+    DSP48E2_X12Y92       DSP_A_B_DATA (Prop_DSP_A_B_DATA_DSP48E2_B[4]_B2_DATA[4])
+                                                      0.151     1.843 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_A_B_DATA_INST/B2_DATA[4]
+                         net (fo=1, routed)           0.000     1.843    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_A_B_DATA.B2_DATA<4>
+    DSP48E2_X12Y92       DSP_PREADD_DATA (Prop_DSP_PREADD_DATA_DSP48E2_B2_DATA[4]_B2B1[4])
+                                                      0.073     1.916 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_PREADD_DATA_INST/B2B1[4]
+                         net (fo=1, routed)           0.000     1.916    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_PREADD_DATA.B2B1<4>
+    DSP48E2_X12Y92       DSP_MULTIPLIER (Prop_DSP_MULTIPLIER_DSP48E2_B2B1[4]_V[34])
+                                                      0.609     2.525 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_MULTIPLIER_INST/V[34]
+                         net (fo=1, routed)           0.000     2.525    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_MULTIPLIER.V<34>
+    DSP48E2_X12Y92       DSP_M_DATA (Prop_DSP_M_DATA_DSP48E2_V[34]_V_DATA[34])
+                                                      0.046     2.571 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_M_DATA_INST/V_DATA[34]
+                         net (fo=1, routed)           0.000     2.571    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_M_DATA.V_DATA<34>
+    DSP48E2_X12Y92       DSP_ALU (Prop_DSP_ALU_DSP48E2_V_DATA[34]_ALU_OUT[47])
+                                                      0.571     3.142 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_ALU_INST/ALU_OUT[47]
+                         net (fo=1, routed)           0.000     3.142    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_ALU.ALU_OUT<47>
+    DSP48E2_X12Y92       DSP_OUTPUT (Prop_DSP_OUTPUT_DSP48E2_ALU_OUT[47]_PCOUT[47])
+                                                      0.122     3.264 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_OUTPUT_INST/PCOUT[47]
+                         net (fo=1, routed)           0.014     3.278    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/PCIN[47]
+    DSP48E2_X12Y93       DSP_ALU (Prop_DSP_ALU_DSP48E2_PCIN[47]_ALU_OUT[13])
+                                                      0.546     3.824 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_ALU_INST/ALU_OUT[13]
+                         net (fo=1, routed)           0.000     3.824    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_ALU.ALU_OUT<13>
+    DSP48E2_X12Y93       DSP_OUTPUT (Prop_DSP_OUTPUT_DSP48E2_ALU_OUT[13]_P[13])
+                                                      0.109     3.933 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_OUTPUT_INST/P[13]
+                         net (fo=1, routed)           0.512     4.445    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0_n_92
+    SLICE_X93Y226        LUT2 (Prop_H6LUT_SLICEM_I1_O)
+                                                      0.152     4.597 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_25/O
+                         net (fo=1, routed)           0.015     4.612    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_25_n_0
+    SLICE_X93Y226        CARRY8 (Prop_CARRY8_SLICEM_S[7]_CO[7])
+                                                      0.117     4.729 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_7/CO[7]
+                         net (fo=1, routed)           0.026     4.755    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_7_n_0
+    SLICE_X93Y227        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     4.770 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_33/CO[7]
+                         net (fo=1, routed)           0.026     4.796    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_33_n_0
+    SLICE_X93Y228        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     4.811 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_73/CO[7]
+                         net (fo=1, routed)           0.026     4.837    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_73_n_0
+    SLICE_X93Y229        CARRY8 (Prop_CARRY8_SLICEM_CI_O[0])
+                                                      0.056     4.893 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_6/O[0]
+                         net (fo=125, routed)         1.661     6.553    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_6_n_15
+    SLICE_X94Y221        LUT2 (Prop_A6LUT_SLICEM_I0_O)
+                                                      0.150     6.703 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[6]_i_28/O
+                         net (fo=1, routed)           0.013     6.716    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[6]_i_28_n_0
+    SLICE_X94Y221        CARRY8 (Prop_CARRY8_SLICEM_S[0]_CO[7])
+                                                      0.192     6.908 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_12/CO[7]
+                         net (fo=1, routed)           0.026     6.934    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_12_n_0
+    SLICE_X94Y222        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     6.949 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     6.975    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_3_n_0
+    SLICE_X94Y223        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     6.990 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     7.016    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_2_n_0
+    SLICE_X94Y224        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.031 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[14]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     7.057    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[14]_i_2_n_0
+    SLICE_X94Y225        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.072 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_4/CO[7]
+                         net (fo=1, routed)           0.026     7.098    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_4_n_0
+    SLICE_X94Y226        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.113 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[30]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     7.139    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[30]_i_3_n_0
+    SLICE_X94Y227        CARRY8 (Prop_CARRY8_SLICEM_CI_O[1])
+                                                      0.076     7.215 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_18/O[1]
+                         net (fo=7, routed)           0.322     7.537    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_18_n_14
+    SLICE_X95Y224        LUT3 (Prop_H6LUT_SLICEL_I1_O)
+                                                      0.150     7.687 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_244/O
+                         net (fo=1, routed)           0.241     7.928    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_244_n_0
+    SLICE_X95Y225        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.151     8.079 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_162/CO[7]
+                         net (fo=1, routed)           0.026     8.105    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_162_n_0
+    SLICE_X95Y226        CARRY8 (Prop_CARRY8_SLICEL_CI_O[7])
+                                                      0.116     8.221 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_161/O[7]
+                         net (fo=4, routed)           0.552     8.774    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_161_n_8
+    SLICE_X95Y223        LUT2 (Prop_F6LUT_SLICEL_I1_O)
+                                                      0.148     8.922 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_130/O
+                         net (fo=1, routed)           0.011     8.933    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_130_n_0
+    SLICE_X95Y223        CARRY8 (Prop_CARRY8_SLICEL_S[5]_CO[7])
+                                                      0.155     9.088 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_44/CO[7]
+                         net (fo=1, routed)           0.026     9.114    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_44_n_0
+    SLICE_X95Y224        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[5])
+                                                      0.077     9.191 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_6/CO[5]
+                         net (fo=15, routed)          0.464     9.655    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_6_n_2
+    SLICE_X98Y223        LUT3 (Prop_D6LUT_SLICEL_I0_O)
+                                                      0.146     9.801 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_2/O
+                         net (fo=18, routed)          0.439    10.240    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_2_n_0
+    SLICE_X96Y228        LUT5 (Prop_B6LUT_SLICEM_I0_O)
+                                                      0.052    10.292 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[17]_i_1/O
+                         net (fo=1, routed)           0.059    10.351    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/p_4_out[17]
+    SLICE_X96Y228        FDCE                                         r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[17]/D
+  -------------------------------------------------------------------    -------------------
+
+Slack:                    inf
+  Source:                 u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/C
+                            (rising edge-triggered cell FDCE)
+  Destination:            u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[8]/D
+  Path Group:             (none)
+  Path Type:              Max at Slow Process Corner
+  Data Path Delay:        10.319ns  (logic 4.620ns (44.770%)  route 5.699ns (55.230%))
+  Logic Levels:           33  (CARRY8=17 DSP_A_B_DATA=1 DSP_ALU=2 DSP_M_DATA=1 DSP_MULTIPLIER=1 DSP_OUTPUT=2 DSP_PREADD_DATA=1 FDCE=1 LUT2=4 LUT3=2 LUT5=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+    SLICE_X84Y225        FDCE                         0.000     0.000 r  u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/C
+    SLICE_X84Y225        FDCE (Prop_DFF_SLICEM_C_Q)
+                                                      0.078     0.078 r  u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/Q
+                         net (fo=2, routed)           0.403     0.481    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__4_0[9]
+    SLICE_X92Y226        LUT2 (Prop_B6LUT_SLICEL_I0_O)
+                                                      0.098     0.579 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_9/O
+                         net (fo=1, routed)           0.009     0.588    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_9_n_0
+    SLICE_X92Y226        CARRY8 (Prop_CARRY8_SLICEL_S[1]_CO[7])
+                                                      0.186     0.774 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_1/CO[7]
+                         net (fo=1, routed)           0.026     0.800    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_1_n_0
+    SLICE_X92Y227        CARRY8 (Prop_CARRY8_SLICEL_CI_O[5])
+                                                      0.116     0.916 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0_i_3/O[5]
+                         net (fo=2, routed)           0.776     1.692    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/B[4]
+    DSP48E2_X12Y92       DSP_A_B_DATA (Prop_DSP_A_B_DATA_DSP48E2_B[4]_B2_DATA[4])
+                                                      0.151     1.843 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_A_B_DATA_INST/B2_DATA[4]
+                         net (fo=1, routed)           0.000     1.843    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_A_B_DATA.B2_DATA<4>
+    DSP48E2_X12Y92       DSP_PREADD_DATA (Prop_DSP_PREADD_DATA_DSP48E2_B2_DATA[4]_B2B1[4])
+                                                      0.073     1.916 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_PREADD_DATA_INST/B2B1[4]
+                         net (fo=1, routed)           0.000     1.916    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_PREADD_DATA.B2B1<4>
+    DSP48E2_X12Y92       DSP_MULTIPLIER (Prop_DSP_MULTIPLIER_DSP48E2_B2B1[4]_V[34])
+                                                      0.609     2.525 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_MULTIPLIER_INST/V[34]
+                         net (fo=1, routed)           0.000     2.525    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_MULTIPLIER.V<34>
+    DSP48E2_X12Y92       DSP_M_DATA (Prop_DSP_M_DATA_DSP48E2_V[34]_V_DATA[34])
+                                                      0.046     2.571 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_M_DATA_INST/V_DATA[34]
+                         net (fo=1, routed)           0.000     2.571    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_M_DATA.V_DATA<34>
+    DSP48E2_X12Y92       DSP_ALU (Prop_DSP_ALU_DSP48E2_V_DATA[34]_ALU_OUT[47])
+                                                      0.571     3.142 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_ALU_INST/ALU_OUT[47]
+                         net (fo=1, routed)           0.000     3.142    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_ALU.ALU_OUT<47>
+    DSP48E2_X12Y92       DSP_OUTPUT (Prop_DSP_OUTPUT_DSP48E2_ALU_OUT[47]_PCOUT[47])
+                                                      0.122     3.264 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_OUTPUT_INST/PCOUT[47]
+                         net (fo=1, routed)           0.014     3.278    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/PCIN[47]
+    DSP48E2_X12Y93       DSP_ALU (Prop_DSP_ALU_DSP48E2_PCIN[47]_ALU_OUT[13])
+                                                      0.546     3.824 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_ALU_INST/ALU_OUT[13]
+                         net (fo=1, routed)           0.000     3.824    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_ALU.ALU_OUT<13>
+    DSP48E2_X12Y93       DSP_OUTPUT (Prop_DSP_OUTPUT_DSP48E2_ALU_OUT[13]_P[13])
+                                                      0.109     3.933 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_OUTPUT_INST/P[13]
+                         net (fo=1, routed)           0.512     4.445    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0_n_92
+    SLICE_X93Y226        LUT2 (Prop_H6LUT_SLICEM_I1_O)
+                                                      0.152     4.597 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_25/O
+                         net (fo=1, routed)           0.015     4.612    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_25_n_0
+    SLICE_X93Y226        CARRY8 (Prop_CARRY8_SLICEM_S[7]_CO[7])
+                                                      0.117     4.729 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_7/CO[7]
+                         net (fo=1, routed)           0.026     4.755    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_7_n_0
+    SLICE_X93Y227        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     4.770 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_33/CO[7]
+                         net (fo=1, routed)           0.026     4.796    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_33_n_0
+    SLICE_X93Y228        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     4.811 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_73/CO[7]
+                         net (fo=1, routed)           0.026     4.837    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_73_n_0
+    SLICE_X93Y229        CARRY8 (Prop_CARRY8_SLICEM_CI_O[0])
+                                                      0.056     4.893 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_6/O[0]
+                         net (fo=125, routed)         1.661     6.553    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_6_n_15
+    SLICE_X94Y221        LUT2 (Prop_A6LUT_SLICEM_I0_O)
+                                                      0.150     6.703 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[6]_i_28/O
+                         net (fo=1, routed)           0.013     6.716    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[6]_i_28_n_0
+    SLICE_X94Y221        CARRY8 (Prop_CARRY8_SLICEM_S[0]_CO[7])
+                                                      0.192     6.908 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_12/CO[7]
+                         net (fo=1, routed)           0.026     6.934    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_12_n_0
+    SLICE_X94Y222        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     6.949 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     6.975    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_3_n_0
+    SLICE_X94Y223        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     6.990 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     7.016    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_2_n_0
+    SLICE_X94Y224        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.031 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[14]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     7.057    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[14]_i_2_n_0
+    SLICE_X94Y225        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.072 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_4/CO[7]
+                         net (fo=1, routed)           0.026     7.098    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_4_n_0
+    SLICE_X94Y226        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.113 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[30]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     7.139    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[30]_i_3_n_0
+    SLICE_X94Y227        CARRY8 (Prop_CARRY8_SLICEM_CI_O[1])
+                                                      0.076     7.215 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_18/O[1]
+                         net (fo=7, routed)           0.322     7.537    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_18_n_14
+    SLICE_X95Y224        LUT3 (Prop_H6LUT_SLICEL_I1_O)
+                                                      0.150     7.687 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_244/O
+                         net (fo=1, routed)           0.241     7.928    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_244_n_0
+    SLICE_X95Y225        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.151     8.079 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_162/CO[7]
+                         net (fo=1, routed)           0.026     8.105    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_162_n_0
+    SLICE_X95Y226        CARRY8 (Prop_CARRY8_SLICEL_CI_O[7])
+                                                      0.116     8.221 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_161/O[7]
+                         net (fo=4, routed)           0.552     8.774    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_161_n_8
+    SLICE_X95Y223        LUT2 (Prop_F6LUT_SLICEL_I1_O)
+                                                      0.148     8.922 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_130/O
+                         net (fo=1, routed)           0.011     8.933    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_130_n_0
+    SLICE_X95Y223        CARRY8 (Prop_CARRY8_SLICEL_S[5]_CO[7])
+                                                      0.155     9.088 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_44/CO[7]
+                         net (fo=1, routed)           0.026     9.114    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_44_n_0
+    SLICE_X95Y224        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[5])
+                                                      0.077     9.191 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_6/CO[5]
+                         net (fo=15, routed)          0.464     9.655    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_6_n_2
+    SLICE_X98Y223        LUT3 (Prop_D6LUT_SLICEL_I0_O)
+                                                      0.146     9.801 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_2/O
+                         net (fo=18, routed)          0.346    10.146    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_2_n_0
+    SLICE_X97Y228        LUT5 (Prop_B6LUT_SLICEL_I0_O)
+                                                      0.124    10.270 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[8]_i_1/O
+                         net (fo=1, routed)           0.049    10.319    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/p_4_out[8]
+    SLICE_X97Y228        FDCE                                         r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[8]/D
+  -------------------------------------------------------------------    -------------------
+
+Slack:                    inf
+  Source:                 u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/C
+                            (rising edge-triggered cell FDCE)
+  Destination:            u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[9]/D
+  Path Group:             (none)
+  Path Type:              Max at Slow Process Corner
+  Data Path Delay:        10.318ns  (logic 4.620ns (44.774%)  route 5.698ns (55.226%))
+  Logic Levels:           33  (CARRY8=17 DSP_A_B_DATA=1 DSP_ALU=2 DSP_M_DATA=1 DSP_MULTIPLIER=1 DSP_OUTPUT=2 DSP_PREADD_DATA=1 FDCE=1 LUT2=4 LUT3=2 LUT5=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+    SLICE_X84Y225        FDCE                         0.000     0.000 r  u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/C
+    SLICE_X84Y225        FDCE (Prop_DFF_SLICEM_C_Q)
+                                                      0.078     0.078 r  u_tpu_top/u_datapath/u_accumulator_array/read_data_flatten_o_reg[9]/Q
+                         net (fo=2, routed)           0.403     0.481    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__4_0[9]
+    SLICE_X92Y226        LUT2 (Prop_B6LUT_SLICEL_I0_O)
+                                                      0.098     0.579 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_9/O
+                         net (fo=1, routed)           0.009     0.588    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_9_n_0
+    SLICE_X92Y226        CARRY8 (Prop_CARRY8_SLICEL_S[1]_CO[7])
+                                                      0.186     0.774 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_1/CO[7]
+                         net (fo=1, routed)           0.026     0.800    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1_i_1_n_0
+    SLICE_X92Y227        CARRY8 (Prop_CARRY8_SLICEL_CI_O[5])
+                                                      0.116     0.916 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0_i_3/O[5]
+                         net (fo=2, routed)           0.776     1.692    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/B[4]
+    DSP48E2_X12Y92       DSP_A_B_DATA (Prop_DSP_A_B_DATA_DSP48E2_B[4]_B2_DATA[4])
+                                                      0.151     1.843 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_A_B_DATA_INST/B2_DATA[4]
+                         net (fo=1, routed)           0.000     1.843    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_A_B_DATA.B2_DATA<4>
+    DSP48E2_X12Y92       DSP_PREADD_DATA (Prop_DSP_PREADD_DATA_DSP48E2_B2_DATA[4]_B2B1[4])
+                                                      0.073     1.916 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_PREADD_DATA_INST/B2B1[4]
+                         net (fo=1, routed)           0.000     1.916    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_PREADD_DATA.B2B1<4>
+    DSP48E2_X12Y92       DSP_MULTIPLIER (Prop_DSP_MULTIPLIER_DSP48E2_B2B1[4]_V[34])
+                                                      0.609     2.525 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_MULTIPLIER_INST/V[34]
+                         net (fo=1, routed)           0.000     2.525    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_MULTIPLIER.V<34>
+    DSP48E2_X12Y92       DSP_M_DATA (Prop_DSP_M_DATA_DSP48E2_V[34]_V_DATA[34])
+                                                      0.046     2.571 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_M_DATA_INST/V_DATA[34]
+                         net (fo=1, routed)           0.000     2.571    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_M_DATA.V_DATA<34>
+    DSP48E2_X12Y92       DSP_ALU (Prop_DSP_ALU_DSP48E2_V_DATA[34]_ALU_OUT[47])
+                                                      0.571     3.142 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_ALU_INST/ALU_OUT[47]
+                         net (fo=1, routed)           0.000     3.142    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_ALU.ALU_OUT<47>
+    DSP48E2_X12Y92       DSP_OUTPUT (Prop_DSP_OUTPUT_DSP48E2_ALU_OUT[47]_PCOUT[47])
+                                                      0.122     3.264 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/DSP_OUTPUT_INST/PCOUT[47]
+                         net (fo=1, routed)           0.014     3.278    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/PCIN[47]
+    DSP48E2_X12Y93       DSP_ALU (Prop_DSP_ALU_DSP48E2_PCIN[47]_ALU_OUT[13])
+                                                      0.546     3.824 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_ALU_INST/ALU_OUT[13]
+                         net (fo=1, routed)           0.000     3.824    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_ALU.ALU_OUT<13>
+    DSP48E2_X12Y93       DSP_OUTPUT (Prop_DSP_OUTPUT_DSP48E2_ALU_OUT[13]_P[13])
+                                                      0.109     3.933 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/DSP_OUTPUT_INST/P[13]
+                         net (fo=1, routed)           0.512     4.445    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0_n_92
+    SLICE_X93Y226        LUT2 (Prop_H6LUT_SLICEM_I1_O)
+                                                      0.152     4.597 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_25/O
+                         net (fo=1, routed)           0.015     4.612    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_25_n_0
+    SLICE_X93Y226        CARRY8 (Prop_CARRY8_SLICEM_S[7]_CO[7])
+                                                      0.117     4.729 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_7/CO[7]
+                         net (fo=1, routed)           0.026     4.755    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_7_n_0
+    SLICE_X93Y227        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     4.770 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_33/CO[7]
+                         net (fo=1, routed)           0.026     4.796    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_33_n_0
+    SLICE_X93Y228        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     4.811 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_73/CO[7]
+                         net (fo=1, routed)           0.026     4.837    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_73_n_0
+    SLICE_X93Y229        CARRY8 (Prop_CARRY8_SLICEM_CI_O[0])
+                                                      0.056     4.893 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_6/O[0]
+                         net (fo=125, routed)         1.661     6.553    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_6_n_15
+    SLICE_X94Y221        LUT2 (Prop_A6LUT_SLICEM_I0_O)
+                                                      0.150     6.703 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[6]_i_28/O
+                         net (fo=1, routed)           0.013     6.716    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[6]_i_28_n_0
+    SLICE_X94Y221        CARRY8 (Prop_CARRY8_SLICEM_S[0]_CO[7])
+                                                      0.192     6.908 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_12/CO[7]
+                         net (fo=1, routed)           0.026     6.934    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_12_n_0
+    SLICE_X94Y222        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     6.949 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     6.975    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_3_n_0
+    SLICE_X94Y223        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     6.990 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     7.016    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[6]_i_2_n_0
+    SLICE_X94Y224        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.031 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[14]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     7.057    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[14]_i_2_n_0
+    SLICE_X94Y225        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.072 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_4/CO[7]
+                         net (fo=1, routed)           0.026     7.098    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[18]_i_4_n_0
+    SLICE_X94Y226        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     7.113 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[30]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     7.139    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[30]_i_3_n_0
+    SLICE_X94Y227        CARRY8 (Prop_CARRY8_SLICEM_CI_O[1])
+                                                      0.076     7.215 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_18/O[1]
+                         net (fo=7, routed)           0.322     7.537    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_18_n_14
+    SLICE_X95Y224        LUT3 (Prop_H6LUT_SLICEL_I1_O)
+                                                      0.150     7.687 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_244/O
+                         net (fo=1, routed)           0.241     7.928    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_244_n_0
+    SLICE_X95Y225        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.151     8.079 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_162/CO[7]
+                         net (fo=1, routed)           0.026     8.105    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_162_n_0
+    SLICE_X95Y226        CARRY8 (Prop_CARRY8_SLICEL_CI_O[7])
+                                                      0.116     8.221 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_161/O[7]
+                         net (fo=4, routed)           0.552     8.774    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_161_n_8
+    SLICE_X95Y223        LUT2 (Prop_F6LUT_SLICEL_I1_O)
+                                                      0.148     8.922 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_130/O
+                         net (fo=1, routed)           0.011     8.933    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[31]_i_130_n_0
+    SLICE_X95Y223        CARRY8 (Prop_CARRY8_SLICEL_S[5]_CO[7])
+                                                      0.155     9.088 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_44/CO[7]
+                         net (fo=1, routed)           0.026     9.114    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_44_n_0
+    SLICE_X95Y224        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[5])
+                                                      0.077     9.191 f  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_6/CO[5]
+                         net (fo=15, routed)          0.464     9.655    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[31]_i_6_n_2
+    SLICE_X98Y223        LUT3 (Prop_D6LUT_SLICEL_I0_O)
+                                                      0.146     9.801 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_2/O
+                         net (fo=18, routed)          0.346    10.146    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[18]_i_2_n_0
+    SLICE_X97Y228        LUT5 (Prop_A6LUT_SLICEL_I0_O)
+                                                      0.124    10.270 r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o[9]_i_1/O
+                         net (fo=1, routed)           0.048    10.318    u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/p_4_out[9]
+    SLICE_X97Y228        FDCE                                         r  u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/data_flatten_o_reg[9]/D
+  -------------------------------------------------------------------    -------------------
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack:                    inf
+  Source:                 u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_0_0/weight_active_reg[3]/C
+                            (rising edge-triggered cell FDCE)
+  Destination:            u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_0_0/u_multiplier/b_s1_reg[3]/D
+  Path Group:             (none)
+  Path Type:              Min at Fast Process Corner
+  Data Path Delay:        0.072ns  (logic 0.039ns (54.167%)  route 0.033ns (45.833%))
+  Logic Levels:           1  (FDCE=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+    SLICE_X87Y214        FDCE                         0.000     0.000 r  u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_0_0/weight_active_reg[3]/C
+    SLICE_X87Y214        FDCE (Prop_HFF_SLICEL_C_Q)
+                                                      0.039     0.039 r  u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_0_0/weight_active_reg[3]/Q
+                         net (fo=1, routed)           0.033     0.072    u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_0_0/u_multiplier/b_s1_reg[7]_0[3]
+    SLICE_X87Y214        FDCE                                         r  u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_0_0/u_multiplier/b_s1_reg[3]/D
+  -------------------------------------------------------------------    -------------------
+
+Slack:                    inf
+  Source:                 u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_0_0/weight_active_reg[6]/C
+                            (rising edge-triggered cell FDCE)
+  Destination:            u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_0_0/u_multiplier/b_s1_reg[6]/D
+  Path Group:             (none)
+  Path Type:              Min at Fast Process Corner
+  Data Path Delay:        0.072ns  (logic 0.039ns (54.167%)  route 0.033ns (45.833%))
+  Logic Levels:           1  (FDCE=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+    SLICE_X85Y212        FDCE                         0.000     0.000 r  u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_0_0/weight_active_reg[6]/C
+    SLICE_X85Y212        FDCE (Prop_HFF_SLICEL_C_Q)
+                                                      0.039     0.039 r  u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_0_0/weight_active_reg[6]/Q
+                         net (fo=1, routed)           0.033     0.072    u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_0_0/u_multiplier/b_s1_reg[7]_0[6]
+    SLICE_X85Y212        FDCE                                         r  u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_0_0/u_multiplier/b_s1_reg[6]/D
+  -------------------------------------------------------------------    -------------------
+
+Slack:                    inf
+  Source:                 u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_0_1/weight_active_reg[6]/C
+                            (rising edge-triggered cell FDCE)
+  Destination:            u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_0_1/u_multiplier/b_s1_reg[6]/D
+  Path Group:             (none)
+  Path Type:              Min at Fast Process Corner
+  Data Path Delay:        0.072ns  (logic 0.039ns (54.167%)  route 0.033ns (45.833%))
+  Logic Levels:           1  (FDCE=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+    SLICE_X91Y213        FDCE                         0.000     0.000 r  u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_0_1/weight_active_reg[6]/C
+    SLICE_X91Y213        FDCE (Prop_HFF_SLICEL_C_Q)
+                                                      0.039     0.039 r  u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_0_1/weight_active_reg[6]/Q
+                         net (fo=1, routed)           0.033     0.072    u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_0_1/u_multiplier/b_s1_reg[7]_0[6]
+    SLICE_X91Y213        FDCE                                         r  u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_0_1/u_multiplier/b_s1_reg[6]/D
+  -------------------------------------------------------------------    -------------------
+
+Slack:                    inf
+  Source:                 u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_1_1/weight_shadow_reg[0]/C
+                            (rising edge-triggered cell FDCE)
+  Destination:            u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_1_1/weight_active_reg[0]/D
+  Path Group:             (none)
+  Path Type:              Min at Fast Process Corner
+  Data Path Delay:        0.072ns  (logic 0.039ns (54.167%)  route 0.033ns (45.833%))
+  Logic Levels:           1  (FDCE=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+    SLICE_X91Y215        FDCE                         0.000     0.000 r  u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_1_1/weight_shadow_reg[0]/C
+    SLICE_X91Y215        FDCE (Prop_DFF_SLICEL_C_Q)
+                                                      0.039     0.039 r  u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_1_1/weight_shadow_reg[0]/Q
+                         net (fo=1, routed)           0.033     0.072    u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_1_1/weight_shadow_reg_n_0_[0]
+    SLICE_X91Y215        FDCE                                         r  u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_1_1/weight_active_reg[0]/D
+  -------------------------------------------------------------------    -------------------
+
+Slack:                    inf
+  Source:                 u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_1_1/weight_shadow_reg[3]/C
+                            (rising edge-triggered cell FDCE)
+  Destination:            u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_1_1/weight_active_reg[3]/D
+  Path Group:             (none)
+  Path Type:              Min at Fast Process Corner
+  Data Path Delay:        0.072ns  (logic 0.039ns (54.167%)  route 0.033ns (45.833%))
+  Logic Levels:           1  (FDCE=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+    SLICE_X91Y218        FDCE                         0.000     0.000 r  u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_1_1/weight_shadow_reg[3]/C
+    SLICE_X91Y218        FDCE (Prop_HFF_SLICEL_C_Q)
+                                                      0.039     0.039 r  u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_1_1/weight_shadow_reg[3]/Q
+                         net (fo=1, routed)           0.033     0.072    u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_1_1/weight_shadow_reg_n_0_[3]
+    SLICE_X91Y218        FDCE                                         r  u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_1_1/weight_active_reg[3]/D
+  -------------------------------------------------------------------    -------------------
+
+Slack:                    inf
+  Source:                 u_tpu_top/u_layer_controller/u_tile_controller/bias_flatten_q_reg[63]/C
+                            (rising edge-triggered cell FDCE)
+  Destination:            u_tpu_top/u_layer_controller/u_tile_controller/vpu_bias_flatten_o_reg[63]/D
+  Path Group:             (none)
+  Path Type:              Min at Fast Process Corner
+  Data Path Delay:        0.072ns  (logic 0.039ns (54.167%)  route 0.033ns (45.833%))
+  Logic Levels:           1  (FDCE=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+    SLICE_X101Y222       FDCE                         0.000     0.000 r  u_tpu_top/u_layer_controller/u_tile_controller/bias_flatten_q_reg[63]/C
+    SLICE_X101Y222       FDCE (Prop_HFF_SLICEL_C_Q)
+                                                      0.039     0.039 r  u_tpu_top/u_layer_controller/u_tile_controller/bias_flatten_q_reg[63]/Q
+                         net (fo=1, routed)           0.033     0.072    u_tpu_top/u_layer_controller/u_tile_controller/bias_flatten_q[63]
+    SLICE_X101Y222       FDCE                                         r  u_tpu_top/u_layer_controller/u_tile_controller/vpu_bias_flatten_o_reg[63]/D
+  -------------------------------------------------------------------    -------------------
+
+Slack:                    inf
+  Source:                 u_tpu_top/u_layer_controller/u_tile_controller/GEN_PARAM_ROMS[0].u_requant_mult_rom/data_o_reg[0]/C
+                            (rising edge-triggered cell FDCE)
+  Destination:            u_tpu_top/u_layer_controller/u_tile_controller/requant_multiplier_flatten_q_reg[0]/D
+  Path Group:             (none)
+  Path Type:              Min at Fast Process Corner
+  Data Path Delay:        0.073ns  (logic 0.039ns (53.425%)  route 0.034ns (46.575%))
+  Logic Levels:           1  (FDCE=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+    SLICE_X92Y230        FDCE                         0.000     0.000 r  u_tpu_top/u_layer_controller/u_tile_controller/GEN_PARAM_ROMS[0].u_requant_mult_rom/data_o_reg[0]/C
+    SLICE_X92Y230        FDCE (Prop_CFF_SLICEL_C_Q)
+                                                      0.039     0.039 r  u_tpu_top/u_layer_controller/u_tile_controller/GEN_PARAM_ROMS[0].u_requant_mult_rom/data_o_reg[0]/Q
+                         net (fo=1, routed)           0.034     0.073    u_tpu_top/u_layer_controller/u_tile_controller/GEN_PARAM_ROMS[0].u_requant_mult_rom_n_23
+    SLICE_X92Y229        FDCE                                         r  u_tpu_top/u_layer_controller/u_tile_controller/requant_multiplier_flatten_q_reg[0]/D
+  -------------------------------------------------------------------    -------------------
+
+Slack:                    inf
+  Source:                 u_tpu_top/u_layer_controller/u_tile_controller/GEN_PARAM_ROMS[1].u_bias_rom/data_o_reg[8]/C
+                            (rising edge-triggered cell FDCE)
+  Destination:            u_tpu_top/u_layer_controller/u_tile_controller/bias_flatten_q_reg[40]/D
+  Path Group:             (none)
+  Path Type:              Min at Fast Process Corner
+  Data Path Delay:        0.073ns  (logic 0.039ns (53.425%)  route 0.034ns (46.575%))
+  Logic Levels:           1  (FDCE=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+    SLICE_X101Y220       FDCE                         0.000     0.000 r  u_tpu_top/u_layer_controller/u_tile_controller/GEN_PARAM_ROMS[1].u_bias_rom/data_o_reg[8]/C
+    SLICE_X101Y220       FDCE (Prop_EFF_SLICEL_C_Q)
+                                                      0.039     0.039 r  u_tpu_top/u_layer_controller/u_tile_controller/GEN_PARAM_ROMS[1].u_bias_rom/data_o_reg[8]/Q
+                         net (fo=1, routed)           0.034     0.073    u_tpu_top/u_layer_controller/u_tile_controller/GEN_PARAM_ROMS[1].u_bias_rom_n_5
+    SLICE_X101Y220       FDCE                                         r  u_tpu_top/u_layer_controller/u_tile_controller/bias_flatten_q_reg[40]/D
+  -------------------------------------------------------------------    -------------------
+
+Slack:                    inf
+  Source:                 u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_1_1/weight_shadow_reg[7]/C
+                            (rising edge-triggered cell FDCE)
+  Destination:            u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_1_1/weight_active_reg[7]/D
+  Path Group:             (none)
+  Path Type:              Min at Fast Process Corner
+  Data Path Delay:        0.074ns  (logic 0.039ns (52.703%)  route 0.035ns (47.297%))
+  Logic Levels:           1  (FDCE=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+    SLICE_X91Y218        FDCE                         0.000     0.000 r  u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_1_1/weight_shadow_reg[7]/C
+    SLICE_X91Y218        FDCE (Prop_FFF_SLICEL_C_Q)
+                                                      0.039     0.039 r  u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_1_1/weight_shadow_reg[7]/Q
+                         net (fo=1, routed)           0.035     0.074    u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_1_1/weight_shadow_reg_n_0_[7]
+    SLICE_X91Y218        FDCE                                         r  u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_1_1/weight_active_reg[7]/D
+  -------------------------------------------------------------------    -------------------
+
+Slack:                    inf
+  Source:                 u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_0_0/weight_shadow_reg[4]/C
+                            (rising edge-triggered cell FDCE)
+  Destination:            u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_0_0/weight_active_reg[4]/D
+  Path Group:             (none)
+  Path Type:              Min at Fast Process Corner
+  Data Path Delay:        0.077ns  (logic 0.039ns (50.649%)  route 0.038ns (49.351%))
+  Logic Levels:           1  (FDCE=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+    SLICE_X86Y212        FDCE                         0.000     0.000 r  u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_0_0/weight_shadow_reg[4]/C
+    SLICE_X86Y212        FDCE (Prop_HFF_SLICEM_C_Q)
+                                                      0.039     0.039 r  u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_0_0/weight_shadow_reg[4]/Q
+                         net (fo=1, routed)           0.038     0.077    u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_0_0/weight_shadow[4]
+    SLICE_X86Y212        FDCE                                         r  u_tpu_top/u_datapath/u_mxu/u_systolic_array/pe_0_0/weight_active_reg[4]/D
+  -------------------------------------------------------------------    -------------------
+
+
+
+
+

@@ -228,7 +228,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>a7a07f75</spirit:value>
+            <spirit:value>c75d7e29</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -244,7 +244,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>a7a07f75</spirit:value>
+            <spirit:value>c75d7e29</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -823,10 +823,6 @@
         <spirit:userFileType>mem</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/tpu_top_axi_lite.sv</spirit:name>
-        <spirit:fileType>systemVerilogSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
         <spirit:name>../rtl/v2/accumulator_array_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
@@ -938,6 +934,11 @@
         <spirit:name>../rtl/v2/ws_sa_2x2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>CHECKSUM_559d6d9e</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>../rtl/v2/tpu_top_axi_lite.sv</spirit:name>
+        <spirit:fileType>systemVerilogSource</spirit:fileType>
+        <spirit:userFileType>CHECKSUM_ed172c95</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -1104,10 +1105,6 @@
         <spirit:userFileType>mem</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/tpu_top_axi_lite.sv</spirit:name>
-        <spirit:fileType>systemVerilogSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
         <spirit:name>../rtl/v2/accumulator_array_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
@@ -1217,6 +1214,10 @@
       </spirit:file>
       <spirit:file>
         <spirit:name>../rtl/v2/ws_sa_2x2.sv</spirit:name>
+        <spirit:fileType>systemVerilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>../rtl/v2/tpu_top_axi_lite.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
     </spirit:fileSet>
@@ -1335,14 +1336,14 @@
       </xilinx:taxonomies>
       <xilinx:displayName>tpu_mnist_ip</xilinx:displayName>
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
-      <xilinx:coreRevision>4</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2026-05-28T09:15:05Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>6</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2026-06-01T02:45:53Z</xilinx:coreCreationDateTime>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2025.2</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="fc8eaf8e"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="da7651d5"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="8c40d3ab"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="169c7b27"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="f90dc2d7"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="0ad4eb2d"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="2528ecf8"/>

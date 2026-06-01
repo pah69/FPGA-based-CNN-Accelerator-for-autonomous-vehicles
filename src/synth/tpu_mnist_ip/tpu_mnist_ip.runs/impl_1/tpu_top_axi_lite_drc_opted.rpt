@@ -1,0 +1,499 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
+| Date         : Mon Jun  1 10:32:41 2026
+| Host         : pah-PC running 64-bit Ubuntu 24.04.4 LTS
+| Command      : report_drc -file tpu_top_axi_lite_drc_opted.rpt -pb tpu_top_axi_lite_drc_opted.pb -rpx tpu_top_axi_lite_drc_opted.rpx
+| Design       : tpu_top_axi_lite
+| Device       : xczu7ev-ffvc1156-2-e
+| Speed File   : -2
+| Design State : Synthesized
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Report DRC
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: design_1
+      Design limits: <entire design considered>
+           Ruledeck: default
+             Max checks: <unlimited>
+             Checks found: 90
++--------+------------------+----------------------------+--------+
+| Rule   | Severity         | Description                | Checks |
++--------+------------------+----------------------------+--------+
+| NSTD-1 | Critical Warning | Unspecified I/O Standard   | 1      |
+| UCIO-1 | Critical Warning | Unconstrained Logical Port | 1      |
+| DPIP-2 | Warning          | Input pipelining           | 40     |
+| DPOP-3 | Warning          | PREG Output pipelining     | 18     |
+| DPOP-4 | Warning          | MREG Output pipelining     | 17     |
+| DPOR-2 | Warning          | Asynchronous load check    | 13     |
++--------+------------------+----------------------------+--------+
+
+2. REPORT DETAILS
+-----------------
+NSTD-1#1 Critical Warning
+Unspecified I/O Standard  
+81 out of 81 logical ports use I/O standard (IOSTANDARD) value 'DEFAULT', instead of a user assigned specific value. This may cause I/O contention or incompatibility with the board power or connectivity affecting performance, signal integrity or in extreme cases cause damage to the device or the components to which it is connected. To correct this violation, specify all I/O standards. This design will fail to generate a bitstream unless all logical ports have a user specified I/O standard value defined. To allow bitstream creation with unspecified I/O standard values (not recommended), use this command: set_property SEVERITY {Warning} [get_drc_checks NSTD-1].  NOTE: When using the Vivado Runs infrastructure (e.g. launch_runs Tcl command), add this command to a .tcl file and add that file as a pre-hook for write_bitstream step for the implementation run. Problem ports: s_axi_araddr[7:0], s_axi_awaddr[7:0], s_axi_bresp[1:0], s_axi_rdata[31:0],
+s_axi_rresp[1:0], s_axi_wdata[10], s_axi_wdata[11], s_axi_wdata[12],
+s_axi_wdata[31], s_axi_wdata[4], s_axi_wdata[5], s_axi_wdata[6],
+s_axi_wdata[7], s_axi_wdata[8], s_axi_wdata[9]
+ (the first 15 of 34 listed).
+Related violations: <none>
+
+UCIO-1#1 Critical Warning
+Unconstrained Logical Port  
+81 out of 81 logical ports have no user assigned specific location constraint (LOC). This may cause I/O contention or incompatibility with the board power or connectivity affecting performance, signal integrity or in extreme cases cause damage to the device or the components to which it is connected. To correct this violation, specify all pin locations. This design will fail to generate a bitstream unless all logical ports have a user specified site LOC constraint defined.  To allow bitstream creation with unspecified pin locations (not recommended), use this command: set_property SEVERITY {Warning} [get_drc_checks UCIO-1].  NOTE: When using the Vivado Runs infrastructure (e.g. launch_runs Tcl command), add this command to a .tcl file and add that file as a pre-hook for write_bitstream step for the implementation run.  Problem ports: s_axi_araddr[7:0], s_axi_awaddr[7:0], s_axi_bresp[1:0], s_axi_rdata[31:0],
+s_axi_rresp[1:0], s_axi_wdata[10], s_axi_wdata[11], s_axi_wdata[12],
+s_axi_wdata[31], s_axi_wdata[4], s_axi_wdata[5], s_axi_wdata[6],
+s_axi_wdata[7], s_axi_wdata[8], s_axi_wdata[9]
+ (the first 15 of 34 listed).
+Related violations: <none>
+
+DPIP-2#1 Warning
+Input pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0 input u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#2 Warning
+Input pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0 input u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#3 Warning
+Input pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0 input u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#4 Warning
+Input pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0 input u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#5 Warning
+Input pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1 input u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#6 Warning
+Input pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1 input u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#7 Warning
+Input pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__2 input u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__2/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#8 Warning
+Input pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__3 input u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__3/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#9 Warning
+Input pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__3 input u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__3/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#10 Warning
+Input pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__4 input u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__4/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#11 Warning
+Input pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__4 input u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__4/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#12 Warning
+Input pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__5 input u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__5/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#13 Warning
+Input pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__5 input u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__5/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#14 Warning
+Input pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__6 input u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__6/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#15 Warning
+Input pipelining  
+DSP u_tpu_top/u_layer_controller/u_tile_controller/output_addr0_w1 input u_tpu_top/u_layer_controller/u_tile_controller/output_addr0_w1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#16 Warning
+Input pipelining  
+DSP u_tpu_top/u_layer_controller/u_tile_controller/output_addr0_w1 input u_tpu_top/u_layer_controller/u_tile_controller/output_addr0_w1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#17 Warning
+Input pipelining  
+DSP u_tpu_top/u_layer_controller/u_tile_controller/output_addr0_w1 input u_tpu_top/u_layer_controller/u_tile_controller/output_addr0_w1/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#18 Warning
+Input pipelining  
+DSP u_tpu_top/u_layer_controller/u_tile_controller/output_addr1_w1 input u_tpu_top/u_layer_controller/u_tile_controller/output_addr1_w1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#19 Warning
+Input pipelining  
+DSP u_tpu_top/u_layer_controller/u_tile_controller/output_addr1_w1 input u_tpu_top/u_layer_controller/u_tile_controller/output_addr1_w1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#20 Warning
+Input pipelining  
+DSP u_tpu_top/u_layer_controller/u_tile_controller/output_addr1_w1 input u_tpu_top/u_layer_controller/u_tile_controller/output_addr1_w1/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#21 Warning
+Input pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/in_channel_stride_w input u_tpu_top/u_maxpool2d_unit/in_channel_stride_w/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#22 Warning
+Input pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/in_channel_stride_w input u_tpu_top/u_maxpool2d_unit/in_channel_stride_w/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#23 Warning
+Input pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/out_channel_stride_w input u_tpu_top/u_maxpool2d_unit/out_channel_stride_w/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#24 Warning
+Input pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/out_channel_stride_w input u_tpu_top/u_maxpool2d_unit/out_channel_stride_w/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#25 Warning
+Input pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/read_addr_w input u_tpu_top/u_maxpool2d_unit/read_addr_w/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#26 Warning
+Input pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/read_addr_w1 input u_tpu_top/u_maxpool2d_unit/read_addr_w1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#27 Warning
+Input pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/read_addr_w1 input u_tpu_top/u_maxpool2d_unit/read_addr_w1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#28 Warning
+Input pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/read_addr_w2 input u_tpu_top/u_maxpool2d_unit/read_addr_w2/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#29 Warning
+Input pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/read_addr_w2 input u_tpu_top/u_maxpool2d_unit/read_addr_w2/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#30 Warning
+Input pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/read_addr_w2__0 input u_tpu_top/u_maxpool2d_unit/read_addr_w2__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#31 Warning
+Input pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/read_addr_w2__0 input u_tpu_top/u_maxpool2d_unit/read_addr_w2__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#32 Warning
+Input pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/read_addr_w__0 input u_tpu_top/u_maxpool2d_unit/read_addr_w__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#33 Warning
+Input pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/read_addr_w__0 input u_tpu_top/u_maxpool2d_unit/read_addr_w__0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#34 Warning
+Input pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/write_addr_w1 input u_tpu_top/u_maxpool2d_unit/write_addr_w1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#35 Warning
+Input pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/write_addr_w1 input u_tpu_top/u_maxpool2d_unit/write_addr_w1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#36 Warning
+Input pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/write_addr_w1 input u_tpu_top/u_maxpool2d_unit/write_addr_w1/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#37 Warning
+Input pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/write_addr_w2 input u_tpu_top/u_maxpool2d_unit/write_addr_w2/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#38 Warning
+Input pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/write_addr_w2 input u_tpu_top/u_maxpool2d_unit/write_addr_w2/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#39 Warning
+Input pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/write_addr_w2__0 input u_tpu_top/u_maxpool2d_unit/write_addr_w2__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-2#40 Warning
+Input pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/write_addr_w2__0 input u_tpu_top/u_maxpool2d_unit/write_addr_w2__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPOP-3#1 Warning
+PREG Output pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0 output u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-3#2 Warning
+PREG Output pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0 output u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-3#3 Warning
+PREG Output pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1 output u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-3#4 Warning
+PREG Output pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__2 output u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__2/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-3#5 Warning
+PREG Output pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__3 output u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__3/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-3#6 Warning
+PREG Output pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__4 output u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__4/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-3#7 Warning
+PREG Output pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__5 output u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__5/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-3#8 Warning
+PREG Output pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__6 output u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__6/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-3#9 Warning
+PREG Output pipelining  
+DSP u_tpu_top/u_layer_controller/u_tile_controller/output_addr0_w1 output u_tpu_top/u_layer_controller/u_tile_controller/output_addr0_w1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-3#10 Warning
+PREG Output pipelining  
+DSP u_tpu_top/u_layer_controller/u_tile_controller/output_addr1_w1 output u_tpu_top/u_layer_controller/u_tile_controller/output_addr1_w1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-3#11 Warning
+PREG Output pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/in_channel_stride_w output u_tpu_top/u_maxpool2d_unit/in_channel_stride_w/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-3#12 Warning
+PREG Output pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/out_channel_stride_w output u_tpu_top/u_maxpool2d_unit/out_channel_stride_w/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-3#13 Warning
+PREG Output pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/read_addr_w2 output u_tpu_top/u_maxpool2d_unit/read_addr_w2/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-3#14 Warning
+PREG Output pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/read_addr_w2__0 output u_tpu_top/u_maxpool2d_unit/read_addr_w2__0/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-3#15 Warning
+PREG Output pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output u_tpu_top/u_maxpool2d_unit/read_addr_w__0/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-3#16 Warning
+PREG Output pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/write_addr_w1 output u_tpu_top/u_maxpool2d_unit/write_addr_w1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-3#17 Warning
+PREG Output pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/write_addr_w2 output u_tpu_top/u_maxpool2d_unit/write_addr_w2/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-3#18 Warning
+PREG Output pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/write_addr_w2__0 output u_tpu_top/u_maxpool2d_unit/write_addr_w2__0/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-4#1 Warning
+MREG Output pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0 multiplier stage u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-4#2 Warning
+MREG Output pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0 multiplier stage u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__0/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-4#3 Warning
+MREG Output pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1 multiplier stage u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__1/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-4#4 Warning
+MREG Output pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__2 multiplier stage u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__2/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-4#5 Warning
+MREG Output pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__3 multiplier stage u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__3/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-4#6 Warning
+MREG Output pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__4 multiplier stage u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__4/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-4#7 Warning
+MREG Output pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__5 multiplier stage u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__5/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-4#8 Warning
+MREG Output pipelining  
+DSP u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__6 multiplier stage u_tpu_top/u_datapath/u_vector_processing_unit/u_post_process/GEN_BIAS_REQUANT.u_bias_requantize/(null)[0].shifted_value0__6/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-4#9 Warning
+MREG Output pipelining  
+DSP u_tpu_top/u_layer_controller/u_tile_controller/output_addr0_w1 multiplier stage u_tpu_top/u_layer_controller/u_tile_controller/output_addr0_w1/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-4#10 Warning
+MREG Output pipelining  
+DSP u_tpu_top/u_layer_controller/u_tile_controller/output_addr1_w1 multiplier stage u_tpu_top/u_layer_controller/u_tile_controller/output_addr1_w1/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-4#11 Warning
+MREG Output pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/in_channel_stride_w multiplier stage u_tpu_top/u_maxpool2d_unit/in_channel_stride_w/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-4#12 Warning
+MREG Output pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/out_channel_stride_w multiplier stage u_tpu_top/u_maxpool2d_unit/out_channel_stride_w/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-4#13 Warning
+MREG Output pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/read_addr_w2 multiplier stage u_tpu_top/u_maxpool2d_unit/read_addr_w2/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-4#14 Warning
+MREG Output pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/read_addr_w2__0 multiplier stage u_tpu_top/u_maxpool2d_unit/read_addr_w2__0/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-4#15 Warning
+MREG Output pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/write_addr_w1 multiplier stage u_tpu_top/u_maxpool2d_unit/write_addr_w1/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-4#16 Warning
+MREG Output pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/write_addr_w2 multiplier stage u_tpu_top/u_maxpool2d_unit/write_addr_w2/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-4#17 Warning
+MREG Output pipelining  
+DSP u_tpu_top/u_maxpool2d_unit/write_addr_w2__0 multiplier stage u_tpu_top/u_maxpool2d_unit/write_addr_w2__0/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOR-2#1 Warning
+Asynchronous load check  
+DSP u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output is connected to registers with an asynchronous reset (u_tpu_top/u_maxpool2d_unit/ub_rd_addr_o_reg[0]). This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
+Related violations: <none>
+
+DPOR-2#2 Warning
+Asynchronous load check  
+DSP u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output is connected to registers with an asynchronous reset (u_tpu_top/u_maxpool2d_unit/ub_rd_addr_o_reg[10]). This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
+Related violations: <none>
+
+DPOR-2#3 Warning
+Asynchronous load check  
+DSP u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output is connected to registers with an asynchronous reset (u_tpu_top/u_maxpool2d_unit/ub_rd_addr_o_reg[11]). This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
+Related violations: <none>
+
+DPOR-2#4 Warning
+Asynchronous load check  
+DSP u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output is connected to registers with an asynchronous reset (u_tpu_top/u_maxpool2d_unit/ub_rd_addr_o_reg[12]). This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
+Related violations: <none>
+
+DPOR-2#5 Warning
+Asynchronous load check  
+DSP u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output is connected to registers with an asynchronous reset (u_tpu_top/u_maxpool2d_unit/ub_rd_addr_o_reg[1]). This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
+Related violations: <none>
+
+DPOR-2#6 Warning
+Asynchronous load check  
+DSP u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output is connected to registers with an asynchronous reset (u_tpu_top/u_maxpool2d_unit/ub_rd_addr_o_reg[2]). This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
+Related violations: <none>
+
+DPOR-2#7 Warning
+Asynchronous load check  
+DSP u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output is connected to registers with an asynchronous reset (u_tpu_top/u_maxpool2d_unit/ub_rd_addr_o_reg[3]). This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
+Related violations: <none>
+
+DPOR-2#8 Warning
+Asynchronous load check  
+DSP u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output is connected to registers with an asynchronous reset (u_tpu_top/u_maxpool2d_unit/ub_rd_addr_o_reg[4]). This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
+Related violations: <none>
+
+DPOR-2#9 Warning
+Asynchronous load check  
+DSP u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output is connected to registers with an asynchronous reset (u_tpu_top/u_maxpool2d_unit/ub_rd_addr_o_reg[5]). This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
+Related violations: <none>
+
+DPOR-2#10 Warning
+Asynchronous load check  
+DSP u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output is connected to registers with an asynchronous reset (u_tpu_top/u_maxpool2d_unit/ub_rd_addr_o_reg[6]). This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
+Related violations: <none>
+
+DPOR-2#11 Warning
+Asynchronous load check  
+DSP u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output is connected to registers with an asynchronous reset (u_tpu_top/u_maxpool2d_unit/ub_rd_addr_o_reg[7]). This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
+Related violations: <none>
+
+DPOR-2#12 Warning
+Asynchronous load check  
+DSP u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output is connected to registers with an asynchronous reset (u_tpu_top/u_maxpool2d_unit/ub_rd_addr_o_reg[8]). This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
+Related violations: <none>
+
+DPOR-2#13 Warning
+Asynchronous load check  
+DSP u_tpu_top/u_maxpool2d_unit/read_addr_w__0 output is connected to registers with an asynchronous reset (u_tpu_top/u_maxpool2d_unit/ub_rd_addr_o_reg[9]). This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
+Related violations: <none>
+
+

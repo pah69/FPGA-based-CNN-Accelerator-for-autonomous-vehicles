@@ -26,7 +26,8 @@ module tpu_datapath_v2 #(
     parameter int POOL_MODE           = 0,
     parameter int POOL_WINDOW         = 2,
     parameter int WGT_FIFO_DEPTH      = 16,
-    parameter int TILE_COUNT_WIDTH    = (MAX_NUM_TILES > 1) ? $clog2(MAX_NUM_TILES + 1) : 1
+    parameter int TILE_COUNT_WIDTH    = (MAX_NUM_TILES > 1) ? $clog2(MAX_NUM_TILES + 1) : 1,
+    parameter int MAC_COUNT_WIDTH     = (SIZE*SIZE > 1) ? $clog2((SIZE*SIZE) + 1) : 1
 ) (
     input logic clk,
     input logic rst_n,
@@ -64,6 +65,7 @@ module tpu_datapath_v2 #(
 
     output logic signed [(LOCAL_PSUM_WIDTH*SIZE)-1:0] mxu_psum_flatten_o,
     output logic        [                   SIZE-1:0] mxu_psum_valid_o,
+    output logic        [        MAC_COUNT_WIDTH-1:0] mxu_valid_mac_count_o,
     output logic                                      psum_packer_busy_o,
     output logic        [                   SIZE-1:0] wgt_load_done_o,
 
@@ -124,6 +126,7 @@ module tpu_datapath_v2 #(
       .act_valid_raw_i    (act_valid_raw_i),
       .psum_flatten_o     (mxu_psum_flatten_o),
       .psum_valid_o       (mxu_psum_valid_o),
+      .valid_mac_count_o  (mxu_valid_mac_count_o),
       .result_flatten_o   (mxu_local_acc_result_w),
       .done_o             (mxu_local_acc_done_w),
       .wgt_load_done_o    (wgt_load_done_w),

@@ -7,7 +7,8 @@ module ws_sa_2x2 #(
     parameter int NUM_TILES          = SIZE,
     parameter int ACC_WIDTH          = 32,
     parameter bit ENABLE_LOCAL_ACCUM = 1'b1,
-    parameter int TILE_COUNT_WIDTH   = (NUM_TILES > 1) ? $clog2(NUM_TILES + 1) : 1
+    parameter int TILE_COUNT_WIDTH   = (NUM_TILES > 1) ? $clog2(NUM_TILES + 1) : 1,
+    parameter int MAC_COUNT_WIDTH    = (SIZE*SIZE > 1) ? $clog2((SIZE*SIZE) + 1) : 1
 ) (
     input logic clk,
     input logic rst_n,
@@ -27,6 +28,7 @@ module ws_sa_2x2 #(
     // Final partial sums from the bottom row.
     output logic signed [(LOCAL_PSUM_WIDTH*SIZE)-1:0] psum_flatten_o,
     output logic        [                   SIZE-1:0] psum_valid_o,
+    output logic        [      MAC_COUNT_WIDTH-1:0] valid_mac_count_o,
 
     // Accumulated outputs from the bottom-row psum stream.
     output logic signed [(ACC_WIDTH*SIZE)-1:0] result_flatten_o,
@@ -100,6 +102,22 @@ module ws_sa_2x2 #(
   assign result_flatten_o[(0*ACC_WIDTH)+:ACC_WIDTH] = result_1_0_acc;
   assign result_flatten_o[(1*ACC_WIDTH)+:ACC_WIDTH] = result_1_1_acc;
   assign done_o = acc_done_1_0 && acc_done_1_1;
+
+  always_comb begin
+    valid_mac_count_o = '0;
+    if (act_valid_i[0]) begin
+      valid_mac_count_o = valid_mac_count_o + MAC_COUNT_WIDTH'(1);
+    end
+    if (act_v_0_0_to_0_1) begin
+      valid_mac_count_o = valid_mac_count_o + MAC_COUNT_WIDTH'(1);
+    end
+    if (act_valid_i[1]) begin
+      valid_mac_count_o = valid_mac_count_o + MAC_COUNT_WIDTH'(1);
+    end
+    if (act_v_1_0_to_1_1) begin
+      valid_mac_count_o = valid_mac_count_o + MAC_COUNT_WIDTH'(1);
+    end
+  end
 
   // ========================================================
   // PE array instantiation

@@ -1020,7 +1020,7 @@
       },
       "tpu_mnist_ip_0": {
         "vlnv": "user.org:user:tpu_mnist_ip:1.0",
-        "ip_revision": "4",
+        "ip_revision": "6",
         "xci_name": "design_1_tpu_mnist_ip_0_0",
         "xci_path": "ip/design_1_tpu_mnist_ip_0_0/design_1_tpu_mnist_ip_0_0.xci",
         "inst_hier_path": "tpu_mnist_ip_0",

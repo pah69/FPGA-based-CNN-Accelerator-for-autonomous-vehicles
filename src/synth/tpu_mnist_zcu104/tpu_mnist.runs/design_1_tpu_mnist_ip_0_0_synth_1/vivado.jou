@@ -3,8 +3,8 @@
 # SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Thu May 28 16:15:38 2026
-# Process ID         : 1859240
+# Start of session at: Mon Jun  1 10:36:13 2026
+# Process ID         : 2065101
 # Current directory  : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.runs/design_1_tpu_mnist_ip_0_0_synth_1
 # Command line       : vivado -log design_1_tpu_mnist_ip_0_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source design_1_tpu_mnist_ip_0_0.tcl
 # Log file           : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu_mnist.runs/design_1_tpu_mnist_ip_0_0_synth_1/design_1_tpu_mnist_ip_0_0.vds
@@ -13,12 +13,12 @@
 # Platform           : Ubuntu
 # Operating System   : Ubuntu 24.04.4 LTS
 # Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
-# CPU Frequency      : 4679.737 MHz
+# CPU Frequency      : 4789.413 MHz
 # CPU Physical cores : 8
 # CPU Logical cores  : 16
 # Host memory        : 32887 MB
 # Swap memory        : 25033 MB
 # Total Virtual      : 57921 MB
-# Available Virtual  : 41695 MB
+# Available Virtual  : 42678 MB
 #-----------------------------------------------------------
 source design_1_tpu_mnist_ip_0_0.tcl -notrace

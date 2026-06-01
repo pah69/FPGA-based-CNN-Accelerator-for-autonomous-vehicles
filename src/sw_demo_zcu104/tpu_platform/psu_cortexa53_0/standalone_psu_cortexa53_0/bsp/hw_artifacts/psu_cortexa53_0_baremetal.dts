@@ -2595,7 +2595,7 @@
                 compatible = "simple-bus";
                 #address-cells = <0x2>;
                 #size-cells = <0x2>;
-                firmware-name = "tpu_mnist_zcu104.bit.bin";
+                firmware-name = "tpu.bit.bin";
 
                 tpu_mnist_ip_0: tpu_mnist_ip@a0000000 {
                         phandle = <0xa>;

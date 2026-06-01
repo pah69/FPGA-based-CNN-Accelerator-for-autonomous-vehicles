@@ -1,5 +1,6 @@
 # Directories
-RTL_DIR ?= ../../rtl/v2
+RTL_VERSION ?= v2
+RTL_DIR ?= ../../rtl/$(RTL_VERSION)
 SIM_DIR ?= .
 
 # Available test aliases
@@ -82,6 +83,8 @@ help: list
 	@echo "  make test_rom_load"
 	@echo "  make test_conv_fc_addr"
 	@echo "  make run TEST=sa_2x2"
+	@echo "  make compile TEST=tpu_axi_lite RTL_VERSION=v3"
+	@echo "  make run TEST=tpu_top_e2e RTL_VERSION=v3"
 	@echo "  make gui TEST=activation_skew"
 
 list:

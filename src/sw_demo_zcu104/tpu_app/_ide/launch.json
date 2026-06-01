@@ -30,12 +30,12 @@
 				"enableRPUSplitMode": false,
 				"resetAPU": false,
 				"resetRPU": false,
-				"bitstreamFile": "${workspaceFolder}/tpu_app/_ide/bitstream/tpi_mnist.bit",
+				"bitstreamFile": "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_mnist_zcu104/tpu.bit",
 				"zuInitialization": {
-					"isFsbl": false,
+					"isFsbl": true,
 					"usingFSBL": {
 						"initWithFSBL": true,
-						"fsblFile": "${workspaceFolder}/platform/export/platform/sw/boot/fsbl.elf",
+						"fsblFile": "${workspaceFolder}/tpu_platform/export/tpu_platform/sw/boot/fsbl.elf",
 						"fsblExitSymbol": "XFsbl_Exit"
 					},
 					"usingPsuInit": {

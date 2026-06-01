@@ -9,7 +9,8 @@ module mxu_2x2 #(
     parameter bit ENABLE_LOCAL_ACCUM = 1'b1,
     parameter int WGT_FIFO_DEPTH   = 16, // Độ sâu của FIFO Trọng số
     parameter int WGT_FIFO_COUNT_WIDTH = (WGT_FIFO_DEPTH > 0) ? $clog2(WGT_FIFO_DEPTH + 1) : 1,
-    parameter int TILE_COUNT_WIDTH = (NUM_TILES > 1) ? $clog2(NUM_TILES + 1) : 1
+    parameter int TILE_COUNT_WIDTH = (NUM_TILES > 1) ? $clog2(NUM_TILES + 1) : 1,
+    parameter int MAC_COUNT_WIDTH  = (SIZE*SIZE > 1) ? $clog2((SIZE*SIZE) + 1) : 1
 ) (
     input logic clk,
     input logic rst_n,
@@ -42,6 +43,7 @@ module mxu_2x2 #(
     // ========================================
     output logic signed [(LOCAL_PSUM_WIDTH*SIZE)-1:0] psum_flatten_o,
     output logic        [SIZE-1:0]                    psum_valid_o,
+    output logic        [MAC_COUNT_WIDTH-1:0]          valid_mac_count_o,
     output logic signed [(ACC_WIDTH*SIZE)-1:0]       result_flatten_o,
     output logic                                      done_o,
 
@@ -159,6 +161,7 @@ module mxu_2x2 #(
         
         .psum_flatten_o    (psum_flatten_o),
         .psum_valid_o      (psum_valid_o),
+        .valid_mac_count_o (valid_mac_count_o),
         .result_flatten_o  (result_flatten_o),
         .done_o            (done_o),
         .wgt_load_done_o   (wgt_load_done_o),

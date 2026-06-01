@@ -48,7 +48,7 @@
 
 
 // IP VLNV: user.org:user:tpu_mnist_ip:1.0
-// IP Revision: 4
+// IP Revision: 6
 
 `timescale 1ns/1ps
 

@@ -571,11 +571,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Thu May 28 09:15:35 UTC 2026</spirit:value>
+            <spirit:value>Mon Jun 01 03:36:10 UTC 2026</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:e70a5675</spirit:value>
+            <spirit:value>9:b683b2c8</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -590,11 +590,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Thu May 28 09:15:35 UTC 2026</spirit:value>
+            <spirit:value>Mon Jun 01 03:36:10 UTC 2026</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:82a281e2</spirit:value>
+            <spirit:value>9:d32b655f</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -605,7 +605,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:82a281e2</spirit:value>
+            <spirit:value>9:d32b655f</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -619,11 +619,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Thu May 28 09:16:21 UTC 2026</spirit:value>
+            <spirit:value>Mon Jun 01 03:37:11 UTC 2026</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:82a281e2</spirit:value>
+            <spirit:value>9:d32b655f</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -634,7 +634,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:82a281e2</spirit:value>
+            <spirit:value>9:d32b655f</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -650,11 +650,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Thu May 28 09:15:35 UTC 2026</spirit:value>
+            <spirit:value>Mon Jun 01 03:36:10 UTC 2026</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:e70a5675</spirit:value>
+            <spirit:value>9:b683b2c8</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -670,11 +670,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Thu May 28 09:15:35 UTC 2026</spirit:value>
+            <spirit:value>Mon Jun 01 03:36:10 UTC 2026</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:82a281e2</spirit:value>
+            <spirit:value>9:d32b655f</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1077,119 +1077,119 @@
     <spirit:fileSet>
       <spirit:name>xilinx_anylanguagebehavioralsimulation_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/accumulator_array_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/accumulator_array_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/act_skew_buffer.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/act_skew_buffer.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/activation_array_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/activation_array_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/bias_requantize_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/bias_requantize_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/bias_rom.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/bias_rom.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/conv_fc_address_generator.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/conv_fc_address_generator.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/fifo.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/fifo.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/layer_descriptor_pkg.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/layer_descriptor_pkg.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/layer_descriptor_rom.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/layer_descriptor_rom.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/maxpool2d_unit.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/maxpool2d_unit.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/multiplier.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/multiplier.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/mxu_2x2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/mxu_2x2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/normalizer_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/normalizer_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/pe.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/pe.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/pooling_unit_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/pooling_unit_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/post_process_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/post_process_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/psum_packer_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/psum_packer_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/requant_mult_rom.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/requant_mult_rom.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/requant_shift_rom.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/requant_shift_rom.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/tpu_controller_rom_kloop.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/tpu_controller_rom_kloop.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/tpu_controller_rom_layer.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/tpu_controller_rom_layer.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/tpu_datapath_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/tpu_datapath_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/tpu_top.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/tpu_top.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/unified_buffer.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/unified_buffer.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/vector_processing_unit_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/vector_processing_unit_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/weight_rom.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/weight_rom.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/wgt_fetcher_2x2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/wgt_fetcher_2x2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/ws_sa_2x2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/ws_sa_2x2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/tpu_top_axi_lite.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/tpu_top_axi_lite.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -1209,238 +1209,238 @@
         <spirit:userFileType>mem</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/tpu_top_axi_lite.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/accumulator_array_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/accumulator_array_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/act_skew_buffer.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/act_skew_buffer.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/activation_array_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/activation_array_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/bias_requantize_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/bias_requantize_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/bias_rom.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/bias_rom.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/conv_fc_address_generator.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/conv_fc_address_generator.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/fifo.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/fifo.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/layer_descriptor_pkg.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/layer_descriptor_pkg.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/layer_descriptor_rom.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/layer_descriptor_rom.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/maxpool2d_unit.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/maxpool2d_unit.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/multiplier.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/multiplier.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/mxu_2x2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/mxu_2x2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/normalizer_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/normalizer_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/pe.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/pe.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/pooling_unit_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/pooling_unit_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/post_process_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/post_process_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/psum_packer_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/psum_packer_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/requant_mult_rom.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/requant_mult_rom.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/requant_shift_rom.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/requant_shift_rom.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/tpu_controller_rom_kloop.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/tpu_controller_rom_kloop.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/tpu_controller_rom_layer.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/tpu_controller_rom_layer.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/tpu_datapath_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/tpu_datapath_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/tpu_top.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/tpu_top.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/unified_buffer.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/unified_buffer.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/vector_processing_unit_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/vector_processing_unit_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/weight_rom.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/weight_rom.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/wgt_fetcher_2x2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/wgt_fetcher_2x2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/ws_sa_2x2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/ws_sa_2x2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/tpu_top_axi_lite.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
       <spirit:name>xilinx_anylanguagesynthesis_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/accumulator_array_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/accumulator_array_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/act_skew_buffer.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/act_skew_buffer.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/activation_array_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/activation_array_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/bias_requantize_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/bias_requantize_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/bias_rom.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/bias_rom.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/conv_fc_address_generator.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/conv_fc_address_generator.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/fifo.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/fifo.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/layer_descriptor_pkg.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/layer_descriptor_pkg.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/layer_descriptor_rom.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/layer_descriptor_rom.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/maxpool2d_unit.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/maxpool2d_unit.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/multiplier.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/multiplier.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/mxu_2x2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/mxu_2x2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/normalizer_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/normalizer_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/pe.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/pe.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/pooling_unit_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/pooling_unit_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/post_process_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/post_process_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/psum_packer_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/psum_packer_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/requant_mult_rom.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/requant_mult_rom.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/requant_shift_rom.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/requant_shift_rom.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/tpu_controller_rom_kloop.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/tpu_controller_rom_kloop.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/tpu_controller_rom_layer.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/tpu_controller_rom_layer.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/tpu_datapath_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/tpu_datapath_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/tpu_top.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/tpu_top.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/unified_buffer.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/unified_buffer.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/vector_processing_unit_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/vector_processing_unit_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/weight_rom.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/weight_rom.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/wgt_fetcher_2x2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/wgt_fetcher_2x2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/ws_sa_2x2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/ws_sa_2x2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/src/tpu_top_axi_lite.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/src/tpu_top_axi_lite.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -1460,119 +1460,119 @@
         <spirit:userFileType>mem</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/tpu_top_axi_lite.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/accumulator_array_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/accumulator_array_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/act_skew_buffer.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/act_skew_buffer.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/activation_array_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/activation_array_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/bias_requantize_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/bias_requantize_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/bias_rom.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/bias_rom.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/conv_fc_address_generator.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/conv_fc_address_generator.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/fifo.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/fifo.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/layer_descriptor_pkg.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/layer_descriptor_pkg.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/layer_descriptor_rom.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/layer_descriptor_rom.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/maxpool2d_unit.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/maxpool2d_unit.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/multiplier.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/multiplier.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/mxu_2x2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/mxu_2x2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/normalizer_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/normalizer_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/pe.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/pe.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/pooling_unit_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/pooling_unit_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/post_process_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/post_process_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/psum_packer_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/psum_packer_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/requant_mult_rom.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/requant_mult_rom.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/requant_shift_rom.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/requant_shift_rom.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/tpu_controller_rom_kloop.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/tpu_controller_rom_kloop.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/tpu_controller_rom_layer.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/tpu_controller_rom_layer.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/tpu_datapath_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/tpu_datapath_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/tpu_top.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/tpu_top.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/unified_buffer.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/unified_buffer.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/vector_processing_unit_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/vector_processing_unit_v2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/weight_rom.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/weight_rom.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/wgt_fetcher_2x2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/wgt_fetcher_2x2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/ws_sa_2x2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/2859/02b9/ws_sa_2x2.sv</spirit:name>
+        <spirit:name>../../ipshared/c604/02b9/tpu_top_axi_lite.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
     </spirit:fileSet>
@@ -1720,7 +1720,7 @@
     <xilinx:coreExtensions>
       <xilinx:displayName>tpu_mnist_ip</xilinx:displayName>
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
-      <xilinx:coreRevision>4</xilinx:coreRevision>
+      <xilinx:coreRevision>6</xilinx:coreRevision>
       <xilinx:configElementInfos>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI.ADDR_WIDTH" xilinx:valueSource="auto" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI.ARUSER_WIDTH" xilinx:valueSource="constant" xilinx:valuePermission="bd"/>
@@ -1766,7 +1766,7 @@
       <xilinx:xilinxVersion>2025.2</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="fc8eaf8e"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="da7651d5"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="8c40d3ab"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="169c7b27"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="f90dc2d7"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="0ad4eb2d"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="2528ecf8"/>
