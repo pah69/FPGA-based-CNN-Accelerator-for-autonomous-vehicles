@@ -144,6 +144,8 @@ module test_tpu_datapath_v3;
       .act_req_lane_valid_i             (act_req_lane_valid_i),
       .act_req_lane_zero_i              (act_req_lane_zero_i),
       .act_req_tag_i                    (act_req_tag_i),
+      .act_launch_i                     (1'b0),
+      .act_launch_ready_o               (),
       .ub_rd_en_o                       (ub_rd_en_o),
       .ub_rd_addr_o                     (ub_rd_addr_o),
       .ub_rd_data_i                     (ub_rd_data_i),

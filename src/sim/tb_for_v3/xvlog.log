@@ -43,6 +43,8 @@ INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerato
 INFO: [VRFC 10-311] analyzing module tpu_controller_rom_kloop
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/tpu_controller_rom_layer.sv" into library work
 INFO: [VRFC 10-311] analyzing module tpu_controller_rom_layer
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/tpu_controller_v3_rom_layer.sv" into library work
+INFO: [VRFC 10-311] analyzing module tpu_controller_v3_rom_layer
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/tpu_controller_v3_rom_tile.sv" into library work
 INFO: [VRFC 10-311] analyzing module tpu_controller_v3_rom_tile
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/tpu_controller_v3_tile.sv" into library work
@@ -67,5 +69,5 @@ INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerato
 INFO: [VRFC 10-311] analyzing module wgt_fetcher_2x2
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/ws_sa_2x2.sv" into library work
 INFO: [VRFC 10-311] analyzing module ws_sa_2x2
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/test_controller_v3_rom_tile.sv" into library work
-INFO: [VRFC 10-311] analyzing module test_controller_v3_rom_tile
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/test_tpu_top_v3_end_to_end.sv" into library work
+INFO: [VRFC 10-311] analyzing module test_tpu_top_v3_end_to_end

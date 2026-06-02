@@ -1,7 +1,0 @@
-Running: xsim.dir/test_tpu_datapath_v3_snapshot/xsimk -runall -simmode gui -wdb test_tpu_datapath_v3_snapshot.wdb -simrunnum 0 -socket 40935
-Design successfully loaded
-Design Loading Memory Usage: 204580 KB (Peak: 204580 KB)
-Design Loading CPU Usage: 650 ms
-Simulation completed
-Simulation Memory Usage: 299388 KB (Peak: 343848 KB)
-Simulation CPU Usage: 660 ms

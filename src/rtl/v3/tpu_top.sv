@@ -2,7 +2,7 @@
 
 import layer_descriptor_pkg::*;
 
-// End-to-end small-CNN sequencer around the verified v2 datapath.
+// End-to-end small-CNN sequencer around the V3 request-based layer datapath.
 module tpu_top #(
     parameter int SIZE                = 2,
     parameter int DATA_WIDTH          = 8,
@@ -19,7 +19,11 @@ module tpu_top #(
     parameter int MAC_COUNT_WIDTH     = (SIZE*SIZE > 1) ? $clog2((SIZE*SIZE) + 1) : 1,
     parameter int WGT_FIFO_DEPTH      = 16,
     parameter int BANK_DEPTH          = 8192,
-    parameter int UB_ADDR_WIDTH       = (BANK_DEPTH > 1) ? $clog2(BANK_DEPTH) : 1
+    parameter int UB_ADDR_WIDTH       = (BANK_DEPTH > 1) ? $clog2(BANK_DEPTH) : 1,
+    parameter string WGT_INIT_FILE    = "small_cnn_sym_weights_i8.mem",
+    parameter string BIAS_INIT_FILE   = "small_cnn_sym_biases_i32.mem",
+    parameter string REQUANT_MULT_INIT_FILE = "small_cnn_sym_requant_mult_i32.mem",
+    parameter string REQUANT_SHIFT_INIT_FILE = "small_cnn_sym_requant_shift_u6.mem"
 ) (
     input logic clk,
     input logic rst_n,
@@ -126,27 +130,26 @@ module tpu_top #(
   localparam logic [2:0] STAGE_FC1   = 3'd5;
   localparam logic [2:0] STAGE_FC2   = 3'd6;
 
-  localparam logic [4:0] TILE_S_IDLE                = 5'd0;
-  localparam logic [4:0] TILE_S_CLEAR_ACC_BLOCK     = 5'd1;
-  localparam logic [4:0] TILE_S_FETCH_ROM           = 5'd2;
-  localparam logic [4:0] TILE_S_WAIT_ROM            = 5'd3;
-  localparam logic [4:0] TILE_S_WRITE_WEIGHT_BOTTOM = 5'd4;
-  localparam logic [4:0] TILE_S_WRITE_WEIGHT_TOP    = 5'd5;
-  localparam logic [4:0] TILE_S_START_WEIGHT_LOAD   = 5'd6;
-  localparam logic [4:0] TILE_S_WAIT_WEIGHT_LOAD    = 5'd7;
-  localparam logic [4:0] TILE_S_READ_ACT0_REQ       = 5'd8;
-  localparam logic [4:0] TILE_S_READ_ACT0_WAIT      = 5'd9;
-  localparam logic [4:0] TILE_S_READ_ACT1_REQ       = 5'd10;
-  localparam logic [4:0] TILE_S_READ_ACT1_WAIT      = 5'd11;
-  localparam logic [4:0] TILE_S_LAUNCH_ACT          = 5'd12;
-  localparam logic [4:0] TILE_S_DRAIN_MXU           = 5'd13;
-  localparam logic [4:0] TILE_S_WAIT_ACC_READY      = 5'd14;
-  localparam logic [4:0] TILE_S_READ_ACC_ROW        = 5'd15;
-  localparam logic [4:0] TILE_S_WAIT_VPU_OUTPUT     = 5'd16;
-  localparam logic [4:0] TILE_S_WRITE_OUTPUT0       = 5'd17;
-  localparam logic [4:0] TILE_S_WRITE_OUTPUT1       = 5'd18;
-  localparam logic [4:0] TILE_S_DONE                = 5'd19;
-  localparam logic [4:0] TILE_S_ERROR               = 5'd20;
+  localparam logic [4:0] TILE_S_IDLE              = 5'd0;
+  localparam logic [4:0] TILE_S_CLEAR_ACC         = 5'd1;
+  localparam logic [4:0] TILE_S_SEND_WGT_REQ      = 5'd2;
+  localparam logic [4:0] TILE_S_WAIT_WGT_TILE     = 5'd3;
+  localparam logic [4:0] TILE_S_STREAM_WGT        = 5'd4;
+  localparam logic [4:0] TILE_S_WAIT_WGT_LOAD     = 5'd5;
+  localparam logic [4:0] TILE_S_PREFETCH_WGT_REQ  = 5'd6;
+  localparam logic [4:0] TILE_S_SEND_ACT_REQ      = 5'd7;
+  localparam logic [4:0] TILE_S_WAIT_ACT_READY    = 5'd8;
+  localparam logic [4:0] TILE_S_LAUNCH_ACT        = 5'd9;
+  localparam logic [4:0] TILE_S_WAIT_PSUM         = 5'd10;
+  localparam logic [4:0] TILE_S_RELEASE_WGT       = 5'd11;
+  localparam logic [4:0] TILE_S_NEXT_K_TILE       = 5'd12;
+  localparam logic [4:0] TILE_S_RELEASE_FINAL_WGT = 5'd13;
+  localparam logic [4:0] TILE_S_WAIT_ACC_READY    = 5'd14;
+  localparam logic [4:0] TILE_S_READ_ACC          = 5'd15;
+  localparam logic [4:0] TILE_S_WAIT_ACC_READ     = 5'd16;
+  localparam logic [4:0] TILE_S_WAIT_VPU          = 5'd17;
+  localparam logic [4:0] TILE_S_DONE              = 5'd18;
+  localparam logic [4:0] TILE_S_ERROR             = 5'd19;
 
   localparam logic [31:0] ERR_LAYER = 32'h0005_1000;
   localparam logic [31:0] ERR_POOL  = 32'h0005_2000;
@@ -165,7 +168,6 @@ module tpu_top #(
   logic layer_error_w;
   logic [31:0] layer_error_code_w;
   logic [1:0] layer_idx_w;
-  logic [31:0] layer_useful_mac_count_w;
 
   logic pool_start_q;
   logic pool_done_w;
@@ -190,13 +192,13 @@ module tpu_top #(
   logic [UB_ADDR_WIDTH-1:0] ub_wr_addr_w;
   logic signed [DATA_WIDTH-1:0] ub_wr_data_w;
 
-  logic layer_ub_rd_en_w;
   logic layer_ub_rd_bank_w;
-  logic [UB_ADDR_WIDTH-1:0] layer_ub_rd_addr_w;
   logic layer_ub_wr_en_w;
   logic layer_ub_wr_bank_w;
   logic [UB_ADDR_WIDTH-1:0] layer_ub_wr_addr_w;
   logic signed [DATA_WIDTH-1:0] layer_ub_wr_data_w;
+  logic layer_clear_w;
+  logic datapath_clear_w;
 
   logic pool_ub_rd_en_w;
   logic pool_ub_rd_bank_w;
@@ -206,17 +208,40 @@ module tpu_top #(
   logic [UB_ADDR_WIDTH-1:0] pool_ub_wr_addr_w;
   logic signed [DATA_WIDTH-1:0] pool_ub_wr_data_w;
 
-  logic work_w;
   logic [TILE_COUNT_WIDTH-1:0] num_tiles_w;
-  logic start_wgt_load_w;
-  logic [(DATA_WIDTH*SIZE)-1:0] wgt_fifo_wdata_w;
-  logic wgt_fifo_wr_en_w;
-  logic wgt_fifo_full_w;
-  logic wgt_fifo_empty_w;
-  logic wgt_fetcher_ready_w;
+
+  logic wgt_req_valid_w;
+  logic wgt_req_ready_w;
+  logic [SIZE*SIZE*UB_ADDR_WIDTH-1:0] wgt_req_addr_flatten_w;
+  logic [SIZE*SIZE-1:0] wgt_req_valid_mask_w;
+  logic [SIZE*SIZE-1:0] wgt_req_zero_mask_w;
+  logic [15:0] wgt_req_tag_w;
+  logic wgt_tile_release_w;
+  logic wgt_stream_start_w;
+  logic wgt_tile_valid_w;
+  logic wgt_stream_ready_w;
+  logic wgt_stream_done_w;
+  logic [15:0] wgt_tile_tag_w;
   logic [SIZE-1:0] wgt_load_done_w;
-  logic signed [(DATA_WIDTH*SIZE)-1:0] act_flat_raw_w;
-  logic [SIZE-1:0] act_valid_raw_w;
+
+  logic act_req_valid_w;
+  logic act_req_ready_w;
+  logic [SIZE*UB_ADDR_WIDTH-1:0] act_req_addr_flatten_w;
+  logic [SIZE-1:0] act_req_lane_valid_w;
+  logic [SIZE-1:0] act_req_lane_zero_w;
+  logic [15:0] act_req_tag_w;
+  logic act_launch_ready_w;
+  logic act_launch_w;
+
+  logic datapath_ub_rd_en_w;
+  logic [UB_ADDR_WIDTH-1:0] datapath_ub_rd_addr_w;
+  logic signed [DATA_WIDTH-1:0] datapath_ub_rd_data_w;
+  logic datapath_ub_rd_valid_w;
+
+  logic weight_rd_en_w;
+  logic [UB_ADDR_WIDTH-1:0] weight_rd_addr_w;
+  logic signed [DATA_WIDTH-1:0] weight_rd_data_w;
+  logic weight_rd_valid_w;
 
   logic accumulator_clear_all_w;
   logic accumulator_row_clear_w;
@@ -287,21 +312,23 @@ module tpu_top #(
   assign profile_layer_active_w = (stage_from_state(state_q) == STAGE_CONV1)
                                || (stage_from_state(state_q) == STAGE_CONV2)
                                || (stage_from_state(state_q) == STAGE_FC1);
-  assign profile_weight_load_w = (dbg_layer_tile_state_o == TILE_S_WRITE_WEIGHT_BOTTOM)
-                              || (dbg_layer_tile_state_o == TILE_S_WRITE_WEIGHT_TOP)
-                              || (dbg_layer_tile_state_o == TILE_S_START_WEIGHT_LOAD)
-                              || (dbg_layer_tile_state_o == TILE_S_WAIT_WEIGHT_LOAD);
-  assign profile_activation_fetch_w = (dbg_layer_tile_state_o == TILE_S_READ_ACT0_REQ)
-                                   || (dbg_layer_tile_state_o == TILE_S_READ_ACT0_WAIT)
-                                   || (dbg_layer_tile_state_o == TILE_S_READ_ACT1_REQ)
-                                   || (dbg_layer_tile_state_o == TILE_S_READ_ACT1_WAIT);
+  assign profile_weight_load_w = (dbg_layer_tile_state_o == TILE_S_SEND_WGT_REQ)
+                              || (dbg_layer_tile_state_o == TILE_S_WAIT_WGT_TILE)
+                              || (dbg_layer_tile_state_o == TILE_S_STREAM_WGT)
+                              || (dbg_layer_tile_state_o == TILE_S_WAIT_WGT_LOAD)
+                              || (dbg_layer_tile_state_o == TILE_S_PREFETCH_WGT_REQ);
+  assign profile_activation_fetch_w = (dbg_layer_tile_state_o == TILE_S_SEND_ACT_REQ)
+                                   || (dbg_layer_tile_state_o == TILE_S_WAIT_ACT_READY);
   assign profile_mxu_active_w = (mxu_valid_mac_count_w != '0);
-  assign profile_mxu_drain_w = (dbg_layer_tile_state_o == TILE_S_DRAIN_MXU);
+  assign profile_mxu_drain_w = (dbg_layer_tile_state_o == TILE_S_WAIT_PSUM)
+                             || (dbg_layer_tile_state_o == TILE_S_RELEASE_WGT)
+                             || (dbg_layer_tile_state_o == TILE_S_NEXT_K_TILE)
+                             || (dbg_layer_tile_state_o == TILE_S_RELEASE_FINAL_WGT);
   assign profile_accumulator_w = (dbg_layer_tile_state_o == TILE_S_WAIT_ACC_READY)
-                              || (dbg_layer_tile_state_o == TILE_S_READ_ACC_ROW);
-  assign profile_vpu_w = (dbg_layer_tile_state_o == TILE_S_WAIT_VPU_OUTPUT);
-  assign profile_output_write_w = (dbg_layer_tile_state_o == TILE_S_WRITE_OUTPUT0)
-                               || (dbg_layer_tile_state_o == TILE_S_WRITE_OUTPUT1);
+                              || (dbg_layer_tile_state_o == TILE_S_READ_ACC)
+                              || (dbg_layer_tile_state_o == TILE_S_WAIT_ACC_READ);
+  assign profile_vpu_w = (dbg_layer_tile_state_o == TILE_S_WAIT_VPU);
+  assign profile_output_write_w = layer_ub_wr_en_w;
   assign profile_controller_idle_w = profile_layer_active_w
                                   && !profile_weight_load_w
                                   && !profile_activation_fetch_w
@@ -356,9 +383,9 @@ module tpu_top #(
       ub_wr_addr_w = pool_ub_wr_addr_w;
       ub_wr_data_w = pool_ub_wr_data_w;
     end else if (layer_active_w) begin
-      ub_rd_en_w   = layer_ub_rd_en_w;
+      ub_rd_en_w   = datapath_ub_rd_en_w;
       ub_rd_bank_w = layer_ub_rd_bank_w;
-      ub_rd_addr_w = layer_ub_rd_addr_w;
+      ub_rd_addr_w = datapath_ub_rd_addr_w;
       ub_wr_en_w   = layer_ub_wr_en_w;
       ub_wr_bank_w = layer_ub_wr_bank_w;
       ub_wr_addr_w = layer_ub_wr_addr_w;
@@ -376,6 +403,13 @@ module tpu_top #(
 
   assign host_rd_data_o = ub_rd_data_w;
   assign host_rd_valid_o = host_access_w && ub_rd_valid_w;
+  assign datapath_ub_rd_data_w = ub_rd_data_w;
+  assign datapath_ub_rd_valid_w = ub_rd_valid_w && layer_active_w;
+  assign layer_clear_w = 1'b0;
+  assign datapath_clear_w = (state_q == S_START_CONV1)
+                         || (state_q == S_START_CONV2)
+                         || (state_q == S_START_FC1)
+                         || (state_q == S_START_FC2);
 
   unified_buffer #(
       .DATA_WIDTH(DATA_WIDTH),
@@ -395,85 +429,112 @@ module tpu_top #(
       .wr_data_i (ub_wr_data_w)
   );
 
-  tpu_controller_rom_layer #(
+  tpu_controller_v3_rom_layer #(
       .SIZE               (SIZE),
       .DATA_WIDTH         (DATA_WIDTH),
-      .ACC_WIDTH          (ACC_WIDTH),
       .OUT_WIDTH          (OUT_WIDTH),
+      .UB_ADDR_WIDTH      (UB_ADDR_WIDTH),
+      .WGT_ADDR_WIDTH     (UB_ADDR_WIDTH),
       .ACC_DEPTH          (ACC_DEPTH),
       .ACC_ADDR_WIDTH     (ACC_ADDR_WIDTH),
-      .UB_ADDR_WIDTH      (UB_ADDR_WIDTH),
       .BIAS_WIDTH         (BIAS_WIDTH),
       .REQUANT_MULT_WIDTH (REQUANT_MULT_WIDTH),
       .REQUANT_SHIFT_WIDTH(REQUANT_SHIFT_WIDTH),
+      .ACC_WIDTH          (ACC_WIDTH),
       .MAX_NUM_TILES      (MAX_NUM_TILES),
       .TILE_COUNT_WIDTH   (TILE_COUNT_WIDTH),
-      .BANK_DEPTH         (BANK_DEPTH)
+      .BANK_DEPTH         (BANK_DEPTH),
+      .BIAS_INIT_FILE     (BIAS_INIT_FILE),
+      .REQUANT_MULT_INIT_FILE(REQUANT_MULT_INIT_FILE),
+      .REQUANT_SHIFT_INIT_FILE(REQUANT_SHIFT_INIT_FILE)
   ) u_layer_controller (
-      .clk                             (clk),
-      .rst_n                           (rst_n),
-      .start_i                         (layer_start_q),
-      .done_o                          (layer_done_w),
-      .busy_o                          (layer_busy_w),
-      .error_o                         (layer_error_w),
-      .dbg_state_o                     (dbg_layer_state_o),
-      .dbg_tile_state_o                (dbg_layer_tile_state_o),
-      .dbg_cycle_count_o               (),
-      .dbg_spatial_idx_o               (dbg_layer_spatial_o),
-      .dbg_oc_tile_o                   (dbg_layer_oc_tile_o),
-      .dbg_k_tile_o                    (dbg_layer_k_tile_o),
-      .dbg_useful_mac_count_o          (layer_useful_mac_count_w),
-      .dbg_error_code_o                (layer_error_code_w),
-      .layer_idx_i                     (layer_idx_w),
-      .use_descriptor_banks_i          (1'b1),
-      .read_bank_i                     (1'b0),
-      .write_bank_i                    (1'b1),
-      .activation_base_addr_i          ('0),
-      .output_base_addr_i              ('0),
-      .block_size_i                    ((ACC_ADDR_WIDTH+1)'(ACC_DEPTH)),
-      .spatial_idx_i                   (16'd0),
-      .ub_rd_en_o                      (layer_ub_rd_en_w),
-      .ub_rd_bank_o                    (layer_ub_rd_bank_w),
-      .ub_rd_addr_o                    (layer_ub_rd_addr_w),
-      .ub_rd_data_i                    (ub_rd_data_w),
-      .ub_rd_valid_i                   (ub_rd_valid_w),
-      .ub_wr_en_o                      (layer_ub_wr_en_w),
-      .ub_wr_bank_o                    (layer_ub_wr_bank_w),
-      .ub_wr_addr_o                    (layer_ub_wr_addr_w),
-      .ub_wr_data_o                    (layer_ub_wr_data_w),
-      .work_o                          (work_w),
-      .num_tiles_o                     (num_tiles_w),
-      .start_wgt_load_o                (start_wgt_load_w),
-      .wgt_fifo_wdata_o                (wgt_fifo_wdata_w),
-      .wgt_fifo_wr_en_o                (wgt_fifo_wr_en_w),
-      .wgt_fifo_full_i                 (wgt_fifo_full_w),
-      .wgt_fetcher_ready_i             (wgt_fetcher_ready_w),
-      .wgt_load_done_i                 (wgt_load_done_w),
-      .act_flat_raw_o                  (act_flat_raw_w),
-      .act_valid_raw_o                 (act_valid_raw_w),
-      .accumulator_clear_all_o         (accumulator_clear_all_w),
-      .accumulator_row_clear_o         (accumulator_row_clear_w),
-      .accumulator_row_clear_addr_o    (accumulator_row_clear_addr_w),
-      .accumulator_write_en_o          (accumulator_write_en_w),
-      .accumulator_write_addr_o        (accumulator_write_addr_w),
-      .accumulator_read_en_o           (accumulator_read_en_w),
-      .accumulator_read_addr_o         (accumulator_read_addr_w),
-      .accumulator_row_ready_i         (accumulator_row_ready_w),
-      .vpu_input_done_o                (vpu_input_done_w),
-      .vpu_act_mode_o                  (vpu_act_mode_w),
-      .vpu_bias_flatten_o              (vpu_bias_flatten_w),
-      .vpu_requant_multiplier_flatten_o(vpu_requant_multiplier_flatten_w),
-      .vpu_requant_shift_flatten_o     (vpu_requant_shift_flatten_w),
-      .vpu_output_zero_point_o         (vpu_output_zero_point_w),
-      .vpu_data_flatten_i              (vpu_data_flatten_w),
-      .vpu_data_valid_i                (vpu_data_valid_w),
-      .mxu_psum_valid_i                (mxu_psum_valid_w),
-      .psum_packer_busy_i              (psum_packer_busy_w)
+      .clk                              (clk),
+      .rst_n                            (rst_n),
+      .start_i                          (layer_start_q),
+      .clear_i                          (layer_clear_w),
+      .done_o                           (layer_done_w),
+      .busy_o                           (layer_busy_w),
+      .error_o                          (layer_error_w),
+      .dbg_state_o                      (dbg_layer_state_o),
+      .dbg_tile_state_o                 (dbg_layer_tile_state_o),
+      .dbg_spatial_idx_o                (dbg_layer_spatial_o),
+      .dbg_oc_tile_o                    (dbg_layer_oc_tile_o),
+      .dbg_k_tile_o                     (dbg_layer_k_tile_o),
+      .dbg_cycle_count_o                (),
+      .dbg_tile_count_o                 (),
+      .dbg_error_code_o                 (layer_error_code_w),
+      .layer_idx_i                      (layer_idx_w),
+      .use_descriptor_banks_i           (1'b1),
+      .read_bank_i                      (1'b0),
+      .write_bank_i                     (1'b1),
+      .activation_base_addr_i           ('0),
+      .output_base_addr_i               ('0),
+      .spatial_idx_i                    (16'd0),
+      .single_spatial_i                 (1'b0),
+      .ub_rd_bank_o                     (layer_ub_rd_bank_w),
+      .ub_wr_en_o                       (layer_ub_wr_en_w),
+      .ub_wr_bank_o                     (layer_ub_wr_bank_w),
+      .ub_wr_addr_o                     (layer_ub_wr_addr_w),
+      .ub_wr_data_o                     (layer_ub_wr_data_w),
+      .wgt_req_valid_o                  (wgt_req_valid_w),
+      .wgt_req_ready_i                  (wgt_req_ready_w),
+      .wgt_req_addr_flatten_o           (wgt_req_addr_flatten_w),
+      .wgt_req_valid_mask_o             (wgt_req_valid_mask_w),
+      .wgt_req_zero_mask_o              (wgt_req_zero_mask_w),
+      .wgt_req_tag_o                    (wgt_req_tag_w),
+      .wgt_tile_release_o               (wgt_tile_release_w),
+      .wgt_stream_start_o               (wgt_stream_start_w),
+      .wgt_tile_valid_i                 (wgt_tile_valid_w),
+      .wgt_load_done_i                  (wgt_load_done_w),
+      .act_req_valid_o                  (act_req_valid_w),
+      .act_req_ready_i                  (act_req_ready_w),
+      .act_req_addr_flatten_o           (act_req_addr_flatten_w),
+      .act_req_lane_valid_o             (act_req_lane_valid_w),
+      .act_req_lane_zero_o              (act_req_lane_zero_w),
+      .act_req_tag_o                    (act_req_tag_w),
+      .act_launch_ready_i               (act_launch_ready_w),
+      .act_launch_o                     (act_launch_w),
+      .accumulator_clear_all_o          (accumulator_clear_all_w),
+      .accumulator_row_clear_o          (accumulator_row_clear_w),
+      .accumulator_row_clear_addr_o     (accumulator_row_clear_addr_w),
+      .accumulator_write_en_o           (accumulator_write_en_w),
+      .accumulator_write_addr_o         (accumulator_write_addr_w),
+      .accumulator_read_en_o            (accumulator_read_en_w),
+      .accumulator_read_addr_o          (accumulator_read_addr_w),
+      .accumulator_read_valid_i         (accumulator_read_valid_w),
+      .accumulator_row_ready_i          (accumulator_row_ready_w),
+      .vpu_input_done_o                 (vpu_input_done_w),
+      .vpu_act_mode_o                   (vpu_act_mode_w),
+      .vpu_bias_flatten_o               (vpu_bias_flatten_w),
+      .vpu_requant_multiplier_flatten_o (vpu_requant_multiplier_flatten_w),
+      .vpu_requant_shift_flatten_o      (vpu_requant_shift_flatten_w),
+      .vpu_output_zero_point_o          (vpu_output_zero_point_w),
+      .vpu_data_flatten_i               (vpu_data_flatten_w),
+      .vpu_data_valid_i                 (vpu_data_valid_w),
+      .mxu_psum_valid_i                 (mxu_psum_valid_w),
+      .psum_packer_busy_i               (psum_packer_busy_w),
+      .num_tiles_o                      (num_tiles_w)
   );
 
-  tpu_datapath_v2 #(
+  weight_rom #(
+      .DATA_WIDTH(DATA_WIDTH),
+      .DEPTH     (4952),
+      .ADDR_WIDTH(UB_ADDR_WIDTH),
+      .INIT_FILE (WGT_INIT_FILE)
+  ) u_weight_rom (
+      .clk    (clk),
+      .rst_n  (rst_n),
+      .en_i   (weight_rd_en_w),
+      .addr_i (weight_rd_addr_w),
+      .data_o (weight_rd_data_w),
+      .valid_o(weight_rd_valid_w)
+  );
+
+  tpu_datapath_v3 #(
       .SIZE               (SIZE),
       .DATA_WIDTH         (DATA_WIDTH),
+      .ACT_ADDR_WIDTH     (UB_ADDR_WIDTH),
+      .WGT_ADDR_WIDTH     (UB_ADDR_WIDTH),
       .LOCAL_PSUM_WIDTH   (LOCAL_PSUM_WIDTH),
       .MAX_NUM_TILES      (MAX_NUM_TILES),
       .ACC_WIDTH          (ACC_WIDTH),
@@ -489,49 +550,79 @@ module tpu_top #(
       .NORM_ROUND_ENABLE  (1'b1),
       .POOL_MODE          (POOL_BYPASS),
       .POOL_WINDOW        (2),
-      .WGT_FIFO_DEPTH     (WGT_FIFO_DEPTH),
-      .TILE_COUNT_WIDTH   (TILE_COUNT_WIDTH)
+      .GATED_ACT_LAUNCH   (1'b1),
+      .TILE_COUNT_WIDTH   (TILE_COUNT_WIDTH),
+      .MAC_COUNT_WIDTH    (MAC_COUNT_WIDTH)
   ) u_datapath (
-      .clk                             (clk),
-      .rst_n                           (rst_n),
-      .work_i                          (work_w),
-      .num_tiles_i                     (num_tiles_w),
-      .start_wgt_load_i                (start_wgt_load_w),
-      .wgt_fetcher_ready_o             (wgt_fetcher_ready_w),
-      .wgt_fifo_wdata_i                (wgt_fifo_wdata_w),
-      .wgt_fifo_wr_en_i                (wgt_fifo_wr_en_w),
-      .wgt_fifo_full_o                 (wgt_fifo_full_w),
-      .wgt_fifo_empty_o                (wgt_fifo_empty_w),
-      .act_flat_raw_i                  (act_flat_raw_w),
-      .act_valid_raw_i                 (act_valid_raw_w),
-      .accumulator_clear_all_i         (accumulator_clear_all_w),
-      .accumulator_row_clear_i         (accumulator_row_clear_w),
-      .accumulator_row_clear_addr_i    (accumulator_row_clear_addr_w),
-      .accumulator_write_en_i          (accumulator_write_en_w),
-      .accumulator_write_addr_i        (accumulator_write_addr_w),
-      .accumulator_read_en_i           (accumulator_read_en_w),
-      .accumulator_read_addr_i         (accumulator_read_addr_w),
-      .vpu_input_done_i                (vpu_input_done_w),
-      .vpu_act_mode_i                  (vpu_act_mode_w),
-      .vpu_bias_flatten_i              (vpu_bias_flatten_w),
-      .vpu_requant_multiplier_flatten_i(vpu_requant_multiplier_flatten_w),
-      .vpu_requant_shift_flatten_i     (vpu_requant_shift_flatten_w),
-      .vpu_output_zero_point_i         (vpu_output_zero_point_w),
-      .mxu_psum_flatten_o              (mxu_psum_flatten_w),
-      .mxu_psum_valid_o                (mxu_psum_valid_w),
-      .mxu_valid_mac_count_o           (mxu_valid_mac_count_w),
-      .psum_packer_busy_o              (psum_packer_busy_w),
-      .wgt_load_done_o                 (wgt_load_done_w),
-      .accumulator_read_flatten_o      (accumulator_read_flatten_w),
-      .accumulator_read_valid_o        (accumulator_read_valid_w),
-      .accumulator_row_done_o          (accumulator_row_done_w),
-      .accumulator_row_done_addr_o     (accumulator_row_done_addr_w),
-      .accumulator_row_ready_o         (accumulator_row_ready_w),
-      .vpu_data_flatten_o              (vpu_data_flatten_w),
-      .vpu_data_valid_o                (vpu_data_valid_w),
-      .done_o                          (datapath_done_w),
-      .overflow_clr_i                  (overflow_clr_i),
-      .overflow_flatten_o              (overflow_flatten_o)
+      .clk                              (clk),
+      .rst_n                            (rst_n),
+      .clear_i                          (datapath_clear_w),
+      .compute_enable_i                 (1'b1),
+      .num_tiles_i                      (num_tiles_w),
+      .act_req_valid_i                  (act_req_valid_w),
+      .act_req_ready_o                  (act_req_ready_w),
+      .act_req_addr_flatten_i           (act_req_addr_flatten_w),
+      .act_req_lane_valid_i             (act_req_lane_valid_w),
+      .act_req_lane_zero_i              (act_req_lane_zero_w),
+      .act_req_tag_i                    (act_req_tag_w),
+      .act_launch_i                     (act_launch_w),
+      .act_launch_ready_o               (act_launch_ready_w),
+      .ub_rd_en_o                       (datapath_ub_rd_en_w),
+      .ub_rd_addr_o                     (datapath_ub_rd_addr_w),
+      .ub_rd_data_i                     (datapath_ub_rd_data_w),
+      .ub_rd_valid_i                    (datapath_ub_rd_valid_w),
+      .wgt_req_valid_i                  (wgt_req_valid_w),
+      .wgt_req_ready_o                  (wgt_req_ready_w),
+      .wgt_req_addr_flatten_i           (wgt_req_addr_flatten_w),
+      .wgt_req_valid_mask_i             (wgt_req_valid_mask_w),
+      .wgt_req_zero_mask_i              (wgt_req_zero_mask_w),
+      .wgt_req_tag_i                    (wgt_req_tag_w),
+      .wgt_tile_release_i               (wgt_tile_release_w),
+      .wgt_stream_start_i               (wgt_stream_start_w),
+      .wgt_stream_ready_o               (wgt_stream_ready_w),
+      .wgt_tile_valid_o                 (wgt_tile_valid_w),
+      .wgt_tile_tag_o                   (wgt_tile_tag_w),
+      .wgt_stream_done_o                (wgt_stream_done_w),
+      .weight_rd_en_o                   (weight_rd_en_w),
+      .weight_rd_addr_o                 (weight_rd_addr_w),
+      .weight_rd_data_i                 (weight_rd_data_w),
+      .weight_rd_valid_i                (weight_rd_valid_w),
+      .accumulator_clear_all_i          (accumulator_clear_all_w),
+      .accumulator_row_clear_i          (accumulator_row_clear_w),
+      .accumulator_row_clear_addr_i     (accumulator_row_clear_addr_w),
+      .accumulator_write_en_i           (accumulator_write_en_w),
+      .accumulator_write_addr_i         (accumulator_write_addr_w),
+      .accumulator_read_en_i            (accumulator_read_en_w),
+      .accumulator_read_addr_i          (accumulator_read_addr_w),
+      .vpu_input_done_i                 (vpu_input_done_w),
+      .vpu_act_mode_i                   (vpu_act_mode_w),
+      .vpu_bias_flatten_i               (vpu_bias_flatten_w),
+      .vpu_requant_multiplier_flatten_i (vpu_requant_multiplier_flatten_w),
+      .vpu_requant_shift_flatten_i      (vpu_requant_shift_flatten_w),
+      .vpu_output_zero_point_i          (vpu_output_zero_point_w),
+      .mxu_psum_flatten_o               (mxu_psum_flatten_w),
+      .mxu_psum_valid_o                 (mxu_psum_valid_w),
+      .mxu_valid_mac_count_o            (mxu_valid_mac_count_w),
+      .psum_packer_busy_o               (psum_packer_busy_w),
+      .wgt_load_done_o                  (wgt_load_done_w),
+      .accumulator_read_flatten_o       (accumulator_read_flatten_w),
+      .accumulator_read_valid_o         (accumulator_read_valid_w),
+      .accumulator_row_done_o           (accumulator_row_done_w),
+      .accumulator_row_done_addr_o      (accumulator_row_done_addr_w),
+      .accumulator_row_ready_o          (accumulator_row_ready_w),
+      .vpu_data_flatten_o               (vpu_data_flatten_w),
+      .vpu_data_valid_o                 (vpu_data_valid_w),
+      .done_o                           (datapath_done_w),
+      .overflow_clr_i                   (overflow_clr_i),
+      .overflow_flatten_o               (overflow_flatten_o),
+      .dbg_act_fetch_cycles_o           (),
+      .dbg_act_output_stall_cycles_o    (),
+      .dbg_act_vectors_pushed_o         (),
+      .dbg_act_lane_reads_o             (),
+      .dbg_weight_load_cycles_o         (),
+      .dbg_weight_reuse_count_o         (),
+      .dbg_weight_buffer_empty_cycles_o (),
+      .dbg_weight_buffer_full_cycles_o  ()
   );
 
   maxpool2d_unit #(
@@ -796,7 +887,7 @@ module tpu_top #(
             dbg_error_code_o <= ERR_LAYER | {24'd0, STAGE_CONV1, layer_error_code_w[4:0]};
             state_q <= S_ERROR;
           end else if (layer_done_w) begin
-            dbg_conv1_useful_mac_count_o <= layer_useful_mac_count_w;
+            dbg_conv1_useful_mac_count_o <= dbg_conv1_valid_mac_count_o;
             state_q <= S_START_POOL1;
           end
         end
@@ -825,7 +916,7 @@ module tpu_top #(
             dbg_error_code_o <= ERR_LAYER | {24'd0, STAGE_CONV2, layer_error_code_w[4:0]};
             state_q <= S_ERROR;
           end else if (layer_done_w) begin
-            dbg_conv2_useful_mac_count_o <= layer_useful_mac_count_w;
+            dbg_conv2_useful_mac_count_o <= dbg_conv2_valid_mac_count_o;
             state_q <= S_START_POOL2;
           end
         end
@@ -854,7 +945,7 @@ module tpu_top #(
             dbg_error_code_o <= ERR_LAYER | {24'd0, STAGE_FC1, layer_error_code_w[4:0]};
             state_q <= S_ERROR;
           end else if (layer_done_w) begin
-            dbg_fc1_useful_mac_count_o <= layer_useful_mac_count_w;
+            dbg_fc1_useful_mac_count_o <= dbg_fc1_valid_mac_count_o;
             state_q <= S_START_FC2;
           end
         end

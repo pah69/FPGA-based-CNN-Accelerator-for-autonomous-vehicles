@@ -35,6 +35,7 @@ module tpu_datapath_v3 #(
     parameter int POOL_MODE           = 0,
     parameter int POOL_WINDOW         = 2,
     parameter int ACT_FIFO_DEPTH      = 4,
+    parameter bit GATED_ACT_LAUNCH    = 1'b0,
     parameter int COUNTER_WIDTH       = 32,
     parameter int TILE_COUNT_WIDTH    = (MAX_NUM_TILES > 1) ? $clog2(MAX_NUM_TILES + 1) : 1,
     parameter int MAC_COUNT_WIDTH     = (SIZE*SIZE > 1) ? $clog2((SIZE*SIZE) + 1) : 1
@@ -52,6 +53,8 @@ module tpu_datapath_v3 #(
     input  logic [SIZE-1:0]                 act_req_lane_valid_i,
     input  logic [SIZE-1:0]                 act_req_lane_zero_i,
     input  logic [TAG_WIDTH-1:0]            act_req_tag_i,
+    input  logic                            act_launch_i,
+    output logic                            act_launch_ready_o,
 
     output logic                         ub_rd_en_o,
     output logic [ACT_ADDR_WIDTH-1:0]    ub_rd_addr_o,
@@ -151,6 +154,7 @@ module tpu_datapath_v3 #(
       .NUM_TILES       (MAX_NUM_TILES),
       .ACC_WIDTH       (ACC_WIDTH),
       .ACT_FIFO_DEPTH  (ACT_FIFO_DEPTH),
+      .GATED_ACT_LAUNCH(GATED_ACT_LAUNCH),
       .COUNTER_WIDTH   (COUNTER_WIDTH),
       .TILE_COUNT_WIDTH(TILE_COUNT_WIDTH),
       .MAC_COUNT_WIDTH (MAC_COUNT_WIDTH)
@@ -166,6 +170,8 @@ module tpu_datapath_v3 #(
       .act_req_lane_valid_i             (act_req_lane_valid_i),
       .act_req_lane_zero_i              (act_req_lane_zero_i),
       .act_req_tag_i                    (act_req_tag_i),
+      .act_launch_i                     (act_launch_i),
+      .act_launch_ready_o               (act_launch_ready_o),
       .ub_rd_en_o                       (ub_rd_en_o),
       .ub_rd_addr_o                     (ub_rd_addr_o),
       .ub_rd_data_i                     (ub_rd_data_i),

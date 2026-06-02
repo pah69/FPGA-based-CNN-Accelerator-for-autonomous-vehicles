@@ -77,6 +77,8 @@ module tpu_controller_v3_rom_tile #(
     output logic [SIZE-1:0]                act_req_lane_valid_o,
     output logic [SIZE-1:0]                act_req_lane_zero_o,
     output logic [TAG_WIDTH-1:0]           act_req_tag_o,
+    input  logic                           act_launch_ready_i,
+    output logic                           act_launch_o,
 
     output logic                      accumulator_clear_all_o,
     output logic                      accumulator_row_clear_o,
@@ -322,6 +324,8 @@ module tpu_controller_v3_rom_tile #(
       .act_req_lane_valid_o             (act_req_lane_valid_o),
       .act_req_lane_zero_o              (act_req_lane_zero_o),
       .act_req_tag_o                    (act_req_tag_o),
+      .act_launch_ready_i               (act_launch_ready_i),
+      .act_launch_o                     (act_launch_o),
       .accumulator_clear_all_o          (accumulator_clear_all_o),
       .accumulator_row_clear_o          (accumulator_row_clear_o),
       .accumulator_row_clear_addr_o     (accumulator_row_clear_addr_o),

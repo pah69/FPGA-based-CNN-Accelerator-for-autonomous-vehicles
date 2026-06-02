@@ -54,6 +54,8 @@ module test_controller_v3_tile;
   logic [SIZE-1:0] act_req_lane_valid_w;
   logic [SIZE-1:0] act_req_lane_zero_w;
   logic [TAG_WIDTH-1:0] act_req_tag_w;
+  logic act_launch_ready_w;
+  logic act_launch_w;
 
   logic clear_dp_i;
   logic compute_enable_i;
@@ -176,6 +178,8 @@ module test_controller_v3_tile;
       .act_req_lane_valid_o               (act_req_lane_valid_w),
       .act_req_lane_zero_o                (act_req_lane_zero_w),
       .act_req_tag_o                      (act_req_tag_w),
+      .act_launch_ready_i                 (act_launch_ready_w),
+      .act_launch_o                       (act_launch_w),
       .accumulator_clear_all_o            (accumulator_clear_all_w),
       .accumulator_row_clear_o            (accumulator_row_clear_w),
       .accumulator_row_clear_addr_o       (accumulator_row_clear_addr_w),
@@ -223,6 +227,7 @@ module test_controller_v3_tile;
       .NORM_ROUND_ENABLE    (1'b1),
       .POOL_MODE            (POOL_BYPASS),
       .POOL_WINDOW          (2),
+      .GATED_ACT_LAUNCH     (1'b1),
       .TILE_COUNT_WIDTH     (TILE_COUNT_WIDTH)
   ) u_datapath (
       .clk                              (clk),
@@ -236,6 +241,8 @@ module test_controller_v3_tile;
       .act_req_lane_valid_i             (act_req_lane_valid_w),
       .act_req_lane_zero_i              (act_req_lane_zero_w),
       .act_req_tag_i                    (act_req_tag_w),
+      .act_launch_i                     (act_launch_w),
+      .act_launch_ready_o               (act_launch_ready_w),
       .ub_rd_en_o                       (ub_rd_en_o),
       .ub_rd_addr_o                     (ub_rd_addr_o),
       .ub_rd_data_i                     (ub_rd_data_i),
@@ -480,9 +487,13 @@ module test_controller_v3_tile;
 
       if (act_req_valid_w && act_req_ready_w) begin
         $display("  ACT REQ[%0d]: k_tile=%0d addr={lane1:%0d,lane0:%0d}",
-                 act_req_count, ctrl_dbg_k_tile_o, act_req_addr(1), act_req_addr(0));
+                 act_req_count, int'(act_req_tag_w - 16'h4000), act_req_addr(1), act_req_addr(0));
         check_activation_req(act_req_count);
         act_req_count++;
+      end
+
+      if (act_launch_w && act_launch_ready_w) begin
+        $display("  ACT LAUNCH: k_tile=%0d", ctrl_dbg_k_tile_o);
       end
 
       if (mxu_psum_valid_o[0]) begin

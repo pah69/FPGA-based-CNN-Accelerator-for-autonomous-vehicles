@@ -20,6 +20,7 @@ module mxu_v3 #(
     parameter int NUM_TILES          = SIZE,
     parameter int ACC_WIDTH          = 32,
     parameter int ACT_FIFO_DEPTH     = 4,
+    parameter bit GATED_ACT_LAUNCH   = 1'b0,
     parameter int COUNTER_WIDTH      = 32,
     parameter int TILE_COUNT_WIDTH   = (NUM_TILES > 1) ? $clog2(NUM_TILES + 1) : 1,
     parameter int MAC_COUNT_WIDTH    = (SIZE*SIZE > 1) ? $clog2((SIZE*SIZE) + 1) : 1
@@ -37,6 +38,8 @@ module mxu_v3 #(
     input  logic [SIZE-1:0]                act_req_lane_valid_i,
     input  logic [SIZE-1:0]                act_req_lane_zero_i,
     input  logic [TAG_WIDTH-1:0]           act_req_tag_i,
+    input  logic                           act_launch_i,
+    output logic                           act_launch_ready_o,
 
     output logic                         ub_rd_en_o,
     output logic [ACT_ADDR_WIDTH-1:0]    ub_rd_addr_o,
@@ -86,6 +89,7 @@ module mxu_v3 #(
   logic [SIZE-1:0] act_vec_valid_mask_w;
   logic act_vec_valid_w;
   logic act_vec_ready_w;
+  logic act_launch_accept_w;
   logic act_gather_busy_w;
   logic act_fifo_full_w;
   logic act_fifo_empty_w;
@@ -100,9 +104,12 @@ module mxu_v3 #(
   logic weight_switch_w;
   logic wgt_buffer_busy_w;
 
-  assign act_vec_ready_w = act_vec_valid_w;
-  assign act_raw_flatten_w = act_vec_valid_w ? act_vec_flatten_w : '0;
-  assign act_raw_valid_w = act_vec_valid_w ? act_vec_valid_mask_w : '0;
+  assign act_launch_ready_o = act_vec_valid_w;
+  assign act_launch_accept_w = GATED_ACT_LAUNCH ? (act_vec_valid_w && act_launch_i)
+                                                : act_vec_valid_w;
+  assign act_vec_ready_w = act_launch_accept_w;
+  assign act_raw_flatten_w = act_launch_accept_w ? act_vec_flatten_w : '0;
+  assign act_raw_valid_w = act_launch_accept_w ? act_vec_valid_mask_w : '0;
   assign busy_o = act_gather_busy_w || wgt_buffer_busy_w;
 
   activation_window_gather_v3 #(
@@ -203,7 +210,7 @@ module mxu_v3 #(
   ) u_systolic_array (
       .clk               (clk),
       .rst_n             (rst_n),
-      .work_i            (compute_enable_i && act_vec_valid_w),
+      .work_i            (compute_enable_i && act_launch_accept_w),
       .num_tiles_i       (num_tiles_i),
       .wgt_flatten_i     (wgt_row_flatten_w),
       .wgt_load_i        (wgt_row_load_w),

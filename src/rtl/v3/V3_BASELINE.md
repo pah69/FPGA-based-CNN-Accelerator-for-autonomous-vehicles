@@ -48,6 +48,19 @@ request. This overlaps next-tile ROM weight fetch with current-tile activation
 fetch/compute. The WS array is still protected: prefetched weights are not
 streamed into the PEs until the current tile has produced and drained its psums.
 
+Activation prefetch uses a gated launch contract:
+
+```text
+activation_window_gather_v3 -> FIFO holds prefetched activation vector
+tpu_controller_v3_tile      -> act_launch_o pulse releases the vector
+mxu_v3                      -> gated launch feeds skew buffer and WS array
+```
+
+With `GATED_ACT_LAUNCH=1`, gathered activations no longer enter the skew buffer
+automatically. The controller may request activation `k+1` while current `k`
+psums are draining, but it launches that vector only after `k+1` weights are
+resident in the WS array.
+
 Important WS-array load contract:
 
 ```text
@@ -79,12 +92,15 @@ handshakes:
 controller -> weight_tile_buffer_v3 request
 controller -> weight stream start
 controller -> activation_window_gather_v3 request
+controller -> activation launch gate
 controller -> accumulator write/read controls
 controller -> VPU done/config controls
 ```
 
 The tile controller keeps a separate weight-request K index so it can request
 `k+1` while activation/psum handling still belongs to current `k`.
+It also keeps activation request/launch state separate, so an activation vector
+can be requested early and launched later.
 
 It deliberately stays separate from `tpu_controller_rom_kloop.sv` while the V3
 request path is validated.

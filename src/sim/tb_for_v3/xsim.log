@@ -3,87 +3,155 @@
 # SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Tue Jun  2 10:27:32 2026
-# Process ID         : 1929463
+# Start of session at: Tue Jun  2 15:01:56 2026
+# Process ID         : 3920866
 # Current directory  : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3
-# Command line       : xsim -mode tcl -source {xsim.dir/test_controller_v3_rom_tile_snapshot/xsim_script.tcl}
+# Command line       : xsim -mode tcl -source {xsim.dir/test_tpu_top_v3_end_to_end_snapshot/xsim_script.tcl}
 # Log file           : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/xsim.log
 # Journal file       : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/xsim.jou
 # Running On         : pah-PC
 # Platform           : Ubuntu
 # Operating System   : Ubuntu 24.04.4 LTS
 # Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
-# CPU Frequency      : 3849.080 MHz
+# CPU Frequency      : 3226.940 MHz
 # CPU Physical cores : 8
 # CPU Logical cores  : 16
 # Host memory        : 32887 MB
 # Swap memory        : 25033 MB
 # Total Virtual      : 57921 MB
-# Available Virtual  : 45212 MB
+# Available Virtual  : 45648 MB
 #-----------------------------------------------------------
-source xsim.dir/test_controller_v3_rom_tile_snapshot/xsim_script.tcl
-# xsim {test_controller_v3_rom_tile_snapshot} -autoloadwcfg -runall
+source xsim.dir/test_tpu_top_v3_end_to_end_snapshot/xsim_script.tcl
+# xsim {test_tpu_top_v3_end_to_end_snapshot} -autoloadwcfg -runall
 Time resolution is 1 ps
 run -all
 
 ============================================================
-TEST: Host preload FC1 golden output vector
+TEST: Host preload input image
 ============================================================
-  UB bank0[200:215] loaded from layer2_out_i8.hex
-  FC2 oc_tile=4 should produce logits {class9:13,class8:9}
+  case[0] = exported_image
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-11,-30,22,23,-40,-26,-113,87,9,13}
 
 ============================================================
-TEST: ROM descriptor/params -> V3 tile controller -> datapath
+TEST: TPU top end-to-end inference
 ============================================================
-  WGT REQ: req_k_tile=0 active_k_tile=0 tag=0x3000
-  WGT REQ: req_k_tile=1 active_k_tile=0 tag=0x3001
-  ACT REQ: k_tile=0 tag=0x4000
-  CAPTURE: k_tile=0 MXU psum lane0 = 1125
-  CAPTURE: k_tile=0 MXU psum lane1 = -531
-  WGT REQ: req_k_tile=2 active_k_tile=1 tag=0x3002
-  ACT REQ: k_tile=1 tag=0x4001
-  CAPTURE: k_tile=1 MXU psum lane0 = 5270
-  CAPTURE: k_tile=1 MXU psum lane1 = -4505
-  WGT REQ: req_k_tile=3 active_k_tile=2 tag=0x3003
-  ACT REQ: k_tile=2 tag=0x4002
-  CAPTURE: k_tile=2 MXU psum lane0 = -572
-  CAPTURE: k_tile=2 MXU psum lane1 = 2090
-  WGT REQ: req_k_tile=4 active_k_tile=3 tag=0x3004
-  ACT REQ: k_tile=3 tag=0x4003
-  CAPTURE: k_tile=3 MXU psum lane0 = -552
-  CAPTURE: k_tile=3 MXU psum lane1 = 132
-  WGT REQ: req_k_tile=5 active_k_tile=4 tag=0x3005
-  ACT REQ: k_tile=4 tag=0x4004
-  CAPTURE: k_tile=4 MXU psum lane0 = -3948
-  CAPTURE: k_tile=4 MXU psum lane1 = -1081
-  WGT REQ: req_k_tile=6 active_k_tile=5 tag=0x3006
-  ACT REQ: k_tile=5 tag=0x4005
-  CAPTURE: k_tile=5 MXU psum lane0 = 0
-  CAPTURE: k_tile=5 MXU psum lane1 = 0
-  WGT REQ: req_k_tile=7 active_k_tile=6 tag=0x3007
-  ACT REQ: k_tile=6 tag=0x4006
-  CAPTURE: k_tile=6 MXU psum lane0 = 328
-  CAPTURE: k_tile=6 MXU psum lane1 = -3116
-  ACT REQ: k_tile=7 tag=0x4007
-  CAPTURE: k_tile=7 MXU psum lane0 = -240
-  CAPTURE: k_tile=7 MXU psum lane1 = 9328
-  ACC DONE: row=0 ready=1
-  VPU OUT : data={lane1:13,lane0:9}
-  UB WRITE: bank1[18] = 9
-  UB WRITE: bank1[19] = 13
-  CTRL   : done=1 error=0 state=0 tile_state=0 k_tile=7 cycles=288 err=0x00000000
+  case[0] = exported_image
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=419124 layer_state=0 pool_state=0
+  stage=3 cycle=438057 layer_state=0 pool_state=0
+  stage=4 cycle=963201 layer_state=0 pool_state=0
+  stage=5 cycle=966706 layer_state=0 pool_state=0
+  stage=6 cycle=990030 layer_state=0 pool_state=0
+  stage=0 cycle=991154 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=991154 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
 
 ============================================================
-TEST: Host readback V3 ROM-driven FC2 tile
+TEST: Host readback final logits
 ============================================================
-  UB bank1[18:19] = {class9:13,class8:9}
+  case[0] = exported_image
+  actual logits   {-11,-30,22,23,-40,-26,-113,87,9,13}
+  expected logits {-11,-30,22,23,-40,-26,-113,87,9,13}
+  mismatches: 0
 
-DEBUG COUNTERS
-  ctrl_cycles=288 final_state=0 final_k_tile=7
-  act_fetch=72 act_vectors=8 act_lane_reads=16
-  wgt_load=104 wgt_reuse=8 wgt_empty=0 wgt_full=0
-test_controller_v3_rom_tile: checks=8 pass=8 fail=0
-$finish called at time : 3330 ns : File "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/test_controller_v3_rom_tile.sv" Line 581
+============================================================
+TEST: Host preload input image
+============================================================
+  case[1] = zero_image
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-4,3,2,-3,-4,1,-2,3,0,-5}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[1] = zero_image
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=419124 layer_state=0 pool_state=0
+  stage=3 cycle=438057 layer_state=0 pool_state=0
+  stage=4 cycle=963201 layer_state=0 pool_state=0
+  stage=5 cycle=966706 layer_state=0 pool_state=0
+  stage=6 cycle=990030 layer_state=0 pool_state=0
+  stage=0 cycle=991154 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=991154 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[1] = zero_image
+  actual logits   {-4,3,2,-3,-4,1,-2,3,0,-5}
+  expected logits {-4,3,2,-3,-4,1,-2,3,0,-5}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[2] = impulse_center_127
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-12,-3,3,3,0,2,-5,0,-2,0}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[2] = impulse_center_127
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=419124 layer_state=0 pool_state=0
+  stage=3 cycle=438057 layer_state=0 pool_state=0
+  stage=4 cycle=963201 layer_state=0 pool_state=0
+  stage=5 cycle=966706 layer_state=0 pool_state=0
+  stage=6 cycle=990030 layer_state=0 pool_state=0
+  stage=0 cycle=991154 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=991154 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[2] = impulse_center_127
+  actual logits   {-12,-3,3,3,0,2,-5,0,-2,0}
+  expected logits {-12,-3,3,3,0,2,-5,0,-2,0}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[3] = checker_pm32
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-5,3,2,-1,-4,1,-5,3,-1,-5}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[3] = checker_pm32
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=419124 layer_state=0 pool_state=0
+  stage=3 cycle=438057 layer_state=0 pool_state=0
+  stage=4 cycle=963201 layer_state=0 pool_state=0
+  stage=5 cycle=966706 layer_state=0 pool_state=0
+  stage=6 cycle=990030 layer_state=0 pool_state=0
+  stage=0 cycle=991154 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=991154 err=0x00000000
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=4 k_tile=7
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[3] = checker_pm32
+  actual logits   {-5,3,2,-1,-4,1,-5,3,-1,-5}
+  expected logits {-5,3,2,-1,-4,1,-5,3,-1,-5}
+  mismatches: 0
+test_tpu_top_v3_end_to_end: checks=52 pass=52 fail=0
+$finish called at time : 39709840 ns : File "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/test_tpu_top_v3_end_to_end.sv" Line 458
+run: Time (s): cpu = 00:00:00.03 ; elapsed = 00:00:11 . Memory (MB): peak = 1450.883 ; gain = 0.000 ; free physical = 9601 ; free virtual = 43431
 exit
-INFO: xsimkernel Simulation Memory Usage: 299616 KB (Peak: 344076 KB), Simulation CPU Usage: 660 ms
-INFO: [Common 17-206] Exiting xsim at Tue Jun  2 10:27:34 2026...
+INFO: xsimkernel Simulation Memory Usage: 300212 KB (Peak: 344672 KB), Simulation CPU Usage: 11440 ms
+INFO: [Common 17-206] Exiting xsim at Tue Jun  2 15:02:08 2026...

@@ -13,6 +13,12 @@ TOP_tpu_datapath_v3          = test_tpu_datapath_v3
 TOP_addrgen_tpu_datapath_v3  = test_addrgen_tpu_datapath_v3
 TOP_controller_v3_tile       = test_controller_v3_tile
 TOP_controller_v3_rom_tile   = test_controller_v3_rom_tile
+TOP_controller_v3_rom_layer_fc2 = test_controller_v3_rom_layer_fc2
+TOP_controller_v3_conv1_pixel = test_controller_v3_conv1_pixel
+TOP_controller_v3_conv1_layer = test_controller_v3_conv1_layer
+TOP_controller_v3_conv2_layer = test_controller_v3_conv2_layer
+TOP_controller_v3_fc1_layer   = test_controller_v3_fc1_layer
+TOP_tpu_top_v3_e2e            = test_tpu_top_v3_end_to_end
 
 TOP_MODULE ?= $(TOP_$(TEST))
 SNAPSHOT   ?= $(TOP_MODULE)_snapshot
@@ -21,7 +27,7 @@ XSIM_ARGS  ?=
 
 RTL_FILES = $(wildcard $(RTL_DIR)/*.sv)
 
-.PHONY: all help list run compile elaborate simulate gui clean test_activation_window_gather test_weight_tile_buffer test_mxu_v3_2x2 test_tpu_datapath_v3 test_addrgen_tpu_datapath_v3 test_controller_v3_tile test_controller_v3_rom_tile
+.PHONY: all help list run compile elaborate simulate gui clean test_activation_window_gather test_weight_tile_buffer test_mxu_v3_2x2 test_tpu_datapath_v3 test_addrgen_tpu_datapath_v3 test_controller_v3_tile test_controller_v3_rom_tile test_controller_v3_rom_layer_fc2 test_controller_v3_conv1_pixel test_controller_v3_conv1_layer test_controller_v3_conv2_layer test_controller_v3_fc1_layer test_tpu_top_v3_e2e
 
 all: run
 
@@ -41,6 +47,12 @@ list:
 	@echo "  addrgen_tpu_datapath_v3"
 	@echo "  controller_v3_tile"
 	@echo "  controller_v3_rom_tile"
+	@echo "  controller_v3_rom_layer_fc2"
+	@echo "  controller_v3_conv1_pixel"
+	@echo "  controller_v3_conv1_layer"
+	@echo "  controller_v3_conv2_layer"
+	@echo "  controller_v3_fc1_layer"
+	@echo "  tpu_top_v3_e2e"
 
 run: simulate
 
@@ -64,6 +76,24 @@ test_controller_v3_tile:
 
 test_controller_v3_rom_tile:
 	$(MAKE) run TEST=controller_v3_rom_tile
+
+test_controller_v3_rom_layer_fc2:
+	$(MAKE) run TEST=controller_v3_rom_layer_fc2
+
+test_controller_v3_conv1_pixel:
+	$(MAKE) run TEST=controller_v3_conv1_pixel
+
+test_controller_v3_conv1_layer:
+	$(MAKE) run TEST=controller_v3_conv1_layer
+
+test_controller_v3_conv2_layer:
+	$(MAKE) run TEST=controller_v3_conv2_layer
+
+test_controller_v3_fc1_layer:
+	$(MAKE) run TEST=controller_v3_fc1_layer
+
+test_tpu_top_v3_e2e:
+	$(MAKE) run TEST=tpu_top_v3_e2e
 
 compile:
 	@test -n "$(TOP_MODULE)" || (echo "Unknown TEST='$(TEST)'. Run 'make list'." && exit 1)
