@@ -1,0 +1,71 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Tue Jun  2 10:24:45 2026
+# Process ID         : 1912327
+# Current directory  : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3
+# Command line       : xsim -mode tcl -source {xsim.dir/test_tpu_datapath_v3_snapshot/xsim_script.tcl}
+# Log file           : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/xsim.log
+# Journal file       : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/xsim.jou
+# Running On         : pah-PC
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 24.04.4 LTS
+# Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
+# CPU Frequency      : 4990.204 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 32887 MB
+# Swap memory        : 25033 MB
+# Total Virtual      : 57921 MB
+# Available Virtual  : 45315 MB
+#-----------------------------------------------------------
+source xsim.dir/test_tpu_datapath_v3_snapshot/xsim_script.tcl
+# xsim {test_tpu_datapath_v3_snapshot} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+
+============================================================
+TEST: TPU datapath V3 weight tile load
+============================================================
+  WGT REQ: W=[[2,-3],[5,-7]]
+[105000] WGT RD: addr=10 data=2
+[135000] WGT RD: addr=11 data=-3
+[165000] WGT RD: addr=12 data=5
+[195000] WGT RD: addr=13 data=-7
+  WGT TILE: valid=1 tag=0x0a0a
+  WGT LOAD: load_done=11 reuse_count=1
+
+============================================================
+TEST: MXU V3 -> psum packer -> accumulator
+============================================================
+  launch activation tile0 addr={row1:21,row0:20}
+[685000] UB RD : addr=20 data=4
+[725000] UB RD : addr=21 data=6
+  CAPTURE: MXU psum lane0 = 38
+  CAPTURE: MXU psum lane1 = -54
+  PACKED : tile0 row0 psum={lane1:-54,lane0:38}
+  ACC WRITE: tile0 row_done=0 ready=0
+  launch activation tile1 addr={row1:23,row0:22}
+[945000] UB RD : addr=22 data=-1
+[985000] UB RD : addr=23 data=2
+  CAPTURE: MXU psum lane0 = 8
+  CAPTURE: MXU psum lane1 = -11
+  PACKED : tile1 row0 psum={lane1:-11,lane0:8}
+  ACC WRITE: tile1 row_done=1 ready=1
+
+============================================================
+TEST: Accumulator read -> VPU
+============================================================
+  ACC READ: valid=1 row0={lane1:-65,lane0:46}
+  VPU OUT : data={lane1:0,lane0:50} done=1
+
+DEBUG COUNTERS
+  act_fetch=18 act_vectors=2 act_lane_reads=4
+  wgt_load=13 wgt_reuse=1 wgt_empty=0 wgt_full=0
+test_tpu_datapath_v3: checks=28 pass=28 fail=0
+$finish called at time : 1206 ns : File "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/test_tpu_datapath_v3.sv" Line 586
+exit
+INFO: xsimkernel Simulation Memory Usage: 299388 KB (Peak: 343848 KB), Simulation CPU Usage: 660 ms
+INFO: [Common 17-206] Exiting xsim at Tue Jun  2 10:24:47 2026...

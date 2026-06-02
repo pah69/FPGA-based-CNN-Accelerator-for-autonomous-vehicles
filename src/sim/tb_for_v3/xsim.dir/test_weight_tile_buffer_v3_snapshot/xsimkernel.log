@@ -1,0 +1,7 @@
+Running: xsim.dir/test_weight_tile_buffer_v3_snapshot/xsimk -runall -simmode gui -wdb test_weight_tile_buffer_v3_snapshot.wdb -simrunnum 0 -socket 43021
+Design successfully loaded
+Design Loading Memory Usage: 204236 KB (Peak: 204236 KB)
+Design Loading CPU Usage: 640 ms
+Simulation completed
+Simulation Memory Usage: 294944 KB (Peak: 343504 KB)
+Simulation CPU Usage: 640 ms

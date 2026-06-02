@@ -1,0 +1,66 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Tue Jun  2 10:24:39 2026
+# Process ID         : 1911794
+# Current directory  : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3
+# Command line       : xsim -mode tcl -source {xsim.dir/test_mxu_v3_2x2_snapshot/xsim_script.tcl}
+# Log file           : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/xsim.log
+# Journal file       : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/xsim.jou
+# Running On         : pah-PC
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 24.04.4 LTS
+# Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
+# CPU Frequency      : 5102.886 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 32887 MB
+# Swap memory        : 25033 MB
+# Total Virtual      : 57921 MB
+# Available Virtual  : 45472 MB
+#-----------------------------------------------------------
+source xsim.dir/test_mxu_v3_2x2_snapshot/xsim_script.tcl
+# xsim {test_mxu_v3_2x2_snapshot} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+
+============================================================
+TEST: MXU V3 weight tile load path
+============================================================
+  WGT REQ: W=[[2,-3],[5,-7]] addr={{r1c1:13,r1c0:12},{r0c1:11,r0c0:10}}
+[105000] WGT RD: addr=10 data=2
+[135000] WGT RD: addr=11 data=-3
+[165000] WGT RD: addr=12 data=5
+[195000] WGT RD: addr=13 data=-7
+  WGT TILE: valid=1 tag=0x0a0a
+  WGT LOAD: stream resident tile into WS array
+  WGT LOAD: stream_done=0 load_done=11 reuse_count=1
+
+============================================================
+TEST: MXU V3 activation gather -> skew -> WS SA
+============================================================
+  ACT REQ: tag=0x0101 addr={row1:21,row0:20}
+[305000] UB RD : addr=20 data=4
+[345000] UB RD : addr=21 data=6
+  CAPTURE: psum lane0 = 38
+  CAPTURE: psum lane1 = -54
+
+============================================================
+TEST: MXU V3 reuse active weights for second activation
+============================================================
+  ACT REQ: tag=0x0102 addr={row1:23,row0:22}
+[535000] UB RD : addr=22 data=-1
+[575000] UB RD : addr=23 data=2
+  CAPTURE: psum lane0 = 8
+  CAPTURE: psum lane1 = -11
+
+DEBUG COUNTERS
+  act_fetch=18 act_vectors=2 act_lane_reads=4
+  wgt_load=13 wgt_reuse=1 wgt_empty=0 wgt_full=0
+test_mxu_v3_2x2: checks=13 pass=13 fail=0
+$finish called at time : 726 ns : File "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/test_mxu_v3_2x2.sv" Line 415
+exit
+INFO: xsimkernel Simulation Memory Usage: 295160 KB (Peak: 343720 KB), Simulation CPU Usage: 670 ms
+INFO: [Common 17-206] Exiting xsim at Tue Jun  2 10:24:41 2026...

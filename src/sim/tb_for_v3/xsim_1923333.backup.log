@@ -1,0 +1,77 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Tue Jun  2 10:26:39 2026
+# Process ID         : 1923333
+# Current directory  : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3
+# Command line       : xsim -mode tcl -source {xsim.dir/test_weight_tile_buffer_v3_snapshot/xsim_script.tcl}
+# Log file           : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/xsim.log
+# Journal file       : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/xsim.jou
+# Running On         : pah-PC
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 24.04.4 LTS
+# Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
+# CPU Frequency      : 4875.146 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 32887 MB
+# Swap memory        : 25033 MB
+# Total Virtual      : 57921 MB
+# Available Virtual  : 45431 MB
+#-----------------------------------------------------------
+source xsim.dir/test_weight_tile_buffer_v3_snapshot/xsim_script.tcl
+# xsim {test_weight_tile_buffer_v3_snapshot} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+
+============================================================
+TEST: weight tile stream before load
+============================================================
+  EMPTY  : stream_ready=0 empty_cycles=1
+
+============================================================
+TEST: weight tile normal load
+============================================================
+  REQ    : tag=0x0101 addr={{r1c1:73,r1c0:72},{r0c1:71,r0c0:70}} valid=1111 zero=0000
+[125000] WGT RD: addr=70 data=6
+[155000] WGT RD: addr=71 data=7
+[185000] WGT RD: addr=72 data=8
+[215000] WGT RD: addr=73 data=9
+  TILE   : tag=0x0101 valid=1111 data={{r1c1:9,r1c0:8},{r0c1:7,r0c0:6}}
+
+============================================================
+TEST: weight tile repeated stream reuse
+============================================================
+  STREAM : row1(bottom) load=11 data={c1:9,c0:8}
+  STREAM : row0(top) load=11 data={c1:7,c0:6}
+  SWITCH : weight_switch=1 stream_done=1
+  STREAM : row1(bottom) load=11 data={c1:9,c0:8}
+  STREAM : row0(top) load=11 data={c1:7,c0:6}
+  SWITCH : weight_switch=1 stream_done=1
+
+============================================================
+TEST: prefetch request while tile is resident
+============================================================
+  REQ    : tag=0x0202 addr={{r1c1:83,r1c0:82},{r0c1:81,r0c0:80}} valid=1011 zero=0010
+[355000] WGT RD: addr=80 data=16
+[405000] WGT RD: addr=83 data=19
+  PREFETCH: active tag=0x0101 full_cycles=0
+
+============================================================
+TEST: prefetched padded/invalid tile becomes active after release
+============================================================
+  RELEASE: next tile_valid=1 tag=0x0202 req_ready=1
+  TILE   : tag=0x0202 valid=1011 data={{r1c1:19,r1c0:0},{r0c1:0,r0c0:16}}
+  STREAM : row1(bottom) load=11 data={c1:19,c0:0}
+  STREAM : row0(top) load=11 data={c1:0,c0:16}
+  SWITCH : weight_switch=1 stream_done=1
+
+DEBUG COUNTERS
+  weight_load_cycles=22 weight_reuse_count=3 empty_cycles=1 full_cycles=0
+test_weight_tile_buffer_v3: checks=44 pass=44 fail=0
+$finish called at time : 496 ns : File "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/test_weight_tile_buffer_v3.sv" Line 379
+exit
+INFO: xsimkernel Simulation Memory Usage: 294944 KB (Peak: 343504 KB), Simulation CPU Usage: 640 ms
+INFO: [Common 17-206] Exiting xsim at Tue Jun  2 10:26:41 2026...

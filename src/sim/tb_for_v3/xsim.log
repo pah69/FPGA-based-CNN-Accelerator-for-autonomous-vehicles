@@ -1,0 +1,89 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Tue Jun  2 10:27:32 2026
+# Process ID         : 1929463
+# Current directory  : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3
+# Command line       : xsim -mode tcl -source {xsim.dir/test_controller_v3_rom_tile_snapshot/xsim_script.tcl}
+# Log file           : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/xsim.log
+# Journal file       : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/xsim.jou
+# Running On         : pah-PC
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 24.04.4 LTS
+# Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
+# CPU Frequency      : 3849.080 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 32887 MB
+# Swap memory        : 25033 MB
+# Total Virtual      : 57921 MB
+# Available Virtual  : 45212 MB
+#-----------------------------------------------------------
+source xsim.dir/test_controller_v3_rom_tile_snapshot/xsim_script.tcl
+# xsim {test_controller_v3_rom_tile_snapshot} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+
+============================================================
+TEST: Host preload FC1 golden output vector
+============================================================
+  UB bank0[200:215] loaded from layer2_out_i8.hex
+  FC2 oc_tile=4 should produce logits {class9:13,class8:9}
+
+============================================================
+TEST: ROM descriptor/params -> V3 tile controller -> datapath
+============================================================
+  WGT REQ: req_k_tile=0 active_k_tile=0 tag=0x3000
+  WGT REQ: req_k_tile=1 active_k_tile=0 tag=0x3001
+  ACT REQ: k_tile=0 tag=0x4000
+  CAPTURE: k_tile=0 MXU psum lane0 = 1125
+  CAPTURE: k_tile=0 MXU psum lane1 = -531
+  WGT REQ: req_k_tile=2 active_k_tile=1 tag=0x3002
+  ACT REQ: k_tile=1 tag=0x4001
+  CAPTURE: k_tile=1 MXU psum lane0 = 5270
+  CAPTURE: k_tile=1 MXU psum lane1 = -4505
+  WGT REQ: req_k_tile=3 active_k_tile=2 tag=0x3003
+  ACT REQ: k_tile=2 tag=0x4002
+  CAPTURE: k_tile=2 MXU psum lane0 = -572
+  CAPTURE: k_tile=2 MXU psum lane1 = 2090
+  WGT REQ: req_k_tile=4 active_k_tile=3 tag=0x3004
+  ACT REQ: k_tile=3 tag=0x4003
+  CAPTURE: k_tile=3 MXU psum lane0 = -552
+  CAPTURE: k_tile=3 MXU psum lane1 = 132
+  WGT REQ: req_k_tile=5 active_k_tile=4 tag=0x3005
+  ACT REQ: k_tile=4 tag=0x4004
+  CAPTURE: k_tile=4 MXU psum lane0 = -3948
+  CAPTURE: k_tile=4 MXU psum lane1 = -1081
+  WGT REQ: req_k_tile=6 active_k_tile=5 tag=0x3006
+  ACT REQ: k_tile=5 tag=0x4005
+  CAPTURE: k_tile=5 MXU psum lane0 = 0
+  CAPTURE: k_tile=5 MXU psum lane1 = 0
+  WGT REQ: req_k_tile=7 active_k_tile=6 tag=0x3007
+  ACT REQ: k_tile=6 tag=0x4006
+  CAPTURE: k_tile=6 MXU psum lane0 = 328
+  CAPTURE: k_tile=6 MXU psum lane1 = -3116
+  ACT REQ: k_tile=7 tag=0x4007
+  CAPTURE: k_tile=7 MXU psum lane0 = -240
+  CAPTURE: k_tile=7 MXU psum lane1 = 9328
+  ACC DONE: row=0 ready=1
+  VPU OUT : data={lane1:13,lane0:9}
+  UB WRITE: bank1[18] = 9
+  UB WRITE: bank1[19] = 13
+  CTRL   : done=1 error=0 state=0 tile_state=0 k_tile=7 cycles=288 err=0x00000000
+
+============================================================
+TEST: Host readback V3 ROM-driven FC2 tile
+============================================================
+  UB bank1[18:19] = {class9:13,class8:9}
+
+DEBUG COUNTERS
+  ctrl_cycles=288 final_state=0 final_k_tile=7
+  act_fetch=72 act_vectors=8 act_lane_reads=16
+  wgt_load=104 wgt_reuse=8 wgt_empty=0 wgt_full=0
+test_controller_v3_rom_tile: checks=8 pass=8 fail=0
+$finish called at time : 3330 ns : File "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/test_controller_v3_rom_tile.sv" Line 581
+exit
+INFO: xsimkernel Simulation Memory Usage: 299616 KB (Peak: 344076 KB), Simulation CPU Usage: 660 ms
+INFO: [Common 17-206] Exiting xsim at Tue Jun  2 10:27:34 2026...
