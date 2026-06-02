@@ -365,7 +365,8 @@ module tpu_controller_v3_rom_tile #(
                         + 32'(spatial_idx_q);
   assign output_addr_valid0_w = oc_valid_w[0] && (output_addr0_w < 32'(BANK_DEPTH));
   assign output_addr_valid1_w = oc_valid_w[1] && (output_addr1_w < 32'(BANK_DEPTH));
-  assign tile_start_w = (state_q == S_START_TILE);
+  assign tile_start_w = (state_q == S_START_TILE)
+                      || ((state_q == S_WAIT_PARAM) && param_valid_w);
   assign num_tiles_o = TILE_COUNT_WIDTH'(desc_num_k_tiles_w);
   assign ub_rd_bank_o = inner_read_bank_w;
 
@@ -391,7 +392,7 @@ module tpu_controller_v3_rom_tile #(
 
       S_WAIT_PARAM: begin
         if (param_valid_w) begin
-          state_d = S_START_TILE;
+          state_d = S_RUN_TILE;
         end
       end
 
@@ -403,10 +404,10 @@ module tpu_controller_v3_rom_tile #(
         if (tile_error_w) begin
           state_d = S_ERROR;
         end else if (vpu_data_valid_i) begin
-          if (output_addr_valid0_w) begin
-            state_d = S_WRITE_OUTPUT0;
-          end else if (output_addr_valid1_w) begin
+          if (output_addr_valid1_w) begin
             state_d = S_WRITE_OUTPUT1;
+          end else if (output_addr_valid0_w) begin
+            state_d = S_DONE;
           end else begin
             state_d = S_DONE;
           end
@@ -544,13 +545,17 @@ module tpu_controller_v3_rom_tile #(
   assign dbg_tile_state_o = tile_state_w;
   assign dbg_k_tile_o = tile_k_tile_w;
 
-  assign ub_wr_en_o = (state_q == S_WRITE_OUTPUT0) || (state_q == S_WRITE_OUTPUT1);
+  assign ub_wr_en_o = (state_q == S_WRITE_OUTPUT0)
+                   || (state_q == S_WRITE_OUTPUT1)
+                   || ((state_q == S_RUN_TILE) && vpu_data_valid_i && output_addr_valid0_w);
   assign ub_wr_bank_o = inner_write_bank_w;
   assign ub_wr_addr_o = (state_q == S_WRITE_OUTPUT1)
                       ? UB_ADDR_WIDTH'(output_addr1_w)
                       : UB_ADDR_WIDTH'(output_addr0_w);
-  assign ub_wr_data_o = (state_q == S_WRITE_OUTPUT1)
-                      ? vpu_data_q[(1*OUT_WIDTH)+:OUT_WIDTH]
-                      : vpu_data_q[(0*OUT_WIDTH)+:OUT_WIDTH];
+  assign ub_wr_data_o = ((state_q == S_RUN_TILE) && vpu_data_valid_i)
+                      ? vpu_data_flatten_i[(0*OUT_WIDTH)+:OUT_WIDTH]
+                      : ((state_q == S_WRITE_OUTPUT1)
+                         ? vpu_data_q[(1*OUT_WIDTH)+:OUT_WIDTH]
+                         : vpu_data_q[(0*OUT_WIDTH)+:OUT_WIDTH]);
 
 endmodule : tpu_controller_v3_rom_tile

@@ -3,23 +3,23 @@
 # SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Tue Jun  2 14:47:50 2026
-# Process ID         : 3825371
+# Start of session at: Tue Jun  2 15:37:42 2026
+# Process ID         : 4144676
 # Current directory  : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3
-# Command line       : xsim -mode tcl -source {xsim.dir/test_tpu_top_v3_end_to_end_snapshot/xsim_script.tcl}
+# Command line       : xsim -mode tcl -source {xsim.dir/test_controller_v3_conv2_layer_snapshot/xsim_script.tcl}
 # Log file           : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/xsim.log
 # Journal file       : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/xsim.jou
 # Running On         : pah-PC
 # Platform           : Ubuntu
 # Operating System   : Ubuntu 24.04.4 LTS
 # Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
-# CPU Frequency      : 3209.087 MHz
+# CPU Frequency      : 3243.164 MHz
 # CPU Physical cores : 8
 # CPU Logical cores  : 16
 # Host memory        : 32887 MB
 # Swap memory        : 25033 MB
 # Total Virtual      : 57921 MB
-# Available Virtual  : 46105 MB
+# Available Virtual  : 45691 MB
 #-----------------------------------------------------------
-source xsim.dir/test_tpu_top_v3_end_to_end_snapshot/xsim_script.tcl
+source xsim.dir/test_controller_v3_conv2_layer_snapshot/xsim_script.tcl
 run -all

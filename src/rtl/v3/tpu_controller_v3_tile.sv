@@ -259,7 +259,7 @@ module tpu_controller_v3_tile #(
 
       S_WAIT_WGT_TILE: begin
         if (wgt_tile_valid_i) begin
-          state_d = S_STREAM_WGT;
+          state_d = S_WAIT_WGT_LOAD;
         end
       end
 
@@ -291,7 +291,7 @@ module tpu_controller_v3_tile #(
 
       S_WAIT_ACT_READY: begin
         if (act_launch_ready_i) begin
-          state_d = S_LAUNCH_ACT;
+          state_d = S_WAIT_PSUM;
         end
       end
 
@@ -306,7 +306,7 @@ module tpu_controller_v3_tile #(
       end
 
       S_RELEASE_WGT: begin
-        state_d = S_NEXT_K_TILE;
+        state_d = prefetch_valid_q ? S_WAIT_WGT_TILE : S_SEND_WGT_REQ;
       end
 
       S_NEXT_K_TILE: begin
@@ -319,7 +319,7 @@ module tpu_controller_v3_tile #(
 
       S_WAIT_ACC_READY: begin
         if (row_ready_w) begin
-          state_d = S_READ_ACC;
+          state_d = S_WAIT_ACC_READ;
         end
       end
 
@@ -464,7 +464,7 @@ module tpu_controller_v3_tile #(
           psum_seen_q <= psum_seen_q | mxu_psum_valid_i;
         end
 
-        if (state_q == S_NEXT_K_TILE) begin
+        if (state_q == S_RELEASE_WGT || state_q == S_NEXT_K_TILE) begin
           k_tile_q <= k_tile_q + 16'd1;
           wgt_load_seen_q <= '0;
           psum_seen_q <= '0;
@@ -492,21 +492,26 @@ module tpu_controller_v3_tile #(
   assign wgt_req_zero_mask_o = ag_weight_zero_w;
   assign wgt_req_tag_o = TAG_WIDTH'(16'h3000 + wgt_req_k_tile_w);
   assign wgt_tile_release_o = (state_q == S_RELEASE_WGT) || (state_q == S_RELEASE_FINAL_WGT);
-  assign wgt_stream_start_o = (state_q == S_STREAM_WGT);
+  assign wgt_stream_start_o = (state_q == S_STREAM_WGT)
+                            || ((state_q == S_WAIT_WGT_TILE) && wgt_tile_valid_i);
 
   assign act_req_valid_o = (state_q == S_SEND_ACT_REQ) || prefetch_act_req_w;
   assign act_req_addr_flatten_o = act_req_addr_flatten_w;
   assign act_req_lane_valid_o = ag_act_valid_w;
   assign act_req_lane_zero_o = ag_act_zero_w;
   assign act_req_tag_o = TAG_WIDTH'(16'h4000 + act_req_k_tile_w);
-  assign act_launch_o = (state_q == S_LAUNCH_ACT);
+  assign act_launch_o = (state_q == S_LAUNCH_ACT)
+                      || ((state_q == S_WAIT_ACT_READY) && act_launch_ready_i);
 
   assign accumulator_clear_all_o = (state_q == S_CLEAR_ACC);
   assign accumulator_row_clear_o = 1'b0;
   assign accumulator_row_clear_addr_o = accumulator_row_addr_q;
-  assign accumulator_write_en_o = (state_q == S_LAUNCH_ACT) || (state_q == S_WAIT_PSUM);
+  assign accumulator_write_en_o = (state_q == S_LAUNCH_ACT)
+                               || ((state_q == S_WAIT_ACT_READY) && act_launch_ready_i)
+                               || (state_q == S_WAIT_PSUM);
   assign accumulator_write_addr_o = accumulator_row_addr_q;
-  assign accumulator_read_en_o = (state_q == S_READ_ACC);
+  assign accumulator_read_en_o = (state_q == S_READ_ACC)
+                              || ((state_q == S_WAIT_ACC_READY) && row_ready_w);
   assign accumulator_read_addr_o = accumulator_row_addr_q;
 
   assign vpu_input_done_o = (state_q == S_WAIT_ACC_READ);

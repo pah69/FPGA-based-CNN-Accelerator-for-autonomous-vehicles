@@ -1,0 +1,62 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Tue Jun  2 15:17:01 2026
+# Process ID         : 4021874
+# Current directory  : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3
+# Command line       : xsim -mode tcl -source {xsim.dir/test_controller_v3_conv2_layer_snapshot/xsim_script.tcl}
+# Log file           : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/xsim.log
+# Journal file       : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/xsim.jou
+# Running On         : pah-PC
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 24.04.4 LTS
+# Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
+# CPU Frequency      : 4811.984 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 32887 MB
+# Swap memory        : 25033 MB
+# Total Virtual      : 57921 MB
+# Available Virtual  : 45186 MB
+#-----------------------------------------------------------
+source xsim.dir/test_controller_v3_conv2_layer_snapshot/xsim_script.tcl
+# xsim {test_controller_v3_conv2_layer_snapshot} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+
+============================================================
+TEST: Host preload Pool1 tensor
+============================================================
+  UB bank0[0:1351] loaded with derived Pool1 tensor
+  Conv2 full layer: output count=1210 channel-major layer1_out_i8.hex
+
+============================================================
+TEST: V3 ROM layer controller -> full Conv2 output tensor
+============================================================
+  ACC READ sample: spatial=25 oc_tile=2 data={lane1:-4208,lane0:-6195}
+  progress: output_pairs=128 spatial=25 oc_tile=2
+  ACC READ sample: spatial=51 oc_tile=0 data={lane1:-5753,lane0:-1440}
+  progress: output_pairs=256 spatial=51 oc_tile=0
+  ACC READ sample: spatial=76 oc_tile=3 data={lane1:-11486,lane0:-696}
+  progress: output_pairs=384 spatial=76 oc_tile=3
+  ACC READ sample: spatial=102 oc_tile=1 data={lane1:466,lane0:-15214}
+  progress: output_pairs=512 spatial=102 oc_tile=1
+  CTRL   : done=1 error=0 state=0 tile_state=0 spatial=120 oc_tile=4 k_tile=35 cycles=517340 tiles=605 err=0x00000000
+
+============================================================
+TEST: Host readback full Conv2 output tensor
+============================================================
+  samples: out[0]=0 out[120]=0 out[241]=1 out[1209]=5
+  mismatches: 0
+
+DEBUG COUNTERS
+  ctrl_cycles=517340 final_state=0 final_spatial=120 final_oc_tile=4 final_k_tile=35 tiles=605
+  act_fetch=196020 act_vectors=21780 act_lane_reads=43560
+  wgt_load=2340 wgt_reuse=21780 wgt_empty=0 wgt_full=0
+test_controller_v3_conv2_layer: checks=1216 pass=1216 fail=0
+$finish called at time : 5224730 ns : File "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/test_controller_v3_conv2_layer.sv" Line 662
+exit
+INFO: xsimkernel Simulation Memory Usage: 299728 KB (Peak: 344188 KB), Simulation CPU Usage: 2270 ms
+INFO: [Common 17-206] Exiting xsim at Tue Jun  2 15:17:05 2026...

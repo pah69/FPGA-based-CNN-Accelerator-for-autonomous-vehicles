@@ -22,9 +22,11 @@ module weight_tile_buffer_v3 #(
     parameter int ADDR_WIDTH     = 16,
     parameter int TAG_WIDTH      = 16,
     parameter int COUNTER_WIDTH  = 32,
+    parameter int CACHE_DEPTH    = 256,
     parameter int TILE_ELEMS     = ARRAY_K * ARRAY_OC,
     parameter int ELEM_IDX_WIDTH = (TILE_ELEMS > 1) ? $clog2(TILE_ELEMS + 1) : 1,
-    parameter int ROW_IDX_WIDTH  = (ARRAY_K > 1) ? $clog2(ARRAY_K + 1) : 1
+    parameter int ROW_IDX_WIDTH  = (ARRAY_K > 1) ? $clog2(ARRAY_K + 1) : 1,
+    parameter int CACHE_IDX_WIDTH = (CACHE_DEPTH > 1) ? $clog2(CACHE_DEPTH) : 1
 ) (
     input logic clk,
     input logic rst_n,
@@ -89,9 +91,17 @@ module weight_tile_buffer_v3 #(
   logic active_slot_q;
   logic fill_slot_q;
   logic signed [DATA_WIDTH-1:0] tile_mem_q[0:1][0:TILE_ELEMS-1];
+  logic [CACHE_DEPTH-1:0] cache_valid_q;
+  logic [CACHE_IDX_WIDTH-1:0] cache_wr_idx_q;
+  logic [CACHE_IDX_WIDTH-1:0] cache_hit_idx_w;
+  logic [TILE_ELEMS*ADDR_WIDTH-1:0] cache_addr_flatten_q[0:CACHE_DEPTH-1];
+  logic [TILE_ELEMS-1:0] cache_valid_mask_q[0:CACHE_DEPTH-1];
+  logic [TILE_ELEMS-1:0] cache_zero_mask_q[0:CACHE_DEPTH-1];
+  logic signed [DATA_WIDTH-1:0] cache_tile_mem_q[0:CACHE_DEPTH-1][0:TILE_ELEMS-1];
 
   logic elem_in_range_w;
   logic elem_needs_read_w;
+  logic cache_hit_w;
   logic fill_busy_w;
   logic stream_busy_w;
   logic accept_req_w;
@@ -121,6 +131,22 @@ module weight_tile_buffer_v3 #(
 
   assign weight_switch_o = (stream_state_q == S_SWITCH);
   assign stream_done_o = (stream_state_q == S_SWITCH);
+
+  always_comb begin
+    cache_hit_w = 1'b0;
+    cache_hit_idx_w = '0;
+
+    for (int entry = 0; entry < CACHE_DEPTH; entry++) begin
+      if (cache_valid_q[entry]
+          && (cache_addr_flatten_q[entry] == req_addr_flatten_i)
+          && (cache_valid_mask_q[entry] == req_weight_valid_i)
+          && (cache_zero_mask_q[entry] == req_weight_zero_i)
+          && !cache_hit_w) begin
+        cache_hit_w = 1'b1;
+        cache_hit_idx_w = CACHE_IDX_WIDTH'(entry);
+      end
+    end
+  end
 
   always_comb begin
     elem_in_range_w = (elem_idx_q < ELEM_IDX_WIDTH'(TILE_ELEMS));
@@ -166,6 +192,8 @@ module weight_tile_buffer_v3 #(
       slot_valid_q <= '0;
       active_slot_q <= 1'b0;
       fill_slot_q <= 1'b0;
+      cache_valid_q <= '0;
+      cache_wr_idx_q <= '0;
       weight_rd_en_o <= 1'b0;
       weight_rd_addr_o <= '0;
       dbg_weight_load_cycles_o <= '0;
@@ -195,6 +223,8 @@ module weight_tile_buffer_v3 #(
         slot_valid_q <= '0;
         active_slot_q <= 1'b0;
         fill_slot_q <= 1'b0;
+        cache_valid_q <= '0;
+        cache_wr_idx_q <= '0;
         dbg_weight_load_cycles_o <= '0;
         dbg_weight_reuse_count_o <= '0;
         dbg_weight_buffer_empty_cycles_o <= '0;
@@ -240,7 +270,21 @@ module weight_tile_buffer_v3 #(
                 tile_mem_q[selected_fill_slot_w][elem] <= '0;
               end
 
-              fill_state_q <= F_SCAN;
+              if (cache_hit_w) begin
+                slot_valid_q[selected_fill_slot_w] <= 1'b1;
+                if (!active_tile_valid_w) begin
+                  active_slot_q <= selected_fill_slot_w;
+                end
+
+                for (int elem = 0; elem < TILE_ELEMS; elem++) begin
+                  tile_mem_q[selected_fill_slot_w][elem] <=
+                      cache_tile_mem_q[cache_hit_idx_w][elem];
+                end
+
+                fill_state_q <= F_IDLE;
+              end else begin
+                fill_state_q <= F_SCAN;
+              end
             end
           end
 
@@ -250,6 +294,14 @@ module weight_tile_buffer_v3 #(
               if (!active_tile_valid_w || (tile_release_i && !stream_busy_w && (fill_slot_q == other_slot_w))) begin
                 active_slot_q <= fill_slot_q;
               end
+              cache_valid_q[cache_wr_idx_q] <= 1'b1;
+              cache_addr_flatten_q[cache_wr_idx_q] <= addr_flatten_q;
+              cache_valid_mask_q[cache_wr_idx_q] <= valid_mask_q[fill_slot_q];
+              cache_zero_mask_q[cache_wr_idx_q] <= zero_mask_q;
+              for (int elem = 0; elem < TILE_ELEMS; elem++) begin
+                cache_tile_mem_q[cache_wr_idx_q][elem] <= tile_mem_q[fill_slot_q][elem];
+              end
+              cache_wr_idx_q <= cache_wr_idx_q + CACHE_IDX_WIDTH'(1);
               fill_state_q <= F_IDLE;
             end else if (elem_needs_read_w) begin
               weight_rd_en_o <= 1'b1;

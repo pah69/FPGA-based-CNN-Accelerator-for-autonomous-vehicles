@@ -352,7 +352,18 @@ module tpu_controller_v3_rom_layer #(
               dbg_error_code_o <= ERR_TILE | {16'h0000, tile_error_code_w[15:0]};
             end else if (tile_done_w) begin
               dbg_tile_count_o <= dbg_tile_count_o + 32'd1;
-              state_q <= S_ADVANCE_TILE;
+              if (last_oc_tile_w) begin
+                if (last_spatial_w) begin
+                  state_q <= S_DONE;
+                end else begin
+                  spatial_idx_q <= spatial_idx_q + 16'd1;
+                  oc_tile_q <= '0;
+                  state_q <= S_START_TILE;
+                end
+              end else begin
+                oc_tile_q <= oc_tile_q + 16'd1;
+                state_q <= S_START_TILE;
+              end
             end
           end
 

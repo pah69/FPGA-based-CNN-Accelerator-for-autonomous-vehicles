@@ -212,7 +212,18 @@ module activation_window_gather_v3 #(
               lane_idx_q <= '0;
               vec_flatten_q <= '0;
               vec_valid_q <= '0;
-              state_q <= S_NEXT_LANE;
+
+              vec_valid_q[0] <= req_lane_valid_i[0];
+              if (req_lane_valid_i[0] && !req_lane_zero_i[0]) begin
+                ub_rd_en_o <= 1'b1;
+                ub_rd_addr_o <= req_addr_flatten_i[0+:ADDR_WIDTH];
+                dbg_lane_reads_o <= dbg_lane_reads_o + COUNTER_WIDTH'(1);
+                state_q <= S_READ_WAIT;
+              end else begin
+                vec_flatten_q[0+:DATA_WIDTH] <= '0;
+                lane_idx_q <= LANE_IDX_WIDTH'(1);
+                state_q <= S_NEXT_LANE;
+              end
             end
           end
 
@@ -222,7 +233,10 @@ module activation_window_gather_v3 #(
             end else begin
               vec_valid_q[lane_idx_q] <= lane_valid_q[lane_idx_q];
               if (lane_needs_read_w) begin
-                state_q <= S_READ_REQ;
+                ub_rd_en_o <= 1'b1;
+                ub_rd_addr_o <= addr_flatten_q[(lane_idx_q*ADDR_WIDTH)+:ADDR_WIDTH];
+                dbg_lane_reads_o <= dbg_lane_reads_o + COUNTER_WIDTH'(1);
+                state_q <= S_READ_WAIT;
               end else begin
                 vec_flatten_q[(lane_idx_q*DATA_WIDTH)+:DATA_WIDTH] <= '0;
                 lane_idx_q <= lane_idx_q + LANE_IDX_WIDTH'(1);
