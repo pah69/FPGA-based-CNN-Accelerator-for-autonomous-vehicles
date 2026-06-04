@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
-| Date             : Thu Jun  4 10:06:43 2026
+| Date             : Thu Jun  4 10:28:54 2026
 | Host             : pah-PC running 64-bit Ubuntu 24.04.4 LTS
 | Command          : report_power -file tpu_top_axi_lite_power_routed.rpt -pb tpu_top_axi_lite_power_summary_routed.pb -rpx tpu_top_axi_lite_power_routed.rpx
 | Design           : tpu_top_axi_lite
@@ -30,14 +30,14 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 46.665       |
+| Total On-Chip Power (W)  | 45.797       |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 45.455       |
-| Device Static (W)        | 1.210        |
+| Dynamic (W)              | 44.610       |
+| Device Static (W)        | 1.187        |
 | Effective TJA (C/W)      | 1.0          |
-| Max Ambient (C)          | 54.3         |
-| Junction Temperature (C) | 70.7         |
+| Max Ambient (C)          | 55.2         |
+| Junction Temperature (C) | 69.8         |
 | Confidence Level         | Low          |
 | Setting File             | ---          |
 | Simulation Activity File | ---          |
@@ -52,20 +52,20 @@ Table of Contents
 +-------------------------+-----------+----------+-----------+-----------------+
 | On-Chip                 | Power (W) | Used     | Available | Utilization (%) |
 +-------------------------+-----------+----------+-----------+-----------------+
-| CLB Logic               |    19.630 |    28194 |       --- |             --- |
-|   LUT as Logic          |    18.046 |    13324 |    230400 |            5.78 |
-|   CARRY8                |     1.248 |      754 |     28800 |            2.62 |
-|   Register              |     0.333 |     9911 |    460800 |            2.15 |
+| CLB Logic               |    19.583 |    28197 |       --- |             --- |
+|   LUT as Logic          |    17.991 |    13340 |    230400 |            5.79 |
+|   CARRY8                |     1.253 |      754 |     28800 |            2.62 |
+|   Register              |     0.336 |     9916 |    460800 |            2.15 |
 |   LUT as Shift Register |     0.002 |       24 |    101760 |            0.02 |
 |   BUFG                  |    <0.001 |        1 |        64 |            1.56 |
 |   Others                |     0.000 |      144 |       --- |             --- |
 |   F7/F8 Muxes           |     0.000 |      574 |    230400 |            0.25 |
-| Signals                 |    17.828 |    19871 |       --- |             --- |
+| Signals                 |    16.826 |    19884 |       --- |             --- |
 | Block RAM               |     0.412 |       20 |       312 |            6.41 |
-| DSPs                    |     3.453 |       28 |      1728 |            1.62 |
-| I/O                     |     4.131 |       81 |       360 |           22.50 |
-| Static Power            |     1.210 |          |           |                 |
-| Total                   |    46.665 |          |           |                 |
+| DSPs                    |     3.656 |       28 |      1728 |            1.62 |
+| I/O                     |     4.133 |       81 |       360 |           22.50 |
+| Static Power            |     1.187 |          |           |                 |
+| Total                   |    45.797 |          |           |                 |
 +-------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -75,10 +75,10 @@ Table of Contents
 +------------------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Source           | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
 +------------------+-------------+-----------+-------------+------------+-------------+-------------+------------+
-| Vccint           |       0.850 |    49.397 |      48.659 |      0.739 |       NA    | Unspecified | NA         |
-| Vccint_io        |       0.850 |     0.214 |       0.118 |      0.097 |       NA    | Unspecified | NA         |
+| Vccint           |       0.850 |    48.381 |      47.663 |      0.718 |       NA    | Unspecified | NA         |
+| Vccint_io        |       0.850 |     0.214 |       0.118 |      0.096 |       NA    | Unspecified | NA         |
 | Vccbram          |       0.850 |     0.012 |       0.002 |      0.009 |       NA    | Unspecified | NA         |
-| Vccaux           |       1.800 |     0.150 |       0.000 |      0.150 |       NA    | Unspecified | NA         |
+| Vccaux           |       1.800 |     0.149 |       0.000 |      0.149 |       NA    | Unspecified | NA         |
 | Vccaux_io        |       1.800 |     0.542 |       0.487 |      0.055 |       NA    | Unspecified | NA         |
 | Vcco33           |       3.300 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco25           |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
@@ -103,7 +103,7 @@ Table of Contents
 | VCCO_PSIO2_502   |       3.300 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | VCCO_PSIO3_503   |       3.300 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | VCC_PSADC        |       1.800 |     0.002 |       0.000 |      0.002 |       NA    | Unspecified | NA         |
-| VCCINT_VCU       |       0.900 |     0.093 |       0.000 |      0.093 |       NA    | Unspecified | NA         |
+| VCCINT_VCU       |       0.900 |     0.090 |       0.000 |      0.090 |       NA    | Unspecified | NA         |
 | VMGTAVCC (GTH)   |       0.900 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | VMGTAVTT (GTH)   |       1.200 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | VMGTVCCAUX (GTH) |       1.800 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
@@ -162,56 +162,56 @@ Table of Contents
 +--------------------------------+-----------+
 | Name                           | Power (W) |
 +--------------------------------+-----------+
-| tpu_top_axi_lite               |    45.455 |
+| tpu_top_axi_lite               |    44.610 |
 |   s_axi_aclk_IBUF_inst         |     0.006 |
 |   s_axi_araddr_IBUF[0]_inst    |     0.005 |
 |   s_axi_araddr_IBUF[1]_inst    |     0.005 |
-|   s_axi_araddr_IBUF[2]_inst    |     0.204 |
-|   s_axi_araddr_IBUF[3]_inst    |     0.180 |
-|   s_axi_araddr_IBUF[4]_inst    |     0.183 |
-|   s_axi_araddr_IBUF[5]_inst    |     0.099 |
-|   s_axi_araddr_IBUF[6]_inst    |     0.068 |
-|   s_axi_araddr_IBUF[7]_inst    |     0.054 |
-|   s_axi_arvalid_IBUF_inst      |     0.005 |
-|   s_axi_awaddr_IBUF[0]_inst    |     0.007 |
-|   s_axi_awaddr_IBUF[1]_inst    |     0.007 |
+|   s_axi_araddr_IBUF[2]_inst    |     0.159 |
+|   s_axi_araddr_IBUF[3]_inst    |     0.178 |
+|   s_axi_araddr_IBUF[4]_inst    |     0.162 |
+|   s_axi_araddr_IBUF[5]_inst    |     0.080 |
+|   s_axi_araddr_IBUF[6]_inst    |     0.049 |
+|   s_axi_araddr_IBUF[7]_inst    |     0.039 |
+|   s_axi_arvalid_IBUF_inst      |     0.006 |
+|   s_axi_awaddr_IBUF[0]_inst    |     0.006 |
+|   s_axi_awaddr_IBUF[1]_inst    |     0.008 |
 |   s_axi_awaddr_IBUF[2]_inst    |     0.020 |
 |   s_axi_awaddr_IBUF[3]_inst    |     0.020 |
 |   s_axi_awaddr_IBUF[4]_inst    |     0.005 |
 |   s_axi_awaddr_IBUF[5]_inst    |     0.020 |
-|   s_axi_awaddr_IBUF[6]_inst    |     0.006 |
+|   s_axi_awaddr_IBUF[6]_inst    |     0.005 |
 |   s_axi_awaddr_IBUF[7]_inst    |     0.005 |
-|   s_axi_awvalid_IBUF_inst      |     0.006 |
+|   s_axi_awvalid_IBUF_inst      |     0.005 |
 |   s_axi_bready_IBUF_inst       |     0.005 |
 |   s_axi_rready_IBUF_inst       |     0.005 |
-|   s_axi_wdata_IBUF[0]_inst     |     0.025 |
-|   s_axi_wdata_IBUF[10]_inst    |     0.012 |
-|   s_axi_wdata_IBUF[11]_inst    |     0.012 |
-|   s_axi_wdata_IBUF[12]_inst    |     0.011 |
-|   s_axi_wdata_IBUF[1]_inst     |     0.018 |
-|   s_axi_wdata_IBUF[2]_inst     |     0.016 |
-|   s_axi_wdata_IBUF[31]_inst    |     0.011 |
-|   s_axi_wdata_IBUF[3]_inst     |     0.014 |
-|   s_axi_wdata_IBUF[4]_inst     |     0.014 |
-|   s_axi_wdata_IBUF[5]_inst     |     0.014 |
-|   s_axi_wdata_IBUF[6]_inst     |     0.014 |
-|   s_axi_wdata_IBUF[7]_inst     |     0.015 |
-|   s_axi_wdata_IBUF[8]_inst     |     0.012 |
-|   s_axi_wdata_IBUF[9]_inst     |     0.012 |
-|   s_axi_wstrb_IBUF[0]_inst     |     0.010 |
-|   s_axi_wstrb_IBUF[1]_inst     |     0.008 |
-|   s_axi_wstrb_IBUF[3]_inst     |     0.008 |
-|   s_axi_wvalid_IBUF_inst       |     0.006 |
-|   u_tpu_top                    |    39.671 |
-|     u_datapath                 |    18.032 |
-|       u_accumulator_array      |     0.661 |
-|       u_mxu                    |     5.536 |
-|       u_psum_packer            |     0.494 |
-|       u_vector_processing_unit |    11.341 |
-|     u_layer_controller         |     3.803 |
-|       u_tile_controller        |     2.677 |
-|     u_maxpool2d_unit           |     2.788 |
-|     u_unified_buffer           |     0.439 |
+|   s_axi_wdata_IBUF[0]_inst     |     0.014 |
+|   s_axi_wdata_IBUF[10]_inst    |     0.005 |
+|   s_axi_wdata_IBUF[11]_inst    |     0.005 |
+|   s_axi_wdata_IBUF[12]_inst    |     0.007 |
+|   s_axi_wdata_IBUF[1]_inst     |     0.011 |
+|   s_axi_wdata_IBUF[2]_inst     |     0.010 |
+|   s_axi_wdata_IBUF[31]_inst    |     0.006 |
+|   s_axi_wdata_IBUF[3]_inst     |     0.007 |
+|   s_axi_wdata_IBUF[4]_inst     |     0.007 |
+|   s_axi_wdata_IBUF[5]_inst     |     0.008 |
+|   s_axi_wdata_IBUF[6]_inst     |     0.007 |
+|   s_axi_wdata_IBUF[7]_inst     |     0.007 |
+|   s_axi_wdata_IBUF[8]_inst     |     0.005 |
+|   s_axi_wdata_IBUF[9]_inst     |     0.005 |
+|   s_axi_wstrb_IBUF[0]_inst     |     0.014 |
+|   s_axi_wstrb_IBUF[1]_inst     |     0.011 |
+|   s_axi_wstrb_IBUF[3]_inst     |     0.010 |
+|   s_axi_wvalid_IBUF_inst       |     0.007 |
+|   u_tpu_top                    |    39.055 |
+|     u_datapath                 |    18.267 |
+|       u_accumulator_array      |     0.678 |
+|       u_mxu                    |     5.541 |
+|       u_psum_packer            |     0.543 |
+|       u_vector_processing_unit |    11.505 |
+|     u_layer_controller         |     3.671 |
+|       u_tile_controller        |     2.603 |
+|     u_maxpool2d_unit           |     3.440 |
+|     u_unified_buffer           |     0.432 |
 +--------------------------------+-----------+
 
 

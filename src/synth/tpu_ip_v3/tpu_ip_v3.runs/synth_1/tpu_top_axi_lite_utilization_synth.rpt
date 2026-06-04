@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
-| Date         : Thu Jun  4 10:04:55 2026
+| Date         : Thu Jun  4 10:27:05 2026
 | Host         : pah-PC running 64-bit Ubuntu 24.04.4 LTS
 | Command      : report_utilization -file tpu_top_axi_lite_utilization_synth.rpt -pb tpu_top_axi_lite_utilization_synth.pb
 | Design       : tpu_top_axi_lite
@@ -32,19 +32,19 @@ Table of Contents
 +----------------------------+-------+-------+------------+-----------+-------+
 |          Site Type         |  Used | Fixed | Prohibited | Available | Util% |
 +----------------------------+-------+-------+------------+-----------+-------+
-| CLB LUTs*                  | 13392 |     0 |          0 |    230400 |  5.81 |
-|   LUT as Logic             | 13368 |     0 |          0 |    230400 |  5.80 |
+| CLB LUTs*                  | 13405 |     0 |          0 |    230400 |  5.82 |
+|   LUT as Logic             | 13381 |     0 |          0 |    230400 |  5.81 |
 |   LUT as Memory            |    24 |     0 |          0 |    101760 |  0.02 |
 |     LUT as Distributed RAM |     0 |     0 |            |           |       |
 |     LUT as Shift Register  |    24 |     0 |            |           |       |
-| CLB Registers              |  9911 |     0 |          0 |    460800 |  2.15 |
-|   Register as Flip Flop    |  9911 |     0 |          0 |    460800 |  2.15 |
+| CLB Registers              |  9916 |     0 |          0 |    460800 |  2.15 |
+|   Register as Flip Flop    |  9916 |     0 |          0 |    460800 |  2.15 |
 |   Register as Latch        |     0 |     0 |          0 |    460800 |  0.00 |
 | CARRY8                     |   754 |     0 |          0 |     28800 |  2.62 |
 | F7 Muxes                   |   506 |     0 |          0 |    115200 |  0.44 |
 | F8 Muxes                   |    68 |     0 |          0 |     57600 |  0.12 |
 | F9 Muxes                   |     0 |     0 |          0 |     28800 |  0.00 |
-| Unique Control Sets        |   270 |       |          0 |     57600 |  0.47 |
+| Unique Control Sets        |   272 |       |          0 |     57600 |  0.47 |
 +----------------------------+-------+-------+------------+-----------+-------+
 * Warning! The Final LUT count, after physical optimizations and full implementation, is typically lower. Run opt_design after synthesis, if not already completed, for a more realistic count.
 Warning! LUT value is adjusted to account for LUT combining.
@@ -65,7 +65,7 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 | 0     |            _ |       Reset |            - |
 | 0     |          Yes |           - |            - |
 | 17    |          Yes |           - |          Set |
-| 9326  |          Yes |           - |        Reset |
+| 9331  |          Yes |           - |        Reset |
 | 0     |          Yes |         Set |            - |
 | 568   |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
@@ -175,12 +175,12 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 +----------+------+---------------------+
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
-| FDCE     | 9326 |            Register |
-| LUT6     | 6149 |                 CLB |
-| LUT2     | 4717 |                 CLB |
-| LUT4     | 2231 |                 CLB |
-| LUT5     | 2175 |                 CLB |
-| LUT3     | 1354 |                 CLB |
+| FDCE     | 9331 |            Register |
+| LUT6     | 6171 |                 CLB |
+| LUT2     | 4712 |                 CLB |
+| LUT4     | 2240 |                 CLB |
+| LUT5     | 2171 |                 CLB |
+| LUT3     | 1330 |                 CLB |
 | CARRY8   |  754 |                 CLB |
 | FDRE     |  568 |            Register |
 | MUXF7    |  506 |                 CLB |

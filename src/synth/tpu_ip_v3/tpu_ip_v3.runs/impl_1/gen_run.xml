@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="impl_1" LaunchPart="xczu7ev-ffvc1156-2-e" LaunchTime="1780542223">
+<GenRun Id="impl_1" LaunchPart="xczu7ev-ffvc1156-2-e" LaunchTime="1780543552">
   <File Type="POSTROUTE-PHYSOPT-RQS-RPT" Name="postroute_physopt_report_qor_suggestions_0.rpt"/>
   <File Type="ROUTE-RQS-RPT" Name="route_report_qor_suggestions_0.rpt"/>
   <File Type="POSTROUTE-PHYSOPT-RQS" Name="tpu_top_axi_lite_postroute_physopted.rqs"/>
@@ -34,85 +34,85 @@
   <File Type="BOOT_MARKER_RNPI_FILE" Name="tpu_top_axi_lite_boot_markers.rnpi"/>
   <File Type="BOOT_RNPI_FILE" Name="tpu_top_axi_lite_boot.rnpi"/>
   <File Type="MARKER-RCDO-FILE" Name="tpu_top_axi_lite_markers.rcdo"/>
+  <File Type="MARKER-RNPI-FILE" Name="tpu_top_axi_lite_markers.rnpi"/>
+  <File Type="RCDO-FILE" Name="tpu_top_axi_lite.rcdo"/>
+  <File Type="RNPI_FILE" Name="tpu_top_axi_lite.rnpi"/>
+  <File Type="CFI_FILE" Name="tpu_top_axi_lite.cfi"/>
+  <File Type="RCFI_FILE" Name="tpu_top_axi_lite.rcfi"/>
+  <File Type="PL-PDI-FILE" Name="tpu_top_axi_lite_pld.pdi"/>
+  <File Type="BOOT-PDI-FILE" Name="tpu_top_axi_lite_boot.pdi"/>
+  <File Type="PDI-FILE" Name="tpu_top_axi_lite.pdi"/>
+  <File Type="BITSTR-MMI" Name="tpu_top_axi_lite.mmi"/>
+  <File Type="BITSTR-BMM" Name="tpu_top_axi_lite_bd.bmm"/>
+  <File Type="BITSTR-NKY" Name="tpu_top_axi_lite.nky"/>
+  <File Type="BITSTR-RBT" Name="tpu_top_axi_lite.rbt"/>
+  <File Type="BITSTR-MSK" Name="tpu_top_axi_lite.msk"/>
+  <File Type="BG-BIN" Name="tpu_top_axi_lite.bin"/>
+  <File Type="BG-BIT" Name="tpu_top_axi_lite.bit"/>
+  <File Type="NOC_SOLUTION_FILE" Name="tpu_top_axi_lite.ncr"/>
+  <File Type="NOC_TRAFFIC_SPEC_FILE" Name="tpu_top_axi_lite.nts"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-RPX" Name="tpu_top_axi_lite_bus_skew_postroute_physopted.rpx"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-PB" Name="tpu_top_axi_lite_bus_skew_postroute_physopted.pb"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW" Name="tpu_top_axi_lite_bus_skew_postroute_physopted.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-RPX" Name="tpu_top_axi_lite_timing_summary_postroute_physopted.rpx"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-PB" Name="tpu_top_axi_lite_timing_summary_postroute_physopted.pb"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING" Name="tpu_top_axi_lite_timing_summary_postroute_physopted.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-BLACKBOX-DCP" Name="tpu_top_axi_lite_postroute_physopt_bb.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-DCP" Name="tpu_top_axi_lite_postroute_physopt.dcp"/>
+  <File Type="ROUTE-RQS-PB" Name="tpu_top_axi_lite_rqs_routed.pb"/>
+  <File Type="ROUTE-BUS-SKEW-RPX" Name="tpu_top_axi_lite_bus_skew_routed.rpx"/>
+  <File Type="ROUTE-BUS-SKEW-PB" Name="tpu_top_axi_lite_bus_skew_routed.pb"/>
+  <File Type="ROUTE-BUS-SKEW" Name="tpu_top_axi_lite_bus_skew_routed.rpt"/>
+  <File Type="ROUTE-CLK" Name="tpu_top_axi_lite_clock_utilization_routed.rpt"/>
+  <File Type="ROUTE-SIMILARITY" Name="tpu_top_axi_lite_incremental_reuse_routed.rpt"/>
+  <File Type="ROUTE-TIMING-RPX" Name="tpu_top_axi_lite_timing_summary_routed.rpx"/>
+  <File Type="ROUTE-TIMING-PB" Name="tpu_top_axi_lite_timing_summary_routed.pb"/>
+  <File Type="ROUTE-TIMINGSUMMARY" Name="tpu_top_axi_lite_timing_summary_routed.rpt"/>
+  <File Type="ROUTE-STATUS-PB" Name="tpu_top_axi_lite_route_status.pb"/>
+  <File Type="ROUTE-STATUS" Name="tpu_top_axi_lite_route_status.rpt"/>
+  <File Type="ROUTE-PWR-RPX" Name="tpu_top_axi_lite_power_routed.rpx"/>
+  <File Type="ROUTE-PWR-SUM" Name="tpu_top_axi_lite_power_summary_routed.pb"/>
+  <File Type="ROUTE-PWR" Name="tpu_top_axi_lite_power_routed.rpt"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="tpu_top_axi_lite_methodology_drc_routed.pb"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-RPX" Name="tpu_top_axi_lite_methodology_drc_routed.rpx"/>
+  <File Type="ROUTE-METHODOLOGY-DRC" Name="tpu_top_axi_lite_methodology_drc_routed.rpt"/>
+  <File Type="ROUTE-DRC-RPX" Name="tpu_top_axi_lite_drc_routed.rpx"/>
+  <File Type="ROUTE-DRC-PB" Name="tpu_top_axi_lite_drc_routed.pb"/>
+  <File Type="ROUTE-DRC" Name="tpu_top_axi_lite_drc_routed.rpt"/>
+  <File Type="ROUTE-UTIL-PB" Name="tpu_top_axi_lite_utilization_routed.pb"/>
+  <File Type="ROUTE-UTIL" Name="tpu_top_axi_lite_utilization_routed.rpt"/>
   <File Type="ROUTE-BLACKBOX-DCP" Name="tpu_top_axi_lite_routed_bb.dcp"/>
   <File Type="ROUTE-DCP" Name="tpu_top_axi_lite_routed.dcp"/>
-  <File Type="ROUTE-DRC-RPX" Name="tpu_top_axi_lite_drc_routed.rpx"/>
   <File Type="ROUTE-ERROR-DCP" Name="tpu_top_axi_lite_routed_error.dcp"/>
-  <File Type="MARKER-RNPI-FILE" Name="tpu_top_axi_lite_markers.rnpi"/>
   <File Type="PHYSOPT-TIMING" Name="tpu_top_axi_lite_timing_summary_physopted.rpt"/>
   <File Type="PHYSOPT-DRC" Name="tpu_top_axi_lite_drc_physopted.rpt"/>
   <File Type="PHYSOPT-DCP" Name="tpu_top_axi_lite_physopt.dcp"/>
-  <File Type="POSTPLACE-PWROPT-DCP" Name="tpu_top_axi_lite_postplace_pwropt.dcp"/>
-  <File Type="NOC_SOLUTION_FILE" Name="tpu_top_axi_lite.ncr"/>
-  <File Type="ROUTE-DRC-PB" Name="tpu_top_axi_lite_drc_routed.pb"/>
-  <File Type="ROUTE-UTIL-PB" Name="tpu_top_axi_lite_utilization_routed.pb"/>
-  <File Type="PLACE-UTIL-PB" Name="tpu_top_axi_lite_utilization_placed.pb"/>
-  <File Type="PLACE-TIMING" Name="tpu_top_axi_lite_timing_summary_placed.rpt"/>
-  <File Type="PLACE-CTRL" Name="tpu_top_axi_lite_control_sets_placed.rpt"/>
-  <File Type="OPT-UTIL-PB" Name="tpu_top_axi_lite_utilization_opted.pb"/>
-  <File Type="PLACE-UTIL" Name="tpu_top_axi_lite_utilization_placed.rpt"/>
-  <File Type="OPT-UTIL" Name="tpu_top_axi_lite_utilization_opted.rpt"/>
-  <File Type="PA-TCL" Name="tpu_top_axi_lite.tcl"/>
-  <File Type="ROUTE-BUS-SKEW-PB" Name="tpu_top_axi_lite_bus_skew_routed.pb"/>
-  <File Type="OPT-DRC" Name="tpu_top_axi_lite_drc_opted.rpt"/>
   <File Type="POSTPLACE-PWROPT-TIMING" Name="tpu_top_axi_lite_timing_summary_postplace_pwropted.rpt"/>
-  <File Type="OPT-DCP" Name="tpu_top_axi_lite_opt.dcp"/>
-  <File Type="ROUTE-DRC" Name="tpu_top_axi_lite_drc_routed.rpt"/>
-  <File Type="PWROPT-TIMING" Name="tpu_top_axi_lite_timing_summary_pwropted.rpt"/>
-  <File Type="REPORTS-TCL" Name="tpu_top_axi_lite_reports.tcl"/>
-  <File Type="ROUTE-BUS-SKEW-RPX" Name="tpu_top_axi_lite_bus_skew_routed.rpx"/>
-  <File Type="PWROPT-DRC" Name="tpu_top_axi_lite_drc_pwropted.rpt"/>
-  <File Type="PLACE-SIMILARITY" Name="tpu_top_axi_lite_incremental_reuse_placed.rpt"/>
-  <File Type="INIT-TIMING" Name="tpu_top_axi_lite_timing_summary_init.rpt"/>
-  <File Type="OPT-METHODOLOGY-DRC" Name="tpu_top_axi_lite_methodology_drc_opted.rpt"/>
-  <File Type="OPT-HWDEF" Name="tpu_top_axi_lite.hwdef"/>
-  <File Type="ROUTE-UTIL" Name="tpu_top_axi_lite_utilization_routed.rpt"/>
-  <File Type="PLACE-CLK" Name="tpu_top_axi_lite_clock_utilization_placed.rpt"/>
-  <File Type="PLACE-PRE-SIMILARITY" Name="tpu_top_axi_lite_incremental_reuse_pre_placed.rpt"/>
-  <File Type="OPT-TIMING" Name="tpu_top_axi_lite_timing_summary_opted.rpt"/>
-  <File Type="PWROPT-DCP" Name="tpu_top_axi_lite_pwropt.dcp"/>
-  <File Type="NOC_TRAFFIC_SPEC_FILE" Name="tpu_top_axi_lite.nts"/>
-  <File Type="PLACE-DCP" Name="tpu_top_axi_lite_placed.dcp"/>
-  <File Type="OPT-RQA-PB" Name="tpu_top_axi_lite_rqa_opted.pb"/>
-  <File Type="PLACE-IO" Name="tpu_top_axi_lite_io_placed.rpt"/>
+  <File Type="POSTPLACE-PWROPT-DCP" Name="tpu_top_axi_lite_postplace_pwropt.dcp"/>
   <File Type="PLACE-RQA-PB" Name="tpu_top_axi_lite_rqa_placed.pb"/>
-  <File Type="ROUTE-METHODOLOGY-DRC" Name="tpu_top_axi_lite_methodology_drc_routed.rpt"/>
-  <File Type="ROUTE-METHODOLOGY-DRC-RPX" Name="tpu_top_axi_lite_methodology_drc_routed.rpx"/>
-  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="tpu_top_axi_lite_methodology_drc_routed.pb"/>
-  <File Type="ROUTE-PWR" Name="tpu_top_axi_lite_power_routed.rpt"/>
-  <File Type="ROUTE-PWR-SUM" Name="tpu_top_axi_lite_power_summary_routed.pb"/>
-  <File Type="ROUTE-PWR-RPX" Name="tpu_top_axi_lite_power_routed.rpx"/>
-  <File Type="ROUTE-STATUS" Name="tpu_top_axi_lite_route_status.rpt"/>
-  <File Type="RCDO-FILE" Name="tpu_top_axi_lite.rcdo"/>
-  <File Type="ROUTE-STATUS-PB" Name="tpu_top_axi_lite_route_status.pb"/>
-  <File Type="ROUTE-TIMINGSUMMARY" Name="tpu_top_axi_lite_timing_summary_routed.rpt"/>
-  <File Type="ROUTE-TIMING-PB" Name="tpu_top_axi_lite_timing_summary_routed.pb"/>
-  <File Type="ROUTE-TIMING-RPX" Name="tpu_top_axi_lite_timing_summary_routed.rpx"/>
-  <File Type="ROUTE-SIMILARITY" Name="tpu_top_axi_lite_incremental_reuse_routed.rpt"/>
-  <File Type="ROUTE-CLK" Name="tpu_top_axi_lite_clock_utilization_routed.rpt"/>
-  <File Type="ROUTE-BUS-SKEW" Name="tpu_top_axi_lite_bus_skew_routed.rpt"/>
-  <File Type="ROUTE-RQS-PB" Name="tpu_top_axi_lite_rqs_routed.pb"/>
-  <File Type="POSTROUTE-PHYSOPT-DCP" Name="tpu_top_axi_lite_postroute_physopt.dcp"/>
-  <File Type="POSTROUTE-PHYSOPT-BLACKBOX-DCP" Name="tpu_top_axi_lite_postroute_physopt_bb.dcp"/>
-  <File Type="POSTROUTE-PHYSOPT-TIMING" Name="tpu_top_axi_lite_timing_summary_postroute_physopted.rpt"/>
-  <File Type="POSTROUTE-PHYSOPT-TIMING-PB" Name="tpu_top_axi_lite_timing_summary_postroute_physopted.pb"/>
-  <File Type="POSTROUTE-PHYSOPT-TIMING-RPX" Name="tpu_top_axi_lite_timing_summary_postroute_physopted.rpx"/>
-  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW" Name="tpu_top_axi_lite_bus_skew_postroute_physopted.rpt"/>
-  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-PB" Name="tpu_top_axi_lite_bus_skew_postroute_physopted.pb"/>
-  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-RPX" Name="tpu_top_axi_lite_bus_skew_postroute_physopted.rpx"/>
-  <File Type="BG-BIT" Name="tpu_top_axi_lite.bit"/>
-  <File Type="PDI-FILE" Name="tpu_top_axi_lite.pdi"/>
-  <File Type="BG-BIN" Name="tpu_top_axi_lite.bin"/>
-  <File Type="CFI_FILE" Name="tpu_top_axi_lite.cfi"/>
-  <File Type="BITSTR-MSK" Name="tpu_top_axi_lite.msk"/>
-  <File Type="RNPI_FILE" Name="tpu_top_axi_lite.rnpi"/>
-  <File Type="BITSTR-RBT" Name="tpu_top_axi_lite.rbt"/>
-  <File Type="BITSTR-NKY" Name="tpu_top_axi_lite.nky"/>
-  <File Type="BITSTR-BMM" Name="tpu_top_axi_lite_bd.bmm"/>
-  <File Type="BITSTR-MMI" Name="tpu_top_axi_lite.mmi"/>
-  <File Type="BOOT-PDI-FILE" Name="tpu_top_axi_lite_boot.pdi"/>
-  <File Type="PL-PDI-FILE" Name="tpu_top_axi_lite_pld.pdi"/>
-  <File Type="RCFI_FILE" Name="tpu_top_axi_lite.rcfi"/>
+  <File Type="PLACE-TIMING" Name="tpu_top_axi_lite_timing_summary_placed.rpt"/>
+  <File Type="PLACE-PRE-SIMILARITY" Name="tpu_top_axi_lite_incremental_reuse_pre_placed.rpt"/>
+  <File Type="PLACE-SIMILARITY" Name="tpu_top_axi_lite_incremental_reuse_placed.rpt"/>
+  <File Type="PLACE-CTRL" Name="tpu_top_axi_lite_control_sets_placed.rpt"/>
+  <File Type="PLACE-UTIL-PB" Name="tpu_top_axi_lite_utilization_placed.pb"/>
+  <File Type="PLACE-UTIL" Name="tpu_top_axi_lite_utilization_placed.rpt"/>
+  <File Type="PLACE-CLK" Name="tpu_top_axi_lite_clock_utilization_placed.rpt"/>
+  <File Type="PLACE-IO" Name="tpu_top_axi_lite_io_placed.rpt"/>
+  <File Type="PLACE-DCP" Name="tpu_top_axi_lite_placed.dcp"/>
+  <File Type="PWROPT-TIMING" Name="tpu_top_axi_lite_timing_summary_pwropted.rpt"/>
+  <File Type="PWROPT-DRC" Name="tpu_top_axi_lite_drc_pwropted.rpt"/>
+  <File Type="PWROPT-DCP" Name="tpu_top_axi_lite_pwropt.dcp"/>
+  <File Type="OPT-RQA-PB" Name="tpu_top_axi_lite_rqa_opted.pb"/>
+  <File Type="OPT-TIMING" Name="tpu_top_axi_lite_timing_summary_opted.rpt"/>
+  <File Type="OPT-HWDEF" Name="tpu_top_axi_lite.hwdef"/>
+  <File Type="OPT-METHODOLOGY-DRC" Name="tpu_top_axi_lite_methodology_drc_opted.rpt"/>
+  <File Type="OPT-UTIL-PB" Name="tpu_top_axi_lite_utilization_opted.pb"/>
+  <File Type="OPT-UTIL" Name="tpu_top_axi_lite_utilization_opted.rpt"/>
+  <File Type="OPT-DRC" Name="tpu_top_axi_lite_drc_opted.rpt"/>
+  <File Type="OPT-DCP" Name="tpu_top_axi_lite_opt.dcp"/>
+  <File Type="INIT-TIMING" Name="tpu_top_axi_lite_timing_summary_init.rpt"/>
+  <File Type="REPORTS-TCL" Name="tpu_top_axi_lite_reports.tcl"/>
+  <File Type="PA-TCL" Name="tpu_top_axi_lite.tcl"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PPRDIR/../../rtl/v3/small_cnn_sym_weights_i8.mem">
@@ -356,6 +356,14 @@
   </FileSet>
   <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1" RelGenDir="$PGENDIR/utils_1">
     <Filter Type="Utils"/>
+    <File Path="$PSRCDIR/utils_1/imports/synth_1/tpu_top_axi_lite.dcp">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedInSteps" Val="synth_1"/>
+        <Attr Name="AutoDcp" Val="1"/>
+      </FileInfo>
+    </File>
     <Config>
       <Option Name="TopAutoSet" Val="TRUE"/>
     </Config>

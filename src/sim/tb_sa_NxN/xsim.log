@@ -3,8 +3,8 @@
 # SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Thu Jun  4 09:36:26 2026
-# Process ID         : 2957870
+# Start of session at: Thu Jun  4 10:21:45 2026
+# Process ID         : 3368953
 # Current directory  : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_sa_NxN
 # Command line       : xsim -mode tcl -source {xsim.dir/test_tpu_top_end_to_end_snapshot/xsim_script.tcl}
 # Log file           : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_sa_NxN/xsim.log
@@ -13,13 +13,13 @@
 # Platform           : Ubuntu
 # Operating System   : Ubuntu 24.04.4 LTS
 # Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
-# CPU Frequency      : 3264.721 MHz
+# CPU Frequency      : 4865.554 MHz
 # CPU Physical cores : 8
 # CPU Logical cores  : 16
 # Host memory        : 32887 MB
 # Swap memory        : 25033 MB
 # Total Virtual      : 57921 MB
-# Available Virtual  : 39403 MB
+# Available Virtual  : 42748 MB
 #-----------------------------------------------------------
 source xsim.dir/test_tpu_top_end_to_end_snapshot/xsim_script.tcl
 # xsim {test_tpu_top_end_to_end_snapshot} -testplusarg E2E_FILE_CASES -testplusarg E2E_CASES=10 -testplusarg E2E_INPUT_HEX=../../../CNN_model/python/mnist_classification/18_05/e2e_cases/tpu_top_e2e_inputs_i8.hex -testplusarg E2E_LOGITS_HEX=../../../CNN_model/python/mnist_classification/18_05/e2e_cases/tpu_top_e2e_logits_i8.hex -autoloadwcfg -runall
@@ -43,14 +43,14 @@ TEST: TPU top end-to-end inference
   case[0] = file_case_0
   stage=1 cycle=1 layer_state=0 pool_state=0
   stage=2 cycle=52948 layer_state=0 pool_state=0
-  stage=3 cycle=71881 layer_state=0 pool_state=0
-  stage=4 cycle=141632 layer_state=0 pool_state=0
-  stage=5 cycle=145137 layer_state=0 pool_state=0
-  stage=6 cycle=158557 layer_state=0 pool_state=0
-  stage=0 cycle=159248 layer_state=0 pool_state=0
-  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=159248 err=0x00000000
-  CYCLES : observed=159248 rtl_total=159248 layer_sum=159248
-  LAYERS : conv1=52948 pool1=18933 conv2=69751 pool2=3505 fc1=13420 fc2=691
+  stage=3 cycle=63769 layer_state=0 pool_state=0
+  stage=4 cycle=133520 layer_state=0 pool_state=0
+  stage=5 cycle=135525 layer_state=0 pool_state=0
+  stage=6 cycle=148945 layer_state=0 pool_state=0
+  stage=0 cycle=149636 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=149636 err=0x00000000
+  CYCLES : observed=149636 rtl_total=149636 layer_sum=149636
+  LAYERS : conv1=52948 pool1=10821 conv2=69751 pool2=2005 fc1=13420 fc2=691
   PHASE  conv1: wgt=3354 act_fetch=21632 mxu_active=26376 drain=7998 acc=1438 vpu=8112 out=5408 idle=1552 state_sum=52948
   MAC    conv1: valid=64896 issued=422016 useful=48672 mxu_active_ratio=49.81% useful_pe_util=11.53% useful_per_issued=11.53%
   PHASE  conv2: wgt=5616 act_fetch=39204 mxu_active=45738 drain=13392 acc=387 vpu=2178 out=1452 idle=2284 state_sum=69751
@@ -82,14 +82,14 @@ TEST: TPU top end-to-end inference
   case[1] = file_case_1
   stage=1 cycle=1 layer_state=0 pool_state=0
   stage=2 cycle=52948 layer_state=0 pool_state=0
-  stage=3 cycle=71881 layer_state=0 pool_state=0
-  stage=4 cycle=141632 layer_state=0 pool_state=0
-  stage=5 cycle=145137 layer_state=0 pool_state=0
-  stage=6 cycle=158557 layer_state=0 pool_state=0
-  stage=0 cycle=159248 layer_state=0 pool_state=0
-  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=159248 err=0x00000000
-  CYCLES : observed=159248 rtl_total=159248 layer_sum=159248
-  LAYERS : conv1=52948 pool1=18933 conv2=69751 pool2=3505 fc1=13420 fc2=691
+  stage=3 cycle=63769 layer_state=0 pool_state=0
+  stage=4 cycle=133520 layer_state=0 pool_state=0
+  stage=5 cycle=135525 layer_state=0 pool_state=0
+  stage=6 cycle=148945 layer_state=0 pool_state=0
+  stage=0 cycle=149636 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=149636 err=0x00000000
+  CYCLES : observed=149636 rtl_total=149636 layer_sum=149636
+  LAYERS : conv1=52948 pool1=10821 conv2=69751 pool2=2005 fc1=13420 fc2=691
   PHASE  conv1: wgt=3354 act_fetch=21632 mxu_active=26376 drain=7998 acc=1438 vpu=8112 out=5408 idle=1552 state_sum=52948
   MAC    conv1: valid=64896 issued=422016 useful=48672 mxu_active_ratio=49.81% useful_pe_util=11.53% useful_per_issued=11.53%
   PHASE  conv2: wgt=5616 act_fetch=39204 mxu_active=45738 drain=13392 acc=387 vpu=2178 out=1452 idle=2284 state_sum=69751
@@ -121,14 +121,14 @@ TEST: TPU top end-to-end inference
   case[2] = file_case_2
   stage=1 cycle=1 layer_state=0 pool_state=0
   stage=2 cycle=52948 layer_state=0 pool_state=0
-  stage=3 cycle=71881 layer_state=0 pool_state=0
-  stage=4 cycle=141632 layer_state=0 pool_state=0
-  stage=5 cycle=145137 layer_state=0 pool_state=0
-  stage=6 cycle=158557 layer_state=0 pool_state=0
-  stage=0 cycle=159248 layer_state=0 pool_state=0
-  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=159248 err=0x00000000
-  CYCLES : observed=159248 rtl_total=159248 layer_sum=159248
-  LAYERS : conv1=52948 pool1=18933 conv2=69751 pool2=3505 fc1=13420 fc2=691
+  stage=3 cycle=63769 layer_state=0 pool_state=0
+  stage=4 cycle=133520 layer_state=0 pool_state=0
+  stage=5 cycle=135525 layer_state=0 pool_state=0
+  stage=6 cycle=148945 layer_state=0 pool_state=0
+  stage=0 cycle=149636 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=149636 err=0x00000000
+  CYCLES : observed=149636 rtl_total=149636 layer_sum=149636
+  LAYERS : conv1=52948 pool1=10821 conv2=69751 pool2=2005 fc1=13420 fc2=691
   PHASE  conv1: wgt=3354 act_fetch=21632 mxu_active=26376 drain=7998 acc=1438 vpu=8112 out=5408 idle=1552 state_sum=52948
   MAC    conv1: valid=64896 issued=422016 useful=48672 mxu_active_ratio=49.81% useful_pe_util=11.53% useful_per_issued=11.53%
   PHASE  conv2: wgt=5616 act_fetch=39204 mxu_active=45738 drain=13392 acc=387 vpu=2178 out=1452 idle=2284 state_sum=69751
@@ -160,14 +160,14 @@ TEST: TPU top end-to-end inference
   case[3] = file_case_3
   stage=1 cycle=1 layer_state=0 pool_state=0
   stage=2 cycle=52948 layer_state=0 pool_state=0
-  stage=3 cycle=71881 layer_state=0 pool_state=0
-  stage=4 cycle=141632 layer_state=0 pool_state=0
-  stage=5 cycle=145137 layer_state=0 pool_state=0
-  stage=6 cycle=158557 layer_state=0 pool_state=0
-  stage=0 cycle=159248 layer_state=0 pool_state=0
-  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=159248 err=0x00000000
-  CYCLES : observed=159248 rtl_total=159248 layer_sum=159248
-  LAYERS : conv1=52948 pool1=18933 conv2=69751 pool2=3505 fc1=13420 fc2=691
+  stage=3 cycle=63769 layer_state=0 pool_state=0
+  stage=4 cycle=133520 layer_state=0 pool_state=0
+  stage=5 cycle=135525 layer_state=0 pool_state=0
+  stage=6 cycle=148945 layer_state=0 pool_state=0
+  stage=0 cycle=149636 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=149636 err=0x00000000
+  CYCLES : observed=149636 rtl_total=149636 layer_sum=149636
+  LAYERS : conv1=52948 pool1=10821 conv2=69751 pool2=2005 fc1=13420 fc2=691
   PHASE  conv1: wgt=3354 act_fetch=21632 mxu_active=26376 drain=7998 acc=1438 vpu=8112 out=5408 idle=1552 state_sum=52948
   MAC    conv1: valid=64896 issued=422016 useful=48672 mxu_active_ratio=49.81% useful_pe_util=11.53% useful_per_issued=11.53%
   PHASE  conv2: wgt=5616 act_fetch=39204 mxu_active=45738 drain=13392 acc=387 vpu=2178 out=1452 idle=2284 state_sum=69751
@@ -199,14 +199,14 @@ TEST: TPU top end-to-end inference
   case[4] = file_case_4
   stage=1 cycle=1 layer_state=0 pool_state=0
   stage=2 cycle=52948 layer_state=0 pool_state=0
-  stage=3 cycle=71881 layer_state=0 pool_state=0
-  stage=4 cycle=141632 layer_state=0 pool_state=0
-  stage=5 cycle=145137 layer_state=0 pool_state=0
-  stage=6 cycle=158557 layer_state=0 pool_state=0
-  stage=0 cycle=159248 layer_state=0 pool_state=0
-  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=159248 err=0x00000000
-  CYCLES : observed=159248 rtl_total=159248 layer_sum=159248
-  LAYERS : conv1=52948 pool1=18933 conv2=69751 pool2=3505 fc1=13420 fc2=691
+  stage=3 cycle=63769 layer_state=0 pool_state=0
+  stage=4 cycle=133520 layer_state=0 pool_state=0
+  stage=5 cycle=135525 layer_state=0 pool_state=0
+  stage=6 cycle=148945 layer_state=0 pool_state=0
+  stage=0 cycle=149636 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=149636 err=0x00000000
+  CYCLES : observed=149636 rtl_total=149636 layer_sum=149636
+  LAYERS : conv1=52948 pool1=10821 conv2=69751 pool2=2005 fc1=13420 fc2=691
   PHASE  conv1: wgt=3354 act_fetch=21632 mxu_active=26376 drain=7998 acc=1438 vpu=8112 out=5408 idle=1552 state_sum=52948
   MAC    conv1: valid=64896 issued=422016 useful=48672 mxu_active_ratio=49.81% useful_pe_util=11.53% useful_per_issued=11.53%
   PHASE  conv2: wgt=5616 act_fetch=39204 mxu_active=45738 drain=13392 acc=387 vpu=2178 out=1452 idle=2284 state_sum=69751
@@ -238,14 +238,14 @@ TEST: TPU top end-to-end inference
   case[5] = file_case_5
   stage=1 cycle=1 layer_state=0 pool_state=0
   stage=2 cycle=52948 layer_state=0 pool_state=0
-  stage=3 cycle=71881 layer_state=0 pool_state=0
-  stage=4 cycle=141632 layer_state=0 pool_state=0
-  stage=5 cycle=145137 layer_state=0 pool_state=0
-  stage=6 cycle=158557 layer_state=0 pool_state=0
-  stage=0 cycle=159248 layer_state=0 pool_state=0
-  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=159248 err=0x00000000
-  CYCLES : observed=159248 rtl_total=159248 layer_sum=159248
-  LAYERS : conv1=52948 pool1=18933 conv2=69751 pool2=3505 fc1=13420 fc2=691
+  stage=3 cycle=63769 layer_state=0 pool_state=0
+  stage=4 cycle=133520 layer_state=0 pool_state=0
+  stage=5 cycle=135525 layer_state=0 pool_state=0
+  stage=6 cycle=148945 layer_state=0 pool_state=0
+  stage=0 cycle=149636 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=149636 err=0x00000000
+  CYCLES : observed=149636 rtl_total=149636 layer_sum=149636
+  LAYERS : conv1=52948 pool1=10821 conv2=69751 pool2=2005 fc1=13420 fc2=691
   PHASE  conv1: wgt=3354 act_fetch=21632 mxu_active=26376 drain=7998 acc=1438 vpu=8112 out=5408 idle=1552 state_sum=52948
   MAC    conv1: valid=64896 issued=422016 useful=48672 mxu_active_ratio=49.81% useful_pe_util=11.53% useful_per_issued=11.53%
   PHASE  conv2: wgt=5616 act_fetch=39204 mxu_active=45738 drain=13392 acc=387 vpu=2178 out=1452 idle=2284 state_sum=69751
@@ -277,14 +277,14 @@ TEST: TPU top end-to-end inference
   case[6] = file_case_6
   stage=1 cycle=1 layer_state=0 pool_state=0
   stage=2 cycle=52948 layer_state=0 pool_state=0
-  stage=3 cycle=71881 layer_state=0 pool_state=0
-  stage=4 cycle=141632 layer_state=0 pool_state=0
-  stage=5 cycle=145137 layer_state=0 pool_state=0
-  stage=6 cycle=158557 layer_state=0 pool_state=0
-  stage=0 cycle=159248 layer_state=0 pool_state=0
-  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=159248 err=0x00000000
-  CYCLES : observed=159248 rtl_total=159248 layer_sum=159248
-  LAYERS : conv1=52948 pool1=18933 conv2=69751 pool2=3505 fc1=13420 fc2=691
+  stage=3 cycle=63769 layer_state=0 pool_state=0
+  stage=4 cycle=133520 layer_state=0 pool_state=0
+  stage=5 cycle=135525 layer_state=0 pool_state=0
+  stage=6 cycle=148945 layer_state=0 pool_state=0
+  stage=0 cycle=149636 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=149636 err=0x00000000
+  CYCLES : observed=149636 rtl_total=149636 layer_sum=149636
+  LAYERS : conv1=52948 pool1=10821 conv2=69751 pool2=2005 fc1=13420 fc2=691
   PHASE  conv1: wgt=3354 act_fetch=21632 mxu_active=26376 drain=7998 acc=1438 vpu=8112 out=5408 idle=1552 state_sum=52948
   MAC    conv1: valid=64896 issued=422016 useful=48672 mxu_active_ratio=49.81% useful_pe_util=11.53% useful_per_issued=11.53%
   PHASE  conv2: wgt=5616 act_fetch=39204 mxu_active=45738 drain=13392 acc=387 vpu=2178 out=1452 idle=2284 state_sum=69751
@@ -316,14 +316,14 @@ TEST: TPU top end-to-end inference
   case[7] = file_case_7
   stage=1 cycle=1 layer_state=0 pool_state=0
   stage=2 cycle=52948 layer_state=0 pool_state=0
-  stage=3 cycle=71881 layer_state=0 pool_state=0
-  stage=4 cycle=141632 layer_state=0 pool_state=0
-  stage=5 cycle=145137 layer_state=0 pool_state=0
-  stage=6 cycle=158557 layer_state=0 pool_state=0
-  stage=0 cycle=159248 layer_state=0 pool_state=0
-  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=159248 err=0x00000000
-  CYCLES : observed=159248 rtl_total=159248 layer_sum=159248
-  LAYERS : conv1=52948 pool1=18933 conv2=69751 pool2=3505 fc1=13420 fc2=691
+  stage=3 cycle=63769 layer_state=0 pool_state=0
+  stage=4 cycle=133520 layer_state=0 pool_state=0
+  stage=5 cycle=135525 layer_state=0 pool_state=0
+  stage=6 cycle=148945 layer_state=0 pool_state=0
+  stage=0 cycle=149636 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=149636 err=0x00000000
+  CYCLES : observed=149636 rtl_total=149636 layer_sum=149636
+  LAYERS : conv1=52948 pool1=10821 conv2=69751 pool2=2005 fc1=13420 fc2=691
   PHASE  conv1: wgt=3354 act_fetch=21632 mxu_active=26376 drain=7998 acc=1438 vpu=8112 out=5408 idle=1552 state_sum=52948
   MAC    conv1: valid=64896 issued=422016 useful=48672 mxu_active_ratio=49.81% useful_pe_util=11.53% useful_per_issued=11.53%
   PHASE  conv2: wgt=5616 act_fetch=39204 mxu_active=45738 drain=13392 acc=387 vpu=2178 out=1452 idle=2284 state_sum=69751
@@ -355,14 +355,14 @@ TEST: TPU top end-to-end inference
   case[8] = file_case_8
   stage=1 cycle=1 layer_state=0 pool_state=0
   stage=2 cycle=52948 layer_state=0 pool_state=0
-  stage=3 cycle=71881 layer_state=0 pool_state=0
-  stage=4 cycle=141632 layer_state=0 pool_state=0
-  stage=5 cycle=145137 layer_state=0 pool_state=0
-  stage=6 cycle=158557 layer_state=0 pool_state=0
-  stage=0 cycle=159248 layer_state=0 pool_state=0
-  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=159248 err=0x00000000
-  CYCLES : observed=159248 rtl_total=159248 layer_sum=159248
-  LAYERS : conv1=52948 pool1=18933 conv2=69751 pool2=3505 fc1=13420 fc2=691
+  stage=3 cycle=63769 layer_state=0 pool_state=0
+  stage=4 cycle=133520 layer_state=0 pool_state=0
+  stage=5 cycle=135525 layer_state=0 pool_state=0
+  stage=6 cycle=148945 layer_state=0 pool_state=0
+  stage=0 cycle=149636 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=149636 err=0x00000000
+  CYCLES : observed=149636 rtl_total=149636 layer_sum=149636
+  LAYERS : conv1=52948 pool1=10821 conv2=69751 pool2=2005 fc1=13420 fc2=691
   PHASE  conv1: wgt=3354 act_fetch=21632 mxu_active=26376 drain=7998 acc=1438 vpu=8112 out=5408 idle=1552 state_sum=52948
   MAC    conv1: valid=64896 issued=422016 useful=48672 mxu_active_ratio=49.81% useful_pe_util=11.53% useful_per_issued=11.53%
   PHASE  conv2: wgt=5616 act_fetch=39204 mxu_active=45738 drain=13392 acc=387 vpu=2178 out=1452 idle=2284 state_sum=69751
@@ -394,14 +394,14 @@ TEST: TPU top end-to-end inference
   case[9] = file_case_9
   stage=1 cycle=1 layer_state=0 pool_state=0
   stage=2 cycle=52948 layer_state=0 pool_state=0
-  stage=3 cycle=71881 layer_state=0 pool_state=0
-  stage=4 cycle=141632 layer_state=0 pool_state=0
-  stage=5 cycle=145137 layer_state=0 pool_state=0
-  stage=6 cycle=158557 layer_state=0 pool_state=0
-  stage=0 cycle=159248 layer_state=0 pool_state=0
-  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=159248 err=0x00000000
-  CYCLES : observed=159248 rtl_total=159248 layer_sum=159248
-  LAYERS : conv1=52948 pool1=18933 conv2=69751 pool2=3505 fc1=13420 fc2=691
+  stage=3 cycle=63769 layer_state=0 pool_state=0
+  stage=4 cycle=133520 layer_state=0 pool_state=0
+  stage=5 cycle=135525 layer_state=0 pool_state=0
+  stage=6 cycle=148945 layer_state=0 pool_state=0
+  stage=0 cycle=149636 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=149636 err=0x00000000
+  CYCLES : observed=149636 rtl_total=149636 layer_sum=149636
+  LAYERS : conv1=52948 pool1=10821 conv2=69751 pool2=2005 fc1=13420 fc2=691
   PHASE  conv1: wgt=3354 act_fetch=21632 mxu_active=26376 drain=7998 acc=1438 vpu=8112 out=5408 idle=1552 state_sum=52948
   MAC    conv1: valid=64896 issued=422016 useful=48672 mxu_active_ratio=49.81% useful_pe_util=11.53% useful_per_issued=11.53%
   PHASE  conv2: wgt=5616 act_fetch=39204 mxu_active=45738 drain=13392 acc=387 vpu=2178 out=1452 idle=2284 state_sum=69751
@@ -419,8 +419,8 @@ TEST: Host readback final logits
   expected logits {-26,-58,-43,-15,10,-6,-62,40,29,71}
   mismatches: 0
 test_tpu_top_end_to_end: checks=130 pass=130 fail=0
-$finish called at time : 16084 us : File "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_sa_NxN/test_tpu_top_end_to_end.sv" Line 641
-run: Time (s): cpu = 00:00:00.03 ; elapsed = 00:00:12 . Memory (MB): peak = 1458.887 ; gain = 8.004 ; free physical = 3652 ; free virtual = 37068
+$finish called at time : 15122800 ns : File "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_sa_NxN/test_tpu_top_end_to_end.sv" Line 641
+run: Time (s): cpu = 00:00:00.03 ; elapsed = 00:00:12 . Memory (MB): peak = 1458.887 ; gain = 8.004 ; free physical = 9962 ; free virtual = 40663
 exit
-INFO: xsimkernel Simulation Memory Usage: 300996 KB (Peak: 345456 KB), Simulation CPU Usage: 12930 ms
-INFO: [Common 17-206] Exiting xsim at Thu Jun  4 09:36:40 2026...
+INFO: xsimkernel Simulation Memory Usage: 301000 KB (Peak: 345460 KB), Simulation CPU Usage: 12900 ms
+INFO: [Common 17-206] Exiting xsim at Thu Jun  4 10:21:59 2026...

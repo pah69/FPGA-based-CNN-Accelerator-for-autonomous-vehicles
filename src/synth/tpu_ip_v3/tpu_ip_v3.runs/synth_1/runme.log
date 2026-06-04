@@ -7,20 +7,25 @@
   **** SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
   **** IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
   **** SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-  **** Start of session at: Thu Jun  4 10:03:45 2026
+  **** Start of session at: Thu Jun  4 10:25:53 2026
     ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
     ** Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 
 source tpu_top_axi_lite.tcl -notrace
+Command: read_checkpoint -auto_incremental -incremental /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/utils_1/imports/synth_1/tpu_top_axi_lite.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/utils_1/imports/synth_1/tpu_top_axi_lite.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
 Command: synth_design -top tpu_top_axi_lite -part xczu7ev-ffvc1156-2-e
 Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xczu7ev'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xczu7ev'
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 3160580
+INFO: [Synth 8-7075] Helper process launched with PID 3408648
 ---------------------------------------------------------------------------------
-Starting Synthesize : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 2085.246 ; gain = 449.484 ; free physical = 5598 ; free virtual = 38810
+Starting Synthesize : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2088.844 ; gain = 454.078 ; free physical = 8959 ; free virtual = 39629
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-6157] synthesizing module 'tpu_top_axi_lite' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/tpu_top_axi_lite.sv:4]
 INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/tpu_top_axi_lite.sv:225]
@@ -297,7 +302,7 @@ INFO: [Synth 8-6157] synthesizing module 'maxpool2d_unit' [/home/pah/fpga_cnn_ac
 	Parameter BANK_DEPTH bound to: 32'sb00000000000000000010000000000000 
 	Parameter ADDR_WIDTH bound to: 32'sb00000000000000000000000000001101 
 	Parameter DIM_WIDTH bound to: 32'sb00000000000000000000000000010000 
-INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/maxpool2d_unit.sv:154]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/maxpool2d_unit.sv:158]
 INFO: [Synth 8-6155] done synthesizing module 'maxpool2d_unit' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/maxpool2d_unit.sv:4]
 INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/tpu_top.sv:624]
 INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/tpu_top.sv:636]
@@ -421,19 +426,19 @@ WARNING: [Synth 8-7129] Port s_axi_wdata[17] in module tpu_top_axi_lite is eithe
 WARNING: [Synth 8-7129] Port s_axi_wdata[16] in module tpu_top_axi_lite is either unconnected or has no load
 WARNING: [Synth 8-7129] Port s_axi_wstrb[2] in module tpu_top_axi_lite is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished Synthesize : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 2276.215 ; gain = 640.453 ; free physical = 5360 ; free virtual = 38574
+Finished Synthesize : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2279.781 ; gain = 645.016 ; free physical = 8749 ; free virtual = 39420
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2282.152 ; gain = 646.391 ; free physical = 5387 ; free virtual = 38601
+Finished Constraint Validation : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2279.781 ; gain = 645.016 ; free physical = 8859 ; free virtual = 39530
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xczu7ev-ffvc1156-2-e
-INFO: [Device 21-403] Loading part xczu7ev-ffvc1156-2-e
 INFO: [Synth 8-6742] Reading net delay rules and data
+INFO: [Device 21-403] Loading part xczu7ev-ffvc1156-2-e
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2282.152 ; gain = 646.391 ; free physical = 5383 ; free virtual = 38600
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2279.781 ; gain = 645.016 ; free physical = 8862 ; free virtual = 39533
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'state_q_reg' in module 'tpu_controller_rom_kloop'
 INFO: [Synth 8-802] inferred FSM for state register 'state_q_reg' in module 'tpu_controller_rom_layer'
@@ -515,7 +520,7 @@ INFO: [Synth 8-3354] encoded FSM with state register 'state_q_reg' using encodin
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'state_q_reg' using encoding 'sequential' in module 'tpu_top'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:14 ; elapsed = 00:00:11 . Memory (MB): peak = 3345.059 ; gain = 1709.297 ; free physical = 4405 ; free virtual = 37626
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:14 ; elapsed = 00:00:11 . Memory (MB): peak = 3348.680 ; gain = 1713.914 ; free physical = 7971 ; free virtual = 38642
 ---------------------------------------------------------------------------------
 No constraint files found.
 ---------------------------------------------------------------------------------
@@ -543,8 +548,8 @@ Detailed RTL Component Info :
 	   2 Input    5 Bit       Adders := 8     
 	  16 Input    5 Bit       Adders := 1     
 	   2 Input    4 Bit       Adders := 10    
-	   2 Input    3 Bit       Adders := 2     
-	   2 Input    2 Bit       Adders := 1     
+	   2 Input    3 Bit       Adders := 4     
+	   2 Input    2 Bit       Adders := 2     
 +---XORs : 
 	   2 Input      1 Bit         XORs := 24    
 +---Registers : 
@@ -559,8 +564,8 @@ Detailed RTL Component Info :
 	                6 Bit    Registers := 4     
 	                5 Bit    Registers := 9     
 	                4 Bit    Registers := 97    
-	                3 Bit    Registers := 1     
-	                2 Bit    Registers := 6     
+	                3 Bit    Registers := 2     
+	                2 Bit    Registers := 7     
 	                1 Bit    Registers := 331   
 +---Multipliers : 
 	              16x32  Multipliers := 2     
@@ -609,22 +614,22 @@ Detailed RTL Component Info :
 	  15 Input    4 Bit        Muxes := 1     
 	   8 Input    4 Bit        Muxes := 1     
 	  17 Input    4 Bit        Muxes := 2     
-	   2 Input    3 Bit        Muxes := 17    
+	   2 Input    3 Bit        Muxes := 16    
 	   7 Input    3 Bit        Muxes := 1     
-	   8 Input    3 Bit        Muxes := 1     
+	   8 Input    3 Bit        Muxes := 2     
 	   4 Input    3 Bit        Muxes := 2     
 	   5 Input    3 Bit        Muxes := 1     
 	   3 Input    2 Bit        Muxes := 6     
 	   4 Input    2 Bit        Muxes := 3     
-	   8 Input    2 Bit        Muxes := 1     
+	   8 Input    2 Bit        Muxes := 2     
 	   2 Input    2 Bit        Muxes := 7     
 	  17 Input    2 Bit        Muxes := 1     
-	   2 Input    1 Bit        Muxes := 1014  
+	   2 Input    1 Bit        Muxes := 1015  
 	   4 Input    1 Bit        Muxes := 40    
-	   3 Input    1 Bit        Muxes := 2     
+	   3 Input    1 Bit        Muxes := 3     
 	   7 Input    1 Bit        Muxes := 6     
 	  15 Input    1 Bit        Muxes := 41    
-	   8 Input    1 Bit        Muxes := 17    
+	   8 Input    1 Bit        Muxes := 19    
 	  17 Input    1 Bit        Muxes := 36    
 	   5 Input    1 Bit        Muxes := 13    
 ---------------------------------------------------------------------------------
@@ -736,7 +741,7 @@ WARNING: [Synth 8-7129] Port s_axi_wdata[17] in module tpu_top_axi_lite is eithe
 WARNING: [Synth 8-7129] Port s_axi_wdata[16] in module tpu_top_axi_lite is either unconnected or has no load
 WARNING: [Synth 8-7129] Port s_axi_wstrb[2] in module tpu_top_axi_lite is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:54 ; elapsed = 00:00:53 . Memory (MB): peak = 3457.996 ; gain = 1822.234 ; free physical = 4315 ; free virtual = 37579
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:56 ; elapsed = 00:00:54 . Memory (MB): peak = 3461.617 ; gain = 1826.852 ; free physical = 6858 ; free virtual = 37647
 ---------------------------------------------------------------------------------
  Sort Area is tpu_datapath_v2__GB0 (null)[0].shifted_value0_0 : 0 0 : 2701 4864 : Used 1 time 0
  Sort Area is tpu_datapath_v2__GB0 (null)[0].shifted_value0_0 : 0 1 : 2163 4864 : Used 1 time 0
@@ -863,7 +868,7 @@ No constraint files found.
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:55 ; elapsed = 00:00:54 . Memory (MB): peak = 3457.996 ; gain = 1822.234 ; free physical = 4296 ; free virtual = 37564
+Finished Timing Optimization : Time (s): cpu = 00:00:57 ; elapsed = 00:00:55 . Memory (MB): peak = 3461.617 ; gain = 1826.852 ; free physical = 6865 ; free virtual = 37655
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -918,7 +923,7 @@ INFO: [Synth 8-7052] The timing for the instance u_tpu_top/u_layer_controller/u_
 INFO: [Synth 8-7052] The timing for the instance u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[14].u_weight_rom/data_o_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 INFO: [Synth 8-7052] The timing for the instance u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[14].u_weight_rom/data_o_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:58 ; elapsed = 00:00:57 . Memory (MB): peak = 3457.996 ; gain = 1822.234 ; free physical = 4336 ; free virtual = 37607
+Finished Technology Mapping : Time (s): cpu = 00:01:00 ; elapsed = 00:00:59 . Memory (MB): peak = 3461.617 ; gain = 1826.852 ; free physical = 7064 ; free virtual = 37854
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -936,37 +941,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:01:01 ; elapsed = 00:01:00 . Memory (MB): peak = 3457.996 ; gain = 1822.234 ; free physical = 4301 ; free virtual = 37571
+Finished IO Insertion : Time (s): cpu = 00:01:03 ; elapsed = 00:01:02 . Memory (MB): peak = 3461.617 ; gain = 1826.852 ; free physical = 7168 ; free virtual = 37959
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:01:01 ; elapsed = 00:01:00 . Memory (MB): peak = 3457.996 ; gain = 1822.234 ; free physical = 4303 ; free virtual = 37573
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:03 ; elapsed = 00:01:02 . Memory (MB): peak = 3461.617 ; gain = 1826.852 ; free physical = 7170 ; free virtual = 37960
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:02 ; elapsed = 00:01:01 . Memory (MB): peak = 3457.996 ; gain = 1822.234 ; free physical = 4322 ; free virtual = 37592
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:04 ; elapsed = 00:01:03 . Memory (MB): peak = 3461.617 ; gain = 1826.852 ; free physical = 7162 ; free virtual = 37953
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:01:02 ; elapsed = 00:01:01 . Memory (MB): peak = 3457.996 ; gain = 1822.234 ; free physical = 4328 ; free virtual = 37598
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:04 ; elapsed = 00:01:03 . Memory (MB): peak = 3461.617 ; gain = 1826.852 ; free physical = 7176 ; free virtual = 37967
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:01:03 ; elapsed = 00:01:02 . Memory (MB): peak = 3457.996 ; gain = 1822.234 ; free physical = 4299 ; free virtual = 37569
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:05 ; elapsed = 00:01:04 . Memory (MB): peak = 3461.617 ; gain = 1826.852 ; free physical = 7173 ; free virtual = 37964
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:01:03 ; elapsed = 00:01:02 . Memory (MB): peak = 3457.996 ; gain = 1822.234 ; free physical = 4292 ; free virtual = 37562
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:05 ; elapsed = 00:01:04 . Memory (MB): peak = 3461.617 ; gain = 1826.852 ; free physical = 7173 ; free virtual = 37964
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -1037,16 +1042,16 @@ Report Cell Usage:
 |2     |CARRY8   |   754|
 |3     |DSP48E2  |    28|
 |4     |LUT1     |   167|
-|5     |LUT2     |  4717|
-|6     |LUT3     |  1354|
-|7     |LUT4     |  2231|
-|8     |LUT5     |  2175|
-|9     |LUT6     |  6149|
+|5     |LUT2     |  4712|
+|6     |LUT3     |  1330|
+|7     |LUT4     |  2240|
+|8     |LUT5     |  2171|
+|9     |LUT6     |  6171|
 |10    |MUXF7    |   506|
 |11    |MUXF8    |    68|
 |12    |RAMB36E2 |    20|
 |13    |SRL16E   |    24|
-|14    |FDCE     |  9326|
+|14    |FDCE     |  9331|
 |15    |FDPE     |    17|
 |16    |FDRE     |   568|
 |17    |IBUF     |    40|
@@ -1057,8 +1062,8 @@ Report Instance Areas:
 +------+------------------------------------------------+--------------------------+------+
 |      |Instance                                        |Module                    |Cells |
 +------+------------------------------------------------+--------------------------+------+
-|1     |top                                             |                          | 28186|
-|2     |  u_tpu_top                                     |tpu_top                   | 27648|
+|1     |top                                             |                          | 28189|
+|2     |  u_tpu_top                                     |tpu_top                   | 27651|
 |3     |    u_datapath                                  |tpu_datapath_v2           | 18993|
 |4     |      u_accumulator_array                       |accumulator_array_v2      |  5486|
 |5     |      u_mxu                                     |mxu_2x2                   |  6519|
@@ -1127,17 +1132,17 @@ Report Instance Areas:
 |68    |        \GEN_WEIGHT_ROMS[4].u_weight_rom        |weight_rom_13             |   132|
 |69    |        \GEN_WEIGHT_ROMS[6].u_weight_rom        |weight_rom_14             |   159|
 |70    |        \GEN_WEIGHT_ROMS[8].u_weight_rom        |weight_rom_15             |   223|
-|71    |    u_maxpool2d_unit                            |maxpool2d_unit            |   465|
-|72    |    u_unified_buffer                            |unified_buffer            |    60|
+|71    |    u_maxpool2d_unit                            |maxpool2d_unit            |   467|
+|72    |    u_unified_buffer                            |unified_buffer            |    61|
 +------+------------------------------------------------+--------------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:01:03 ; elapsed = 00:01:02 . Memory (MB): peak = 3457.996 ; gain = 1822.234 ; free physical = 4294 ; free virtual = 37563
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:05 ; elapsed = 00:01:04 . Memory (MB): peak = 3461.617 ; gain = 1826.852 ; free physical = 7173 ; free virtual = 37964
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 128 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:01:03 ; elapsed = 00:01:02 . Memory (MB): peak = 3457.996 ; gain = 1822.234 ; free physical = 4293 ; free virtual = 37563
-Synthesis Optimization Complete : Time (s): cpu = 00:01:03 ; elapsed = 00:01:02 . Memory (MB): peak = 3458.004 ; gain = 1822.234 ; free physical = 4293 ; free virtual = 37563
+Synthesis Optimization Runtime : Time (s): cpu = 00:01:05 ; elapsed = 00:01:04 . Memory (MB): peak = 3461.617 ; gain = 1826.852 ; free physical = 7172 ; free virtual = 37963
+Synthesis Optimization Complete : Time (s): cpu = 00:01:05 ; elapsed = 00:01:04 . Memory (MB): peak = 3461.625 ; gain = 1826.852 ; free physical = 7172 ; free virtual = 37963
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00.15 ; elapsed = 00:00:00.14 . Memory (MB): peak = 3458.004 ; gain = 0.000 ; free physical = 4388 ; free virtual = 37658
+Netlist sorting complete. Time (s): cpu = 00:00:00.15 ; elapsed = 00:00:00.15 . Memory (MB): peak = 3461.625 ; gain = 0.000 ; free physical = 7291 ; free virtual = 38082
 INFO: [Netlist 29-17] Analyzing 1397 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
@@ -1158,21 +1163,21 @@ INFO: [Opt 31-422] The CLOCK_DOMAINS attribute on the BRAM cell u_tpu_top/u_laye
 INFO: [Opt 31-422] The CLOCK_DOMAINS attribute on the BRAM cell u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[6].u_weight_rom/data_o_reg_1 has been changed from INDEPENDENT to COMMON to match the clocking topology used for the BRAM.
 INFO: [Opt 31-422] The CLOCK_DOMAINS attribute on the BRAM cell u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[8].u_weight_rom/data_o_reg_0 has been changed from INDEPENDENT to COMMON to match the clocking topology used for the BRAM.
 INFO: [Opt 31-422] The CLOCK_DOMAINS attribute on the BRAM cell u_tpu_top/u_layer_controller/u_tile_controller/GEN_WEIGHT_ROMS[8].u_weight_rom/data_o_reg_1 has been changed from INDEPENDENT to COMMON to match the clocking topology used for the BRAM.
-Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3498.016 ; gain = 0.000 ; free physical = 4412 ; free virtual = 37682
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3501.637 ; gain = 0.000 ; free physical = 7421 ; free virtual = 38217
 INFO: [Project 1-111] Unisim Transformation Summary:
   A total of 69 instances were transformed.
   BUFG => BUFGCE: 1 instance 
   DSP48E2 => DSP48E2 (DSP_ALU, DSP_A_B_DATA, DSP_C_DATA, DSP_MULTIPLIER, DSP_M_DATA, DSP_OUTPUT, DSP_PREADD, DSP_PREADD_DATA): 28 instances
   IBUF => IBUF (IBUFCTRL, INBUF): 40 instances
 
-Synth Design complete | Checksum: 8fc47f4d
+Synth Design complete | Checksum: 241223be
 INFO: [Common 17-83] Releasing license: Synthesis
-175 Infos, 128 Warnings, 0 Critical Warnings and 0 Errors encountered.
+179 Infos, 128 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:01:09 ; elapsed = 00:01:06 . Memory (MB): peak = 3498.051 ; gain = 1862.289 ; free physical = 4406 ; free virtual = 37677
-INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 2876.357; main = 2649.905; forked = 281.979
-INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 4471.203; main = 3498.020; forked = 1013.203
-Write ShapeDB Complete: Time (s): cpu = 00:00:00.07 ; elapsed = 00:00:00.03 . Memory (MB): peak = 3522.027 ; gain = 0.000 ; free physical = 4422 ; free virtual = 37694
+synth_design: Time (s): cpu = 00:01:11 ; elapsed = 00:01:08 . Memory (MB): peak = 3501.672 ; gain = 1866.906 ; free physical = 7415 ; free virtual = 38212
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 2880.066; main = 2660.452; forked = 282.007
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 4474.828; main = 3501.641; forked = 1013.207
+Write ShapeDB Complete: Time (s): cpu = 00:00:00.08 ; elapsed = 00:00:00.03 . Memory (MB): peak = 3525.648 ; gain = 0.000 ; free physical = 7409 ; free virtual = 38209
 INFO: [Common 17-1381] The checkpoint '/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.runs/synth_1/tpu_top_axi_lite.dcp' has been generated.
 INFO: [Vivado 12-24828] Executing command : report_utilization -file tpu_top_axi_lite_utilization_synth.rpt -pb tpu_top_axi_lite_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Thu Jun  4 10:04:55 2026...
+INFO: [Common 17-206] Exiting Vivado at Thu Jun  4 10:27:05 2026...
