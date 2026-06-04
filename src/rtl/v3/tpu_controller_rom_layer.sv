@@ -146,7 +146,7 @@ module tpu_controller_rom_layer #(
   logic tile_busy_w;
   logic tile_error_w;
   logic [4:0] tile_state_w;
-  logic [15:0] tile_cycle_count_w;
+  logic [31:0] tile_cycle_count_w;
   logic [15:0] tile_k_tile_w;
   logic [31:0] tile_useful_mac_count_w;
   logic [31:0] tile_error_code_w;

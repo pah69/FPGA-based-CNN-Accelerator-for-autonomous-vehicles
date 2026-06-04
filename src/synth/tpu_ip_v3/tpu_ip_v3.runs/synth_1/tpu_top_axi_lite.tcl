@@ -56,6 +56,12 @@ if {$::dispatch::connected} {
 }
 
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_param power.BramSDPPropagationFix 1
+set_param power.enableLutRouteBelPower 1
+set_param power.enableCarry8RouteBelPower 1
+set_param power.enableUnconnectedCarry8PinPower 1
+set_param physdb.placeDBImplUsesPlaceStorage 0
+set_param chipscope.maxJobs 4
 set_param general.usePosixSpawnForFork 1
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xczu7ev-ffvc1156-2-e
@@ -73,41 +79,41 @@ set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_mem {
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/small_cnn_sym_weights_i8.mem
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/small_cnn_sym_biases_i32.mem
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/small_cnn_sym_requant_mult_i32.mem
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/small_cnn_sym_requant_shift_u6.mem
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/small_cnn_sym_weights_i8.mem
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/small_cnn_sym_biases_i32.mem
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/small_cnn_sym_requant_mult_i32.mem
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/small_cnn_sym_requant_shift_u6.mem
 }
 read_verilog -library xil_defaultlib -sv {
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/accumulator_array_v2.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/act_skew_buffer.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/activation_array_v2.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/bias_requantize_v2.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/bias_rom.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/conv_fc_address_generator.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/fifo.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/layer_descriptor_pkg.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/layer_descriptor_rom.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/maxpool2d_unit.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/multiplier.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/mxu_2x2.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/normalizer_v2.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/pe.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/pooling_unit_v2.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/post_process_v2.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/psum_packer_v2.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/requant_mult_rom.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/requant_shift_rom.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_kloop.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_layer.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_datapath_v2.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_top.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/unified_buffer.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/vector_processing_unit_v2.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/weight_rom.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/wgt_fetcher_2x2.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/ws_sa_2x2.sv
-  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_top_axi_lite.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/accumulator_array_v2.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/act_skew_buffer.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/activation_array_v2.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/bias_requantize_v2.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/bias_rom.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/conv_fc_address_generator.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/fifo.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/layer_descriptor_pkg.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/layer_descriptor_rom.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/maxpool2d_unit.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/multiplier.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/mxu_2x2.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/normalizer_v2.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/pe.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/pooling_unit_v2.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/post_process_v2.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/psum_packer_v2.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/requant_mult_rom.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/requant_shift_rom.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/tpu_controller_rom_kloop.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/tpu_controller_rom_layer.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/tpu_datapath_v2.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/tpu_top.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/unified_buffer.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/vector_processing_unit_v2.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/weight_rom.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/wgt_fetcher_2x2.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/ws_sa_2x2.sv
+  /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v3/tpu_top_axi_lite.sv
 }
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being

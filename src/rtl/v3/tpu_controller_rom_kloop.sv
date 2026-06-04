@@ -205,6 +205,8 @@ module tpu_controller_rom_kloop #(
   logic [ACC_ADDR_WIDTH:0] acc_read_idx_q;
   logic [15:0] weight_stream_row_q;
   logic [15:0] act_fetch_lane_q;
+  logic [1:0] act_read_valid_pipe_q;
+  logic [15:0] act_read_lane_pipe_q[0:1];
   logic [15:0] output_lane_q;
   logic signed [(BIAS_WIDTH*SIZE)-1:0] bias_flatten_q;
   logic signed [(REQUANT_MULT_WIDTH*SIZE)-1:0] requant_multiplier_flatten_q;
@@ -231,6 +233,7 @@ module tpu_controller_rom_kloop #(
   logic [ADDR_CALC_WIDTH-1:0] output_spatial_w;
   logic [ADDR_CALC_WIDTH-1:0] act_lane_addr_w;
   logic [ADDR_CALC_WIDTH-1:0] output_lane_addr_w;
+  logic act_read_capture_w;
   logic inner_read_bank_w;
   logic inner_write_bank_w;
   logic signed [(DATA_WIDTH*SIZE)-1:0] weight_stream_row_data_w;
@@ -392,9 +395,10 @@ module tpu_controller_rom_kloop #(
   assign inner_read_bank_w = use_descriptor_banks_q ? desc_read_bank_w : read_bank_q;
   assign inner_write_bank_w = use_descriptor_banks_q ? desc_write_bank_w : write_bank_q;
   assign last_k_tile_w = ((TILE_COUNT_WIDTH'(k_tile_q) + TILE_COUNT_WIDTH'(1)) >= num_tiles_q);
+  assign act_read_capture_w = ub_rd_valid_i && act_read_valid_pipe_q[1];
 
   assign output_spatial_w = ADDR_CALC_WIDTH'(spatial_idx_q) + ADDR_CALC_WIDTH'(acc_read_idx_q);
-  assign act_lane_addr_w = act_addr_w[act_fetch_lane_q];
+  assign act_lane_addr_w = (act_fetch_lane_q < 16'(SIZE)) ? act_addr_w[act_fetch_lane_q] : '0;
   assign output_lane_addr_w = output_addr_w[output_lane_q];
 
   always_comb begin
@@ -465,6 +469,7 @@ module tpu_controller_rom_kloop #(
       acc_read_idx_q <= '0;
       weight_stream_row_q <= '0;
       act_fetch_lane_q <= '0;
+      act_read_valid_pipe_q <= '0;
       output_lane_q <= '0;
       wgt_load_seen_q <= '0;
       vpu_data_q <= '0;
@@ -501,6 +506,10 @@ module tpu_controller_rom_kloop #(
       vpu_requant_shift_flatten_o <= '0;
       vpu_output_zero_point_o <= '0;
 
+      for (int idx = 0; idx < 2; idx++) begin
+        act_read_lane_pipe_q[idx] <= '0;
+      end
+
       for (int lane = 0; lane < SIZE; lane++) begin
         act_lane_q[lane] <= '0;
       end
@@ -526,6 +535,15 @@ module tpu_controller_rom_kloop #(
       vpu_requant_multiplier_flatten_o <= requant_multiplier_flatten_q;
       vpu_requant_shift_flatten_o <= requant_shift_flatten_q;
       vpu_output_zero_point_o <= '0;
+
+      act_read_valid_pipe_q[1] <= act_read_valid_pipe_q[0];
+      act_read_valid_pipe_q[0] <= 1'b0;
+      act_read_lane_pipe_q[1] <= act_read_lane_pipe_q[0];
+      act_read_lane_pipe_q[0] <= '0;
+
+      if (act_read_capture_w) begin
+        act_lane_q[act_read_lane_pipe_q[1]] <= ub_rd_data_i;
+      end
 
       if (state_q != S_IDLE && state_q != S_DONE && state_q != S_ERROR) begin
         dbg_cycle_count_o <= dbg_cycle_count_o + 32'd1;
@@ -687,39 +705,53 @@ module tpu_controller_rom_kloop #(
             if (&(wgt_load_seen_q | wgt_load_done_i)) begin
               stream_idx_q <= '0;
               act_fetch_lane_q <= '0;
+              act_read_valid_pipe_q <= '0;
+              act_read_lane_pipe_q[0] <= '0;
+              act_read_lane_pipe_q[1] <= '0;
               state_q <= S_READ_ACT_REQ;
             end
           end
 
           S_READ_ACT_REQ: begin
-            if (act_zero_w[act_fetch_lane_q]) begin
-              act_lane_q[act_fetch_lane_q] <= '0;
-              if ((act_fetch_lane_q + 16'd1) >= 16'(SIZE)) begin
-                state_q <= S_LAUNCH_ACT;
-              end else begin
-                act_fetch_lane_q <= act_fetch_lane_q + 16'd1;
-              end
-            end else if (act_lane_addr_w >= ADDR_CALC_WIDTH'(BANK_DEPTH)) begin
-              state_q <= S_ERROR;
-              error_o <= 1'b1;
-              dbg_error_code_o <= ERR_INPUT_ADDR;
-            end else begin
-              ub_rd_en_o <= 1'b1;
-              ub_rd_bank_o <= inner_read_bank_w;
-              ub_rd_addr_o <= UB_ADDR_WIDTH'(act_lane_addr_w);
+            if (act_fetch_lane_q >= 16'(SIZE)) begin
               state_q <= S_READ_ACT_WAIT;
+            end else begin
+              if (act_zero_w[act_fetch_lane_q]) begin
+                act_lane_q[act_fetch_lane_q] <= '0;
+              end else if (act_lane_addr_w >= ADDR_CALC_WIDTH'(BANK_DEPTH)) begin
+                state_q <= S_ERROR;
+                error_o <= 1'b1;
+                dbg_error_code_o <= ERR_INPUT_ADDR;
+              end else begin
+                ub_rd_en_o <= 1'b1;
+                ub_rd_bank_o <= inner_read_bank_w;
+                ub_rd_addr_o <= UB_ADDR_WIDTH'(act_lane_addr_w);
+                act_read_valid_pipe_q[0] <= 1'b1;
+                act_read_lane_pipe_q[0] <= act_fetch_lane_q;
+              end
+
+              if (act_zero_w[act_fetch_lane_q]
+                  || (act_lane_addr_w < ADDR_CALC_WIDTH'(BANK_DEPTH))) begin
+                if ((act_fetch_lane_q + 16'd1) >= 16'(SIZE)) begin
+                  act_fetch_lane_q <= 16'(SIZE);
+                  if (act_zero_w[act_fetch_lane_q]
+                      && !act_read_valid_pipe_q[0]
+                      && (!act_read_valid_pipe_q[1] || act_read_capture_w)) begin
+                    state_q <= S_LAUNCH_ACT;
+                  end else begin
+                    state_q <= S_READ_ACT_WAIT;
+                  end
+                end else begin
+                  act_fetch_lane_q <= act_fetch_lane_q + 16'd1;
+                end
+              end
             end
           end
 
           S_READ_ACT_WAIT: begin
-            if (ub_rd_valid_i) begin
-              act_lane_q[act_fetch_lane_q] <= ub_rd_data_i;
-              if ((act_fetch_lane_q + 16'd1) >= 16'(SIZE)) begin
-                state_q <= S_LAUNCH_ACT;
-              end else begin
-                act_fetch_lane_q <= act_fetch_lane_q + 16'd1;
-                state_q <= S_READ_ACT_REQ;
-              end
+            if (!act_read_valid_pipe_q[0]
+                && (!act_read_valid_pipe_q[1] || act_read_capture_w)) begin
+              state_q <= S_LAUNCH_ACT;
             end
           end
 
@@ -735,6 +767,9 @@ module tpu_controller_rom_kloop #(
             end else begin
               stream_idx_q <= stream_idx_q + ACC_COUNT_WIDTH'(1);
               act_fetch_lane_q <= '0;
+              act_read_valid_pipe_q <= '0;
+              act_read_lane_pipe_q[0] <= '0;
+              act_read_lane_pipe_q[1] <= '0;
               state_q <= S_READ_ACT_REQ;
             end
           end
