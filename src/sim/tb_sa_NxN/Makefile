@@ -32,6 +32,12 @@ TOP_MODULE ?= $(TOP_$(TEST))
 SNAPSHOT   ?= $(TOP_MODULE)_snapshot
 TB_FILE    ?= $(SIM_DIR)/$(TOP_MODULE).sv
 XSIM_ARGS  ?=
+TPU_SIZE   ?= $(if $(filter v3,$(RTL_VERSION)),4,2)
+XVLOG_FLAGS ?= -d TPU_SIZE=$(TPU_SIZE)
+MEM_FILES  = small_cnn_sym_weights_i8.mem \
+             small_cnn_sym_biases_i32.mem \
+             small_cnn_sym_requant_mult_i32.mem \
+             small_cnn_sym_requant_shift_u6.mem
 
 E2E_CASES      ?= 4
 E2E_CASE_DIR   ?= ../../../CNN_model/python/mnist_classification/18_05/e2e_cases
@@ -46,7 +52,7 @@ MNIST_TXT_START  ?= 0
 # Source files
 RTL_FILES = $(wildcard $(RTL_DIR)/*.sv) $(wildcard $(RTL_DIR)/*/*.sv)
 
-.PHONY: all help list run compile elaborate simulate gui clean \
+.PHONY: all help list run prepare_mem compile elaborate simulate gui clean \
 	test_sa_2x2 test_staggered_activation test_weight_double_buffer \
 	test_weight_fifo_fetcher test_activation_skew test_vpu_post_process \
 	test_accumulator_array test_tpu_datapath test_controller_buffer \
@@ -185,14 +191,26 @@ test_conv_fc_addr:
 # Step 1: Parse / compile
 compile:
 	@test -n "$(TOP_MODULE)" || (echo "Unknown TEST='$(TEST)'. Run 'make list'." && exit 1)
-	xvlog -sv $(RTL_FILES) $(TB_FILE)
+	xvlog $(XVLOG_FLAGS) -sv $(RTL_FILES) $(TB_FILE)
+
+prepare_mem:
+	@for mem in $(MEM_FILES); do \
+		if [ -f "$(RTL_DIR)/$$mem" ]; then \
+			cp "$(RTL_DIR)/$$mem" .; \
+		elif [ -f "$(RTL_DIR)/mem/$$mem" ]; then \
+			cp "$(RTL_DIR)/mem/$$mem" .; \
+		else \
+			echo "Missing memory file $$mem under $(RTL_DIR)"; \
+			exit 1; \
+		fi; \
+	done
 
 # Step 2: Elaborate
 elaborate: compile
 	xelab -debug typical -top $(TOP_MODULE) -snapshot $(SNAPSHOT)
 
 # Step 3: Simulate
-simulate: elaborate
+simulate: elaborate prepare_mem
 	xsim $(SNAPSHOT) -R $(XSIM_ARGS)
 
 # Run with GUI
@@ -207,4 +225,4 @@ generate_tpu_top_e2e_mnist_txt:
 
 # Cleanup temporary files
 clean:
-	rm -rf *.log *.jou *.pb *.wdb xsim.dir .Xil *.str
+	rm -rf *.log *.jou *.pb *.wdb xsim.dir .Xil *.str $(MEM_FILES)

@@ -1,0 +1,507 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Thu Jun  4 08:59:25 2026
+# Process ID         : 2532258
+# Current directory  : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.runs/synth_1
+# Command line       : vivado -log tpu_top_axi_lite.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source tpu_top_axi_lite.tcl
+# Log file           : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.runs/synth_1/tpu_top_axi_lite.vds
+# Journal file       : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.runs/synth_1/vivado.jou
+# Running On         : pah-PC
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 24.04.4 LTS
+# Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
+# CPU Frequency      : 4855.092 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 32887 MB
+# Swap memory        : 25033 MB
+# Total Virtual      : 57921 MB
+# Available Virtual  : 45178 MB
+#-----------------------------------------------------------
+source tpu_top_axi_lite.tcl -notrace
+Command: synth_design -top tpu_top_axi_lite -part xczu7ev-ffvc1156-2-e
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xczu7ev'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xczu7ev'
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 2533025
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 2084.875 ; gain = 447.141 ; free physical = 8471 ; free virtual = 41921
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'tpu_top_axi_lite' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_top_axi_lite.sv:4]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_top_axi_lite.sv:225]
+INFO: [Synth 8-6157] synthesizing module 'tpu_top' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_top.sv:6]
+	Parameter SIZE bound to: 32'sb00000000000000000000000000000100 
+	Parameter DATA_WIDTH bound to: 32'sb00000000000000000000000000001000 
+	Parameter LOCAL_PSUM_WIDTH bound to: 32'sb00000000000000000000000000010010 
+	Parameter ACC_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter ACC_DEPTH bound to: 32'sb00000000000000000000000000010000 
+	Parameter ACC_ADDR_WIDTH bound to: 32'sb00000000000000000000000000000100 
+	Parameter OUT_WIDTH bound to: 32'sb00000000000000000000000000001000 
+	Parameter BIAS_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter REQUANT_MULT_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter REQUANT_SHIFT_WIDTH bound to: 32'sb00000000000000000000000000000110 
+	Parameter MAX_NUM_TILES bound to: 32'sb00000000000000000000000010000000 
+	Parameter TILE_COUNT_WIDTH bound to: 32'sb00000000000000000000000000001000 
+	Parameter WGT_FIFO_DEPTH bound to: 32'sb00000000000000000000000000010000 
+	Parameter BANK_DEPTH bound to: 32'sb00000000000000000010000000000000 
+	Parameter UB_ADDR_WIDTH bound to: 32'sb00000000000000000000000000001101 
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_top.sv:260]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_top.sv:310]
+INFO: [Synth 8-6157] synthesizing module 'unified_buffer' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/unified_buffer.sv:4]
+	Parameter DATA_WIDTH bound to: 32'sb00000000000000000000000000001000 
+	Parameter BANK_DEPTH bound to: 32'sb00000000000000000010000000000000 
+	Parameter ADDR_WIDTH bound to: 32'sb00000000000000000000000000001101 
+INFO: [Synth 8-6155] done synthesizing module 'unified_buffer' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/unified_buffer.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'tpu_controller_rom_layer' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_layer.sv:6]
+	Parameter SIZE bound to: 32'sb00000000000000000000000000000100 
+	Parameter DATA_WIDTH bound to: 32'sb00000000000000000000000000001000 
+	Parameter ACC_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter OUT_WIDTH bound to: 32'sb00000000000000000000000000001000 
+	Parameter ACC_DEPTH bound to: 32'sb00000000000000000000000000010000 
+	Parameter ACC_ADDR_WIDTH bound to: 32'sb00000000000000000000000000000100 
+	Parameter UB_ADDR_WIDTH bound to: 32'sb00000000000000000000000000001101 
+	Parameter BIAS_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter REQUANT_MULT_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter REQUANT_SHIFT_WIDTH bound to: 32'sb00000000000000000000000000000110 
+	Parameter MAX_NUM_TILES bound to: 32'sb00000000000000000000000010000000 
+	Parameter TILE_COUNT_WIDTH bound to: 32'sb00000000000000000000000000001000 
+	Parameter BANK_DEPTH bound to: 32'sb00000000000000000010000000000000 
+INFO: [Synth 8-6157] synthesizing module 'layer_descriptor_rom' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/layer_descriptor_rom.sv:6]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/layer_descriptor_rom.sv:53]
+INFO: [Synth 8-226] default block is never used [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/layer_descriptor_rom.sv:53]
+INFO: [Synth 8-6155] done synthesizing module 'layer_descriptor_rom' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/layer_descriptor_rom.sv:6]
+INFO: [Synth 8-6157] synthesizing module 'tpu_controller_rom_kloop' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_kloop.sv:10]
+	Parameter SIZE bound to: 32'sb00000000000000000000000000000100 
+	Parameter DATA_WIDTH bound to: 32'sb00000000000000000000000000001000 
+	Parameter ACC_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter OUT_WIDTH bound to: 32'sb00000000000000000000000000001000 
+	Parameter ACC_DEPTH bound to: 32'sb00000000000000000000000000010000 
+	Parameter ACC_ADDR_WIDTH bound to: 32'sb00000000000000000000000000000100 
+	Parameter UB_ADDR_WIDTH bound to: 32'sb00000000000000000000000000001101 
+	Parameter BIAS_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter REQUANT_MULT_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter REQUANT_SHIFT_WIDTH bound to: 32'sb00000000000000000000000000000110 
+	Parameter MAX_NUM_TILES bound to: 32'sb00000000000000000000000010000000 
+	Parameter TILE_COUNT_WIDTH bound to: 32'sb00000000000000000000000000001000 
+	Parameter BANK_DEPTH bound to: 32'sb00000000000000000010000000000000 
+	Parameter ROM_ADDR_WIDTH bound to: 32'sb00000000000000000000000000010000 
+	Parameter WEIGHT_DEPTH bound to: 32'sb00000000000000000001001101011000 
+	Parameter WEIGHT_ADDR_WIDTH bound to: 32'sb00000000000000000000000000001101 
+	Parameter PARAM_DEPTH bound to: 32'sb00000000000000000000000000101100 
+	Parameter PARAM_ADDR_WIDTH bound to: 32'sb00000000000000000000000000000110 
+INFO: [Synth 8-6157] synthesizing module 'weight_rom' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/weight_rom.sv:4]
+	Parameter DATA_WIDTH bound to: 32'sb00000000000000000000000000001000 
+	Parameter DEPTH bound to: 32'sb00000000000000000001001101011000 
+	Parameter ADDR_WIDTH bound to: 32'sb00000000000000000000000000001101 
+INFO: [Synth 8-3876] $readmem data file 'small_cnn_sym_weights_i8.mem' is read successfully [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/weight_rom.sv:22]
+INFO: [Synth 8-6155] done synthesizing module 'weight_rom' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/weight_rom.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'bias_rom' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/bias_rom.sv:4]
+	Parameter DATA_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter DEPTH bound to: 32'sb00000000000000000000000000101100 
+	Parameter ADDR_WIDTH bound to: 32'sb00000000000000000000000000000110 
+INFO: [Synth 8-3876] $readmem data file 'small_cnn_sym_biases_i32.mem' is read successfully [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/bias_rom.sv:22]
+INFO: [Synth 8-6155] done synthesizing module 'bias_rom' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/bias_rom.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'requant_mult_rom' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/requant_mult_rom.sv:4]
+	Parameter DATA_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter DEPTH bound to: 32'sb00000000000000000000000000101100 
+	Parameter ADDR_WIDTH bound to: 32'sb00000000000000000000000000000110 
+INFO: [Synth 8-3876] $readmem data file 'small_cnn_sym_requant_mult_i32.mem' is read successfully [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/requant_mult_rom.sv:22]
+INFO: [Synth 8-6155] done synthesizing module 'requant_mult_rom' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/requant_mult_rom.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'requant_shift_rom' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/requant_shift_rom.sv:4]
+	Parameter DATA_WIDTH bound to: 32'sb00000000000000000000000000000110 
+	Parameter DEPTH bound to: 32'sb00000000000000000000000000101100 
+	Parameter ADDR_WIDTH bound to: 32'sb00000000000000000000000000000110 
+INFO: [Synth 8-3876] $readmem data file 'small_cnn_sym_requant_shift_u6.mem' is read successfully [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/requant_shift_rom.sv:22]
+INFO: [Synth 8-6155] done synthesizing module 'requant_shift_rom' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/requant_shift_rom.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'conv_fc_address_generator' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/conv_fc_address_generator.sv:4]
+	Parameter SIZE bound to: 32'sb00000000000000000000000000000100 
+	Parameter ADDR_WIDTH bound to: 32'sb00000000000000000000000000010000 
+	Parameter DIM_WIDTH bound to: 32'sb00000000000000000000000000010000 
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/conv_fc_address_generator.sv:144]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/conv_fc_address_generator.sv:205]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/conv_fc_address_generator.sv:205]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/conv_fc_address_generator.sv:205]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/conv_fc_address_generator.sv:205]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/conv_fc_address_generator.sv:246]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/conv_fc_address_generator.sv:130]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/conv_fc_address_generator.sv:246]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/conv_fc_address_generator.sv:246]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/conv_fc_address_generator.sv:246]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/conv_fc_address_generator.sv:246]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/conv_fc_address_generator.sv:246]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/conv_fc_address_generator.sv:246]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/conv_fc_address_generator.sv:246]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/conv_fc_address_generator.sv:246]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/conv_fc_address_generator.sv:246]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/conv_fc_address_generator.sv:246]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/conv_fc_address_generator.sv:246]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/conv_fc_address_generator.sv:246]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/conv_fc_address_generator.sv:246]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/conv_fc_address_generator.sv:246]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/conv_fc_address_generator.sv:246]
+INFO: [Synth 8-6155] done synthesizing module 'conv_fc_address_generator' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/conv_fc_address_generator.sv:4]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_kloop.sv:548]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_kloop.sv:568]
+INFO: [Synth 8-6155] done synthesizing module 'tpu_controller_rom_kloop' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_kloop.sv:10]
+WARNING: [Synth 8-689] width (16) of port connection 'dbg_cycle_count_o' does not match port width (32) of module 'tpu_controller_rom_kloop' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_layer.sv:211]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_layer.sv:307]
+INFO: [Synth 8-6155] done synthesizing module 'tpu_controller_rom_layer' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_layer.sv:6]
+INFO: [Synth 8-6157] synthesizing module 'tpu_datapath_v2' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_datapath_v2.sv:4]
+	Parameter SIZE bound to: 32'sb00000000000000000000000000000100 
+	Parameter DATA_WIDTH bound to: 32'sb00000000000000000000000000001000 
+	Parameter LOCAL_PSUM_WIDTH bound to: 32'sb00000000000000000000000000010010 
+	Parameter MAX_NUM_TILES bound to: 32'sb00000000000000000000000010000000 
+	Parameter ACC_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter ACC_DEPTH bound to: 32'sb00000000000000000000000000010000 
+	Parameter ACC_ADDR_WIDTH bound to: 32'sb00000000000000000000000000000100 
+	Parameter ACT_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter OUT_WIDTH bound to: 32'sb00000000000000000000000000001000 
+	Parameter QUANT_ENABLE bound to: 1'b1 
+	Parameter BIAS_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter REQUANT_MULT_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter REQUANT_SHIFT_WIDTH bound to: 32'sb00000000000000000000000000000110 
+	Parameter NORM_SHIFT bound to: 32'sb00000000000000000000000000000000 
+	Parameter NORM_ROUND_ENABLE bound to: 1'b1 
+	Parameter POOL_MODE bound to: 32'sb00000000000000000000000000000000 
+	Parameter POOL_WINDOW bound to: 32'sb00000000000000000000000000000010 
+	Parameter WGT_FIFO_DEPTH bound to: 32'sb00000000000000000000000000010000 
+	Parameter TILE_COUNT_WIDTH bound to: 32'sb00000000000000000000000000001000 
+INFO: [Synth 8-6157] synthesizing module 'mxu_2x2' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/mxu_2x2.sv:3]
+	Parameter SIZE bound to: 32'sb00000000000000000000000000000100 
+	Parameter DATA_WIDTH bound to: 32'sb00000000000000000000000000001000 
+	Parameter LOCAL_PSUM_WIDTH bound to: 32'sb00000000000000000000000000010010 
+	Parameter NUM_TILES bound to: 32'sb00000000000000000000000010000000 
+	Parameter ACC_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter ENABLE_LOCAL_ACCUM bound to: 1'b0 
+	Parameter WGT_FIFO_DEPTH bound to: 32'sb00000000000000000000000000010000 
+	Parameter TILE_COUNT_WIDTH bound to: 32'sb00000000000000000000000000001000 
+INFO: [Synth 8-6157] synthesizing module 'fifo' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/fifo.sv:3]
+	Parameter WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter DEPTH bound to: 32'sb00000000000000000000000000010000 
+	Parameter COUNT_WIDTH bound to: 32'sb00000000000000000000000000000101 
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/fifo.sv:79]
+INFO: [Synth 8-6155] done synthesizing module 'fifo' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/fifo.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'wgt_fetcher_2x2' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/wgt_fetcher_2x2.sv:3]
+	Parameter SIZE bound to: 32'sb00000000000000000000000000000100 
+	Parameter DATA_WIDTH bound to: 32'sb00000000000000000000000000001000 
+	Parameter FIFO_COUNT_WIDTH bound to: 32'sb00000000000000000000000000000101 
+INFO: [Synth 8-226] default block is never used [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/wgt_fetcher_2x2.sv:57]
+INFO: [Synth 8-226] default block is never used [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/wgt_fetcher_2x2.sv:87]
+INFO: [Synth 8-6155] done synthesizing module 'wgt_fetcher_2x2' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/wgt_fetcher_2x2.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'act_skew_buffer_2x2' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/act_skew_buffer.sv:3]
+	Parameter SIZE bound to: 32'sb00000000000000000000000000000100 
+	Parameter DATA_WIDTH bound to: 32'sb00000000000000000000000000001000 
+INFO: [Synth 8-6155] done synthesizing module 'act_skew_buffer_2x2' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/act_skew_buffer.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'ws_sa_2x2' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/ws_sa_2x2.sv:7]
+	Parameter SIZE bound to: 32'sb00000000000000000000000000000100 
+	Parameter DATA_WIDTH bound to: 32'sb00000000000000000000000000001000 
+	Parameter LOCAL_PSUM_WIDTH bound to: 32'sb00000000000000000000000000010010 
+	Parameter NUM_TILES bound to: 32'sb00000000000000000000000010000000 
+	Parameter ACC_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter ENABLE_LOCAL_ACCUM bound to: 1'b0 
+INFO: [Synth 8-6157] synthesizing module 'pe' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/pe.sv:3]
+	Parameter DATA_WIDTH bound to: 32'sb00000000000000000000000000001000 
+	Parameter LOCAL_PSUM_WIDTH bound to: 32'sb00000000000000000000000000010010 
+INFO: [Synth 8-6157] synthesizing module 'multiplier' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/multiplier.sv:15]
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'multiplier' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/multiplier.sv:15]
+INFO: [Synth 8-6155] done synthesizing module 'pe' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/pe.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'ws_sa_2x2' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/ws_sa_2x2.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'mxu_2x2' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/mxu_2x2.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'psum_packer_v2' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/psum_packer_v2.sv:9]
+	Parameter SIZE bound to: 32'sb00000000000000000000000000000100 
+	Parameter LOCAL_PSUM_WIDTH bound to: 32'sb00000000000000000000000000010010 
+	Parameter ADDR_WIDTH bound to: 32'sb00000000000000000000000000000100 
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/psum_packer_v2.sv:175]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/psum_packer_v2.sv:175]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/psum_packer_v2.sv:175]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/psum_packer_v2.sv:175]
+INFO: [Synth 8-6155] done synthesizing module 'psum_packer_v2' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/psum_packer_v2.sv:9]
+INFO: [Synth 8-6157] synthesizing module 'accumulator_array_v2' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/accumulator_array_v2.sv:4]
+	Parameter SIZE bound to: 32'sb00000000000000000000000000000100 
+	Parameter LOCAL_PSUM_WIDTH bound to: 32'sb00000000000000000000000000010010 
+	Parameter ACC_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter DEPTH bound to: 32'sb00000000000000000000000000010000 
+	Parameter ADDR_WIDTH bound to: 32'sb00000000000000000000000000000100 
+	Parameter NUM_TILES bound to: 32'sb00000000000000000000000010000000 
+	Parameter TILE_COUNT_WIDTH bound to: 32'sb00000000000000000000000000001000 
+INFO: [Synth 8-6155] done synthesizing module 'accumulator_array_v2' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/accumulator_array_v2.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'vector_processing_unit_v2' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/vector_processing_unit_v2.sv:3]
+	Parameter SIZE bound to: 32'sb00000000000000000000000000000100 
+	Parameter ACC_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter ACT_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter OUT_WIDTH bound to: 32'sb00000000000000000000000000001000 
+	Parameter ACT_MODE bound to: 32'sb00000000000000000000000000000001 
+	Parameter ACT_CLIP_MAX bound to: 32'sb00000000000000000000000000000110 
+	Parameter ACT_INPUT_SHIFT bound to: 32'sb00000000000000000000000000000000 
+	Parameter ACT_FRAC_BITS bound to: 32'sb00000000000000000000000000001000 
+	Parameter QUANT_ENABLE bound to: 1'b1 
+	Parameter BIAS_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter REQUANT_MULT_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter REQUANT_SHIFT_WIDTH bound to: 32'sb00000000000000000000000000000110 
+	Parameter QUANT_CLAMP_MIN bound to: 32'sb11111111111111111111111110000000 
+	Parameter QUANT_CLAMP_MAX bound to: 32'sb00000000000000000000000001111111 
+	Parameter NORM_SHIFT bound to: 32'sb00000000000000000000000000000000 
+	Parameter NORM_ROUND_ENABLE bound to: 1'b1 
+	Parameter POOL_MODE bound to: 32'sb00000000000000000000000000000000 
+	Parameter POOL_WINDOW bound to: 32'sb00000000000000000000000000000010 
+INFO: [Synth 8-6157] synthesizing module 'post_process_v2' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/post_process_v2.sv:3]
+	Parameter SIZE bound to: 32'sb00000000000000000000000000000100 
+	Parameter ACC_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter ACT_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter OUT_WIDTH bound to: 32'sb00000000000000000000000000001000 
+	Parameter ACT_MODE bound to: 32'sb00000000000000000000000000000001 
+	Parameter ACT_CLIP_MAX bound to: 32'sb00000000000000000000000000000110 
+	Parameter ACT_INPUT_SHIFT bound to: 32'sb00000000000000000000000000000000 
+	Parameter ACT_FRAC_BITS bound to: 32'sb00000000000000000000000000001000 
+	Parameter QUANT_ENABLE bound to: 1'b1 
+	Parameter BIAS_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter REQUANT_MULT_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter REQUANT_SHIFT_WIDTH bound to: 32'sb00000000000000000000000000000110 
+	Parameter QUANT_CLAMP_MIN bound to: 32'sb11111111111111111111111110000000 
+	Parameter QUANT_CLAMP_MAX bound to: 32'sb00000000000000000000000001111111 
+	Parameter NORM_SHIFT bound to: 32'sb00000000000000000000000000000000 
+	Parameter NORM_ROUND_ENABLE bound to: 1'b1 
+	Parameter POOL_MODE bound to: 32'sb00000000000000000000000000000000 
+	Parameter POOL_WINDOW bound to: 32'sb00000000000000000000000000000010 
+INFO: [Synth 8-6157] synthesizing module 'bias_requantize_v2' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/bias_requantize_v2.sv:4]
+	Parameter SIZE bound to: 32'sb00000000000000000000000000000100 
+	Parameter ACC_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter BIAS_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter REQUANT_MULT_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter REQUANT_SHIFT_WIDTH bound to: 32'sb00000000000000000000000000000110 
+	Parameter QUANT_CLAMP_MIN bound to: 32'sb11111111111111111111111110000000 
+	Parameter QUANT_CLAMP_MAX bound to: 32'sb00000000000000000000000001111111 
+INFO: [Synth 8-6155] done synthesizing module 'bias_requantize_v2' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/bias_requantize_v2.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'activation_array_v2' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/activation_array_v2.sv:3]
+	Parameter SIZE bound to: 32'sb00000000000000000000000000000100 
+	Parameter IN_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter OUT_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter ACT_MODE bound to: 32'sb00000000000000000000000000000001 
+	Parameter CLIP_MAX bound to: 32'sb00000000000000000000000000000110 
+	Parameter ACT_INPUT_SHIFT bound to: 32'sb00000000000000000000000000000000 
+	Parameter ACT_FRAC_BITS bound to: 32'sb00000000000000000000000000001000 
+INFO: [Synth 8-6155] done synthesizing module 'activation_array_v2' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/activation_array_v2.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'normalizer_v2' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/normalizer_v2.sv:3]
+	Parameter SIZE bound to: 32'sb00000000000000000000000000000100 
+	Parameter IN_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter OUT_WIDTH bound to: 32'sb00000000000000000000000000001000 
+	Parameter NORM_SHIFT bound to: 32'sb00000000000000000000000000000000 
+	Parameter ROUND_ENABLE bound to: 1'b1 
+INFO: [Synth 8-6155] done synthesizing module 'normalizer_v2' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/normalizer_v2.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'pooling_unit_v2' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/pooling_unit_v2.sv:3]
+	Parameter SIZE bound to: 32'sb00000000000000000000000000000100 
+	Parameter DATA_WIDTH bound to: 32'sb00000000000000000000000000001000 
+	Parameter POOL_MODE bound to: 32'sb00000000000000000000000000000000 
+	Parameter POOL_WINDOW bound to: 32'sb00000000000000000000000000000010 
+INFO: [Synth 8-6155] done synthesizing module 'pooling_unit_v2' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/pooling_unit_v2.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'post_process_v2' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/post_process_v2.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'vector_processing_unit_v2' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/vector_processing_unit_v2.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'tpu_datapath_v2' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_datapath_v2.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'maxpool2d_unit' [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/maxpool2d_unit.sv:4]
+	Parameter DATA_WIDTH bound to: 32'sb00000000000000000000000000001000 
+	Parameter BANK_DEPTH bound to: 32'sb00000000000000000010000000000000 
+	Parameter ADDR_WIDTH bound to: 32'sb00000000000000000000000000001101 
+	Parameter DIM_WIDTH bound to: 32'sb00000000000000000000000000010000 
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/maxpool2d_unit.sv:154]
+INFO: [Synth 8-6155] done synthesizing module 'maxpool2d_unit' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/maxpool2d_unit.sv:4]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_top.sv:624]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_top.sv:636]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_top.sv:733]
+INFO: [Synth 8-6155] done synthesizing module 'tpu_top' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_top.sv:6]
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_top_axi_lite.sv:592]
+INFO: [Synth 8-6155] done synthesizing module 'tpu_top_axi_lite' (0#1) [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_top_axi_lite.sv:4]
+WARNING: [Synth 8-6014] Unused sequential element tag_wr_ptr_q_reg was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_kloop.sv:475]
+WARNING: [Synth 8-6014] Unused sequential element tag_rd_ptr_q_reg was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_kloop.sv:440]
+WARNING: [Synth 8-6014] Unused sequential element tag_count_q_reg was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_kloop.sv:440]
+WARNING: [Synth 8-6014] Unused sequential element tag_mem_q_reg[0] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_kloop.sv:440]
+WARNING: [Synth 8-6014] Unused sequential element tag_mem_q_reg[1] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_kloop.sv:440]
+WARNING: [Synth 8-6014] Unused sequential element tag_mem_q_reg[2] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_kloop.sv:440]
+WARNING: [Synth 8-6014] Unused sequential element tag_mem_q_reg[3] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_kloop.sv:440]
+WARNING: [Synth 8-6014] Unused sequential element tag_mem_q_reg[4] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_kloop.sv:440]
+WARNING: [Synth 8-6014] Unused sequential element tag_mem_q_reg[5] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_kloop.sv:440]
+WARNING: [Synth 8-6014] Unused sequential element tag_mem_q_reg[6] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_kloop.sv:440]
+WARNING: [Synth 8-6014] Unused sequential element tag_mem_q_reg[7] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_kloop.sv:440]
+WARNING: [Synth 8-6014] Unused sequential element tag_mem_q_reg[8] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_kloop.sv:440]
+WARNING: [Synth 8-6014] Unused sequential element tag_mem_q_reg[9] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_kloop.sv:440]
+WARNING: [Synth 8-6014] Unused sequential element tag_mem_q_reg[10] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_kloop.sv:440]
+WARNING: [Synth 8-6014] Unused sequential element tag_mem_q_reg[11] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_kloop.sv:440]
+WARNING: [Synth 8-6014] Unused sequential element tag_mem_q_reg[12] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_kloop.sv:440]
+WARNING: [Synth 8-6014] Unused sequential element tag_mem_q_reg[13] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_kloop.sv:440]
+WARNING: [Synth 8-6014] Unused sequential element tag_mem_q_reg[14] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_kloop.sv:440]
+WARNING: [Synth 8-6014] Unused sequential element tag_mem_q_reg[15] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_controller_rom_kloop.sv:440]
+WARNING: [Synth 8-6014] Unused sequential element pool_count_q_reg was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/pooling_unit_v2.sv:54]
+WARNING: [Synth 8-6014] Unused sequential element pool_sum_q_reg[0] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/pooling_unit_v2.sv:57]
+WARNING: [Synth 8-6014] Unused sequential element pool_sum_q_reg[1] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/pooling_unit_v2.sv:57]
+WARNING: [Synth 8-6014] Unused sequential element pool_sum_q_reg[2] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/pooling_unit_v2.sv:57]
+WARNING: [Synth 8-6014] Unused sequential element pool_sum_q_reg[3] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/pooling_unit_v2.sv:57]
+WARNING: [Synth 8-6014] Unused sequential element pool_max_q_reg[0] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/pooling_unit_v2.sv:58]
+WARNING: [Synth 8-6014] Unused sequential element pool_max_q_reg[1] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/pooling_unit_v2.sv:58]
+WARNING: [Synth 8-6014] Unused sequential element pool_max_q_reg[2] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/pooling_unit_v2.sv:58]
+WARNING: [Synth 8-6014] Unused sequential element pool_max_q_reg[3] was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/pooling_unit_v2.sv:58]
+WARNING: [Synth 8-6014] Unused sequential element merged_addr_reg was removed.  [/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/synth/tpu_ip_v3/tpu_ip_v3.srcs/sources_1/imports/v3/tpu_top_axi_lite.sv:617]
+WARNING: [Synth 8-3917] design tpu_top_axi_lite has port s_axi_bresp[1] driven by constant 0
+WARNING: [Synth 8-3917] design tpu_top_axi_lite has port s_axi_bresp[0] driven by constant 0
+WARNING: [Synth 8-3917] design tpu_top_axi_lite has port s_axi_rresp[1] driven by constant 0
+WARNING: [Synth 8-3917] design tpu_top_axi_lite has port s_axi_rresp[0] driven by constant 0
+WARNING: [Synth 8-7129] Port work_i in module ws_sa_2x2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port num_tiles_i[7] in module ws_sa_2x2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port num_tiles_i[6] in module ws_sa_2x2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port num_tiles_i[5] in module ws_sa_2x2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port num_tiles_i[4] in module ws_sa_2x2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port num_tiles_i[3] in module ws_sa_2x2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port num_tiles_i[2] in module ws_sa_2x2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port num_tiles_i[1] in module ws_sa_2x2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port num_tiles_i[0] in module ws_sa_2x2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_h_i[15] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_h_i[14] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_h_i[13] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_h_i[12] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_h_i[11] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_h_i[10] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_h_i[9] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_h_i[8] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_h_i[7] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_h_i[6] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_h_i[5] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_h_i[4] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_h_i[3] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_h_i[2] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_h_i[1] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_h_i[0] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_w_i[15] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_w_i[14] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_w_i[13] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_w_i[12] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_w_i[11] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_w_i[10] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_w_i[9] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_w_i[8] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_w_i[7] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_w_i[6] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_w_i[5] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_w_i[4] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_w_i[3] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_w_i[2] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_w_i[1] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port in_w_i[0] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_h_i[15] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_h_i[14] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_h_i[13] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_h_i[12] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_h_i[11] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_h_i[10] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_h_i[9] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_h_i[8] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_h_i[7] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_h_i[6] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_h_i[5] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_h_i[4] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_h_i[3] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_h_i[2] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_h_i[1] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_h_i[0] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_w_i[15] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_w_i[14] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_w_i[13] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_w_i[12] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_w_i[11] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_w_i[10] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_w_i[9] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_w_i[8] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_w_i[7] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_w_i[6] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_w_i[5] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_w_i[4] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_w_i[3] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_w_i[2] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_w_i[1] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port kernel_w_i[0] in module conv_fc_address_generator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[23] in module tpu_top_axi_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[22] in module tpu_top_axi_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[21] in module tpu_top_axi_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[20] in module tpu_top_axi_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[19] in module tpu_top_axi_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[18] in module tpu_top_axi_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[17] in module tpu_top_axi_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[16] in module tpu_top_axi_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wstrb[2] in module tpu_top_axi_lite is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 2274.812 ; gain = 637.078 ; free physical = 8404 ; free virtual = 41861
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2283.719 ; gain = 645.984 ; free physical = 8383 ; free virtual = 41840
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xczu7ev-ffvc1156-2-e
+INFO: [Device 21-403] Loading part xczu7ev-ffvc1156-2-e
+INFO: [Synth 8-6742] Reading net delay rules and data
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2283.719 ; gain = 645.984 ; free physical = 8381 ; free virtual = 41839
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'state_q_reg' in module 'tpu_controller_rom_kloop'
+INFO: [Synth 8-802] inferred FSM for state register 'state_q_reg' in module 'tpu_controller_rom_layer'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'wgt_fetcher_2x2'
+INFO: [Synth 8-802] inferred FSM for state register 'state_q_reg' in module 'maxpool2d_unit'
+INFO: [Synth 8-802] inferred FSM for state register 'state_q_reg' in module 'tpu_top'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                  S_IDLE |                            00000 |                            00000
+       S_CLEAR_ACC_BLOCK |                            00001 |                            00001
+             S_FETCH_ROM |                            00010 |                            00010
+              S_WAIT_ROM |                            00011 |                            00011
+      S_WRITE_WEIGHT_ROW |                            00100 |                            00100
+     S_START_WEIGHT_LOAD |                            00101 |                            00101
+      S_WAIT_WEIGHT_LOAD |                            00110 |                            00110
+          S_READ_ACT_REQ |                            00111 |                            00111
+         S_READ_ACT_WAIT |                            01000 |                            01000
+            S_LAUNCH_ACT |                            01001 |                            01001
+             S_DRAIN_MXU |                            01010 |                            01010
+        S_WAIT_ACC_READY |                            01011 |                            01011
+          S_READ_ACC_ROW |                            01100 |                            01100
+       S_WAIT_VPU_OUTPUT |                            01101 |                            01101
+     S_WRITE_OUTPUT_LANE |                            01110 |                            01110
+                  S_DONE |                            01111 |                            01111
+                 S_ERROR |                            10000 |                            10000
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_q_reg' using encoding 'sequential' in module 'tpu_controller_rom_kloop'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                  S_IDLE |                              000 |                            00000
+            S_START_TILE |                              001 |                            00001
+              S_RUN_TILE |                              010 |                            00010
+                 S_ERROR |                              011 |                            00100
+                  S_DONE |                              100 |                            00011
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_q_reg' using encoding 'sequential' in module 'tpu_controller_rom_layer'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    IDLE |                             0001 |                               00
+               POP_FIRST |                             0010 |                               01
+               LOAD_ROWS |                             0100 |                               10
+                  SWITCH |                             1000 |                               11
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'one-hot' in module 'wgt_fetcher_2x2'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                  S_IDLE |                              000 |                             0000
+              S_VALIDATE |                              001 |                             0001
+              S_READ_REQ |                              010 |                             0010
+             S_READ_WAIT |                              011 |                             0011
+                 S_WRITE |                              100 |                             0100
+                 S_ERROR |                              101 |                             0111
+               S_ADVANCE |                              110 |                             0101
+                  S_DONE |                              111 |                             0110
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_q_reg' using encoding 'sequential' in module 'maxpool2d_unit'

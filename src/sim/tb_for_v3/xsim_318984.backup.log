@@ -1,0 +1,84 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Tue Jun  2 16:27:53 2026
+# Process ID         : 318984
+# Current directory  : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3
+# Command line       : xsim -mode tcl -source {xsim.dir/test_controller_v3_spatial_block_snapshot/xsim_script.tcl}
+# Log file           : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/xsim.log
+# Journal file       : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/xsim.jou
+# Running On         : pah-PC
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 24.04.4 LTS
+# Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
+# CPU Frequency      : 3780.608 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 32887 MB
+# Swap memory        : 25033 MB
+# Total Virtual      : 57921 MB
+# Available Virtual  : 44867 MB
+#-----------------------------------------------------------
+source xsim.dir/test_controller_v3_spatial_block_snapshot/xsim_script.tcl
+# xsim {test_controller_v3_spatial_block_snapshot} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+
+============================================================
+TEST: V3 spatial-block controller -> TPU datapath
+============================================================
+  WGT REQ[0]: req_k_tile=0 block_row=0 addr={{r1c1:27,r1c0:26},{r0c1:11,r0c0:10}}
+[125000] WGT RD: addr=10 data=2
+[155000] WGT RD: addr=11 data=-3
+[185000] WGT RD: addr=26 data=5
+[215000] WGT RD: addr=27 data=-7
+  WGT STREAM START: k_tile=0
+  ACT REQ[0]: k_tile=0 block_row=0 addr={lane1:21,lane0:20}
+[295000] UB RD : addr=20 data=4
+[325000] UB RD : addr=21 data=6
+  ACT LAUNCH: k_tile=0 block_row=0
+  CAPTURE: k_tile=0 row=0 MXU psum lane0=38
+  CAPTURE: k_tile=0 row=0 MXU psum lane1=-54
+  ACT REQ[1]: k_tile=0 block_row=1 addr={lane1:21,lane0:20}
+[525000] UB RD : addr=20 data=4
+[555000] UB RD : addr=21 data=6
+  ACT LAUNCH: k_tile=0 block_row=1
+  CAPTURE: k_tile=0 row=1 MXU psum lane0=38
+  CAPTURE: k_tile=0 row=1 MXU psum lane1=-54
+  WGT REQ[1]: req_k_tile=1 block_row=0 addr={{r1c1:59,r1c0:58},{r0c1:43,r0c0:42}}
+[775000] WGT RD: addr=42 data=2
+[805000] WGT RD: addr=43 data=-3
+[835000] WGT RD: addr=58 data=5
+[865000] WGT RD: addr=59 data=-7
+  WGT STREAM START: k_tile=1
+  ACT REQ[2]: k_tile=1 block_row=0 addr={lane1:23,lane0:22}
+[945000] UB RD : addr=22 data=-1
+[975000] UB RD : addr=23 data=2
+  ACT LAUNCH: k_tile=1 block_row=0
+  CAPTURE: k_tile=1 row=0 MXU psum lane0=8
+  CAPTURE: k_tile=1 row=0 MXU psum lane1=-11
+  ACC DONE: row=0 ready=1
+  ACT REQ[3]: k_tile=1 block_row=1 addr={lane1:23,lane0:22}
+[1175000] UB RD : addr=22 data=-1
+[1205000] UB RD : addr=23 data=2
+  ACT LAUNCH: k_tile=1 block_row=1
+  CAPTURE: k_tile=1 row=1 MXU psum lane0=8
+  CAPTURE: k_tile=1 row=1 MXU psum lane1=-11
+  ACC DONE: row=1 ready=1
+  ACC READ[0]: row=0 data={lane1:-65,lane0:46}
+  BLOCK OUT[0]: spatial=0 row=0 data={lane1:0,lane0:50}
+  ACC READ[1]: row=1 data={lane1:-65,lane0:46}
+  BLOCK OUT[1]: spatial=1 row=1 data={lane1:0,lane0:50}
+  CTRL DONE: cycles=144 state=0 error=0 err=0x00000000
+
+DEBUG COUNTERS
+  ctrl_cycles=144 final_state=0 final_k_tile=1 final_block_row=1
+  act_fetch=24 act_vectors=4 act_lane_reads=8
+  wgt_load=26 wgt_reuse=2 wgt_empty=0 wgt_full=0
+test_controller_v3_spatial_block: checks=49 pass=49 fail=0
+$finish called at time : 1536 ns : File "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/test_controller_v3_spatial_block.sv" Line 583
+exit
+INFO: xsimkernel Simulation Memory Usage: 299540 KB (Peak: 344000 KB), Simulation CPU Usage: 670 ms
+INFO: [Common 17-206] Exiting xsim at Tue Jun  2 16:27:56 2026...

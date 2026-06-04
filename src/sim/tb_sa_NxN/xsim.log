@@ -1,0 +1,426 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Thu Jun  4 08:51:00 2026
+# Process ID         : 2457260
+# Current directory  : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_sa_NxN
+# Command line       : xsim -mode tcl -source {xsim.dir/test_tpu_top_end_to_end_snapshot/xsim_script.tcl}
+# Log file           : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_sa_NxN/xsim.log
+# Journal file       : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_sa_NxN/xsim.jou
+# Running On         : pah-PC
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 24.04.4 LTS
+# Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
+# CPU Frequency      : 4754.163 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 32887 MB
+# Swap memory        : 25033 MB
+# Total Virtual      : 57921 MB
+# Available Virtual  : 43559 MB
+#-----------------------------------------------------------
+source xsim.dir/test_tpu_top_end_to_end_snapshot/xsim_script.tcl
+# xsim {test_tpu_top_end_to_end_snapshot} -testplusarg E2E_FILE_CASES -testplusarg E2E_CASES=10 -testplusarg E2E_INPUT_HEX=../../../CNN_model/python/mnist_classification/18_05/e2e_cases/tpu_top_e2e_inputs_i8.hex -testplusarg E2E_LOGITS_HEX=../../../CNN_model/python/mnist_classification/18_05/e2e_cases/tpu_top_e2e_logits_i8.hex -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+  E2E file cases enabled: cases=10
+  inputs = ../../../CNN_model/python/mnist_classification/18_05/e2e_cases/tpu_top_e2e_inputs_i8.hex
+  logits = ../../../CNN_model/python/mnist_classification/18_05/e2e_cases/tpu_top_e2e_logits_i8.hex
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[0] = file_case_0
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-11,-30,22,23,-40,-26,-113,87,9,13}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[0] = file_case_0
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=71876 layer_state=0 pool_state=0
+  stage=3 cycle=90809 layer_state=0 pool_state=0
+  stage=4 cycle=199764 layer_state=0 pool_state=0
+  stage=5 cycle=203269 layer_state=0 pool_state=0
+  stage=6 cycle=218193 layer_state=0 pool_state=0
+  stage=0 cycle=218956 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=218956 err=0x00000000
+  CYCLES : observed=218956 rtl_total=218956 layer_sum=218956
+  LAYERS : conv1=71876 pool1=18933 conv2=108955 pool2=3505 fc1=14924 fc2=763
+  PHASE  conv1: wgt=3354 act_fetch=40560 mxu_active=28392 drain=7998 acc=1438 vpu=8112 out=5408 idle=1380 state_sum=71876
+  MAC    conv1: valid=64896 issued=454272 useful=48672 mxu_active_ratio=39.50% useful_pe_util=10.71% useful_per_issued=10.71%
+  PHASE  conv2: wgt=5616 act_fetch=78408 mxu_active=45738 drain=13392 acc=387 vpu=2178 out=1452 idle=1420 state_sum=108955
+  MAC    conv2: valid=104544 issued=731808 useful=87120 mxu_active_ratio=41.98% useful_pe_util=11.90% useful_per_issued=11.90%
+  PHASE  fc1: wgt=3276 act_fetch=3008 mxu_active=1764 drain=7812 acc=8 vpu=24 out=16 idle=780 state_sum=14924
+  MAC    fc1: valid=4032 issued=28224 useful=4000 mxu_active_ratio=11.82% useful_pe_util=14.17% useful_per_issued=14.17%
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=2 k_tile=3
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[0] = file_case_0
+  actual logits   {-11,-30,22,23,-40,-26,-113,87,9,13}
+  expected logits {-11,-30,22,23,-40,-26,-113,87,9,13}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[1] = file_case_1
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {23,11,107,6,-68,-15,19,-63,32,-49}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[1] = file_case_1
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=71876 layer_state=0 pool_state=0
+  stage=3 cycle=90809 layer_state=0 pool_state=0
+  stage=4 cycle=199764 layer_state=0 pool_state=0
+  stage=5 cycle=203269 layer_state=0 pool_state=0
+  stage=6 cycle=218193 layer_state=0 pool_state=0
+  stage=0 cycle=218956 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=218956 err=0x00000000
+  CYCLES : observed=218956 rtl_total=218956 layer_sum=218956
+  LAYERS : conv1=71876 pool1=18933 conv2=108955 pool2=3505 fc1=14924 fc2=763
+  PHASE  conv1: wgt=3354 act_fetch=40560 mxu_active=28392 drain=7998 acc=1438 vpu=8112 out=5408 idle=1380 state_sum=71876
+  MAC    conv1: valid=64896 issued=454272 useful=48672 mxu_active_ratio=39.50% useful_pe_util=10.71% useful_per_issued=10.71%
+  PHASE  conv2: wgt=5616 act_fetch=78408 mxu_active=45738 drain=13392 acc=387 vpu=2178 out=1452 idle=1420 state_sum=108955
+  MAC    conv2: valid=104544 issued=731808 useful=87120 mxu_active_ratio=41.98% useful_pe_util=11.90% useful_per_issued=11.90%
+  PHASE  fc1: wgt=3276 act_fetch=3008 mxu_active=1764 drain=7812 acc=8 vpu=24 out=16 idle=780 state_sum=14924
+  MAC    fc1: valid=4032 issued=28224 useful=4000 mxu_active_ratio=11.82% useful_pe_util=14.17% useful_per_issued=14.17%
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=2 k_tile=3
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[1] = file_case_1
+  actual logits   {23,11,107,6,-68,-15,19,-63,32,-49}
+  expected logits {23,11,107,6,-68,-15,19,-63,32,-49}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[2] = file_case_2
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-19,60,-6,-36,15,-26,-11,15,-5,-15}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[2] = file_case_2
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=71876 layer_state=0 pool_state=0
+  stage=3 cycle=90809 layer_state=0 pool_state=0
+  stage=4 cycle=199764 layer_state=0 pool_state=0
+  stage=5 cycle=203269 layer_state=0 pool_state=0
+  stage=6 cycle=218193 layer_state=0 pool_state=0
+  stage=0 cycle=218956 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=218956 err=0x00000000
+  CYCLES : observed=218956 rtl_total=218956 layer_sum=218956
+  LAYERS : conv1=71876 pool1=18933 conv2=108955 pool2=3505 fc1=14924 fc2=763
+  PHASE  conv1: wgt=3354 act_fetch=40560 mxu_active=28392 drain=7998 acc=1438 vpu=8112 out=5408 idle=1380 state_sum=71876
+  MAC    conv1: valid=64896 issued=454272 useful=48672 mxu_active_ratio=39.50% useful_pe_util=10.71% useful_per_issued=10.71%
+  PHASE  conv2: wgt=5616 act_fetch=78408 mxu_active=45738 drain=13392 acc=387 vpu=2178 out=1452 idle=1420 state_sum=108955
+  MAC    conv2: valid=104544 issued=731808 useful=87120 mxu_active_ratio=41.98% useful_pe_util=11.90% useful_per_issued=11.90%
+  PHASE  fc1: wgt=3276 act_fetch=3008 mxu_active=1764 drain=7812 acc=8 vpu=24 out=16 idle=780 state_sum=14924
+  MAC    fc1: valid=4032 issued=28224 useful=4000 mxu_active_ratio=11.82% useful_pe_util=14.17% useful_per_issued=14.17%
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=2 k_tile=3
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[2] = file_case_2
+  actual logits   {-19,60,-6,-36,15,-26,-11,15,-5,-15}
+  expected logits {-19,60,-6,-36,15,-26,-11,15,-5,-15}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[3] = file_case_3
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {73,-20,10,-39,-10,-20,21,2,-11,-13}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[3] = file_case_3
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=71876 layer_state=0 pool_state=0
+  stage=3 cycle=90809 layer_state=0 pool_state=0
+  stage=4 cycle=199764 layer_state=0 pool_state=0
+  stage=5 cycle=203269 layer_state=0 pool_state=0
+  stage=6 cycle=218193 layer_state=0 pool_state=0
+  stage=0 cycle=218956 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=218956 err=0x00000000
+  CYCLES : observed=218956 rtl_total=218956 layer_sum=218956
+  LAYERS : conv1=71876 pool1=18933 conv2=108955 pool2=3505 fc1=14924 fc2=763
+  PHASE  conv1: wgt=3354 act_fetch=40560 mxu_active=28392 drain=7998 acc=1438 vpu=8112 out=5408 idle=1380 state_sum=71876
+  MAC    conv1: valid=64896 issued=454272 useful=48672 mxu_active_ratio=39.50% useful_pe_util=10.71% useful_per_issued=10.71%
+  PHASE  conv2: wgt=5616 act_fetch=78408 mxu_active=45738 drain=13392 acc=387 vpu=2178 out=1452 idle=1420 state_sum=108955
+  MAC    conv2: valid=104544 issued=731808 useful=87120 mxu_active_ratio=41.98% useful_pe_util=11.90% useful_per_issued=11.90%
+  PHASE  fc1: wgt=3276 act_fetch=3008 mxu_active=1764 drain=7812 acc=8 vpu=24 out=16 idle=780 state_sum=14924
+  MAC    fc1: valid=4032 issued=28224 useful=4000 mxu_active_ratio=11.82% useful_pe_util=14.17% useful_per_issued=14.17%
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=2 k_tile=3
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[3] = file_case_3
+  actual logits   {73,-20,10,-39,-10,-20,21,2,-11,-13}
+  expected logits {73,-20,10,-39,-10,-20,21,2,-11,-13}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[4] = file_case_4
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-5,-2,-40,-37,88,-35,7,7,-7,22}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[4] = file_case_4
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=71876 layer_state=0 pool_state=0
+  stage=3 cycle=90809 layer_state=0 pool_state=0
+  stage=4 cycle=199764 layer_state=0 pool_state=0
+  stage=5 cycle=203269 layer_state=0 pool_state=0
+  stage=6 cycle=218193 layer_state=0 pool_state=0
+  stage=0 cycle=218956 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=218956 err=0x00000000
+  CYCLES : observed=218956 rtl_total=218956 layer_sum=218956
+  LAYERS : conv1=71876 pool1=18933 conv2=108955 pool2=3505 fc1=14924 fc2=763
+  PHASE  conv1: wgt=3354 act_fetch=40560 mxu_active=28392 drain=7998 acc=1438 vpu=8112 out=5408 idle=1380 state_sum=71876
+  MAC    conv1: valid=64896 issued=454272 useful=48672 mxu_active_ratio=39.50% useful_pe_util=10.71% useful_per_issued=10.71%
+  PHASE  conv2: wgt=5616 act_fetch=78408 mxu_active=45738 drain=13392 acc=387 vpu=2178 out=1452 idle=1420 state_sum=108955
+  MAC    conv2: valid=104544 issued=731808 useful=87120 mxu_active_ratio=41.98% useful_pe_util=11.90% useful_per_issued=11.90%
+  PHASE  fc1: wgt=3276 act_fetch=3008 mxu_active=1764 drain=7812 acc=8 vpu=24 out=16 idle=780 state_sum=14924
+  MAC    fc1: valid=4032 issued=28224 useful=4000 mxu_active_ratio=11.82% useful_pe_util=14.17% useful_per_issued=14.17%
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=2 k_tile=3
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[4] = file_case_4
+  actual logits   {-5,-2,-40,-37,88,-35,7,7,-7,22}
+  expected logits {-5,-2,-40,-37,88,-35,7,7,-7,22}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[5] = file_case_5
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-16,66,2,-36,17,-42,-18,11,7,-15}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[5] = file_case_5
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=71876 layer_state=0 pool_state=0
+  stage=3 cycle=90809 layer_state=0 pool_state=0
+  stage=4 cycle=199764 layer_state=0 pool_state=0
+  stage=5 cycle=203269 layer_state=0 pool_state=0
+  stage=6 cycle=218193 layer_state=0 pool_state=0
+  stage=0 cycle=218956 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=218956 err=0x00000000
+  CYCLES : observed=218956 rtl_total=218956 layer_sum=218956
+  LAYERS : conv1=71876 pool1=18933 conv2=108955 pool2=3505 fc1=14924 fc2=763
+  PHASE  conv1: wgt=3354 act_fetch=40560 mxu_active=28392 drain=7998 acc=1438 vpu=8112 out=5408 idle=1380 state_sum=71876
+  MAC    conv1: valid=64896 issued=454272 useful=48672 mxu_active_ratio=39.50% useful_pe_util=10.71% useful_per_issued=10.71%
+  PHASE  conv2: wgt=5616 act_fetch=78408 mxu_active=45738 drain=13392 acc=387 vpu=2178 out=1452 idle=1420 state_sum=108955
+  MAC    conv2: valid=104544 issued=731808 useful=87120 mxu_active_ratio=41.98% useful_pe_util=11.90% useful_per_issued=11.90%
+  PHASE  fc1: wgt=3276 act_fetch=3008 mxu_active=1764 drain=7812 acc=8 vpu=24 out=16 idle=780 state_sum=14924
+  MAC    fc1: valid=4032 issued=28224 useful=4000 mxu_active_ratio=11.82% useful_pe_util=14.17% useful_per_issued=14.17%
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=2 k_tile=3
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[5] = file_case_5
+  actual logits   {-16,66,2,-36,17,-42,-18,11,7,-15}
+  expected logits {-16,66,2,-36,17,-42,-18,11,7,-15}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[6] = file_case_6
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-40,7,-18,-43,78,-8,-45,5,31,24}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[6] = file_case_6
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=71876 layer_state=0 pool_state=0
+  stage=3 cycle=90809 layer_state=0 pool_state=0
+  stage=4 cycle=199764 layer_state=0 pool_state=0
+  stage=5 cycle=203269 layer_state=0 pool_state=0
+  stage=6 cycle=218193 layer_state=0 pool_state=0
+  stage=0 cycle=218956 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=218956 err=0x00000000
+  CYCLES : observed=218956 rtl_total=218956 layer_sum=218956
+  LAYERS : conv1=71876 pool1=18933 conv2=108955 pool2=3505 fc1=14924 fc2=763
+  PHASE  conv1: wgt=3354 act_fetch=40560 mxu_active=28392 drain=7998 acc=1438 vpu=8112 out=5408 idle=1380 state_sum=71876
+  MAC    conv1: valid=64896 issued=454272 useful=48672 mxu_active_ratio=39.50% useful_pe_util=10.71% useful_per_issued=10.71%
+  PHASE  conv2: wgt=5616 act_fetch=78408 mxu_active=45738 drain=13392 acc=387 vpu=2178 out=1452 idle=1420 state_sum=108955
+  MAC    conv2: valid=104544 issued=731808 useful=87120 mxu_active_ratio=41.98% useful_pe_util=11.90% useful_per_issued=11.90%
+  PHASE  fc1: wgt=3276 act_fetch=3008 mxu_active=1764 drain=7812 acc=8 vpu=24 out=16 idle=780 state_sum=14924
+  MAC    fc1: valid=4032 issued=28224 useful=4000 mxu_active_ratio=11.82% useful_pe_util=14.17% useful_per_issued=14.17%
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=2 k_tile=3
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[6] = file_case_6
+  actual logits   {-40,7,-18,-43,78,-8,-45,5,31,24}
+  expected logits {-40,7,-18,-43,78,-8,-45,5,31,24}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[7] = file_case_7
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-34,-18,-14,10,35,3,-44,-11,1,56}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[7] = file_case_7
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=71876 layer_state=0 pool_state=0
+  stage=3 cycle=90809 layer_state=0 pool_state=0
+  stage=4 cycle=199764 layer_state=0 pool_state=0
+  stage=5 cycle=203269 layer_state=0 pool_state=0
+  stage=6 cycle=218193 layer_state=0 pool_state=0
+  stage=0 cycle=218956 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=218956 err=0x00000000
+  CYCLES : observed=218956 rtl_total=218956 layer_sum=218956
+  LAYERS : conv1=71876 pool1=18933 conv2=108955 pool2=3505 fc1=14924 fc2=763
+  PHASE  conv1: wgt=3354 act_fetch=40560 mxu_active=28392 drain=7998 acc=1438 vpu=8112 out=5408 idle=1380 state_sum=71876
+  MAC    conv1: valid=64896 issued=454272 useful=48672 mxu_active_ratio=39.50% useful_pe_util=10.71% useful_per_issued=10.71%
+  PHASE  conv2: wgt=5616 act_fetch=78408 mxu_active=45738 drain=13392 acc=387 vpu=2178 out=1452 idle=1420 state_sum=108955
+  MAC    conv2: valid=104544 issued=731808 useful=87120 mxu_active_ratio=41.98% useful_pe_util=11.90% useful_per_issued=11.90%
+  PHASE  fc1: wgt=3276 act_fetch=3008 mxu_active=1764 drain=7812 acc=8 vpu=24 out=16 idle=780 state_sum=14924
+  MAC    fc1: valid=4032 issued=28224 useful=4000 mxu_active_ratio=11.82% useful_pe_util=14.17% useful_per_issued=14.17%
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=2 k_tile=3
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[7] = file_case_7
+  actual logits   {-34,-18,-14,10,35,3,-44,-11,1,56}
+  expected logits {-34,-18,-14,10,35,3,-44,-11,1,56}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[8] = file_case_8
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-40,-28,-48,3,-7,83,35,-17,17,-7}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[8] = file_case_8
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=71876 layer_state=0 pool_state=0
+  stage=3 cycle=90809 layer_state=0 pool_state=0
+  stage=4 cycle=199764 layer_state=0 pool_state=0
+  stage=5 cycle=203269 layer_state=0 pool_state=0
+  stage=6 cycle=218193 layer_state=0 pool_state=0
+  stage=0 cycle=218956 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=218956 err=0x00000000
+  CYCLES : observed=218956 rtl_total=218956 layer_sum=218956
+  LAYERS : conv1=71876 pool1=18933 conv2=108955 pool2=3505 fc1=14924 fc2=763
+  PHASE  conv1: wgt=3354 act_fetch=40560 mxu_active=28392 drain=7998 acc=1438 vpu=8112 out=5408 idle=1380 state_sum=71876
+  MAC    conv1: valid=64896 issued=454272 useful=48672 mxu_active_ratio=39.50% useful_pe_util=10.71% useful_per_issued=10.71%
+  PHASE  conv2: wgt=5616 act_fetch=78408 mxu_active=45738 drain=13392 acc=387 vpu=2178 out=1452 idle=1420 state_sum=108955
+  MAC    conv2: valid=104544 issued=731808 useful=87120 mxu_active_ratio=41.98% useful_pe_util=11.90% useful_per_issued=11.90%
+  PHASE  fc1: wgt=3276 act_fetch=3008 mxu_active=1764 drain=7812 acc=8 vpu=24 out=16 idle=780 state_sum=14924
+  MAC    fc1: valid=4032 issued=28224 useful=4000 mxu_active_ratio=11.82% useful_pe_util=14.17% useful_per_issued=14.17%
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=2 k_tile=3
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[8] = file_case_8
+  actual logits   {-40,-28,-48,3,-7,83,35,-17,17,-7}
+  expected logits {-40,-28,-48,3,-7,83,35,-17,17,-7}
+  mismatches: 0
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[9] = file_case_9
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+  expected logits {-26,-58,-43,-15,10,-6,-62,40,29,71}
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[9] = file_case_9
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=71876 layer_state=0 pool_state=0
+  stage=3 cycle=90809 layer_state=0 pool_state=0
+  stage=4 cycle=199764 layer_state=0 pool_state=0
+  stage=5 cycle=203269 layer_state=0 pool_state=0
+  stage=6 cycle=218193 layer_state=0 pool_state=0
+  stage=0 cycle=218956 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=218956 err=0x00000000
+  CYCLES : observed=218956 rtl_total=218956 layer_sum=218956
+  LAYERS : conv1=71876 pool1=18933 conv2=108955 pool2=3505 fc1=14924 fc2=763
+  PHASE  conv1: wgt=3354 act_fetch=40560 mxu_active=28392 drain=7998 acc=1438 vpu=8112 out=5408 idle=1380 state_sum=71876
+  MAC    conv1: valid=64896 issued=454272 useful=48672 mxu_active_ratio=39.50% useful_pe_util=10.71% useful_per_issued=10.71%
+  PHASE  conv2: wgt=5616 act_fetch=78408 mxu_active=45738 drain=13392 acc=387 vpu=2178 out=1452 idle=1420 state_sum=108955
+  MAC    conv2: valid=104544 issued=731808 useful=87120 mxu_active_ratio=41.98% useful_pe_util=11.90% useful_per_issued=11.90%
+  PHASE  fc1: wgt=3276 act_fetch=3008 mxu_active=1764 drain=7812 acc=8 vpu=24 out=16 idle=780 state_sum=14924
+  MAC    fc1: valid=4032 issued=28224 useful=4000 mxu_active_ratio=11.82% useful_pe_util=14.17% useful_per_issued=14.17%
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=2 k_tile=3
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[9] = file_case_9
+  actual logits   {-26,-58,-43,-15,10,-6,-62,40,29,71}
+  expected logits {-26,-58,-43,-15,10,-6,-62,40,29,71}
+  mismatches: 0
+test_tpu_top_end_to_end: checks=130 pass=130 fail=0
+$finish called at time : 22054800 ns : File "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_sa_NxN/test_tpu_top_end_to_end.sv" Line 641
+run: Time (s): cpu = 00:00:00.03 ; elapsed = 00:00:15 . Memory (MB): peak = 1458.887 ; gain = 8.004 ; free physical = 7257 ; free virtual = 40534
+exit
+INFO: xsimkernel Simulation Memory Usage: 300992 KB (Peak: 345452 KB), Simulation CPU Usage: 16000 ms
+INFO: [Common 17-206] Exiting xsim at Thu Jun  4 08:51:18 2026...

@@ -12,6 +12,8 @@ TOP_mxu_v3_2x2               = test_mxu_v3_2x2
 TOP_tpu_datapath_v3          = test_tpu_datapath_v3
 TOP_addrgen_tpu_datapath_v3  = test_addrgen_tpu_datapath_v3
 TOP_controller_v3_tile       = test_controller_v3_tile
+TOP_controller_v3_spatial_block = test_controller_v3_spatial_block
+TOP_controller_v3_rom_spatial_block_conv1 = test_controller_v3_rom_spatial_block_conv1
 TOP_controller_v3_rom_tile   = test_controller_v3_rom_tile
 TOP_controller_v3_rom_layer_fc2 = test_controller_v3_rom_layer_fc2
 TOP_controller_v3_conv1_pixel = test_controller_v3_conv1_pixel
@@ -27,7 +29,7 @@ XSIM_ARGS  ?=
 
 RTL_FILES = $(wildcard $(RTL_DIR)/*.sv)
 
-.PHONY: all help list run compile elaborate simulate gui clean test_activation_window_gather test_weight_tile_buffer test_mxu_v3_2x2 test_tpu_datapath_v3 test_addrgen_tpu_datapath_v3 test_controller_v3_tile test_controller_v3_rom_tile test_controller_v3_rom_layer_fc2 test_controller_v3_conv1_pixel test_controller_v3_conv1_layer test_controller_v3_conv2_layer test_controller_v3_fc1_layer test_tpu_top_v3_e2e
+.PHONY: all help list run compile elaborate simulate gui clean test_activation_window_gather test_weight_tile_buffer test_mxu_v3_2x2 test_tpu_datapath_v3 test_addrgen_tpu_datapath_v3 test_controller_v3_tile test_controller_v3_spatial_block test_controller_v3_rom_spatial_block_conv1 test_controller_v3_rom_tile test_controller_v3_rom_layer_fc2 test_controller_v3_conv1_pixel test_controller_v3_conv1_layer test_controller_v3_conv2_layer test_controller_v3_fc1_layer test_tpu_top_v3_e2e
 
 all: run
 
@@ -46,6 +48,8 @@ list:
 	@echo "  tpu_datapath_v3"
 	@echo "  addrgen_tpu_datapath_v3"
 	@echo "  controller_v3_tile"
+	@echo "  controller_v3_spatial_block"
+	@echo "  controller_v3_rom_spatial_block_conv1"
 	@echo "  controller_v3_rom_tile"
 	@echo "  controller_v3_rom_layer_fc2"
 	@echo "  controller_v3_conv1_pixel"
@@ -73,6 +77,12 @@ test_addrgen_tpu_datapath_v3:
 
 test_controller_v3_tile:
 	$(MAKE) run TEST=controller_v3_tile
+
+test_controller_v3_spatial_block:
+	$(MAKE) run TEST=controller_v3_spatial_block
+
+test_controller_v3_rom_spatial_block_conv1:
+	$(MAKE) run TEST=controller_v3_rom_spatial_block_conv1
 
 test_controller_v3_rom_tile:
 	$(MAKE) run TEST=controller_v3_rom_tile

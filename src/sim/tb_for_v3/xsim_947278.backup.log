@@ -1,0 +1,71 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Tue Jun  2 19:20:34 2026
+# Process ID         : 947278
+# Current directory  : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3
+# Command line       : xsim -mode tcl -source {xsim.dir/test_controller_v3_rom_spatial_block_conv1_snapshot/xsim_script.tcl}
+# Log file           : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/xsim.log
+# Journal file       : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/xsim.jou
+# Running On         : pah-PC
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 24.04.4 LTS
+# Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
+# CPU Frequency      : 4769.768 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 32887 MB
+# Swap memory        : 25033 MB
+# Total Virtual      : 57921 MB
+# Available Virtual  : 45173 MB
+#-----------------------------------------------------------
+source xsim.dir/test_controller_v3_rom_spatial_block_conv1_snapshot/xsim_script.tcl
+# xsim {test_controller_v3_rom_spatial_block_conv1_snapshot} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+
+============================================================
+TEST: Host preload input image
+============================================================
+  UB bank0[0:783] loaded from input_image_i8.hex
+  Conv1 spatial block: spatial_base=161 count=2 oc_tile=0
+
+============================================================
+TEST: V3 ROM spatial-block controller -> Conv1 oc_tile0
+============================================================
+  ACT REQ: k_tile=0 block_row=0 addr={lane1:174,lane0:173}
+  ACT REQ: k_tile=0 block_row=1 addr={lane1:175,lane0:174}
+  ACT REQ: k_tile=1 block_row=0 addr={lane1:201,lane0:175}
+  ACT REQ: k_tile=1 block_row=1 addr={lane1:202,lane0:176}
+  ACT REQ: k_tile=2 block_row=0 addr={lane1:203,lane0:202}
+  ACT REQ: k_tile=2 block_row=1 addr={lane1:204,lane0:203}
+  ACC READ[0]: row=0 data={lane1:19653,lane0:9485}
+  VPU OUT[0]: data={lane1:14,lane0:6}
+  UB WRITE[0]: bank1[461] = 6
+  UB WRITE[1]: bank1[1137] = 14
+  ACC READ[1]: row=1 data={lane1:16381,lane0:7926}
+  VPU OUT[1]: data={lane1:12,lane0:5}
+  UB WRITE[2]: bank1[462] = 5
+  UB WRITE[3]: bank1[1138] = 12
+  CTRL   : done=1 error=0 state=0 block_state=0 k_tile=4 block_row=1 cycles=335 err=0x00000000
+
+============================================================
+TEST: Host readback Conv1 spatial-block outputs
+============================================================
+  out[oc0 spatial161] = 6 expected=6
+  out[oc1 spatial161] = 14 expected=14
+  out[oc0 spatial162] = 5 expected=5
+  out[oc1 spatial162] = 12 expected=12
+  mismatches=0
+
+DEBUG COUNTERS
+  ctrl_cycles=335 final_state=0 final_k_tile=4 final_block_row=1
+  act_fetch=56 act_vectors=10 act_lane_reads=18
+  wgt_load=61 wgt_reuse=5 wgt_empty=0 wgt_full=0
+test_controller_v3_rom_spatial_block_conv1: checks=14 pass=14 fail=0
+$finish called at time : 19200 ns : File "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_for_v3/test_controller_v3_rom_spatial_block_conv1.sv" Line 655
+exit
+INFO: xsimkernel Simulation Memory Usage: 299700 KB (Peak: 344160 KB), Simulation CPU Usage: 660 ms
+INFO: [Common 17-206] Exiting xsim at Tue Jun  2 19:20:36 2026...

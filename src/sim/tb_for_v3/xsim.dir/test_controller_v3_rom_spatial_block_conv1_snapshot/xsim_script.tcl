@@ -1,0 +1,1 @@
+xsim {test_controller_v3_rom_spatial_block_conv1_snapshot} -autoloadwcfg -runall

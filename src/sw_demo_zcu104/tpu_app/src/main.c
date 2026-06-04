@@ -349,9 +349,11 @@ static void print_phase_batch(const char *name,
     xil_printf("  PE util ");
     xil_printf("%s", name);
     xil_printf(": issued=");
-    print_percent_x100_value(ratio_percent_x100(issued_mac_count, phase.mxu_active * 4ULL));
+    print_percent_x100_value(ratio_percent_x100(issued_mac_count,
+                                                 phase.mxu_active * (u64)APP_TPU_PE_COUNT));
     xil_printf(" useful=");
-    print_percent_x100_value(ratio_percent_x100(phase.useful_mac_count, phase.mxu_active * 4ULL));
+    print_percent_x100_value(ratio_percent_x100(phase.useful_mac_count,
+                                                 phase.mxu_active * (u64)APP_TPU_PE_COUNT));
     xil_printf(" useful/issued=");
     print_percent_x100_value(ratio_percent_x100(phase.useful_mac_count, issued_mac_count));
     xil_printf("\r\n");
@@ -439,7 +441,11 @@ int main(void)
     xil_printf("\r\nTPU MNIST ZCU104 layer/debug app\r\n");
     xil_printf("TPU_BASEADDR=0x%08x\r\n", TPU_BASEADDR);
     xil_printf("cases embedded=%u start=%u\r\n", MNIST_REAL_CASE_COUNT, MNIST_REAL_CASE_START);
-    xil_printf("timer_hz=%u pl_clock_hz=%u\r\n", app_timer_ticks_per_second(), APP_PL_CLOCK_HZ);
+    xil_printf("timer_hz=%u pl_clock_hz=%u tpu_size=%u pe_count=%u\r\n",
+               app_timer_ticks_per_second(),
+               APP_PL_CLOCK_HZ,
+               APP_TPU_SIZE,
+               APP_TPU_PE_COUNT);
     xil_printf("CPU batch benchmark uses final-logit-only fast path.\r\n");
     xil_printf("RTL cycle counters: layer totals, phase counters, issued/useful MACs, state sums.\r\n");
 

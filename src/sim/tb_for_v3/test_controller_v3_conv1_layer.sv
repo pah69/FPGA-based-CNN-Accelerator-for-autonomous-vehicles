@@ -21,6 +21,7 @@ module test_controller_v3_conv1_layer;
   localparam int WEIGHT_DEPTH = 4952;
   localparam int PARAM_DEPTH = 44;
   localparam int PARAM_ADDR_WIDTH = $clog2(PARAM_DEPTH);
+  localparam int BLOCK_SIZE = 4;
   localparam int CLK_PERIOD = 10;
   localparam int TIMEOUT_CYCLES = 600000;
 
@@ -199,7 +200,7 @@ module test_controller_v3_conv1_layer;
       .valid_o(weight_rd_valid_w)
   );
 
-  tpu_controller_v3_rom_layer #(
+  tpu_controller_v3_rom_layer_spatial_block #(
       .SIZE               (SIZE),
       .DATA_WIDTH         (DATA_WIDTH),
       .OUT_WIDTH          (OUT_WIDTH),
@@ -212,6 +213,7 @@ module test_controller_v3_conv1_layer;
       .REQUANT_SHIFT_WIDTH(REQUANT_SHIFT_WIDTH),
       .ACC_WIDTH          (ACC_WIDTH),
       .MAX_NUM_TILES      (MAX_NUM_TILES),
+      .BLOCK_SIZE         (BLOCK_SIZE),
       .TILE_COUNT_WIDTH   (TILE_COUNT_WIDTH),
       .PARAM_DEPTH        (PARAM_DEPTH),
       .PARAM_ADDR_WIDTH   (PARAM_ADDR_WIDTH),
@@ -517,7 +519,7 @@ module test_controller_v3_conv1_layer;
     int cycles;
     int output_pairs;
 
-    print_header("TEST: V3 ROM layer controller -> full Conv1 output tensor");
+    print_header("TEST: V3 ROM spatial-block layer controller -> full Conv1 output tensor");
     host_mode = 1'b0;
 
     @(negedge clk);

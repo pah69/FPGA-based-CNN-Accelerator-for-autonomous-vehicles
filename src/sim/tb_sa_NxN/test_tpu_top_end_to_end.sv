@@ -2,7 +2,11 @@
 
 module test_tpu_top_end_to_end;
 
-  localparam int SIZE = 2;
+`ifndef TPU_SIZE
+`define TPU_SIZE 2
+`endif
+
+  localparam int SIZE = `TPU_SIZE;
   localparam int DATA_WIDTH = 8;
   localparam int ACC_WIDTH = 32;
   localparam int ACC_DEPTH = 16;
@@ -38,7 +42,49 @@ module test_tpu_top_end_to_end;
   logic error_o;
   logic [4:0] state_o;
   logic [2:0] stage_o;
-  logic [15:0] cycle_count_o;
+  logic [31:0] cycle_count_o;
+  logic [31:0] conv1_cycle_count_o;
+  logic [31:0] pool1_cycle_count_o;
+  logic [31:0] conv2_cycle_count_o;
+  logic [31:0] pool2_cycle_count_o;
+  logic [31:0] fc1_cycle_count_o;
+  logic [31:0] fc2_cycle_count_o;
+  logic [31:0] conv1_weight_load_cycles_o;
+  logic [31:0] conv1_activation_fetch_cycles_o;
+  logic [31:0] conv1_mxu_active_cycles_o;
+  logic [31:0] conv1_mxu_drain_cycles_o;
+  logic [31:0] conv1_accumulator_cycles_o;
+  logic [31:0] conv1_vpu_cycles_o;
+  logic [31:0] conv1_output_write_cycles_o;
+  logic [31:0] conv1_controller_idle_cycles_o;
+  logic [31:0] conv1_valid_mac_count_o;
+  logic [31:0] conv1_issued_mac_count_o;
+  logic [31:0] conv1_useful_mac_count_o;
+  logic [31:0] conv1_exclusive_state_cycles_o;
+  logic [31:0] conv2_weight_load_cycles_o;
+  logic [31:0] conv2_activation_fetch_cycles_o;
+  logic [31:0] conv2_mxu_active_cycles_o;
+  logic [31:0] conv2_mxu_drain_cycles_o;
+  logic [31:0] conv2_accumulator_cycles_o;
+  logic [31:0] conv2_vpu_cycles_o;
+  logic [31:0] conv2_output_write_cycles_o;
+  logic [31:0] conv2_controller_idle_cycles_o;
+  logic [31:0] conv2_valid_mac_count_o;
+  logic [31:0] conv2_issued_mac_count_o;
+  logic [31:0] conv2_useful_mac_count_o;
+  logic [31:0] conv2_exclusive_state_cycles_o;
+  logic [31:0] fc1_weight_load_cycles_o;
+  logic [31:0] fc1_activation_fetch_cycles_o;
+  logic [31:0] fc1_mxu_active_cycles_o;
+  logic [31:0] fc1_mxu_drain_cycles_o;
+  logic [31:0] fc1_accumulator_cycles_o;
+  logic [31:0] fc1_vpu_cycles_o;
+  logic [31:0] fc1_output_write_cycles_o;
+  logic [31:0] fc1_controller_idle_cycles_o;
+  logic [31:0] fc1_valid_mac_count_o;
+  logic [31:0] fc1_issued_mac_count_o;
+  logic [31:0] fc1_useful_mac_count_o;
+  logic [31:0] fc1_exclusive_state_cycles_o;
   logic [31:0] error_code_o;
 
   logic host_rd_en;
@@ -98,6 +144,48 @@ module test_tpu_top_end_to_end;
       .dbg_state_o           (state_o),
       .dbg_stage_o           (stage_o),
       .dbg_cycle_count_o     (cycle_count_o),
+      .dbg_conv1_cycle_count_o(conv1_cycle_count_o),
+      .dbg_pool1_cycle_count_o(pool1_cycle_count_o),
+      .dbg_conv2_cycle_count_o(conv2_cycle_count_o),
+      .dbg_pool2_cycle_count_o(pool2_cycle_count_o),
+      .dbg_fc1_cycle_count_o  (fc1_cycle_count_o),
+      .dbg_fc2_cycle_count_o  (fc2_cycle_count_o),
+      .dbg_conv1_weight_load_cycles_o     (conv1_weight_load_cycles_o),
+      .dbg_conv1_activation_fetch_cycles_o(conv1_activation_fetch_cycles_o),
+      .dbg_conv1_mxu_active_cycles_o      (conv1_mxu_active_cycles_o),
+      .dbg_conv1_mxu_drain_cycles_o       (conv1_mxu_drain_cycles_o),
+      .dbg_conv1_accumulator_cycles_o     (conv1_accumulator_cycles_o),
+      .dbg_conv1_vpu_cycles_o             (conv1_vpu_cycles_o),
+      .dbg_conv1_output_write_cycles_o    (conv1_output_write_cycles_o),
+      .dbg_conv1_controller_idle_cycles_o (conv1_controller_idle_cycles_o),
+      .dbg_conv1_valid_mac_count_o        (conv1_valid_mac_count_o),
+      .dbg_conv1_issued_mac_count_o       (conv1_issued_mac_count_o),
+      .dbg_conv1_useful_mac_count_o       (conv1_useful_mac_count_o),
+      .dbg_conv1_exclusive_state_cycles_o (conv1_exclusive_state_cycles_o),
+      .dbg_conv2_weight_load_cycles_o     (conv2_weight_load_cycles_o),
+      .dbg_conv2_activation_fetch_cycles_o(conv2_activation_fetch_cycles_o),
+      .dbg_conv2_mxu_active_cycles_o      (conv2_mxu_active_cycles_o),
+      .dbg_conv2_mxu_drain_cycles_o       (conv2_mxu_drain_cycles_o),
+      .dbg_conv2_accumulator_cycles_o     (conv2_accumulator_cycles_o),
+      .dbg_conv2_vpu_cycles_o             (conv2_vpu_cycles_o),
+      .dbg_conv2_output_write_cycles_o    (conv2_output_write_cycles_o),
+      .dbg_conv2_controller_idle_cycles_o (conv2_controller_idle_cycles_o),
+      .dbg_conv2_valid_mac_count_o        (conv2_valid_mac_count_o),
+      .dbg_conv2_issued_mac_count_o       (conv2_issued_mac_count_o),
+      .dbg_conv2_useful_mac_count_o       (conv2_useful_mac_count_o),
+      .dbg_conv2_exclusive_state_cycles_o (conv2_exclusive_state_cycles_o),
+      .dbg_fc1_weight_load_cycles_o       (fc1_weight_load_cycles_o),
+      .dbg_fc1_activation_fetch_cycles_o  (fc1_activation_fetch_cycles_o),
+      .dbg_fc1_mxu_active_cycles_o        (fc1_mxu_active_cycles_o),
+      .dbg_fc1_mxu_drain_cycles_o         (fc1_mxu_drain_cycles_o),
+      .dbg_fc1_accumulator_cycles_o       (fc1_accumulator_cycles_o),
+      .dbg_fc1_vpu_cycles_o               (fc1_vpu_cycles_o),
+      .dbg_fc1_output_write_cycles_o      (fc1_output_write_cycles_o),
+      .dbg_fc1_controller_idle_cycles_o   (fc1_controller_idle_cycles_o),
+      .dbg_fc1_valid_mac_count_o          (fc1_valid_mac_count_o),
+      .dbg_fc1_issued_mac_count_o         (fc1_issued_mac_count_o),
+      .dbg_fc1_useful_mac_count_o         (fc1_useful_mac_count_o),
+      .dbg_fc1_exclusive_state_cycles_o   (fc1_exclusive_state_cycles_o),
       .dbg_error_code_o      (error_code_o),
       .host_rd_en_i          (host_rd_en),
       .host_rd_bank_i        (host_rd_bank),
@@ -141,6 +229,104 @@ module test_tpu_top_end_to_end;
       fail_count++;
       $display("FAIL: %s", label);
     end
+  endtask
+
+  task automatic print_phase_counters(
+      input string layer_name,
+      input logic [31:0] weight_load_cycles,
+      input logic [31:0] activation_fetch_cycles,
+      input logic [31:0] mxu_active_cycles,
+      input logic [31:0] mxu_drain_cycles,
+      input logic [31:0] accumulator_cycles,
+      input logic [31:0] vpu_cycles,
+      input logic [31:0] output_write_cycles,
+      input logic [31:0] controller_idle_cycles,
+      input logic [31:0] valid_mac_count,
+      input logic [31:0] issued_mac_count,
+      input logic [31:0] useful_mac_count,
+      input logic [31:0] exclusive_state_cycles
+  );
+    real mxu_active_ratio;
+    real useful_pe_util;
+    real useful_issued_ratio;
+
+    mxu_active_ratio = 0.0;
+    useful_pe_util = 0.0;
+    useful_issued_ratio = 0.0;
+
+    if (exclusive_state_cycles != 0) begin
+      mxu_active_ratio = (100.0 * real'(mxu_active_cycles)) / real'(exclusive_state_cycles);
+    end
+
+    if (mxu_active_cycles != 0) begin
+      useful_pe_util = (100.0 * real'(useful_mac_count)) /
+                       real'(mxu_active_cycles * (SIZE * SIZE));
+    end
+
+    if (issued_mac_count != 0) begin
+      useful_issued_ratio = (100.0 * real'(useful_mac_count)) / real'(issued_mac_count);
+    end
+
+    $display("  PHASE  %s: wgt=%0d act_fetch=%0d mxu_active=%0d drain=%0d acc=%0d vpu=%0d out=%0d idle=%0d state_sum=%0d",
+             layer_name, weight_load_cycles, activation_fetch_cycles,
+             mxu_active_cycles, mxu_drain_cycles, accumulator_cycles,
+             vpu_cycles, output_write_cycles, controller_idle_cycles,
+             exclusive_state_cycles);
+    $display("  MAC    %s: valid=%0d issued=%0d useful=%0d mxu_active_ratio=%0.2f%% useful_pe_util=%0.2f%% useful_per_issued=%0.2f%%",
+             layer_name, valid_mac_count, issued_mac_count, useful_mac_count,
+             mxu_active_ratio, useful_pe_util, useful_issued_ratio);
+  endtask
+
+  task automatic print_cycle_counters(input int observed_cycles);
+    logic [31:0] layer_sum;
+
+    layer_sum = conv1_cycle_count_o + pool1_cycle_count_o + conv2_cycle_count_o
+              + pool2_cycle_count_o + fc1_cycle_count_o + fc2_cycle_count_o;
+
+    $display("  CYCLES : observed=%0d rtl_total=%0d layer_sum=%0d",
+             observed_cycles, cycle_count_o, layer_sum);
+    $display("  LAYERS : conv1=%0d pool1=%0d conv2=%0d pool2=%0d fc1=%0d fc2=%0d",
+             conv1_cycle_count_o, pool1_cycle_count_o, conv2_cycle_count_o,
+             pool2_cycle_count_o, fc1_cycle_count_o, fc2_cycle_count_o);
+    print_phase_counters("conv1",
+                         conv1_weight_load_cycles_o,
+                         conv1_activation_fetch_cycles_o,
+                         conv1_mxu_active_cycles_o,
+                         conv1_mxu_drain_cycles_o,
+                         conv1_accumulator_cycles_o,
+                         conv1_vpu_cycles_o,
+                         conv1_output_write_cycles_o,
+                         conv1_controller_idle_cycles_o,
+                         conv1_valid_mac_count_o,
+                         conv1_issued_mac_count_o,
+                         conv1_useful_mac_count_o,
+                         conv1_exclusive_state_cycles_o);
+    print_phase_counters("conv2",
+                         conv2_weight_load_cycles_o,
+                         conv2_activation_fetch_cycles_o,
+                         conv2_mxu_active_cycles_o,
+                         conv2_mxu_drain_cycles_o,
+                         conv2_accumulator_cycles_o,
+                         conv2_vpu_cycles_o,
+                         conv2_output_write_cycles_o,
+                         conv2_controller_idle_cycles_o,
+                         conv2_valid_mac_count_o,
+                         conv2_issued_mac_count_o,
+                         conv2_useful_mac_count_o,
+                         conv2_exclusive_state_cycles_o);
+    print_phase_counters("fc1",
+                         fc1_weight_load_cycles_o,
+                         fc1_activation_fetch_cycles_o,
+                         fc1_mxu_active_cycles_o,
+                         fc1_mxu_drain_cycles_o,
+                         fc1_accumulator_cycles_o,
+                         fc1_vpu_cycles_o,
+                         fc1_output_write_cycles_o,
+                         fc1_controller_idle_cycles_o,
+                         fc1_valid_mac_count_o,
+                         fc1_issued_mac_count_o,
+                         fc1_useful_mac_count_o,
+                         fc1_exclusive_state_cycles_o);
   endtask
 
   task automatic init_signals();
@@ -391,6 +577,7 @@ module test_tpu_top_end_to_end;
 
     $display("  TOP    : done=%b busy=%b error=%b state=%0d stage=%0d cycles=%0d err=0x%08h",
              done_o, busy_o, error_o, state_o, stage_o, cycles, error_code_o);
+    print_cycle_counters(cycles);
     $display("  LAYER  : state=%0d tile_state=%0d spatial=%0d oc_tile=%0d k_tile=%0d",
              layer_state_o, layer_tile_state_o, layer_spatial_o,
              layer_oc_tile_o, layer_k_tile_o);
