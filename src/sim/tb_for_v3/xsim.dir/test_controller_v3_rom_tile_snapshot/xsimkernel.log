@@ -1,7 +1,0 @@
-Running: xsim.dir/test_controller_v3_rom_tile_snapshot/xsimk -runall -simmode gui -wdb test_controller_v3_rom_tile_snapshot.wdb -simrunnum 0 -socket 39615
-Design successfully loaded
-Design Loading Memory Usage: 204836 KB (Peak: 204844 KB)
-Design Loading CPU Usage: 660 ms
-Simulation completed
-Simulation Memory Usage: 299644 KB (Peak: 344104 KB)
-Simulation CPU Usage: 660 ms

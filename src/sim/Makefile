@@ -1,34 +1,30 @@
-# Variables
-TOP_MODULE = tb_bp_accel_core
-SNAPSHOT   = my_sim_snapshot
+# Versioned simulation entry point.
+#
+# Examples:
+#   make RTL_VERSION=v2 list
+#   make RTL_VERSION=v3 compile TEST=tpu_top_e2e
+#   make RTL_VERSION=v3 test_tpu_top_e2e_mnist_txt MNIST_TXT_COUNT=10
 
-# Directories
-RTL_DIR = /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/accelerator/
-SIM_DIR = /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/
+RTL_VERSION ?= v2
+TB_DIR := tb_$(RTL_VERSION)
 
-# Source Files
-RTL_FILES = $(wildcard $(RTL_DIR)/*.sv) $(wildcard $(RTL_DIR)/*/*.sv)
-# TB_FILE   = $(SIM_DIR)/tb.sv
-TB_FILE = $(SIM_DIR)/tb_bp_accel_core.sv
-# Targets
-all: simulate clean
+.PHONY: help list compile elaborate simulate run gui clean test_%
 
-# Step 1: Parse (Compile)
-compile: 
-	xvlog -sv $(RTL_FILES) $(TB_FILE)
+help:
+	@echo "Usage:"
+	@echo "  make RTL_VERSION=v2 list"
+	@echo "  make RTL_VERSION=v3 list"
+	@echo "  make RTL_VERSION=v2 compile TEST=tpu_top_e2e"
+	@echo "  make RTL_VERSION=v3 test_tpu_top_e2e_mnist_txt MNIST_TXT_COUNT=10"
+	@echo ""
+	@echo "Version folders:"
+	@echo "  tb_v2 -> ../../rtl/v2, TPU_SIZE=2"
+	@echo "  tb_v3 -> ../../rtl/v3, TPU_SIZE=4"
 
-# Step 2: Elaborate
-elaborate: compile
-	xelab -debug typical -top $(TOP_MODULE) -snapshot $(SNAPSHOT)
+list compile elaborate simulate run gui clean:
+	@test -d "$(TB_DIR)" || (echo "Unknown RTL_VERSION='$(RTL_VERSION)' -> missing $(TB_DIR)" && exit 1)
+	$(MAKE) -C $(TB_DIR) $@
 
-# Step 3: Simulate
-simulate: elaborate
-	xsim $(SNAPSHOT) -R
-
-# Run with GUI
-gui: elaborate
-	xsim $(SNAPSHOT) -gui 
-
-# Cleanup temporary files
-clean:
-	rm -rf *.log *.jou *.pb *.wdb xsim.dir .Xil *.str
+test_%:
+	@test -d "$(TB_DIR)" || (echo "Unknown RTL_VERSION='$(RTL_VERSION)' -> missing $(TB_DIR)" && exit 1)
+	$(MAKE) -C $(TB_DIR) $@
