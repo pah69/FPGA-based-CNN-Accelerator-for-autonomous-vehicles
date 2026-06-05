@@ -32,24 +32,24 @@ streaming behavior.
 
 ## Main V4 Files
 
-- `tpu_top.sv`
+- `top.sv`
   - End-to-end stage sequencer.
   - Owns layer/pool order and top-level cycle counters.
-- `tpu_controller_rom_layer.sv`
+- `controller_layer.sv`
   - Walks spatial blocks and output-channel tiles.
   - Starts one K-loop tile controller run per block/OC tile.
-- `tpu_controller_rom_kloop.sv`
+- `controller_kloop.sv`
   - Main optimization target.
   - Drives ROM reads, weight FIFO writes, activation reads, MXU launch, drain,
     accumulator read, VPU, and UB output writes.
-- `tpu_datapath_v2.sv`
+- `datapath.sv`
   - MXU, psum packer, accumulator, and VPU datapath.
-- `mxu_2x2.sv`, `wgt_fetcher_2x2.sv`, `act_skew_buffer.sv`, `ws_sa_2x2.sv`
+- `mxu.sv`, `weight_fetcher.sv`, `act_skew_buffer.sv`, `systolic_array.sv`
   - Weight-stationary 2x2 compute core.
 
 ## Current K-Loop Schedule
 
-Current `tpu_controller_rom_kloop.sv` flow:
+Current `controller_kloop.sv` flow:
 
 ```text
 S_CLEAR_ACC_BLOCK
@@ -173,7 +173,7 @@ Possible improvements:
 
 - Prefetch next K tile ROM data while current K tile is streaming activations.
 - Write next tile into FIFO during current tile drain if FIFO space allows.
-- Keep old `wgt_fetcher_2x2` load contract until a focused test proves a better
+- Keep old `weight_fetcher` load contract until a focused test proves a better
   replacement.
 
 Risk:

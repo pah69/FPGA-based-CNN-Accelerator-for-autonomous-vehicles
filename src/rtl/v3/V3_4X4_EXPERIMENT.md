@@ -15,16 +15,16 @@ The V2 RTL is not yet a true drop-in `SIZE=4` design.
 Several files are parameterized by `SIZE`, but the controller and compute path
 still contain 2x2 scheduling assumptions:
 
-- `tpu_controller_rom_kloop.sv`
+- `controller_kloop.sv`
   - Checks `SIZE != 2` and errors out.
   - Fetches only activation lane 0 and lane 1.
   - Writes only bottom/top weight rows.
   - Writes only output lane 0 and lane 1.
-- `mxu_2x2.sv`
-  - Instantiates `wgt_fetcher_2x2`, `act_skew_buffer_2x2`, and `ws_sa_2x2`.
-- `ws_sa_2x2.sv`
+- `mxu.sv`
+  - Instantiates `weight_fetcher`, `act_skew_buffer`, and `systolic_array`.
+- `systolic_array.sv`
   - Contains fixed 2x2 PE wiring.
-- `wgt_fetcher_2x2.sv`
+- `weight_fetcher.sv`
   - Can count rows by `SIZE`, but the upstream controller only feeds two rows.
 
 Therefore, setting top-level `SIZE=4` alone is not a valid experiment. It would
@@ -32,12 +32,12 @@ either error out or stall during weight load.
 
 ## Required 4x4 Work
 
-1. Generalize or replace `ws_sa_2x2.sv` with a 4x4 systolic array.
-2. Generalize or replace `wgt_fetcher_2x2.sv` so it loads four weight rows.
-3. Reuse `act_skew_buffer_2x2` only if its generic `SIZE` behavior is verified;
+1. Generalize or replace `systolic_array.sv` with a 4x4 systolic array.
+2. Generalize or replace `weight_fetcher.sv` so it loads four weight rows.
+3. Reuse `act_skew_buffer` only if its generic `SIZE` behavior is verified;
    otherwise create a 4-lane activation skew buffer.
-4. Update `mxu_2x2.sv` or create a new MXU wrapper for 4x4.
-5. Update `tpu_controller_rom_kloop.sv` to:
+4. Update `mxu.sv` or create a new MXU wrapper for 4x4.
+5. Update `controller_kloop.sv` to:
    - fetch four activation lanes,
    - write four weight rows,
    - accept four output lanes,

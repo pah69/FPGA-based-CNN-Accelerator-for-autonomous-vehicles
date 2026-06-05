@@ -29,10 +29,10 @@ when its behavior meaningfully changes, so comparisons against V2 stay clear.
 
 ## First Optimization Candidates
 
-- Reduce controller idle/drain cycles in `tpu_controller_rom_layer.sv`.
-- Reduce repeated activation and weight sequencing bubbles in `tpu_controller_rom_kloop.sv`.
+- Reduce controller idle/drain cycles in `controller_layer.sv`.
+- Reduce repeated activation and weight sequencing bubbles in `controller_kloop.sv`.
 - Check whether accumulator read/VPU/output-write sequencing can overlap with the next tile.
-- Keep `maxpool2d_unit.sv` as the external full-layer pooling path.
+- Keep `maxpool2d.sv` as the external full-layer pooling path.
 
 ## Do Not Carry Forward Yet
 

@@ -661,7 +661,7 @@
     <spirit:fileSet>
       <spirit:name>xilinx_anylanguagesynthesis_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>src/accumulator_array_v2.sv</spirit:name>
+        <spirit:name>src/accumulator_array.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
@@ -671,12 +671,12 @@
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/activation_array_v2.sv</spirit:name>
+        <spirit:name>src/activation_array.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/bias_requantize_v2.sv</spirit:name>
+        <spirit:name>src/bias_requantize.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
@@ -686,7 +686,7 @@
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/conv_fc_address_generator.sv</spirit:name>
+        <spirit:name>src/address_generator.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
@@ -706,7 +706,7 @@
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/maxpool2d_unit.sv</spirit:name>
+        <spirit:name>src/maxpool2d.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
@@ -716,12 +716,12 @@
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/mxu_2x2.sv</spirit:name>
+        <spirit:name>src/mxu.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/normalizer_v2.sv</spirit:name>
+        <spirit:name>src/normalizer.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
@@ -731,17 +731,17 @@
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/pooling_unit_v2.sv</spirit:name>
+        <spirit:name>src/pooling_unit.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/post_process_v2.sv</spirit:name>
+        <spirit:name>src/post_process.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/psum_packer_v2.sv</spirit:name>
+        <spirit:name>src/psum_packer.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
@@ -756,22 +756,22 @@
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/tpu_controller_rom_kloop.sv</spirit:name>
+        <spirit:name>src/controller_kloop.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/tpu_controller_rom_layer.sv</spirit:name>
+        <spirit:name>src/controller_layer.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/tpu_datapath_v2.sv</spirit:name>
+        <spirit:name>src/datapath.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/tpu_top.sv</spirit:name>
+        <spirit:name>src/top.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
@@ -781,7 +781,7 @@
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/vector_processing_unit_v2.sv</spirit:name>
+        <spirit:name>src/vector_processing_unit.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
@@ -791,17 +791,17 @@
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/wgt_fetcher_2x2.sv</spirit:name>
+        <spirit:name>src/weight_fetcher.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/ws_sa_2x2.sv</spirit:name>
+        <spirit:name>src/systolic_array.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/tpu_top_axi_lite.sv</spirit:name>
+        <spirit:name>src/top_axi_lite.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>CHECKSUM_68ac4fbe</spirit:userFileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
@@ -823,7 +823,7 @@
         <spirit:userFileType>mem</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/accumulator_array_v2.sv</spirit:name>
+        <spirit:name>../rtl/v2/accumulator_array.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -831,11 +831,11 @@
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/activation_array_v2.sv</spirit:name>
+        <spirit:name>../rtl/v2/activation_array.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/bias_requantize_v2.sv</spirit:name>
+        <spirit:name>../rtl/v2/bias_requantize.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -843,7 +843,7 @@
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/conv_fc_address_generator.sv</spirit:name>
+        <spirit:name>../rtl/v2/address_generator.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -859,7 +859,7 @@
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/maxpool2d_unit.sv</spirit:name>
+        <spirit:name>../rtl/v2/maxpool2d.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -867,11 +867,11 @@
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/mxu_2x2.sv</spirit:name>
+        <spirit:name>../rtl/v2/mxu.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/normalizer_v2.sv</spirit:name>
+        <spirit:name>../rtl/v2/normalizer.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -879,15 +879,15 @@
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/pooling_unit_v2.sv</spirit:name>
+        <spirit:name>../rtl/v2/pooling_unit.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/post_process_v2.sv</spirit:name>
+        <spirit:name>../rtl/v2/post_process.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/psum_packer_v2.sv</spirit:name>
+        <spirit:name>../rtl/v2/psum_packer.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -899,19 +899,19 @@
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/tpu_controller_rom_kloop.sv</spirit:name>
+        <spirit:name>../rtl/v2/controller_kloop.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/tpu_controller_rom_layer.sv</spirit:name>
+        <spirit:name>../rtl/v2/controller_layer.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/tpu_datapath_v2.sv</spirit:name>
+        <spirit:name>../rtl/v2/datapath.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/tpu_top.sv</spirit:name>
+        <spirit:name>../rtl/v2/top.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -919,7 +919,7 @@
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/vector_processing_unit_v2.sv</spirit:name>
+        <spirit:name>../rtl/v2/vector_processing_unit.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -927,16 +927,16 @@
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/wgt_fetcher_2x2.sv</spirit:name>
+        <spirit:name>../rtl/v2/weight_fetcher.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/ws_sa_2x2.sv</spirit:name>
+        <spirit:name>../rtl/v2/systolic_array.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>CHECKSUM_559d6d9e</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/tpu_top_axi_lite.sv</spirit:name>
+        <spirit:name>../rtl/v2/top_axi_lite.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>CHECKSUM_ed172c95</spirit:userFileType>
       </spirit:file>
@@ -944,7 +944,7 @@
     <spirit:fileSet>
       <spirit:name>xilinx_anylanguagebehavioralsimulation_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>src/accumulator_array_v2.sv</spirit:name>
+        <spirit:name>src/accumulator_array.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
@@ -954,12 +954,12 @@
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/activation_array_v2.sv</spirit:name>
+        <spirit:name>src/activation_array.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/bias_requantize_v2.sv</spirit:name>
+        <spirit:name>src/bias_requantize.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
@@ -969,7 +969,7 @@
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/conv_fc_address_generator.sv</spirit:name>
+        <spirit:name>src/address_generator.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
@@ -989,7 +989,7 @@
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/maxpool2d_unit.sv</spirit:name>
+        <spirit:name>src/maxpool2d.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
@@ -999,12 +999,12 @@
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/mxu_2x2.sv</spirit:name>
+        <spirit:name>src/mxu.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/normalizer_v2.sv</spirit:name>
+        <spirit:name>src/normalizer.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
@@ -1014,17 +1014,17 @@
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/pooling_unit_v2.sv</spirit:name>
+        <spirit:name>src/pooling_unit.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/post_process_v2.sv</spirit:name>
+        <spirit:name>src/post_process.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/psum_packer_v2.sv</spirit:name>
+        <spirit:name>src/psum_packer.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
@@ -1039,22 +1039,22 @@
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/tpu_controller_rom_kloop.sv</spirit:name>
+        <spirit:name>src/controller_kloop.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/tpu_controller_rom_layer.sv</spirit:name>
+        <spirit:name>src/controller_layer.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/tpu_datapath_v2.sv</spirit:name>
+        <spirit:name>src/datapath.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/tpu_top.sv</spirit:name>
+        <spirit:name>src/top.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
@@ -1064,7 +1064,7 @@
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/vector_processing_unit_v2.sv</spirit:name>
+        <spirit:name>src/vector_processing_unit.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
@@ -1074,17 +1074,17 @@
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/wgt_fetcher_2x2.sv</spirit:name>
+        <spirit:name>src/weight_fetcher.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/ws_sa_2x2.sv</spirit:name>
+        <spirit:name>src/systolic_array.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/tpu_top_axi_lite.sv</spirit:name>
+        <spirit:name>src/top_axi_lite.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
@@ -1105,7 +1105,7 @@
         <spirit:userFileType>mem</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/accumulator_array_v2.sv</spirit:name>
+        <spirit:name>../rtl/v2/accumulator_array.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -1113,11 +1113,11 @@
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/activation_array_v2.sv</spirit:name>
+        <spirit:name>../rtl/v2/activation_array.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/bias_requantize_v2.sv</spirit:name>
+        <spirit:name>../rtl/v2/bias_requantize.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -1125,7 +1125,7 @@
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/conv_fc_address_generator.sv</spirit:name>
+        <spirit:name>../rtl/v2/address_generator.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -1141,7 +1141,7 @@
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/maxpool2d_unit.sv</spirit:name>
+        <spirit:name>../rtl/v2/maxpool2d.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -1149,11 +1149,11 @@
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/mxu_2x2.sv</spirit:name>
+        <spirit:name>../rtl/v2/mxu.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/normalizer_v2.sv</spirit:name>
+        <spirit:name>../rtl/v2/normalizer.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -1161,15 +1161,15 @@
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/pooling_unit_v2.sv</spirit:name>
+        <spirit:name>../rtl/v2/pooling_unit.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/post_process_v2.sv</spirit:name>
+        <spirit:name>../rtl/v2/post_process.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/psum_packer_v2.sv</spirit:name>
+        <spirit:name>../rtl/v2/psum_packer.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -1181,19 +1181,19 @@
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/tpu_controller_rom_kloop.sv</spirit:name>
+        <spirit:name>../rtl/v2/controller_kloop.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/tpu_controller_rom_layer.sv</spirit:name>
+        <spirit:name>../rtl/v2/controller_layer.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/tpu_datapath_v2.sv</spirit:name>
+        <spirit:name>../rtl/v2/datapath.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/tpu_top.sv</spirit:name>
+        <spirit:name>../rtl/v2/top.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -1201,7 +1201,7 @@
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/vector_processing_unit_v2.sv</spirit:name>
+        <spirit:name>../rtl/v2/vector_processing_unit.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -1209,15 +1209,15 @@
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/wgt_fetcher_2x2.sv</spirit:name>
+        <spirit:name>../rtl/v2/weight_fetcher.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/ws_sa_2x2.sv</spirit:name>
+        <spirit:name>../rtl/v2/systolic_array.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../rtl/v2/tpu_top_axi_lite.sv</spirit:name>
+        <spirit:name>../rtl/v2/top_axi_lite.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
     </spirit:fileSet>

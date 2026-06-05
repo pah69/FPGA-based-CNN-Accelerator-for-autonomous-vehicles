@@ -65,7 +65,7 @@ Implement this first working architecture:
 ```text
 testbench / PS-side control
         ↓
-tpu_top.sv
+top.sv
         ├── tpu_controller.sv
         ├── layer_descriptor_pkg.sv
         ├── unified_buffer.sv
@@ -73,9 +73,9 @@ tpu_top.sv
         ├── bias_rom.sv
         ├── requant_mult_rom.sv
         ├── requant_shift_rom.sv
-        ├── conv_fc_address_generator.sv
-        ├── maxpool2d_unit.sv
-        └── tpu_datapath_v2.sv
+        ├── address_generator.sv
+        ├── maxpool2d.sv
+        └── datapath.sv
 ```
 
 For the first version, memory can be preloaded from `.mem` / `.hex` files in simulation.  
@@ -659,7 +659,7 @@ POOL_MODE = 0
 Implement 2D maxpool as a separate module/pass:
 
 ```text
-maxpool2d_unit.sv
+maxpool2d.sv
 ```
 
 ---
@@ -1080,7 +1080,7 @@ These can be thesis stretch goals after the signed INT8 RTL inference path is co
 The AI agent should produce or modify these files:
 
 ```text
-tpu_top.sv
+top.sv
 tpu_controller.sv
 layer_descriptor_pkg.sv
 unified_buffer.sv
@@ -1088,13 +1088,13 @@ weight_rom.sv
 bias_rom.sv
 requant_mult_rom.sv
 requant_shift_rom.sv
-conv_fc_address_generator.sv
-maxpool2d_unit.sv
-tpu_datapath_v2.sv
-vector_processing_unit_v2.sv
-post_process_v2.sv
-activation_array_v2.sv
-tb_tpu_top.sv
+address_generator.sv
+maxpool2d.sv
+datapath.sv
+vector_processing_unit.sv
+post_process.sv
+activation_array.sv
+tb_top.sv
 ```
 
 The final system must execute:

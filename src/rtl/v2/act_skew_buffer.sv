@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module act_skew_buffer_2x2 #(
+module act_skew_buffer #(
     parameter int SIZE               = 2,
     parameter int DATA_WIDTH         = 8,
     parameter int ROW_STAGGER_CYCLES = 4

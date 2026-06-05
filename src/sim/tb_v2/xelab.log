@@ -1,0 +1,42 @@
+Vivado Simulator v2025.2
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: /home/pah/tools/Xilinx_20252/2025.2/Vivado/bin/unwrapped/lnx64.o/xelab -debug typical -top test_tpu_top_end_to_end -snapshot test_tpu_top_end_to_end_snapshot 
+Multi-threading is on. Using 14 slave threads.
+WARNING: [XSIM 43-3431] One or more environment variables have been detected which affect the operation of the C compiler. These are typically not set in standard installations and are not tested by AMD, however they may be appropriate for your system, so the flow will attempt to continue.  If errors occur, try running xelab with the "-mt off -v 1" switches to see more information from the C compiler. The following environment variables have been detected:
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package work.layer_descriptor_pkg
+Compiling module work.unified_buffer(ADDR_WIDTH=13)
+Compiling module work.layer_descriptor_rom
+Compiling module work.conv_fc_address_generator
+Compiling module work.weight_rom(ADDR_WIDTH=13)
+Compiling module work.bias_rom(ADDR_WIDTH=6)
+Compiling module work.requant_mult_rom(ADDR_WIDTH=6)
+Compiling module work.requant_shift_rom(ADDR_WIDTH=6)
+Compiling module work.tpu_controller_rom_kloop(ACC_ADD...
+Compiling module work.tpu_controller_rom_layer(ACC_ADD...
+Compiling module work.fifo(WIDTH=16,COUNT_WIDTH=5)
+Compiling module work.wgt_fetcher_2x2_default
+Compiling module work.act_skew_buffer_2x2_default
+Compiling module work.multiplier(DATA_WIDTH=8)
+Compiling module work.pe(LOCAL_PSUM_WIDTH=17)
+Compiling module work.ws_sa_2x2(LOCAL_PSUM_WIDTH=17,NU...
+Compiling module work.mxu_2x2(LOCAL_PSUM_WIDTH=17,NUM_...
+Compiling module work.psum_packer_v2(LOCAL_PSUM_WIDTH=...
+Compiling module work.accumulator_array_v2(LOCAL_PSUM_...
+Compiling module work.bias_requantize_v2_default
+Compiling module work.activation_array_v2(IN_WIDTH=32,...
+Compiling module work.normalizer_v2(IN_WIDTH=32)
+Compiling module work.pooling_unit_v2_default
+Compiling module work.post_process_v2(ACT_WIDTH=32,QUA...
+Compiling module work.vector_processing_unit_v2(ACT_WI...
+Compiling module work.tpu_datapath_v2(LOCAL_PSUM_WIDTH...
+Compiling module work.maxpool2d_unit(ADDR_WIDTH=13)
+Compiling module work.tpu_top(ACC_ADDR_WIDTH=4,TILE_CO...
+Compiling module work.test_tpu_top_end_to_end
+Built simulation snapshot test_tpu_top_end_to_end_snapshot

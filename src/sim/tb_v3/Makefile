@@ -51,7 +51,9 @@ MNIST_TXT_COUNT  ?= 10
 MNIST_TXT_START  ?= 0
 
 # Source files
-RTL_FILES = $(wildcard $(RTL_DIR)/*.sv) $(wildcard $(RTL_DIR)/*/*.sv)
+RTL_ALL_FILES = $(wildcard $(RTL_DIR)/*.sv) $(wildcard $(RTL_DIR)/*/*.sv)
+RTL_PKG_FILE  = $(RTL_DIR)/layer_descriptor_pkg.sv
+RTL_FILES     = $(RTL_PKG_FILE) $(filter-out $(RTL_PKG_FILE),$(RTL_ALL_FILES))
 
 .PHONY: all help list run prepare_mem compile elaborate simulate gui clean \
 	test_sa_2x2 test_staggered_activation test_weight_double_buffer \

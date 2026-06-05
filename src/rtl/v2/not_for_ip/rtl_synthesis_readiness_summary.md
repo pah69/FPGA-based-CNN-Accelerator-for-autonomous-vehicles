@@ -98,33 +98,33 @@ Important descriptor values:
 The final end-to-end top is:
 
 ```text
-tpu_top.sv
+top.sv
   unified_buffer.sv
-  tpu_controller_rom_layer.sv
+  controller_layer.sv
     layer_descriptor_rom.sv
-    tpu_controller_rom_kloop.sv
-      conv_fc_address_generator.sv
+    controller_kloop.sv
+      address_generator.sv
       weight_rom.sv
       bias_rom.sv
       requant_mult_rom.sv
       requant_shift_rom.sv
-  tpu_datapath_v2.sv
-    mxu_2x2.sv
+  datapath.sv
+    mxu.sv
       fifo.sv
-      wgt_fetcher_2x2.sv
+      weight_fetcher.sv
       act_skew_buffer.sv
-      ws_sa_2x2.sv
+      systolic_array.sv
         pe.sv
           multiplier.sv
-    psum_packer_v2.sv
-    accumulator_array_v2.sv
-    vector_processing_unit_v2.sv
-      post_process_v2.sv
-        bias_requantize_v2.sv
-        activation_array_v2.sv
-        normalizer_v2.sv
-        pooling_unit_v2.sv
-  maxpool2d_unit.sv
+    psum_packer.sv
+    accumulator_array.sv
+    vector_processing_unit.sv
+      post_process.sv
+        bias_requantize.sv
+        activation_array.sv
+        normalizer.sv
+        pooling_unit.sv
+  maxpool2d.sv
 ```
 
 Bank schedule:
@@ -158,34 +158,34 @@ Include these SystemVerilog RTL files for the current end-to-end design:
 
 ```text
 src/rtl/v2/layer_descriptor_pkg.sv
-src/rtl/v2/tpu_top_axi_lite.sv
-src/rtl/v2/tpu_top.sv
+src/rtl/v2/top_axi_lite.sv
+src/rtl/v2/top.sv
 src/rtl/v2/unified_buffer.sv
-src/rtl/v2/tpu_controller_rom_layer.sv
-src/rtl/v2/tpu_controller_rom_kloop.sv
+src/rtl/v2/controller_layer.sv
+src/rtl/v2/controller_kloop.sv
 src/rtl/v2/layer_descriptor_rom.sv
-src/rtl/v2/conv_fc_address_generator.sv
+src/rtl/v2/address_generator.sv
 src/rtl/v2/weight_rom.sv
 src/rtl/v2/bias_rom.sv
 src/rtl/v2/requant_mult_rom.sv
 src/rtl/v2/requant_shift_rom.sv
-src/rtl/v2/tpu_datapath_v2.sv
-src/rtl/v2/mxu_2x2.sv
+src/rtl/v2/datapath.sv
+src/rtl/v2/mxu.sv
 src/rtl/v2/fifo.sv
-src/rtl/v2/wgt_fetcher_2x2.sv
+src/rtl/v2/weight_fetcher.sv
 src/rtl/v2/act_skew_buffer.sv
-src/rtl/v2/ws_sa_2x2.sv
+src/rtl/v2/systolic_array.sv
 src/rtl/v2/pe.sv
 src/rtl/v2/multiplier.sv
-src/rtl/v2/psum_packer_v2.sv
-src/rtl/v2/accumulator_array_v2.sv
-src/rtl/v2/vector_processing_unit_v2.sv
-src/rtl/v2/post_process_v2.sv
-src/rtl/v2/bias_requantize_v2.sv
-src/rtl/v2/activation_array_v2.sv
-src/rtl/v2/normalizer_v2.sv
-src/rtl/v2/pooling_unit_v2.sv
-src/rtl/v2/maxpool2d_unit.sv
+src/rtl/v2/psum_packer.sv
+src/rtl/v2/accumulator_array.sv
+src/rtl/v2/vector_processing_unit.sv
+src/rtl/v2/post_process.sv
+src/rtl/v2/bias_requantize.sv
+src/rtl/v2/activation_array.sv
+src/rtl/v2/normalizer.sv
+src/rtl/v2/pooling_unit.sv
+src/rtl/v2/maxpool2d.sv
 src/rtl/v2/output_accumulator_v2.sv
 ```
 
@@ -237,33 +237,33 @@ For Vivado project synthesis, confirm the working directory or override
 |---|---|---|
 | `layer_descriptor_pkg.sv` | Layer types, shapes, bases, bank schedule constants | Required |
 | `layer_descriptor_rom.sv` | Descriptor lookup by layer index | Required |
-| `tpu_top.sv` | End-to-end CNN sequencer around controller, datapath, UB, pool | Required core top |
-| `tpu_top_axi_lite.sv` | AXI4-Lite wrapper around `tpu_top` | Required for PS-facing top |
+| `top.sv` | End-to-end CNN sequencer around controller, datapath, UB, pool | Required core top |
+| `top_axi_lite.sv` | AXI4-Lite wrapper around `tpu_top` | Required for PS-facing top |
 | `unified_buffer.sv` | Two-bank signed INT8 activation/output buffer | Required |
-| `tpu_controller_rom_layer.sv` | Runs one full layer across spatial blocks and OC tiles | Required |
-| `tpu_controller_rom_kloop.sv` | Runs one spatial/OC block across all K tiles | Required |
-| `conv_fc_address_generator.sv` | Generates activation and weight addresses, masks padded K/OC lanes | Required |
+| `controller_layer.sv` | Runs one full layer across spatial blocks and OC tiles | Required |
+| `controller_kloop.sv` | Runs one spatial/OC block across all K tiles | Required |
+| `address_generator.sv` | Generates activation and weight addresses, masks padded K/OC lanes | Required |
 | `weight_rom.sv` | Signed INT8 weight ROM | Required |
 | `bias_rom.sv` | Signed INT32 bias ROM | Required |
 | `requant_mult_rom.sv` | Signed INT32 requant multiplier ROM | Required |
 | `requant_shift_rom.sv` | Unsigned 6-bit requant shift ROM | Required |
-| `tpu_datapath_v2.sv` | MXU, psum packer, accumulator, VPU datapath shell | Required |
-| `mxu_2x2.sv` | Weight FIFO/fetcher, activation skew, 2x2 WS SA | Required |
+| `datapath.sv` | MXU, psum packer, accumulator, VPU datapath shell | Required |
+| `mxu.sv` | Weight FIFO/fetcher, activation skew, 2x2 WS SA | Required |
 | `fifo.sv` | Simple synchronous FIFO for weight rows | Required |
-| `wgt_fetcher_2x2.sv` | Loads weight rows into WS array | Required |
+| `weight_fetcher.sv` | Loads weight rows into WS array | Required |
 | `act_skew_buffer.sv` | Staggers activation rows for WS array timing | Required |
-| `ws_sa_2x2.sv` | 2x2 weight-stationary systolic array | Required |
+| `systolic_array.sv` | 2x2 weight-stationary systolic array | Required |
 | `pe.sv` | Processing element | Required |
 | `multiplier.sv` | Signed 8x8 multiply | Required |
-| `psum_packer_v2.sv` | Collects staggered psum lanes into one row write | Required |
-| `accumulator_array_v2.sv` | Accumulates K tiles per row/lane and marks rows ready | Required |
-| `vector_processing_unit_v2.sv` | Post-processing wrapper | Required |
-| `post_process_v2.sv` | Bias/requant, activation, normalize, lane pooling chain | Required |
-| `bias_requantize_v2.sv` | Bias add, fixed-point requant, signed INT8 clamp | Required |
-| `activation_array_v2.sv` | ReLU/bypass activation per lane | Required |
-| `normalizer_v2.sv` | Optional shift/round normalize stage | Required |
-| `pooling_unit_v2.sv` | Temporal lane pooling stage, bypass in top datapath | Required by VPU chain |
-| `maxpool2d_unit.sv` | Real 2D Pool1/Pool2 pass over UB tensors | Required |
+| `psum_packer.sv` | Collects staggered psum lanes into one row write | Required |
+| `accumulator_array.sv` | Accumulates K tiles per row/lane and marks rows ready | Required |
+| `vector_processing_unit.sv` | Post-processing wrapper | Required |
+| `post_process.sv` | Bias/requant, activation, normalize, lane pooling chain | Required |
+| `bias_requantize.sv` | Bias add, fixed-point requant, signed INT8 clamp | Required |
+| `activation_array.sv` | ReLU/bypass activation per lane | Required |
+| `normalizer.sv` | Optional shift/round normalize stage | Required |
+| `pooling_unit.sv` | Temporal lane pooling stage, bypass in top datapath | Required by VPU chain |
+| `maxpool2d.sv` | Real 2D Pool1/Pool2 pass over UB tensors | Required |
 | `output_accumulator_v2.sv` | Older/local SA output accumulator | Optional support file |
 | `tpu_controller.sv` | Earlier non-ROM controller | Not in final top |
 | `tpu_controller_rom_tile.sv` | Earlier single-tile ROM controller | Not in final top |
@@ -396,10 +396,10 @@ All testbenches are simulation-only and must not be included in synthesis.
 | `test_activation_skew_ws_sa.sv` | `make test_activation_skew` | Activation row skew plus WS SA compute | `16/16` |
 | `test_vpu_post_process.sv` | `make test_vpu_post_process` | ReLU, normalize, saturation, bias/requant, pooling modes | `36/36` |
 | `test_accumulator_array_ws_sa_vpu.sv` | `make test_accumulator_array` | WS SA -> accumulator array -> VPU | `19/19` |
-| `test_tpu_datapath_v2.sv` | `make test_tpu_datapath` | MXU -> psum packer -> accumulator -> VPU | `30/30` |
+| `test_datapath.sv` | `make test_tpu_datapath` | MXU -> psum packer -> accumulator -> VPU | `30/30` |
 | `test_controller_unified_buffer_v2.sv` | `make test_controller_buffer` | Controller and unified buffer smoke path | `5/5` |
 | `test_rom_load.sv` | `make test_rom_load` | Weight/bias/requant/descriptor ROM offsets | `84/84` |
-| `test_conv_fc_address_generator.sv` | `make test_conv_fc_addr` | Conv/FC address generation and padding masks | `56/56` |
+| `test_address_generator.sv` | `make test_conv_fc_addr` | Conv/FC address generation and padding masks | `56/56` |
 | `test_controller_rom_tile.sv` | `make test_controller_rom_tile` | ROM-driven FC2 single tile | `5/5` |
 | `test_controller_rom_kloop.sv` | `make test_controller_rom_kloop` | ROM-driven full-K FC2 OC tile | `5/5` |
 | `test_controller_rom_layer.sv` | `make test_controller_rom_layer` | Full FC2 layer logits | `13/13` |

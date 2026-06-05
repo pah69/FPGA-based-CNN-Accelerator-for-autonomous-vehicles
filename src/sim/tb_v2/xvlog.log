@@ -1,0 +1,65 @@
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/layer_descriptor_pkg.sv" into library work
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/accumulator_array.sv" into library work
+INFO: [VRFC 10-311] analyzing module accumulator_array_v2
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/act_skew_buffer.sv" into library work
+INFO: [VRFC 10-311] analyzing module act_skew_buffer_2x2
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/activation_array.sv" into library work
+INFO: [VRFC 10-311] analyzing module activation_array_v2
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/address_generator.sv" into library work
+INFO: [VRFC 10-311] analyzing module conv_fc_address_generator
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/bias_requantize.sv" into library work
+INFO: [VRFC 10-311] analyzing module bias_requantize_v2
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/bias_rom.sv" into library work
+INFO: [VRFC 10-311] analyzing module bias_rom
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/controller_kloop.sv" into library work
+INFO: [VRFC 10-311] analyzing module tpu_controller_rom_kloop
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/controller_layer.sv" into library work
+INFO: [VRFC 10-311] analyzing module tpu_controller_rom_layer
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/datapath.sv" into library work
+INFO: [VRFC 10-311] analyzing module tpu_datapath_v2
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/fifo.sv" into library work
+INFO: [VRFC 10-311] analyzing module fifo
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/layer_descriptor_rom.sv" into library work
+INFO: [VRFC 10-311] analyzing module layer_descriptor_rom
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/maxpool2d.sv" into library work
+INFO: [VRFC 10-311] analyzing module maxpool2d_unit
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/multiplier.sv" into library work
+INFO: [VRFC 10-311] analyzing module multiplier
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/mxu.sv" into library work
+INFO: [VRFC 10-311] analyzing module mxu_2x2
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/normalizer.sv" into library work
+INFO: [VRFC 10-311] analyzing module normalizer_v2
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/pe.sv" into library work
+INFO: [VRFC 10-311] analyzing module pe
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/pooling_unit.sv" into library work
+INFO: [VRFC 10-311] analyzing module pooling_unit_v2
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/post_process.sv" into library work
+INFO: [VRFC 10-311] analyzing module post_process_v2
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/psum_packer.sv" into library work
+INFO: [VRFC 10-311] analyzing module psum_packer_v2
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/requant_mult_rom.sv" into library work
+INFO: [VRFC 10-311] analyzing module requant_mult_rom
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/requant_shift_rom.sv" into library work
+INFO: [VRFC 10-311] analyzing module requant_shift_rom
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/systolic_array.sv" into library work
+INFO: [VRFC 10-311] analyzing module ws_sa_2x2
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/top.sv" into library work
+INFO: [VRFC 10-311] analyzing module tpu_top
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/top_axi_lite.sv" into library work
+INFO: [VRFC 10-311] analyzing module tpu_top_axi_lite
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/unified_buffer.sv" into library work
+INFO: [VRFC 10-311] analyzing module unified_buffer
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/vector_processing_unit.sv" into library work
+INFO: [VRFC 10-311] analyzing module vector_processing_unit_v2
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/weight_fetcher.sv" into library work
+INFO: [VRFC 10-311] analyzing module wgt_fetcher_2x2
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/weight_rom.sv" into library work
+INFO: [VRFC 10-311] analyzing module weight_rom
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/not_for_ip/output_accumulator_v2.sv" into library work
+INFO: [VRFC 10-311] analyzing module output_accumulator_v2
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/not_for_ip/tpu_controller.sv" into library work
+INFO: [VRFC 10-311] analyzing module tpu_controller
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/v2/not_for_ip/tpu_controller_rom_tile.sv" into library work
+INFO: [VRFC 10-311] analyzing module tpu_controller_rom_tile
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/tb_v2/test_controller_rom_kloop.sv" into library work
+INFO: [VRFC 10-311] analyzing module test_controller_rom_kloop

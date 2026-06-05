@@ -170,8 +170,8 @@ switch when safe
 The design has:
 
 ```text
-psum_packer_v2
-accumulator_array_v2
+psum_packer
+accumulator_array
 row_ready flags
 packed psum valid
 accumulator readback
@@ -204,7 +204,7 @@ This matches the signed symmetric INT8 Python export.
 
 ### 1.9 Dedicated MaxPool2d Unit Is Correct
 
-The design uses a separate full-layer `maxpool2d_unit`, not the small temporal pooling unit inside the VPU.
+The design uses a separate full-layer `maxpool2d`, not the small temporal pooling unit inside the VPU.
 
 This is correct for:
 
@@ -380,7 +380,7 @@ This is not currently the top bottleneck, but it becomes more important as compu
 
 ### 2.8 MaxPool2d Is Serial
 
-`maxpool2d_unit` reads four samples per output and then writes one output.
+`maxpool2d` reads four samples per output and then writes one output.
 
 Current pooling cycles:
 
@@ -396,10 +396,10 @@ Pooling is not the main bottleneck today, but as Conv1/Conv2 improve, Pool1 will
 Some modules are now parameterized but still named as `2x2`:
 
 ```text
-mxu_2x2
-ws_sa_2x2
-wgt_fetcher_2x2
-act_skew_buffer_2x2
+mxu
+systolic_array
+weight_fetcher
+act_skew_buffer
 ```
 
 This is not a functional issue, but it is confusing for documentation and thesis presentation.
@@ -623,7 +623,7 @@ to roughly:
 
 ## Implementation Options
 
-### Option 1A: Modify `tpu_controller_rom_kloop.sv`
+### Option 1A: Modify `controller_kloop.sv`
 
 Replace:
 
@@ -1005,7 +1005,7 @@ Pool1 = 18,933 cycles
 Pool2 = 3,505 cycles
 ```
 
-Pooling did not improve in V3 because it uses `maxpool2d_unit`, not the systolic array.
+Pooling did not improve in V3 because it uses `maxpool2d`, not the systolic array.
 
 ## Possible Implementations
 

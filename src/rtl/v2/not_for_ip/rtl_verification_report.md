@@ -26,7 +26,7 @@ The verified end-to-end small-CNN flow is:
 input -> Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2 -> logits
 ```
 
-The top-level schedule is implemented in `tpu_top.sv`:
+The top-level schedule is implemented in `top.sv`:
 
 ```text
 CONV1: bank0 -> bank1
@@ -40,24 +40,24 @@ FC2:   bank1 -> bank0
 ## Main RTL Blocks
 
 ```text
-tpu_top.sv
+top.sv
   unified_buffer.sv
-  tpu_controller_rom_layer.sv
-    tpu_controller_rom_kloop.sv
+  controller_layer.sv
+    controller_kloop.sv
       weight_rom.sv
       bias_rom.sv
       requant_mult_rom.sv
       requant_shift_rom.sv
-      conv_fc_address_generator.sv
-  tpu_datapath_v2.sv
-    mxu_2x2.sv
-    psum_packer_v2.sv
-    accumulator_array_v2.sv
-    vector_processing_unit_v2.sv
-  maxpool2d_unit.sv
+      address_generator.sv
+  datapath.sv
+    mxu.sv
+    psum_packer.sv
+    accumulator_array.sv
+    vector_processing_unit.sv
+  maxpool2d.sv
 ```
 
-`tpu_top_axi_lite.sv` is the first PS-facing wrapper around `tpu_top.sv`.
+`top_axi_lite.sv` is the first PS-facing wrapper around `top.sv`.
 It provides AXI4-Lite control/status and byte-wise unified-buffer access. It is
 intended for bring-up and register-level software control, not high-throughput
 image transfer.

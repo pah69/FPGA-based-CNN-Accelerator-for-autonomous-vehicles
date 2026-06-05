@@ -250,7 +250,7 @@ FC2  : out_ch = 10, SIZE = 4
 
 ## Signals / Flags To Add
 
-Inside `tpu_controller_rom_kloop.sv`, add internal control flags:
+Inside `controller_kloop.sv`, add internal control flags:
 
 ```systemverilog
 logic preload_busy_q;
@@ -290,7 +290,7 @@ wgt_fetcher
 or by:
 
 ```text
-tpu_controller_rom_kloop
+controller_kloop
 ```
 
 For Experiment 4A, the desired separation is:
@@ -397,8 +397,8 @@ Check these files:
 
 ```text
 wgt_fetcher_*.sv
-tpu_controller_rom_kloop.sv
-tpu_datapath_v2.sv
+controller_kloop.sv
+datapath.sv
 ws_sa_*.sv
 pe.sv
 ```

@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module act_skew_buffer_2x2 #(
+module act_skew_buffer #(
     parameter int SIZE               = 2,
     parameter int DATA_WIDTH         = 8,
     parameter int ROW_STAGGER_CYCLES = 4
@@ -12,14 +12,14 @@ module act_skew_buffer_2x2 #(
     input logic signed [(DATA_WIDTH*SIZE)-1:0] act_flat_raw_i,
     input logic        [             SIZE-1:0] act_valid_raw_i,
 
-    // Dữ liệu đã được tạo độ trễ bậc thang (nối vào ws_sa_2x2)
+    // Dữ liệu đã được tạo độ trễ bậc thang (nối vào systolic_array)
     output logic signed [(DATA_WIDTH*SIZE)-1:0] act_skewed_o,
     output logic        [             SIZE-1:0] act_valid_skewed_o
 );
 
   initial begin : parameter_check
     assert (SIZE > 0)
-    else $error("act_skew_buffer_2x2 SIZE must be greater than zero");
+    else $error("act_skew_buffer SIZE must be greater than zero");
     assert (ROW_STAGGER_CYCLES >= 0)
     else $error("ROW_STAGGER_CYCLES must be non-negative");
   end
