@@ -73,7 +73,9 @@ module maxpool2d #(
   logic [DIM_WIDTH-1:0] channel_q;
   logic [DIM_WIDTH-1:0] out_row_q;
   logic [DIM_WIDTH-1:0] out_col_q;
-  logic [1:0] sample_idx_q;
+  logic [1:0] req_sample_idx_q;
+  logic [1:0] cap_sample_idx_q;
+  logic [2:0] pending_reads_q;
   logic signed [DATA_WIDTH-1:0] max_value_q;
 
   logic [ADDR_CALC_WIDTH-1:0] in_channel_stride_w;
@@ -83,10 +85,10 @@ module maxpool2d #(
   logic [ADDR_CALC_WIDTH-1:0] read_addr_w;
   logic [ADDR_CALC_WIDTH-1:0] write_addr_w;
   logic dims_valid_w;
-  logic last_sample_w;
   logic last_out_col_w;
   logic last_out_row_w;
   logic last_channel_w;
+  logic capture_sample_w;
 
   assign busy_o = (state_q != S_IDLE) && (state_q != S_DONE) && (state_q != S_ERROR);
   assign dbg_state_o = state_q;
@@ -101,8 +103,8 @@ module maxpool2d #(
 
   assign in_channel_stride_w = ADDR_CALC_WIDTH'(in_h_q) * ADDR_CALC_WIDTH'(in_w_q);
   assign out_channel_stride_w = ADDR_CALC_WIDTH'(out_h_q) * ADDR_CALC_WIDTH'(out_w_q);
-  assign in_row_w = (ADDR_CALC_WIDTH'(out_row_q) << 1) + ADDR_CALC_WIDTH'(sample_idx_q[1]);
-  assign in_col_w = (ADDR_CALC_WIDTH'(out_col_q) << 1) + ADDR_CALC_WIDTH'(sample_idx_q[0]);
+  assign in_row_w = (ADDR_CALC_WIDTH'(out_row_q) << 1) + ADDR_CALC_WIDTH'(req_sample_idx_q[1]);
+  assign in_col_w = (ADDR_CALC_WIDTH'(out_col_q) << 1) + ADDR_CALC_WIDTH'(req_sample_idx_q[0]);
 
   assign read_addr_w = ADDR_CALC_WIDTH'(input_base_addr_q)
                      + (ADDR_CALC_WIDTH'(channel_q) * in_channel_stride_w)
@@ -114,10 +116,10 @@ module maxpool2d #(
                       + (ADDR_CALC_WIDTH'(out_row_q) * ADDR_CALC_WIDTH'(out_w_q))
                       + ADDR_CALC_WIDTH'(out_col_q);
 
-  assign last_sample_w = (sample_idx_q == 2'd3);
   assign last_out_col_w = ((out_col_q + DIM_WIDTH'(1)) >= out_w_q);
   assign last_out_row_w = ((out_row_q + DIM_WIDTH'(1)) >= out_h_q);
   assign last_channel_w = ((channel_q + DIM_WIDTH'(1)) >= channels_q);
+  assign capture_sample_w = ub_rd_valid_i && (pending_reads_q != 3'd0);
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
@@ -137,7 +139,9 @@ module maxpool2d #(
       channel_q <= '0;
       out_row_q <= '0;
       out_col_q <= '0;
-      sample_idx_q <= '0;
+      req_sample_idx_q <= '0;
+      cap_sample_idx_q <= '0;
+      pending_reads_q <= '0;
       max_value_q <= '0;
       ub_rd_en_o <= 1'b0;
       ub_rd_bank_o <= 1'b0;
@@ -168,7 +172,9 @@ module maxpool2d #(
             channel_q <= '0;
             out_row_q <= '0;
             out_col_q <= '0;
-            sample_idx_q <= '0;
+            req_sample_idx_q <= '0;
+            cap_sample_idx_q <= '0;
+            pending_reads_q <= '0;
             max_value_q <= '0;
             state_q <= S_VALIDATE;
           end
@@ -180,11 +186,22 @@ module maxpool2d #(
             error_o <= 1'b1;
             dbg_error_code_o <= ERR_DIMS;
           end else begin
+            req_sample_idx_q <= '0;
+            cap_sample_idx_q <= '0;
+            pending_reads_q <= '0;
+            max_value_q <= '0;
             state_q <= S_READ_REQ;
           end
         end
 
         S_READ_REQ: begin
+          if (capture_sample_w) begin
+            if ((cap_sample_idx_q == 2'd0) || (ub_rd_data_i > max_value_q)) begin
+              max_value_q <= ub_rd_data_i;
+            end
+            cap_sample_idx_q <= cap_sample_idx_q + 2'd1;
+          end
+
           if (read_addr_w >= ADDR_CALC_WIDTH'(BANK_DEPTH)) begin
             state_q <= S_ERROR;
             error_o <= 1'b1;
@@ -193,21 +210,28 @@ module maxpool2d #(
             ub_rd_en_o <= 1'b1;
             ub_rd_bank_o <= read_bank_q;
             ub_rd_addr_o <= ADDR_WIDTH'(read_addr_w);
-            state_q <= S_READ_WAIT;
+            req_sample_idx_q <= req_sample_idx_q + 2'd1;
+
+            if (!capture_sample_w) begin
+              pending_reads_q <= pending_reads_q + 3'd1;
+            end
+
+            if (req_sample_idx_q == 2'd3) begin
+              state_q <= S_READ_WAIT;
+            end
           end
         end
 
         S_READ_WAIT: begin
-          if (ub_rd_valid_i) begin
-            if ((sample_idx_q == 2'd0) || (ub_rd_data_i > max_value_q)) begin
+          if (capture_sample_w) begin
+            if ((cap_sample_idx_q == 2'd0) || (ub_rd_data_i > max_value_q)) begin
               max_value_q <= ub_rd_data_i;
             end
+            cap_sample_idx_q <= cap_sample_idx_q + 2'd1;
+            pending_reads_q <= pending_reads_q - 3'd1;
 
-            if (last_sample_w) begin
+            if (pending_reads_q == 3'd1) begin
               state_q <= S_WRITE;
-            end else begin
-              sample_idx_q <= sample_idx_q + 2'd1;
-              state_q <= S_READ_REQ;
             end
           end
         end
@@ -227,7 +251,9 @@ module maxpool2d #(
         end
 
         S_ADVANCE: begin
-          sample_idx_q <= '0;
+          req_sample_idx_q <= '0;
+          cap_sample_idx_q <= '0;
+          pending_reads_q <= '0;
           max_value_q <= '0;
 
           if (last_out_col_w) begin

@@ -4,7 +4,7 @@
 module top_axi_lite #(
     parameter int AXI_ADDR_WIDTH      = 8,
     parameter int AXI_DATA_WIDTH      = 32,
-    parameter int SIZE                = 2,
+    parameter int SIZE                = 4,
     parameter int DATA_WIDTH          = 8,
     parameter int ACC_WIDTH           = 32,
     parameter int ACC_DEPTH           = 16,

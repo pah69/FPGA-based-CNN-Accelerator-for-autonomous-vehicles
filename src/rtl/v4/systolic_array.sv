@@ -1,5 +1,9 @@
 `timescale 1ns / 1ps
 
+// Weight-stationary systolic array.
+//
+// Historical module name is kept for compatibility with the v2 wrapper, but
+// the PE grid is now generated from SIZE so V3 can experiment with SIZE=4.
 module systolic_array #(
     parameter int SIZE               = 2,
     parameter int DATA_WIDTH         = 8,
@@ -13,220 +17,124 @@ module systolic_array #(
     input logic clk,
     input logic rst_n,
     input logic work_i,
-    // Runtime tile count used only by the optional local accumulators.
     input logic [TILE_COUNT_WIDTH-1:0] num_tiles_i,
 
-    // Weight input: one weight enters from the top of each column.
     input logic signed [(DATA_WIDTH*SIZE)-1:0] wgt_flatten_i,
     input logic        [             SIZE-1:0] wgt_load_i,
     input logic                                weight_switch_i,
 
-    // Activation input: one activation enters from the left of each row.
     input logic signed [(DATA_WIDTH*SIZE)-1:0] act_flatten_i,
     input logic        [             SIZE-1:0] act_valid_i,
 
-    // Final partial sums from the bottom row.
     output logic signed [(LOCAL_PSUM_WIDTH*SIZE)-1:0] psum_flatten_o,
     output logic        [                   SIZE-1:0] psum_valid_o,
-    output logic        [      MAC_COUNT_WIDTH-1:0] valid_mac_count_o,
+    output logic        [        MAC_COUNT_WIDTH-1:0] valid_mac_count_o,
 
-    // Accumulated outputs from the bottom-row psum stream.
     output logic signed [(ACC_WIDTH*SIZE)-1:0] result_flatten_o,
     output logic                               done_o,
 
-    // High after the weight stream reaches the bottom PE of each column.
-    output logic [SIZE-1:0] wgt_load_done_o,
-
-    // Sticky overflow flags from every PE: bit index = row*SIZE + column.
+    output logic [SIZE-1:0]      wgt_load_done_o,
     input  logic                 overflow_clr_i,
     output logic [SIZE*SIZE-1:0] overflow_flatten_o
 );
 
-  // ========================================================
-  // Input unpacking
-  // ========================================================
-  logic signed [DATA_WIDTH-1:0] act_row0_i;
-  assign act_row0_i = act_flatten_i[(0*DATA_WIDTH)+:DATA_WIDTH];
-  logic signed [DATA_WIDTH-1:0] act_row1_i;
-  assign act_row1_i = act_flatten_i[(1*DATA_WIDTH)+:DATA_WIDTH];
-
-  logic signed [DATA_WIDTH-1:0] wgt_col0_i;
-  assign wgt_col0_i = wgt_flatten_i[(0*DATA_WIDTH)+:DATA_WIDTH];
-  logic signed [DATA_WIDTH-1:0] wgt_col1_i;
-  assign wgt_col1_i = wgt_flatten_i[(1*DATA_WIDTH)+:DATA_WIDTH];
-
-  // ========================================================
-  // Internal routing wires
-  // ========================================================
-  // ROW 0 -> ROW 1 connections
-  logic signed [      DATA_WIDTH-1:0] act_0_0_to_0_1;
-  logic                               act_v_0_0_to_0_1;
-  logic signed [      DATA_WIDTH-1:0] wgt_0_0_to_1_0;
-  logic                               wgt_v_0_0_to_1_0;
-  logic signed [LOCAL_PSUM_WIDTH-1:0] psum_0_0_to_1_0;
-  logic                               psum_v_0_0_to_1_0;
-
-  logic signed [      DATA_WIDTH-1:0] wgt_0_1_to_1_1;
-  logic                               wgt_v_0_1_to_1_1;
-  logic signed [LOCAL_PSUM_WIDTH-1:0] psum_0_1_to_1_1;
-  logic                               psum_v_0_1_to_1_1;
-
-  // ROW 1 connections (Outputs)
-  logic signed [      DATA_WIDTH-1:0] act_1_0_to_1_1;
-  logic                               act_v_1_0_to_1_1;
-
-  logic                               wgt_v_1_0_done;
-  logic signed [LOCAL_PSUM_WIDTH-1:0] psum_1_0_out;
-  logic                               psum_v_1_0_out;
-
-  logic                               wgt_v_1_1_done;
-  logic signed [LOCAL_PSUM_WIDTH-1:0] psum_1_1_out;
-  logic                               psum_v_1_1_out;
-
-  logic signed [       ACC_WIDTH-1:0] result_1_0_acc;
-  logic signed [       ACC_WIDTH-1:0] result_1_1_acc;
-  logic                               acc_done_1_0;
-  logic                               acc_done_1_1;
-
-  // ========================================================
-  // Output packing
-  // ========================================================
-  assign psum_flatten_o[(0*LOCAL_PSUM_WIDTH)+:LOCAL_PSUM_WIDTH] = psum_1_0_out;
-  assign psum_valid_o[0] = psum_v_1_0_out;
-  assign wgt_load_done_o[0] = wgt_v_1_0_done;
-
-  assign psum_flatten_o[(1*LOCAL_PSUM_WIDTH)+:LOCAL_PSUM_WIDTH] = psum_1_1_out;
-  assign psum_valid_o[1] = psum_v_1_1_out;
-  assign wgt_load_done_o[1] = wgt_v_1_1_done;
-
-  assign result_flatten_o[(0*ACC_WIDTH)+:ACC_WIDTH] = result_1_0_acc;
-  assign result_flatten_o[(1*ACC_WIDTH)+:ACC_WIDTH] = result_1_1_acc;
-  assign done_o = acc_done_1_0 && acc_done_1_1;
-
-  always_comb begin
-    valid_mac_count_o = '0;
-    if (act_valid_i[0]) begin
-      valid_mac_count_o = valid_mac_count_o + MAC_COUNT_WIDTH'(1);
-    end
-    if (act_v_0_0_to_0_1) begin
-      valid_mac_count_o = valid_mac_count_o + MAC_COUNT_WIDTH'(1);
-    end
-    if (act_valid_i[1]) begin
-      valid_mac_count_o = valid_mac_count_o + MAC_COUNT_WIDTH'(1);
-    end
-    if (act_v_1_0_to_1_1) begin
-      valid_mac_count_o = valid_mac_count_o + MAC_COUNT_WIDTH'(1);
-    end
+  initial begin : parameter_check
+    assert (SIZE > 0)
+    else $error("systolic_array SIZE must be greater than zero");
   end
 
-  // ========================================================
-  // PE array instantiation
-  // ========================================================
+  logic signed [DATA_WIDTH-1:0] act_row_w[0:SIZE-1];
+  logic signed [DATA_WIDTH-1:0] wgt_col_w[0:SIZE-1];
 
-  // ---------------- ROW 0 ----------------
-  pe #(
-      .DATA_WIDTH(DATA_WIDTH),
-      .LOCAL_PSUM_WIDTH(LOCAL_PSUM_WIDTH)
-  ) pe_0_0 (
-      .clk            (clk),
-      .rst_n          (rst_n),
-      .act_i          (act_row0_i),
-      .act_valid_i    (act_valid_i[0]),
-      .act_o          (act_0_0_to_0_1),
-      .act_valid_o    (act_v_0_0_to_0_1),
-      .psum_i         ({LOCAL_PSUM_WIDTH{1'b0}}),
-      .psum_valid_i   (act_valid_i[0]),
-      .psum_o         (psum_0_0_to_1_0),
-      .psum_valid_o   (psum_v_0_0_to_1_0),
-      .weight_i       (wgt_col0_i),
-      .weight_load_i  (wgt_load_i[0]),
-      .weight_switch_i(weight_switch_i),
-      .weight_o       (wgt_0_0_to_1_0),
-      .weight_valid_o (wgt_v_0_0_to_1_0),
-      .overflow_clr_i (overflow_clr_i),
-      .overflow_o     (overflow_flatten_o[(0*SIZE)+0])
-  );
+  logic signed [DATA_WIDTH-1:0] act_fwd_w[0:SIZE-1][0:SIZE-1];
+  logic                         act_valid_fwd_w[0:SIZE-1][0:SIZE-1];
+  logic signed [DATA_WIDTH-1:0] wgt_fwd_w[0:SIZE-1][0:SIZE-1];
+  logic                         wgt_valid_fwd_w[0:SIZE-1][0:SIZE-1];
+  logic signed [LOCAL_PSUM_WIDTH-1:0] psum_fwd_w[0:SIZE-1][0:SIZE-1];
+  logic                               psum_valid_fwd_w[0:SIZE-1][0:SIZE-1];
 
-  pe #(
-      .DATA_WIDTH(DATA_WIDTH),
-      .LOCAL_PSUM_WIDTH(LOCAL_PSUM_WIDTH)
-  ) pe_0_1 (
-      .clk(clk),
-      .rst_n(rst_n),
-      .act_i(act_0_0_to_0_1),
-      .act_valid_i(act_v_0_0_to_0_1),
-      .act_o(),  // Đầu ra bỏ trống vì nằm ở rìa phải
-      .act_valid_o(),
-      .psum_i({LOCAL_PSUM_WIDTH{1'b0}}),
-      .psum_valid_i(act_v_0_0_to_0_1),
-      .psum_o(psum_0_1_to_1_1),
-      .psum_valid_o(psum_v_0_1_to_1_1),
-      .weight_i(wgt_col1_i),
-      .weight_load_i(wgt_load_i[1]),
-      .weight_switch_i(weight_switch_i),
-      .weight_o(wgt_0_1_to_1_1),
-      .weight_valid_o(wgt_v_0_1_to_1_1),
-      .overflow_clr_i(overflow_clr_i),
-      .overflow_o(overflow_flatten_o[(0*SIZE)+1])
-  );
-
-  // ---------------- ROW 1 ----------------
-  pe #(
-      .DATA_WIDTH(DATA_WIDTH),
-      .LOCAL_PSUM_WIDTH(LOCAL_PSUM_WIDTH)
-  ) pe_1_0 (
-      .clk(clk),
-      .rst_n(rst_n),
-      .act_i(act_row1_i),
-      .act_valid_i(act_valid_i[1]),
-      .act_o(act_1_0_to_1_1),
-      .act_valid_o(act_v_1_0_to_1_1),
-      .psum_i(psum_0_0_to_1_0),
-      .psum_valid_i(psum_v_0_0_to_1_0),
-      .psum_o(psum_1_0_out),
-      .psum_valid_o(psum_v_1_0_out),
-      .weight_i(wgt_0_0_to_1_0),
-      .weight_load_i(wgt_v_0_0_to_1_0),
-      .weight_switch_i(weight_switch_i),
-      .weight_o(),  // Đầu ra bỏ trống vì nằm ở đáy
-      .weight_valid_o(wgt_v_1_0_done),
-      .overflow_clr_i(overflow_clr_i),
-      .overflow_o(overflow_flatten_o[(1*SIZE)+0])
-  );
-
-  pe #(
-      .DATA_WIDTH(DATA_WIDTH),
-      .LOCAL_PSUM_WIDTH(LOCAL_PSUM_WIDTH)
-  ) pe_1_1 (
-      .clk            (clk),
-      .rst_n          (rst_n),
-      .act_i          (act_1_0_to_1_1),
-      .act_valid_i    (act_v_1_0_to_1_1),
-      .act_o          (),
-      .act_valid_o    (),
-      .psum_i         (psum_0_1_to_1_1),
-      .psum_valid_i   (psum_v_0_1_to_1_1),
-      .psum_o         (psum_1_1_out),
-      .psum_valid_o   (psum_v_1_1_out),
-      .weight_i       (wgt_0_1_to_1_1),
-      .weight_load_i  (wgt_v_0_1_to_1_1),
-      .weight_switch_i(weight_switch_i),
-      .weight_o       (),
-      .weight_valid_o (wgt_v_1_1_done),
-      .overflow_clr_i (overflow_clr_i),
-      .overflow_o     (overflow_flatten_o[(1*SIZE)+1])
-  );
+  logic signed [ACC_WIDTH-1:0] result_acc_w[0:SIZE-1];
+  logic [SIZE-1:0]             acc_done_w;
 
   generate
+    for (genvar row = 0; row < SIZE; row++) begin : GEN_INPUT_UNPACK_ACT
+      assign act_row_w[row] = act_flatten_i[(row*DATA_WIDTH)+:DATA_WIDTH];
+    end
+
+    for (genvar col = 0; col < SIZE; col++) begin : GEN_INPUT_UNPACK_WGT
+      assign wgt_col_w[col] = wgt_flatten_i[(col*DATA_WIDTH)+:DATA_WIDTH];
+    end
+
+    for (genvar row = 0; row < SIZE; row++) begin : GEN_PE_ROW
+      for (genvar col = 0; col < SIZE; col++) begin : GEN_PE_COL
+        logic signed [DATA_WIDTH-1:0] pe_act_i_w;
+        logic                         pe_act_valid_i_w;
+        logic signed [DATA_WIDTH-1:0] pe_wgt_i_w;
+        logic                         pe_wgt_load_i_w;
+        logic signed [LOCAL_PSUM_WIDTH-1:0] pe_psum_i_w;
+        logic                               pe_psum_valid_i_w;
+
+        if (col == 0) begin : GEN_LEFT_EDGE
+          assign pe_act_i_w       = act_row_w[row];
+          assign pe_act_valid_i_w = act_valid_i[row];
+        end else begin : GEN_ACT_FROM_LEFT
+          assign pe_act_i_w       = act_fwd_w[row][col-1];
+          assign pe_act_valid_i_w = act_valid_fwd_w[row][col-1];
+        end
+
+        if (row == 0) begin : GEN_TOP_EDGE_WEIGHT
+          assign pe_wgt_i_w      = wgt_col_w[col];
+          assign pe_wgt_load_i_w = wgt_load_i[col];
+        end else begin : GEN_WEIGHT_FROM_ABOVE
+          assign pe_wgt_i_w      = wgt_fwd_w[row-1][col];
+          assign pe_wgt_load_i_w = wgt_valid_fwd_w[row-1][col];
+        end
+
+        if (row == 0) begin : GEN_TOP_EDGE_PSUM
+          assign pe_psum_i_w       = '0;
+          assign pe_psum_valid_i_w = pe_act_valid_i_w;
+        end else begin : GEN_PSUM_FROM_ABOVE
+          assign pe_psum_i_w       = psum_fwd_w[row-1][col];
+          assign pe_psum_valid_i_w = psum_valid_fwd_w[row-1][col];
+        end
+
+        pe #(
+            .DATA_WIDTH      (DATA_WIDTH),
+            .LOCAL_PSUM_WIDTH(LOCAL_PSUM_WIDTH)
+        ) u_pe (
+            .clk            (clk),
+            .rst_n          (rst_n),
+            .act_i          (pe_act_i_w),
+            .act_valid_i    (pe_act_valid_i_w),
+            .act_o          (act_fwd_w[row][col]),
+            .act_valid_o    (act_valid_fwd_w[row][col]),
+            .psum_i         (pe_psum_i_w),
+            .psum_valid_i   (pe_psum_valid_i_w),
+            .psum_o         (psum_fwd_w[row][col]),
+            .psum_valid_o   (psum_valid_fwd_w[row][col]),
+            .weight_i       (pe_wgt_i_w),
+            .weight_load_i  (pe_wgt_load_i_w),
+            .weight_switch_i(weight_switch_i),
+            .weight_o       (wgt_fwd_w[row][col]),
+            .weight_valid_o (wgt_valid_fwd_w[row][col]),
+            .overflow_clr_i (overflow_clr_i),
+            .overflow_o     (overflow_flatten_o[(row*SIZE)+col])
+        );
+      end
+    end
+
+    for (genvar col = 0; col < SIZE; col++) begin : GEN_OUTPUT_PACK
+      assign psum_flatten_o[(col*LOCAL_PSUM_WIDTH)+:LOCAL_PSUM_WIDTH] =
+          psum_fwd_w[SIZE-1][col];
+      assign psum_valid_o[col] = psum_valid_fwd_w[SIZE-1][col];
+      assign wgt_load_done_o[col] = wgt_valid_fwd_w[SIZE-1][col];
+      assign result_flatten_o[(col*ACC_WIDTH)+:ACC_WIDTH] = result_acc_w[col];
+    end
+
     if (ENABLE_LOCAL_ACCUM) begin : GEN_LOCAL_ACCUM
       localparam int WORK_PROP_DELAY = 4;
 
       logic [(WORK_PROP_DELAY*SIZE)-1:0] work_pipe;
-      logic                              acc_work_1_0;
-      logic                              acc_work_1_1;
-
-      assign acc_work_1_0 = work_pipe[WORK_PROP_DELAY-1];
-      assign acc_work_1_1 = work_pipe[(2*WORK_PROP_DELAY)-1];
 
       always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
@@ -239,41 +147,44 @@ module systolic_array #(
         end
       end
 
-      output_accumulator_v2 #(
-          .LOCAL_PSUM_WIDTH(LOCAL_PSUM_WIDTH),
-          .ACC_WIDTH       (ACC_WIDTH),
-          .NUM_TILES       (NUM_TILES)
-      ) out_acc_1_0 (
-          .clk         (clk),
-          .rst_n       (rst_n),
-          .work_i      (acc_work_1_0),
-          .num_tiles_i (num_tiles_i),
-          .psum_i      (psum_1_0_out),
-          .psum_valid_i(psum_v_1_0_out),
-          .result_o    (result_1_0_acc),
-          .done_o      (acc_done_1_0)
-      );
-
-      output_accumulator_v2 #(
-          .LOCAL_PSUM_WIDTH(LOCAL_PSUM_WIDTH),
-          .ACC_WIDTH       (ACC_WIDTH),
-          .NUM_TILES       (NUM_TILES)
-      ) out_acc_1_1 (
-          .clk         (clk),
-          .rst_n       (rst_n),
-          .work_i      (acc_work_1_1),
-          .num_tiles_i (num_tiles_i),
-          .psum_i      (psum_1_1_out),
-          .psum_valid_i(psum_v_1_1_out),
-          .result_o    (result_1_1_acc),
-          .done_o      (acc_done_1_1)
-      );
+      for (genvar col = 0; col < SIZE; col++) begin : GEN_OUTPUT_ACCUM
+        output_accumulator_v2 #(
+            .LOCAL_PSUM_WIDTH(LOCAL_PSUM_WIDTH),
+            .ACC_WIDTH       (ACC_WIDTH),
+            .NUM_TILES       (NUM_TILES)
+        ) u_output_accumulator (
+            .clk         (clk),
+            .rst_n       (rst_n),
+            .work_i      (work_pipe[((col+1)*WORK_PROP_DELAY)-1]),
+            .num_tiles_i (num_tiles_i),
+            .psum_i      (psum_fwd_w[SIZE-1][col]),
+            .psum_valid_i(psum_valid_fwd_w[SIZE-1][col]),
+            .result_o    (result_acc_w[col]),
+            .done_o      (acc_done_w[col])
+        );
+      end
     end else begin : GEN_NO_LOCAL_ACCUM
-      assign result_1_0_acc = '0;
-      assign result_1_1_acc = '0;
-      assign acc_done_1_0   = work_i & 1'b0;
-      assign acc_done_1_1   = 1'b0;
+      for (genvar col = 0; col < SIZE; col++) begin : GEN_ZERO_ACCUM
+        assign result_acc_w[col] = '0;
+        assign acc_done_w[col] = 1'b0;
+      end
     end
   endgenerate
+
+  always_comb begin
+    valid_mac_count_o = '0;
+    for (int row = 0; row < SIZE; row++) begin
+      for (int col = 0; col < SIZE; col++) begin
+        if (col == 0) begin
+          valid_mac_count_o = valid_mac_count_o + MAC_COUNT_WIDTH'(act_valid_i[row]);
+        end else begin
+          valid_mac_count_o =
+              valid_mac_count_o + MAC_COUNT_WIDTH'(act_valid_fwd_w[row][col-1]);
+        end
+      end
+    end
+  end
+
+  assign done_o = ENABLE_LOCAL_ACCUM ? (&acc_done_w) : 1'b0;
 
 endmodule : systolic_array

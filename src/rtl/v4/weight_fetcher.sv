@@ -16,6 +16,7 @@ module weight_fetcher #(
     input  logic [(DATA_WIDTH*SIZE)-1:0] fifo_data_i,
     input  logic                         fifo_empty_i,
     input  logic [ FIFO_COUNT_WIDTH-1:0] fifo_count_i,
+    input  logic                         fifo_push_accepted_i,
     output logic                         fifo_pop_o,
 
     // Weight stream into the systolic array. FIFO must be filled bottom-row first.
@@ -34,8 +35,11 @@ module weight_fetcher #(
   state_t state, next_state;
   logic [ROW_COUNT_WIDTH-1:0] rows_loaded_q;
   logic                       enough_rows;
+  logic                       enough_rows_after_push;
 
   assign enough_rows = !fifo_empty_i && (fifo_count_i >= FIFO_COUNT_WIDTH'(SIZE));
+  assign enough_rows_after_push =
+      ((fifo_count_i + FIFO_COUNT_WIDTH'(fifo_push_accepted_i)) >= FIFO_COUNT_WIDTH'(SIZE));
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
@@ -56,7 +60,7 @@ module weight_fetcher #(
     next_state = state;
     case (state)
       IDLE: begin
-        if (start_load_i && enough_rows) begin
+        if (start_load_i && enough_rows_after_push) begin
           next_state = POP_FIRST;
         end
       end

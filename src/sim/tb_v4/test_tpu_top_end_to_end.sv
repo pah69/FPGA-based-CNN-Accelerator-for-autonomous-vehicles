@@ -26,6 +26,22 @@ module test_tpu_top_end_to_end;
   localparam int WGT_FIFO_DEPTH = 16;
   localparam int CLK_PERIOD = 10;
   localparam int TIMEOUT_CYCLES = 1200000;
+  localparam int KLOOP_STATE_COUNT = 17;
+
+  localparam int KLOOP_S_CLEAR_ACC_BLOCK = 1;
+  localparam int KLOOP_S_FETCH_ROM = 2;
+  localparam int KLOOP_S_WAIT_ROM = 3;
+  localparam int KLOOP_S_WRITE_WEIGHT_ROW = 4;
+  localparam int KLOOP_S_START_WEIGHT_LOAD = 5;
+  localparam int KLOOP_S_WAIT_WEIGHT_LOAD = 6;
+  localparam int KLOOP_S_READ_ACT_REQ = 7;
+  localparam int KLOOP_S_READ_ACT_WAIT = 8;
+  localparam int KLOOP_S_LAUNCH_ACT = 9;
+  localparam int KLOOP_S_DRAIN_MXU = 10;
+  localparam int KLOOP_S_WAIT_ACC_READY = 11;
+  localparam int KLOOP_S_READ_ACC_ROW = 12;
+  localparam int KLOOP_S_WAIT_VPU_OUTPUT = 13;
+  localparam int KLOOP_S_WRITE_OUTPUT_LANE = 14;
 
   localparam int INPUT_COUNT = 784;
   localparam int LOGIT_COUNT = 10;
@@ -89,6 +105,10 @@ module test_tpu_top_end_to_end;
   logic [31:0] fc1_issued_mac_count_o;
   logic [31:0] fc1_useful_mac_count_o;
   logic [31:0] fc1_exclusive_state_cycles_o;
+  logic [(32*KLOOP_STATE_COUNT)-1:0] conv1_kloop_state_exec_counts_flat_o;
+  logic [(32*KLOOP_STATE_COUNT)-1:0] conv2_kloop_state_exec_counts_flat_o;
+  logic [(32*KLOOP_STATE_COUNT)-1:0] fc1_kloop_state_exec_counts_flat_o;
+  logic [(32*KLOOP_STATE_COUNT)-1:0] fc2_kloop_state_exec_counts_flat_o;
   logic [31:0] error_code_o;
 
   logic host_rd_en;
@@ -136,6 +156,7 @@ module test_tpu_top_end_to_end;
       .MAX_NUM_TILES      (MAX_NUM_TILES),
       .TILE_COUNT_WIDTH   (TILE_COUNT_WIDTH),
       .WGT_FIFO_DEPTH     (WGT_FIFO_DEPTH),
+      .DBG_STATE_COUNT    (KLOOP_STATE_COUNT),
       .BANK_DEPTH         (UB_BANK_DEPTH),
       .UB_ADDR_WIDTH      (UB_ADDR_WIDTH)
   ) u_tpu_top (
@@ -190,6 +211,10 @@ module test_tpu_top_end_to_end;
       .dbg_fc1_issued_mac_count_o         (fc1_issued_mac_count_o),
       .dbg_fc1_useful_mac_count_o         (fc1_useful_mac_count_o),
       .dbg_fc1_exclusive_state_cycles_o   (fc1_exclusive_state_cycles_o),
+      .dbg_conv1_kloop_state_exec_counts_flat_o(conv1_kloop_state_exec_counts_flat_o),
+      .dbg_conv2_kloop_state_exec_counts_flat_o(conv2_kloop_state_exec_counts_flat_o),
+      .dbg_fc1_kloop_state_exec_counts_flat_o  (fc1_kloop_state_exec_counts_flat_o),
+      .dbg_fc2_kloop_state_exec_counts_flat_o  (fc2_kloop_state_exec_counts_flat_o),
       .dbg_error_code_o      (error_code_o),
       .host_rd_en_i          (host_rd_en),
       .host_rd_bank_i        (host_rd_bank),
@@ -281,6 +306,45 @@ module test_tpu_top_end_to_end;
              mxu_active_ratio, useful_pe_util, useful_issued_ratio);
   endtask
 
+  function automatic logic [31:0] kloop_state_count(
+      input logic [(32*KLOOP_STATE_COUNT)-1:0] counts,
+      input int state_idx
+  );
+    kloop_state_count = counts[(state_idx*32)+:32];
+  endfunction
+
+  task automatic print_kloop_state_counters(
+      input string layer_name,
+      input logic [(32*KLOOP_STATE_COUNT)-1:0] counts
+  );
+    logic [31:0] state_sum;
+
+    state_sum = '0;
+    for (int state_idx = 0; state_idx < KLOOP_STATE_COUNT; state_idx++) begin
+      state_sum = state_sum + kloop_state_count(counts, state_idx);
+    end
+
+    $display("  KLOOP  %s 1cyc-candidates: clear=%0d fetch=%0d wait_rom=%0d wgt_row=%0d start_wgt=%0d act_req=%0d launch=%0d acc_read=%0d out_lane=%0d",
+             layer_name,
+             kloop_state_count(counts, KLOOP_S_CLEAR_ACC_BLOCK),
+             kloop_state_count(counts, KLOOP_S_FETCH_ROM),
+             kloop_state_count(counts, KLOOP_S_WAIT_ROM),
+             kloop_state_count(counts, KLOOP_S_WRITE_WEIGHT_ROW),
+             kloop_state_count(counts, KLOOP_S_START_WEIGHT_LOAD),
+             kloop_state_count(counts, KLOOP_S_READ_ACT_REQ),
+             kloop_state_count(counts, KLOOP_S_LAUNCH_ACT),
+             kloop_state_count(counts, KLOOP_S_READ_ACC_ROW),
+             kloop_state_count(counts, KLOOP_S_WRITE_OUTPUT_LANE));
+    $display("  KLOOP  %s waits/drain: wgt_wait=%0d act_wait=%0d drain=%0d acc_wait=%0d vpu_wait=%0d state_sum=%0d",
+             layer_name,
+             kloop_state_count(counts, KLOOP_S_WAIT_WEIGHT_LOAD),
+             kloop_state_count(counts, KLOOP_S_READ_ACT_WAIT),
+             kloop_state_count(counts, KLOOP_S_DRAIN_MXU),
+             kloop_state_count(counts, KLOOP_S_WAIT_ACC_READY),
+             kloop_state_count(counts, KLOOP_S_WAIT_VPU_OUTPUT),
+             state_sum);
+  endtask
+
   task automatic print_cycle_counters(input int observed_cycles);
     logic [31:0] layer_sum;
 
@@ -331,6 +395,10 @@ module test_tpu_top_end_to_end;
                          fc1_issued_mac_count_o,
                          fc1_useful_mac_count_o,
                          fc1_exclusive_state_cycles_o);
+    print_kloop_state_counters("conv1", conv1_kloop_state_exec_counts_flat_o);
+    print_kloop_state_counters("conv2", conv2_kloop_state_exec_counts_flat_o);
+    print_kloop_state_counters("fc1", fc1_kloop_state_exec_counts_flat_o);
+    print_kloop_state_counters("fc2", fc2_kloop_state_exec_counts_flat_o);
   endtask
 
   task automatic init_signals();

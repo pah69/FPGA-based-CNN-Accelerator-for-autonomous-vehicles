@@ -4,7 +4,7 @@ import layer_descriptor_pkg::*;
 
 // End-to-end small-CNN sequencer around the verified v2 datapath.
 module top #(
-    parameter int SIZE                = 2,
+    parameter int SIZE                = 4,
     parameter int DATA_WIDTH          = 8,
     parameter int LOCAL_PSUM_WIDTH    = (2 * DATA_WIDTH) + $clog2(SIZE),
     parameter int ACC_WIDTH           = 32,
@@ -18,6 +18,7 @@ module top #(
     parameter int TILE_COUNT_WIDTH    = (MAX_NUM_TILES > 1) ? $clog2(MAX_NUM_TILES + 1) : 1,
     parameter int MAC_COUNT_WIDTH     = (SIZE*SIZE > 1) ? $clog2((SIZE*SIZE) + 1) : 1,
     parameter int WGT_FIFO_DEPTH      = 16,
+    parameter int DBG_STATE_COUNT     = 17,
     parameter int BANK_DEPTH          = 8192,
     parameter int UB_ADDR_WIDTH       = (BANK_DEPTH > 1) ? $clog2(BANK_DEPTH) : 1
 ) (
@@ -73,6 +74,10 @@ module top #(
     output logic [31:0] dbg_fc1_issued_mac_count_o,
     output logic [31:0] dbg_fc1_useful_mac_count_o,
     output logic [31:0] dbg_fc1_exclusive_state_cycles_o,
+    output logic [(32*DBG_STATE_COUNT)-1:0] dbg_conv1_kloop_state_exec_counts_flat_o,
+    output logic [(32*DBG_STATE_COUNT)-1:0] dbg_conv2_kloop_state_exec_counts_flat_o,
+    output logic [(32*DBG_STATE_COUNT)-1:0] dbg_fc1_kloop_state_exec_counts_flat_o,
+    output logic [(32*DBG_STATE_COUNT)-1:0] dbg_fc2_kloop_state_exec_counts_flat_o,
     output logic [31:0] dbg_error_code_o,
 
     input  logic                         host_rd_en_i,
@@ -130,23 +135,19 @@ module top #(
   localparam logic [4:0] TILE_S_CLEAR_ACC_BLOCK     = 5'd1;
   localparam logic [4:0] TILE_S_FETCH_ROM           = 5'd2;
   localparam logic [4:0] TILE_S_WAIT_ROM            = 5'd3;
-  localparam logic [4:0] TILE_S_WRITE_WEIGHT_BOTTOM = 5'd4;
-  localparam logic [4:0] TILE_S_WRITE_WEIGHT_TOP    = 5'd5;
-  localparam logic [4:0] TILE_S_START_WEIGHT_LOAD   = 5'd6;
-  localparam logic [4:0] TILE_S_WAIT_WEIGHT_LOAD    = 5'd7;
-  localparam logic [4:0] TILE_S_READ_ACT0_REQ       = 5'd8;
-  localparam logic [4:0] TILE_S_READ_ACT0_WAIT      = 5'd9;
-  localparam logic [4:0] TILE_S_READ_ACT1_REQ       = 5'd10;
-  localparam logic [4:0] TILE_S_READ_ACT1_WAIT      = 5'd11;
-  localparam logic [4:0] TILE_S_LAUNCH_ACT          = 5'd12;
-  localparam logic [4:0] TILE_S_DRAIN_MXU           = 5'd13;
-  localparam logic [4:0] TILE_S_WAIT_ACC_READY      = 5'd14;
-  localparam logic [4:0] TILE_S_READ_ACC_ROW        = 5'd15;
-  localparam logic [4:0] TILE_S_WAIT_VPU_OUTPUT     = 5'd16;
-  localparam logic [4:0] TILE_S_WRITE_OUTPUT0       = 5'd17;
-  localparam logic [4:0] TILE_S_WRITE_OUTPUT1       = 5'd18;
-  localparam logic [4:0] TILE_S_DONE                = 5'd19;
-  localparam logic [4:0] TILE_S_ERROR               = 5'd20;
+  localparam logic [4:0] TILE_S_WRITE_WEIGHT_ROW    = 5'd4;
+  localparam logic [4:0] TILE_S_START_WEIGHT_LOAD   = 5'd5;
+  localparam logic [4:0] TILE_S_WAIT_WEIGHT_LOAD    = 5'd6;
+  localparam logic [4:0] TILE_S_READ_ACT_REQ        = 5'd7;
+  localparam logic [4:0] TILE_S_READ_ACT_WAIT       = 5'd8;
+  localparam logic [4:0] TILE_S_LAUNCH_ACT          = 5'd9;
+  localparam logic [4:0] TILE_S_DRAIN_MXU           = 5'd10;
+  localparam logic [4:0] TILE_S_WAIT_ACC_READY      = 5'd11;
+  localparam logic [4:0] TILE_S_READ_ACC_ROW        = 5'd12;
+  localparam logic [4:0] TILE_S_WAIT_VPU_OUTPUT     = 5'd13;
+  localparam logic [4:0] TILE_S_WRITE_OUTPUT_LANE   = 5'd14;
+  localparam logic [4:0] TILE_S_DONE                = 5'd15;
+  localparam logic [4:0] TILE_S_ERROR               = 5'd16;
 
   localparam logic [31:0] ERR_LAYER = 32'h0005_1000;
   localparam logic [31:0] ERR_POOL  = 32'h0005_2000;
@@ -166,6 +167,7 @@ module top #(
   logic [31:0] layer_error_code_w;
   logic [1:0] layer_idx_w;
   logic [31:0] layer_useful_mac_count_w;
+  logic [(32*DBG_STATE_COUNT)-1:0] layer_state_exec_counts_flat_w;
 
   logic pool_start_q;
   logic pool_done_w;
@@ -243,6 +245,8 @@ module top #(
 
   logic signed [(LOCAL_PSUM_WIDTH*SIZE)-1:0] mxu_psum_flatten_w;
   logic [SIZE-1:0] mxu_psum_valid_w;
+  localparam logic [31:0] MXU_PE_COUNT_U32 = 32'(SIZE * SIZE);
+
   logic [MAC_COUNT_WIDTH-1:0] mxu_valid_mac_count_w;
   logic [31:0] mxu_valid_mac_count_ext_w;
   logic psum_packer_busy_w;
@@ -287,24 +291,21 @@ module top #(
   assign profile_layer_active_w = (stage_from_state(state_q) == STAGE_CONV1)
                                || (stage_from_state(state_q) == STAGE_CONV2)
                                || (stage_from_state(state_q) == STAGE_FC1);
-  assign profile_weight_load_w = (dbg_layer_tile_state_o == TILE_S_WRITE_WEIGHT_BOTTOM)
-                              || (dbg_layer_tile_state_o == TILE_S_WRITE_WEIGHT_TOP)
+  assign profile_weight_load_w = (dbg_layer_tile_state_o == TILE_S_WRITE_WEIGHT_ROW)
                               || (dbg_layer_tile_state_o == TILE_S_START_WEIGHT_LOAD)
                               || (dbg_layer_tile_state_o == TILE_S_WAIT_WEIGHT_LOAD);
-  assign profile_activation_fetch_w = (dbg_layer_tile_state_o == TILE_S_READ_ACT0_REQ)
-                                   || (dbg_layer_tile_state_o == TILE_S_READ_ACT0_WAIT)
-                                   || (dbg_layer_tile_state_o == TILE_S_READ_ACT1_REQ)
-                                   || (dbg_layer_tile_state_o == TILE_S_READ_ACT1_WAIT);
+  assign profile_activation_fetch_w = (dbg_layer_tile_state_o == TILE_S_READ_ACT_REQ)
+                                   || (dbg_layer_tile_state_o == TILE_S_READ_ACT_WAIT);
   assign profile_mxu_active_w = (mxu_valid_mac_count_w != '0);
   assign profile_mxu_drain_w = (dbg_layer_tile_state_o == TILE_S_DRAIN_MXU);
   assign profile_accumulator_w = (dbg_layer_tile_state_o == TILE_S_WAIT_ACC_READY)
                               || (dbg_layer_tile_state_o == TILE_S_READ_ACC_ROW);
   assign profile_vpu_w = (dbg_layer_tile_state_o == TILE_S_WAIT_VPU_OUTPUT);
-  assign profile_output_write_w = (dbg_layer_tile_state_o == TILE_S_WRITE_OUTPUT0)
-                               || (dbg_layer_tile_state_o == TILE_S_WRITE_OUTPUT1);
+  assign profile_output_write_w = (dbg_layer_tile_state_o == TILE_S_WRITE_OUTPUT_LANE);
   assign profile_controller_idle_w = profile_layer_active_w
                                   && !profile_weight_load_w
                                   && !profile_activation_fetch_w
+                                  && !profile_mxu_active_w
                                   && !profile_mxu_drain_w
                                   && !profile_accumulator_w
                                   && !profile_vpu_w
@@ -408,7 +409,8 @@ module top #(
       .REQUANT_SHIFT_WIDTH(REQUANT_SHIFT_WIDTH),
       .MAX_NUM_TILES      (MAX_NUM_TILES),
       .TILE_COUNT_WIDTH   (TILE_COUNT_WIDTH),
-      .BANK_DEPTH         (BANK_DEPTH)
+      .BANK_DEPTH         (BANK_DEPTH),
+      .DBG_STATE_COUNT    (DBG_STATE_COUNT)
   ) u_layer_controller (
       .clk                             (clk),
       .rst_n                           (rst_n),
@@ -423,6 +425,7 @@ module top #(
       .dbg_oc_tile_o                   (dbg_layer_oc_tile_o),
       .dbg_k_tile_o                    (dbg_layer_k_tile_o),
       .dbg_useful_mac_count_o          (layer_useful_mac_count_w),
+      .dbg_state_exec_counts_flat_o    (layer_state_exec_counts_flat_w),
       .dbg_error_code_o                (layer_error_code_w),
       .layer_idx_i                     (layer_idx_w),
       .use_descriptor_banks_i          (1'b1),
@@ -619,6 +622,10 @@ module top #(
       dbg_fc1_issued_mac_count_o <= '0;
       dbg_fc1_useful_mac_count_o <= '0;
       dbg_fc1_exclusive_state_cycles_o <= '0;
+      dbg_conv1_kloop_state_exec_counts_flat_o <= '0;
+      dbg_conv2_kloop_state_exec_counts_flat_o <= '0;
+      dbg_fc1_kloop_state_exec_counts_flat_o <= '0;
+      dbg_fc2_kloop_state_exec_counts_flat_o <= '0;
       dbg_error_code_o <= '0;
     end else begin
       layer_start_q <= 1'b0;
@@ -650,7 +657,7 @@ module top #(
               if (profile_mxu_active_w) begin
                 dbg_conv1_mxu_active_cycles_o <= dbg_conv1_mxu_active_cycles_o + 32'd1;
                 dbg_conv1_valid_mac_count_o <= dbg_conv1_valid_mac_count_o + mxu_valid_mac_count_ext_w;
-                dbg_conv1_issued_mac_count_o <= dbg_conv1_issued_mac_count_o + mxu_valid_mac_count_ext_w;
+                dbg_conv1_issued_mac_count_o <= dbg_conv1_issued_mac_count_o + MXU_PE_COUNT_U32;
               end
               if (profile_mxu_drain_w) begin
                 dbg_conv1_mxu_drain_cycles_o <= dbg_conv1_mxu_drain_cycles_o + 32'd1;
@@ -680,7 +687,7 @@ module top #(
               if (profile_mxu_active_w) begin
                 dbg_conv2_mxu_active_cycles_o <= dbg_conv2_mxu_active_cycles_o + 32'd1;
                 dbg_conv2_valid_mac_count_o <= dbg_conv2_valid_mac_count_o + mxu_valid_mac_count_ext_w;
-                dbg_conv2_issued_mac_count_o <= dbg_conv2_issued_mac_count_o + mxu_valid_mac_count_ext_w;
+                dbg_conv2_issued_mac_count_o <= dbg_conv2_issued_mac_count_o + MXU_PE_COUNT_U32;
               end
               if (profile_mxu_drain_w) begin
                 dbg_conv2_mxu_drain_cycles_o <= dbg_conv2_mxu_drain_cycles_o + 32'd1;
@@ -710,7 +717,7 @@ module top #(
               if (profile_mxu_active_w) begin
                 dbg_fc1_mxu_active_cycles_o <= dbg_fc1_mxu_active_cycles_o + 32'd1;
                 dbg_fc1_valid_mac_count_o <= dbg_fc1_valid_mac_count_o + mxu_valid_mac_count_ext_w;
-                dbg_fc1_issued_mac_count_o <= dbg_fc1_issued_mac_count_o + mxu_valid_mac_count_ext_w;
+                dbg_fc1_issued_mac_count_o <= dbg_fc1_issued_mac_count_o + MXU_PE_COUNT_U32;
               end
               if (profile_mxu_drain_w) begin
                 dbg_fc1_mxu_drain_cycles_o <= dbg_fc1_mxu_drain_cycles_o + 32'd1;
@@ -782,6 +789,10 @@ module top #(
             dbg_fc1_issued_mac_count_o <= '0;
             dbg_fc1_useful_mac_count_o <= '0;
             dbg_fc1_exclusive_state_cycles_o <= '0;
+            dbg_conv1_kloop_state_exec_counts_flat_o <= '0;
+            dbg_conv2_kloop_state_exec_counts_flat_o <= '0;
+            dbg_fc1_kloop_state_exec_counts_flat_o <= '0;
+            dbg_fc2_kloop_state_exec_counts_flat_o <= '0;
             state_q <= S_START_CONV1;
           end
         end
@@ -797,6 +808,7 @@ module top #(
             state_q <= S_ERROR;
           end else if (layer_done_w) begin
             dbg_conv1_useful_mac_count_o <= layer_useful_mac_count_w;
+            dbg_conv1_kloop_state_exec_counts_flat_o <= layer_state_exec_counts_flat_w;
             state_q <= S_START_POOL1;
           end
         end
@@ -826,6 +838,7 @@ module top #(
             state_q <= S_ERROR;
           end else if (layer_done_w) begin
             dbg_conv2_useful_mac_count_o <= layer_useful_mac_count_w;
+            dbg_conv2_kloop_state_exec_counts_flat_o <= layer_state_exec_counts_flat_w;
             state_q <= S_START_POOL2;
           end
         end
@@ -855,6 +868,7 @@ module top #(
             state_q <= S_ERROR;
           end else if (layer_done_w) begin
             dbg_fc1_useful_mac_count_o <= layer_useful_mac_count_w;
+            dbg_fc1_kloop_state_exec_counts_flat_o <= layer_state_exec_counts_flat_w;
             state_q <= S_START_FC2;
           end
         end
@@ -869,6 +883,7 @@ module top #(
             dbg_error_code_o <= ERR_LAYER | {24'd0, STAGE_FC2, layer_error_code_w[4:0]};
             state_q <= S_ERROR;
           end else if (layer_done_w) begin
+            dbg_fc2_kloop_state_exec_counts_flat_o <= layer_state_exec_counts_flat_w;
             state_q <= S_DONE;
           end
         end

@@ -66,6 +66,7 @@ module mxu #(
     logic [(DATA_WIDTH*SIZE)-1:0] internal_fifo_rdata;
     logic                         internal_fifo_empty;
     logic                         internal_fifo_rd_en;
+    logic                         internal_fifo_push_accepted;
     logic [WGT_FIFO_COUNT_WIDTH-1:0] internal_fifo_count;
 
     // Giữa Fetcher và SA
@@ -95,6 +96,7 @@ module mxu #(
     );
 
     assign wgt_fifo_empty_o = internal_fifo_empty;
+    assign internal_fifo_push_accepted = wgt_fifo_wr_en_i && !wgt_fifo_full_o;
 
     // ========================================================
     // 2. Tích hợp Khối tự động lấy Trọng số (Weight Fetcher)
@@ -113,6 +115,7 @@ module mxu #(
         .fifo_data_i     (internal_fifo_rdata),
         .fifo_empty_i    (internal_fifo_empty),
         .fifo_count_i    (internal_fifo_count),
+        .fifo_push_accepted_i(internal_fifo_push_accepted),
         .fifo_pop_o      (internal_fifo_rd_en),
         
         // Giao tiếp với SA

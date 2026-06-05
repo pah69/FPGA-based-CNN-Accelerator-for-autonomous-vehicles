@@ -1,0 +1,7 @@
+Running: xsim.dir/test_controller_rom_kloop_snapshot/xsimk -runall -simmode gui -wdb test_controller_rom_kloop_snapshot.wdb -simrunnum 0 -socket 38797
+Design successfully loaded
+Design Loading Memory Usage: 205596 KB (Peak: 205604 KB)
+Design Loading CPU Usage: 660 ms
+Simulation completed
+Simulation Memory Usage: 300404 KB (Peak: 344864 KB)
+Simulation CPU Usage: 670 ms

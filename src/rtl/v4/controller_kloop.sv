@@ -3,6 +3,10 @@
 import layer_descriptor_pkg::*;
 
 // ROM-driven controller for one output-channel tile across all K tiles.
+//
+// V3 keeps the V2 datapath contract but makes the K-loop scheduler generic for
+// SIZE=4 experiments. The historical V2 controller was hardcoded around two
+// activation lanes, two weight rows, and two output lanes.
 module controller_kloop #(
     parameter int SIZE                = 2,
     parameter int DATA_WIDTH          = 8,
@@ -24,7 +28,9 @@ module controller_kloop #(
     parameter int WEIGHT_DEPTH        = 4952,
     parameter int WEIGHT_ADDR_WIDTH   = (WEIGHT_DEPTH > 1) ? $clog2(WEIGHT_DEPTH) : 1,
     parameter int PARAM_DEPTH         = 44,
-    parameter int PARAM_ADDR_WIDTH    = (PARAM_DEPTH > 1) ? $clog2(PARAM_DEPTH) : 1
+    parameter int PARAM_ADDR_WIDTH    = (PARAM_DEPTH > 1) ? $clog2(PARAM_DEPTH) : 1,
+    parameter int LANE_COUNT_WIDTH    = (SIZE > 1) ? $clog2(SIZE + 1) : 1,
+    parameter int DBG_STATE_COUNT     = 17
 ) (
     input logic clk,
     input logic rst_n,
@@ -34,9 +40,10 @@ module controller_kloop #(
     output logic busy_o,
     output logic error_o,
     output logic [4:0] dbg_state_o,
-    output logic [15:0] dbg_cycle_count_o,
+    output logic [31:0] dbg_cycle_count_o,
     output logic [15:0] dbg_k_tile_o,
     output logic [31:0] dbg_useful_mac_count_o,
+    output logic [(32*DBG_STATE_COUNT)-1:0] dbg_state_exec_counts_flat_o,
     output logic [31:0] dbg_error_code_o,
 
     input logic [1:0] layer_idx_i,
@@ -99,38 +106,33 @@ module controller_kloop #(
     S_CLEAR_ACC_BLOCK,
     S_FETCH_ROM,
     S_WAIT_ROM,
-    S_WRITE_WEIGHT_BOTTOM,
-    S_WRITE_WEIGHT_TOP,
+    S_WRITE_WEIGHT_ROW,
     S_START_WEIGHT_LOAD,
     S_WAIT_WEIGHT_LOAD,
-    S_READ_ACT0_REQ,
-    S_READ_ACT0_WAIT,
-    S_READ_ACT1_REQ,
-    S_READ_ACT1_WAIT,
+    S_READ_ACT_REQ,
+    S_READ_ACT_WAIT,
     S_LAUNCH_ACT,
     S_DRAIN_MXU,
     S_WAIT_ACC_READY,
     S_READ_ACC_ROW,
     S_WAIT_VPU_OUTPUT,
-    S_WRITE_OUTPUT0,
-    S_WRITE_OUTPUT1,
+    S_WRITE_OUTPUT_LANE,
     S_DONE,
     S_ERROR
   } state_t;
 
-  localparam logic [31:0] ERR_SIZE                  = 32'h0002_0001;
-  localparam logic [31:0] ERR_DESC_INVALID          = 32'h0002_0002;
-  localparam logic [31:0] ERR_BLOCK_SIZE            = 32'h0002_0003;
-  localparam logic [31:0] ERR_SPATIAL               = 32'h0002_0004;
-  localparam logic [31:0] ERR_K_TILE_COUNT          = 32'h0002_0005;
-  localparam logic [31:0] ERR_OC_TILE               = 32'h0002_0006;
-  localparam logic [31:0] ERR_PADDED_OC_UNSUPPORTED = 32'h0002_0007;
-  localparam logic [31:0] ERR_ROM_VALID             = 32'h0002_0008;
-  localparam logic [31:0] ERR_WGT_FIFO_FULL         = 32'h0002_0009;
-  localparam logic [31:0] ERR_INPUT_ADDR            = 32'h0002_000a;
-  localparam logic [31:0] ERR_OUTPUT_ADDR           = 32'h0002_000b;
-  localparam logic [31:0] ERR_TAG_OVERFLOW          = 32'h0002_000c;
-  localparam logic [31:0] ERR_TAG_UNDERFLOW         = 32'h0002_000d;
+  localparam logic [31:0] ERR_SIZE            = 32'h0002_0001;
+  localparam logic [31:0] ERR_DESC_INVALID    = 32'h0002_0002;
+  localparam logic [31:0] ERR_BLOCK_SIZE      = 32'h0002_0003;
+  localparam logic [31:0] ERR_SPATIAL         = 32'h0002_0004;
+  localparam logic [31:0] ERR_K_TILE_COUNT    = 32'h0002_0005;
+  localparam logic [31:0] ERR_OC_TILE         = 32'h0002_0006;
+  localparam logic [31:0] ERR_ROM_VALID       = 32'h0002_0008;
+  localparam logic [31:0] ERR_WGT_FIFO_FULL   = 32'h0002_0009;
+  localparam logic [31:0] ERR_INPUT_ADDR      = 32'h0002_000a;
+  localparam logic [31:0] ERR_OUTPUT_ADDR     = 32'h0002_000b;
+  localparam logic [31:0] ERR_TAG_OVERFLOW    = 32'h0002_000c;
+  localparam logic [31:0] ERR_TAG_UNDERFLOW   = 32'h0002_000d;
 
   localparam int ACC_COUNT_WIDTH = ACC_ADDR_WIDTH + 1;
   localparam int ADDR_CALC_WIDTH = 32;
@@ -197,15 +199,17 @@ module controller_kloop #(
   logic [REQUANT_SHIFT_WIDTH-1:0] requant_shift_data_w[0:SIZE-1];
   logic [SIZE-1:0] requant_shift_valid_w;
 
-  logic signed [(DATA_WIDTH*SIZE)-1:0] weight_top_row_q;
-  logic signed [(DATA_WIDTH*SIZE)-1:0] weight_bottom_row_q;
-  logic signed [DATA_WIDTH-1:0] act_lane0_q;
-  logic signed [DATA_WIDTH-1:0] act_lane1_q;
+  logic signed [DATA_WIDTH-1:0] act_lane_q[0:SIZE-1];
   logic [SIZE-1:0] wgt_load_seen_q;
   logic signed [(OUT_WIDTH*SIZE)-1:0] vpu_data_q;
 
   logic [ACC_ADDR_WIDTH:0] stream_idx_q;
   logic [ACC_ADDR_WIDTH:0] acc_read_idx_q;
+  logic [15:0] weight_stream_row_q;
+  logic [15:0] act_fetch_lane_q;
+  logic [1:0] act_read_valid_pipe_q;
+  logic [15:0] act_read_lane_pipe_q[0:1];
+  logic [15:0] output_lane_q;
   logic signed [(BIAS_WIDTH*SIZE)-1:0] bias_flatten_q;
   logic signed [(REQUANT_MULT_WIDTH*SIZE)-1:0] requant_multiplier_flatten_q;
   logic [(REQUANT_SHIFT_WIDTH*SIZE)-1:0] requant_shift_flatten_q;
@@ -215,6 +219,7 @@ module controller_kloop #(
   logic [TAG_PTR_WIDTH-1:0] tag_wr_ptr_q;
   logic [TAG_PTR_WIDTH-1:0] tag_rd_ptr_q;
   logic [TAG_COUNT_WIDTH-1:0] tag_count_q;
+  logic [31:0] state_exec_counts_q[0:DBG_STATE_COUNT-1];
 
   logic first_psum_valid_w;
   logic tag_stream_active_w;
@@ -226,13 +231,18 @@ module controller_kloop #(
   logic [ACC_ADDR_WIDTH-1:0] tag_front_w;
 
   logic last_k_tile_w;
-  logic [ADDR_CALC_WIDTH-1:0] act_addr0_w;
-  logic [ADDR_CALC_WIDTH-1:0] act_addr1_w;
-  logic [ADDR_CALC_WIDTH-1:0] output_addr0_w;
-  logic [ADDR_CALC_WIDTH-1:0] output_addr1_w;
+  logic [ADDR_CALC_WIDTH-1:0] act_addr_w[0:SIZE-1];
+  logic [ADDR_CALC_WIDTH-1:0] output_addr_w[0:SIZE-1];
   logic [ADDR_CALC_WIDTH-1:0] output_spatial_w;
+  logic [ADDR_CALC_WIDTH-1:0] act_lane_addr_w;
+  logic [ADDR_CALC_WIDTH-1:0] output_lane_addr_w;
+  logic act_read_capture_w;
   logic inner_read_bank_w;
   logic inner_write_bank_w;
+  logic signed [(DATA_WIDTH*SIZE)-1:0] weight_stream_row_data_w;
+  logic signed [(DATA_WIDTH*SIZE)-1:0] act_flatten_launch_w;
+  logic [SIZE-1:0] param_valid_required_w;
+  logic launch_act_from_wait_w;
 
   function automatic logic [TAG_PTR_WIDTH-1:0] next_tag_ptr(
       input logic [TAG_PTR_WIDTH-1:0] ptr_i);
@@ -334,8 +344,11 @@ module controller_kloop #(
     for (genvar lane = 0; lane < SIZE; lane++) begin : GEN_PARAM_ROMS
       assign oc_idx_w[lane] = oc_index_flatten_bus_w[(lane*16)+:16];
       assign oc_valid_w[lane] = (oc_idx_w[lane] < desc_out_ch_w);
-      assign bias_addr_w[lane] = PARAM_ADDR_WIDTH'(desc_bias_base_w + oc_idx_w[lane]);
-      assign requant_addr_w[lane] = PARAM_ADDR_WIDTH'(desc_requant_base_w + oc_idx_w[lane]);
+      assign bias_addr_w[lane] =
+          oc_valid_w[lane] ? PARAM_ADDR_WIDTH'(desc_bias_base_w + oc_idx_w[lane]) : '0;
+      assign requant_addr_w[lane] =
+          oc_valid_w[lane] ? PARAM_ADDR_WIDTH'(desc_requant_base_w + oc_idx_w[lane]) : '0;
+      assign param_valid_required_w[lane] = 1'b1;
 
       bias_rom #(
           .DATA_WIDTH(BIAS_WIDTH),
@@ -378,6 +391,12 @@ module controller_kloop #(
     end
   endgenerate
 
+  generate
+    for (genvar state_idx = 0; state_idx < DBG_STATE_COUNT; state_idx++) begin : GEN_STATE_EXEC_COUNTS
+      assign dbg_state_exec_counts_flat_o[(state_idx*32)+:32] = state_exec_counts_q[state_idx];
+    end
+  endgenerate
+
   assign rom_en_w = (state_q == S_FETCH_ROM);
   assign num_tiles_o = num_tiles_q;
   assign busy_o = (state_q != S_IDLE) && (state_q != S_DONE) && (state_q != S_ERROR);
@@ -386,16 +405,24 @@ module controller_kloop #(
   assign inner_read_bank_w = use_descriptor_banks_q ? desc_read_bank_w : read_bank_q;
   assign inner_write_bank_w = use_descriptor_banks_q ? desc_write_bank_w : write_bank_q;
   assign last_k_tile_w = ((TILE_COUNT_WIDTH'(k_tile_q) + TILE_COUNT_WIDTH'(1)) >= num_tiles_q);
+  assign act_read_capture_w = ub_rd_valid_i && act_read_valid_pipe_q[1];
+  assign launch_act_from_wait_w = (state_q == S_READ_ACT_WAIT)
+                               && !act_read_valid_pipe_q[0]
+                               && (!act_read_valid_pipe_q[1] || act_read_capture_w);
 
-  assign act_addr0_w = ADDR_CALC_WIDTH'(act_addr_flatten_w[0+:ROM_ADDR_WIDTH]);
-  assign act_addr1_w = ADDR_CALC_WIDTH'(act_addr_flatten_w[ROM_ADDR_WIDTH+:ROM_ADDR_WIDTH]);
   assign output_spatial_w = ADDR_CALC_WIDTH'(spatial_idx_q) + ADDR_CALC_WIDTH'(acc_read_idx_q);
-  assign output_addr0_w = ADDR_CALC_WIDTH'(output_base_addr_q)
-                        + (ADDR_CALC_WIDTH'(oc_idx_w[0]) * ADDR_CALC_WIDTH'(desc_num_spatial_w))
-                        + output_spatial_w;
-  assign output_addr1_w = ADDR_CALC_WIDTH'(output_base_addr_q)
-                        + (ADDR_CALC_WIDTH'(oc_idx_w[1]) * ADDR_CALC_WIDTH'(desc_num_spatial_w))
-                        + output_spatial_w;
+  assign act_lane_addr_w = (act_fetch_lane_q < 16'(SIZE)) ? act_addr_w[act_fetch_lane_q] : '0;
+  assign output_lane_addr_w = output_addr_w[output_lane_q];
+
+  always_comb begin
+    for (int lane = 0; lane < SIZE; lane++) begin
+      act_addr_w[lane] = ADDR_CALC_WIDTH'(act_addr_flatten_w[(lane*ROM_ADDR_WIDTH)+:ROM_ADDR_WIDTH]);
+      output_addr_w[lane] = ADDR_CALC_WIDTH'(output_base_addr_q)
+                          + (ADDR_CALC_WIDTH'(oc_idx_w[lane]) *
+                             ADDR_CALC_WIDTH'(desc_num_spatial_w))
+                          + output_spatial_w;
+    end
+  end
 
   always_comb begin
     all_rows_ready_w = (block_size_q != '0);
@@ -406,22 +433,35 @@ module controller_kloop #(
     end
   end
 
-  assign first_psum_valid_w = (|mxu_psum_valid_i) && !psum_packer_busy_i;
-  assign tag_stream_active_w = (state_q == S_READ_ACT0_REQ)
-                            || (state_q == S_READ_ACT0_WAIT)
-                            || (state_q == S_READ_ACT1_REQ)
-                            || (state_q == S_READ_ACT1_WAIT)
-                            || (state_q == S_LAUNCH_ACT)
-                            || (state_q == S_DRAIN_MXU)
-                            || (state_q == S_WAIT_ACC_READY);
-  assign tag_push_w      = (state_q == S_LAUNCH_ACT);
-  assign tag_pop_w       = tag_stream_active_w && first_psum_valid_w;
-  assign tag_overflow_w  = tag_push_w && (tag_count_q == TAG_COUNT_WIDTH'(TAG_DEPTH)) && !tag_pop_w;
-  assign tag_underflow_w = tag_pop_w && (tag_count_q == '0);
+  always_comb begin
+    weight_stream_row_data_w = '0;
+    for (int col = 0; col < SIZE; col++) begin
+      weight_stream_row_data_w[(col*DATA_WIDTH)+:DATA_WIDTH] =
+          weight_mux_w[(weight_stream_row_q * 16'(SIZE)) + 16'(col)];
+    end
+  end
+
+  always_comb begin
+    act_flatten_launch_w = '0;
+    for (int lane = 0; lane < SIZE; lane++) begin
+      if (act_read_capture_w && (act_read_lane_pipe_q[1] == 16'(lane))) begin
+        act_flatten_launch_w[(lane*DATA_WIDTH)+:DATA_WIDTH] = ub_rd_data_i;
+      end else begin
+        act_flatten_launch_w[(lane*DATA_WIDTH)+:DATA_WIDTH] = act_lane_q[lane];
+      end
+    end
+  end
+
+  assign first_psum_valid_w = 1'b0;
+  assign tag_stream_active_w = 1'b0;
+  assign tag_push_w      = 1'b0;
+  assign tag_pop_w       = 1'b0;
+  assign tag_overflow_w  = 1'b0;
+  assign tag_underflow_w = 1'b0;
   assign tag_front_w     = (tag_count_q != '0) ? tag_mem_q[tag_rd_ptr_q] : '0;
 
-  assign accumulator_write_en_o   = tag_stream_active_w && ((tag_count_q != '0) || psum_packer_busy_i);
-  assign accumulator_write_addr_o = tag_front_w;
+  assign accumulator_write_en_o   = (state_q == S_LAUNCH_ACT) || launch_act_from_wait_w;
+  assign accumulator_write_addr_o = stream_idx_q[ACC_ADDR_WIDTH-1:0];
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
@@ -444,10 +484,10 @@ module controller_kloop #(
       num_tiles_q <= TILE_COUNT_WIDTH'(1);
       stream_idx_q <= '0;
       acc_read_idx_q <= '0;
-      weight_top_row_q <= '0;
-      weight_bottom_row_q <= '0;
-      act_lane0_q <= '0;
-      act_lane1_q <= '0;
+      weight_stream_row_q <= '0;
+      act_fetch_lane_q <= '0;
+      act_read_valid_pipe_q <= '0;
+      output_lane_q <= '0;
       wgt_load_seen_q <= '0;
       vpu_data_q <= '0;
       bias_flatten_q <= '0;
@@ -483,8 +523,20 @@ module controller_kloop #(
       vpu_requant_shift_flatten_o <= '0;
       vpu_output_zero_point_o <= '0;
 
+      for (int idx = 0; idx < 2; idx++) begin
+        act_read_lane_pipe_q[idx] <= '0;
+      end
+
+      for (int lane = 0; lane < SIZE; lane++) begin
+        act_lane_q[lane] <= '0;
+      end
+
       for (int idx = 0; idx < TAG_DEPTH; idx++) begin
         tag_mem_q[idx] <= '0;
+      end
+
+      for (int idx = 0; idx < DBG_STATE_COUNT; idx++) begin
+        state_exec_counts_q[idx] <= '0;
       end
     end else begin
       done_o <= 1'b0;
@@ -505,8 +557,18 @@ module controller_kloop #(
       vpu_requant_shift_flatten_o <= requant_shift_flatten_q;
       vpu_output_zero_point_o <= '0;
 
+      act_read_valid_pipe_q[1] <= act_read_valid_pipe_q[0];
+      act_read_valid_pipe_q[0] <= 1'b0;
+      act_read_lane_pipe_q[1] <= act_read_lane_pipe_q[0];
+      act_read_lane_pipe_q[0] <= '0;
+
+      if (act_read_capture_w) begin
+        act_lane_q[act_read_lane_pipe_q[1]] <= ub_rd_data_i;
+      end
+
       if (state_q != S_IDLE && state_q != S_DONE && state_q != S_ERROR) begin
-        dbg_cycle_count_o <= dbg_cycle_count_o + 16'd1;
+        dbg_cycle_count_o <= dbg_cycle_count_o + 32'd1;
+        state_exec_counts_q[int'(state_q)] <= state_exec_counts_q[int'(state_q)] + 32'd1;
       end
 
       if (tag_overflow_w) begin
@@ -560,12 +622,15 @@ module controller_kloop #(
               oc_tile_idx_q <= oc_tile_idx_i;
               dbg_cycle_count_o <= '0;
               dbg_useful_mac_count_o <= '0;
+              for (int idx = 0; idx < DBG_STATE_COUNT; idx++) begin
+                state_exec_counts_q[idx] <= '0;
+              end
               state_q <= S_CLEAR_ACC_BLOCK;
             end
           end
 
           S_CLEAR_ACC_BLOCK: begin
-            if (SIZE != 2) begin
+            if (SIZE < 2) begin
               state_q <= S_ERROR;
               error_o <= 1'b1;
               dbg_error_code_o <= ERR_SIZE;
@@ -603,54 +668,54 @@ module controller_kloop #(
           end
 
           S_FETCH_ROM: begin
-            if (oc_valid_w != {SIZE{1'b1}}) begin
-              state_q <= S_ERROR;
-              error_o <= 1'b1;
-              dbg_error_code_o <= ERR_PADDED_OC_UNSUPPORTED;
-            end else begin
-              state_q <= S_WAIT_ROM;
-            end
+            state_q <= S_WAIT_ROM;
           end
 
           S_WAIT_ROM: begin
-            if ((weight_data_valid_w != {SIZE*SIZE{1'b1}}) || (bias_data_valid_w != {SIZE{1'b1}})
-                || (requant_mult_valid_w != {SIZE{1'b1}})
-                || (requant_shift_valid_w != {SIZE{1'b1}})) begin
+            if ((weight_data_valid_w != {SIZE*SIZE{1'b1}})
+                || (bias_data_valid_w != param_valid_required_w)
+                || (requant_mult_valid_w != param_valid_required_w)
+                || (requant_shift_valid_w != param_valid_required_w)) begin
               state_q <= S_ERROR;
               error_o <= 1'b1;
               dbg_error_code_o <= ERR_ROM_VALID;
             end else begin
-              weight_top_row_q <= {weight_mux_w[1], weight_mux_w[0]};
-              weight_bottom_row_q <= {weight_mux_w[3], weight_mux_w[2]};
-              bias_flatten_q <= {bias_data_w[1], bias_data_w[0]};
-              requant_multiplier_flatten_q <= {requant_mult_data_w[1], requant_mult_data_w[0]};
-              requant_shift_flatten_q <= {requant_shift_data_w[1], requant_shift_data_w[0]};
+              for (int lane = 0; lane < SIZE; lane++) begin
+                if (oc_valid_w[lane]) begin
+                  bias_flatten_q[(lane*BIAS_WIDTH)+:BIAS_WIDTH] <= bias_data_w[lane];
+                  requant_multiplier_flatten_q[(lane*REQUANT_MULT_WIDTH)+:REQUANT_MULT_WIDTH] <=
+                      requant_mult_data_w[lane];
+                  requant_shift_flatten_q[(lane*REQUANT_SHIFT_WIDTH)+:REQUANT_SHIFT_WIDTH] <=
+                      requant_shift_data_w[lane];
+                end else begin
+                  bias_flatten_q[(lane*BIAS_WIDTH)+:BIAS_WIDTH] <= '0;
+                  requant_multiplier_flatten_q[(lane*REQUANT_MULT_WIDTH)+:REQUANT_MULT_WIDTH] <= '0;
+                  requant_shift_flatten_q[(lane*REQUANT_SHIFT_WIDTH)+:REQUANT_SHIFT_WIDTH] <= '0;
+                end
+              end
+
               act_mode_q <= desc_act_mode_w;
-              state_q <= S_WRITE_WEIGHT_BOTTOM;
+              weight_stream_row_q <= 16'(SIZE - 1);
+              state_q <= S_WRITE_WEIGHT_ROW;
             end
           end
 
-          S_WRITE_WEIGHT_BOTTOM: begin
+          S_WRITE_WEIGHT_ROW: begin
             if (wgt_fifo_full_i) begin
               state_q <= S_ERROR;
               error_o <= 1'b1;
               dbg_error_code_o <= ERR_WGT_FIFO_FULL;
             end else begin
-              wgt_fifo_wdata_o <= weight_bottom_row_q;
+              wgt_fifo_wdata_o <= weight_stream_row_data_w;
               wgt_fifo_wr_en_o <= 1'b1;
-              state_q <= S_WRITE_WEIGHT_TOP;
-            end
-          end
 
-          S_WRITE_WEIGHT_TOP: begin
-            if (wgt_fifo_full_i) begin
-              state_q <= S_ERROR;
-              error_o <= 1'b1;
-              dbg_error_code_o <= ERR_WGT_FIFO_FULL;
-            end else begin
-              wgt_fifo_wdata_o <= weight_top_row_q;
-              wgt_fifo_wr_en_o <= 1'b1;
-              state_q <= S_START_WEIGHT_LOAD;
+              if (weight_stream_row_q == 16'd0) begin
+                start_wgt_load_o <= 1'b1;
+                wgt_load_seen_q <= '0;
+                state_q <= S_WAIT_WEIGHT_LOAD;
+              end else begin
+                weight_stream_row_q <= weight_stream_row_q - 16'd1;
+              end
             end
           end
 
@@ -666,58 +731,74 @@ module controller_kloop #(
             wgt_load_seen_q <= wgt_load_seen_q | wgt_load_done_i;
             if (&(wgt_load_seen_q | wgt_load_done_i)) begin
               stream_idx_q <= '0;
-              state_q <= S_READ_ACT0_REQ;
+              act_fetch_lane_q <= '0;
+              act_read_valid_pipe_q <= '0;
+              act_read_lane_pipe_q[0] <= '0;
+              act_read_lane_pipe_q[1] <= '0;
+              state_q <= S_READ_ACT_REQ;
             end
           end
 
-          S_READ_ACT0_REQ: begin
-            if (act_zero_w[0]) begin
-              act_lane0_q <= '0;
-              state_q <= S_READ_ACT1_REQ;
-            end else if (act_addr0_w >= ADDR_CALC_WIDTH'(BANK_DEPTH)) begin
-              state_q <= S_ERROR;
-              error_o <= 1'b1;
-              dbg_error_code_o <= ERR_INPUT_ADDR;
+          S_READ_ACT_REQ: begin
+            if (act_fetch_lane_q >= 16'(SIZE)) begin
+              state_q <= S_READ_ACT_WAIT;
             end else begin
-              ub_rd_en_o <= 1'b1;
-              ub_rd_bank_o <= inner_read_bank_w;
-              ub_rd_addr_o <= UB_ADDR_WIDTH'(act_addr0_w);
-              state_q <= S_READ_ACT0_WAIT;
+              if (act_zero_w[act_fetch_lane_q]) begin
+                act_lane_q[act_fetch_lane_q] <= '0;
+              end else if (act_lane_addr_w >= ADDR_CALC_WIDTH'(BANK_DEPTH)) begin
+                state_q <= S_ERROR;
+                error_o <= 1'b1;
+                dbg_error_code_o <= ERR_INPUT_ADDR;
+              end else begin
+                ub_rd_en_o <= 1'b1;
+                ub_rd_bank_o <= inner_read_bank_w;
+                ub_rd_addr_o <= UB_ADDR_WIDTH'(act_lane_addr_w);
+                act_read_valid_pipe_q[0] <= 1'b1;
+                act_read_lane_pipe_q[0] <= act_fetch_lane_q;
+              end
+
+              if (act_zero_w[act_fetch_lane_q]
+                  || (act_lane_addr_w < ADDR_CALC_WIDTH'(BANK_DEPTH))) begin
+                if ((act_fetch_lane_q + 16'd1) >= 16'(SIZE)) begin
+                  act_fetch_lane_q <= 16'(SIZE);
+                  if (act_zero_w[act_fetch_lane_q]
+                      && !act_read_valid_pipe_q[0]
+                      && (!act_read_valid_pipe_q[1] || act_read_capture_w)) begin
+                    state_q <= S_READ_ACT_WAIT;
+                  end else begin
+                    state_q <= S_READ_ACT_WAIT;
+                  end
+                end else begin
+                  act_fetch_lane_q <= act_fetch_lane_q + 16'd1;
+                end
+              end
             end
           end
 
-          S_READ_ACT0_WAIT: begin
-            if (ub_rd_valid_i) begin
-              act_lane0_q <= ub_rd_data_i;
-              state_q <= S_READ_ACT1_REQ;
-            end
-          end
+          S_READ_ACT_WAIT: begin
+            if (!act_read_valid_pipe_q[0]
+                && (!act_read_valid_pipe_q[1] || act_read_capture_w)) begin
+              act_flat_raw_o <= act_flatten_launch_w;
+              act_valid_raw_o <= {SIZE{1'b1}};
+              work_o <= 1'b1;
+              dbg_useful_mac_count_o <= dbg_useful_mac_count_o + count_valid_weights(weight_valid_w);
 
-          S_READ_ACT1_REQ: begin
-            if (act_zero_w[1]) begin
-              act_lane1_q <= '0;
-              state_q <= S_LAUNCH_ACT;
-            end else if (act_addr1_w >= ADDR_CALC_WIDTH'(BANK_DEPTH)) begin
-              state_q <= S_ERROR;
-              error_o <= 1'b1;
-              dbg_error_code_o <= ERR_INPUT_ADDR;
-            end else begin
-              ub_rd_en_o <= 1'b1;
-              ub_rd_bank_o <= inner_read_bank_w;
-              ub_rd_addr_o <= UB_ADDR_WIDTH'(act_addr1_w);
-              state_q <= S_READ_ACT1_WAIT;
-            end
-          end
-
-          S_READ_ACT1_WAIT: begin
-            if (ub_rd_valid_i) begin
-              act_lane1_q <= ub_rd_data_i;
-              state_q <= S_LAUNCH_ACT;
+              if ((stream_idx_q + ACC_COUNT_WIDTH'(1)) >= block_size_q) begin
+                stream_idx_q <= stream_idx_q + ACC_COUNT_WIDTH'(1);
+                state_q <= S_DRAIN_MXU;
+              end else begin
+                stream_idx_q <= stream_idx_q + ACC_COUNT_WIDTH'(1);
+                act_fetch_lane_q <= '0;
+                act_read_valid_pipe_q <= '0;
+                act_read_lane_pipe_q[0] <= '0;
+                act_read_lane_pipe_q[1] <= '0;
+                state_q <= S_READ_ACT_REQ;
+              end
             end
           end
 
           S_LAUNCH_ACT: begin
-            act_flat_raw_o <= {act_lane1_q, act_lane0_q};
+            act_flat_raw_o <= act_flatten_launch_w;
             act_valid_raw_o <= {SIZE{1'b1}};
             work_o <= 1'b1;
             dbg_useful_mac_count_o <= dbg_useful_mac_count_o + count_valid_weights(weight_valid_w);
@@ -727,12 +808,16 @@ module controller_kloop #(
               state_q <= S_DRAIN_MXU;
             end else begin
               stream_idx_q <= stream_idx_q + ACC_COUNT_WIDTH'(1);
-              state_q <= S_READ_ACT0_REQ;
+              act_fetch_lane_q <= '0;
+              act_read_valid_pipe_q <= '0;
+              act_read_lane_pipe_q[0] <= '0;
+              act_read_lane_pipe_q[1] <= '0;
+              state_q <= S_READ_ACT_REQ;
             end
           end
 
           S_DRAIN_MXU: begin
-            if ((tag_count_q == '0) && !psum_packer_busy_i && !(|mxu_psum_valid_i)) begin
+            if (!psum_packer_busy_i && !(|mxu_psum_valid_i)) begin
               if (last_k_tile_w) begin
                 state_q <= S_WAIT_ACC_READY;
               end else begin
@@ -761,40 +846,42 @@ module controller_kloop #(
             vpu_input_done_o <= (acc_read_idx_q == (block_size_q - ACC_COUNT_WIDTH'(1)));
             if (vpu_data_valid_i) begin
               vpu_data_q <= vpu_data_flatten_i;
-              state_q <= S_WRITE_OUTPUT0;
+              output_lane_q <= '0;
+              state_q <= S_WRITE_OUTPUT_LANE;
             end
           end
 
-          S_WRITE_OUTPUT0: begin
-            if (output_addr0_w >= ADDR_CALC_WIDTH'(BANK_DEPTH)) begin
-              state_q <= S_ERROR;
-              error_o <= 1'b1;
-              dbg_error_code_o <= ERR_OUTPUT_ADDR;
-            end else begin
-              ub_wr_en_o <= 1'b1;
-              ub_wr_bank_o <= inner_write_bank_w;
-              ub_wr_addr_o <= UB_ADDR_WIDTH'(output_addr0_w);
-              ub_wr_data_o <= vpu_data_q[(0*OUT_WIDTH)+:OUT_WIDTH];
-              state_q <= S_WRITE_OUTPUT1;
-            end
-          end
-
-          S_WRITE_OUTPUT1: begin
-            if (output_addr1_w >= ADDR_CALC_WIDTH'(BANK_DEPTH)) begin
-              state_q <= S_ERROR;
-              error_o <= 1'b1;
-              dbg_error_code_o <= ERR_OUTPUT_ADDR;
-            end else begin
-              ub_wr_en_o <= 1'b1;
-              ub_wr_bank_o <= inner_write_bank_w;
-              ub_wr_addr_o <= UB_ADDR_WIDTH'(output_addr1_w);
-              ub_wr_data_o <= vpu_data_q[(1*OUT_WIDTH)+:OUT_WIDTH];
-
-              if ((acc_read_idx_q + ACC_COUNT_WIDTH'(1)) >= block_size_q) begin
-                state_q <= S_DONE;
+          S_WRITE_OUTPUT_LANE: begin
+            if (!oc_valid_w[output_lane_q]) begin
+              if ((output_lane_q + 16'd1) >= 16'(SIZE)) begin
+                if ((acc_read_idx_q + ACC_COUNT_WIDTH'(1)) >= block_size_q) begin
+                  state_q <= S_DONE;
+                end else begin
+                  acc_read_idx_q <= acc_read_idx_q + ACC_COUNT_WIDTH'(1);
+                  state_q <= S_READ_ACC_ROW;
+                end
               end else begin
-                acc_read_idx_q <= acc_read_idx_q + ACC_COUNT_WIDTH'(1);
-                state_q <= S_READ_ACC_ROW;
+                output_lane_q <= output_lane_q + 16'd1;
+              end
+            end else if (output_lane_addr_w >= ADDR_CALC_WIDTH'(BANK_DEPTH)) begin
+              state_q <= S_ERROR;
+              error_o <= 1'b1;
+              dbg_error_code_o <= ERR_OUTPUT_ADDR;
+            end else begin
+              ub_wr_en_o <= 1'b1;
+              ub_wr_bank_o <= inner_write_bank_w;
+              ub_wr_addr_o <= UB_ADDR_WIDTH'(output_lane_addr_w);
+              ub_wr_data_o <= vpu_data_q[(output_lane_q*OUT_WIDTH)+:OUT_WIDTH];
+
+              if ((output_lane_q + 16'd1) >= 16'(SIZE)) begin
+                if ((acc_read_idx_q + ACC_COUNT_WIDTH'(1)) >= block_size_q) begin
+                  state_q <= S_DONE;
+                end else begin
+                  acc_read_idx_q <= acc_read_idx_q + ACC_COUNT_WIDTH'(1);
+                  state_q <= S_READ_ACC_ROW;
+                end
+              end else begin
+                output_lane_q <= output_lane_q + 16'd1;
               end
             end
           end

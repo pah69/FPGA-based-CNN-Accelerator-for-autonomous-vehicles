@@ -21,7 +21,8 @@ module controller_layer #(
     parameter int WEIGHT_DEPTH        = 4952,
     parameter int WEIGHT_ADDR_WIDTH   = (WEIGHT_DEPTH > 1) ? $clog2(WEIGHT_DEPTH) : 1,
     parameter int PARAM_DEPTH         = 44,
-    parameter int PARAM_ADDR_WIDTH    = (PARAM_DEPTH > 1) ? $clog2(PARAM_DEPTH) : 1
+    parameter int PARAM_ADDR_WIDTH    = (PARAM_DEPTH > 1) ? $clog2(PARAM_DEPTH) : 1,
+    parameter int DBG_STATE_COUNT     = 17
 ) (
     input logic clk,
     input logic rst_n,
@@ -32,11 +33,12 @@ module controller_layer #(
     output logic error_o,
     output logic [4:0] dbg_state_o,
     output logic [4:0] dbg_tile_state_o,
-    output logic [15:0] dbg_cycle_count_o,
+    output logic [31:0] dbg_cycle_count_o,
     output logic [15:0] dbg_spatial_idx_o,
     output logic [15:0] dbg_oc_tile_o,
     output logic [15:0] dbg_k_tile_o,
     output logic [31:0] dbg_useful_mac_count_o,
+    output logic [(32*DBG_STATE_COUNT)-1:0] dbg_state_exec_counts_flat_o,
     output logic [31:0] dbg_error_code_o,
 
     input logic [1:0] layer_idx_i,
@@ -146,10 +148,12 @@ module controller_layer #(
   logic tile_busy_w;
   logic tile_error_w;
   logic [4:0] tile_state_w;
-  logic [15:0] tile_cycle_count_w;
+  logic [31:0] tile_cycle_count_w;
   logic [15:0] tile_k_tile_w;
   logic [31:0] tile_useful_mac_count_w;
   logic [31:0] tile_error_code_w;
+  logic [(32*DBG_STATE_COUNT)-1:0] tile_state_exec_counts_flat_w;
+  logic [31:0] state_exec_counts_q[0:DBG_STATE_COUNT-1];
   logic last_oc_tile_w;
   logic last_spatial_block_w;
   logic [15:0] remaining_spatial_w;
@@ -199,7 +203,8 @@ module controller_layer #(
       .WEIGHT_DEPTH       (WEIGHT_DEPTH),
       .WEIGHT_ADDR_WIDTH  (WEIGHT_ADDR_WIDTH),
       .PARAM_DEPTH        (PARAM_DEPTH),
-      .PARAM_ADDR_WIDTH   (PARAM_ADDR_WIDTH)
+      .PARAM_ADDR_WIDTH   (PARAM_ADDR_WIDTH),
+      .DBG_STATE_COUNT    (DBG_STATE_COUNT)
   ) u_tile_controller (
       .clk                             (clk),
       .rst_n                           (rst_n),
@@ -211,6 +216,7 @@ module controller_layer #(
       .dbg_cycle_count_o               (tile_cycle_count_w),
       .dbg_k_tile_o                    (tile_k_tile_w),
       .dbg_useful_mac_count_o          (tile_useful_mac_count_w),
+      .dbg_state_exec_counts_flat_o    (tile_state_exec_counts_flat_w),
       .dbg_error_code_o                (tile_error_code_w),
       .layer_idx_i                     (layer_idx_q),
       .use_descriptor_banks_i          (use_descriptor_banks_q),
@@ -278,6 +284,12 @@ module controller_layer #(
   assign last_spatial_block_w =
       ((spatial_idx_q + tile_block_size_16_w) >= desc_num_spatial_w);
 
+  generate
+    for (genvar state_idx = 0; state_idx < DBG_STATE_COUNT; state_idx++) begin : GEN_STATE_EXEC_COUNTS
+      assign dbg_state_exec_counts_flat_o[(state_idx*32)+:32] = state_exec_counts_q[state_idx];
+    end
+  endgenerate
+
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       state_q <= S_IDLE;
@@ -296,12 +308,15 @@ module controller_layer #(
       spatial_idx_q <= '0;
       oc_tile_q <= '0;
       tile_start_q <= 1'b0;
+      for (int idx = 0; idx < DBG_STATE_COUNT; idx++) begin
+        state_exec_counts_q[idx] <= '0;
+      end
     end else begin
       done_o <= 1'b0;
       tile_start_q <= 1'b0;
 
       if (state_q != S_IDLE && state_q != S_DONE && state_q != S_ERROR) begin
-        dbg_cycle_count_o <= dbg_cycle_count_o + 16'd1;
+        dbg_cycle_count_o <= dbg_cycle_count_o + 32'd1;
       end
 
       unique case (state_q)
@@ -320,6 +335,9 @@ module controller_layer #(
             oc_tile_q <= '0;
             dbg_cycle_count_o <= '0;
             dbg_useful_mac_count_o <= '0;
+            for (int idx = 0; idx < DBG_STATE_COUNT; idx++) begin
+              state_exec_counts_q[idx] <= '0;
+            end
             state_q <= S_START_TILE;
           end
         end
@@ -350,6 +368,10 @@ module controller_layer #(
             dbg_error_code_o <= ERR_CHILD | {16'h0000, tile_error_code_w[15:0]};
           end else if (tile_done_w) begin
             dbg_useful_mac_count_o <= dbg_useful_mac_count_o + tile_useful_mac_count_w;
+            for (int idx = 0; idx < DBG_STATE_COUNT; idx++) begin
+              state_exec_counts_q[idx] <= state_exec_counts_q[idx]
+                                        + tile_state_exec_counts_flat_w[(idx*32)+:32];
+            end
             if (last_oc_tile_w) begin
               if (last_spatial_block_w) begin
                 state_q <= S_DONE;
