@@ -121,6 +121,14 @@ module controller_kloop #(
     S_ERROR
   } state_t;
 
+  typedef enum logic [2:0] {
+    PREFETCH_IDLE,
+    PREFETCH_FETCH_ROM,
+    PREFETCH_WAIT_ROM,
+    PREFETCH_WRITE_WEIGHT_ROW,
+    PREFETCH_DONE
+  } prefetch_state_t;
+
   localparam logic [31:0] ERR_SIZE            = 32'h0002_0001;
   localparam logic [31:0] ERR_DESC_INVALID    = 32'h0002_0002;
   localparam logic [31:0] ERR_BLOCK_SIZE      = 32'h0002_0003;
@@ -138,6 +146,7 @@ module controller_kloop #(
   localparam int ADDR_CALC_WIDTH = 32;
 
   state_t state_q;
+  prefetch_state_t prefetch_state_q;
 
   logic [1:0] layer_idx_q;
   logic use_descriptor_banks_q;
@@ -150,6 +159,8 @@ module controller_kloop #(
   logic [15:0] oc_tile_idx_q;
   logic [15:0] k_tile_q;
   logic [TILE_COUNT_WIDTH-1:0] num_tiles_q;
+  logic [15:0] prefetch_k_tile_q;
+  logic [15:0] prefetch_weight_stream_row_q;
 
   logic desc_valid_w;
   layer_type_t desc_layer_type_w;
@@ -202,9 +213,15 @@ module controller_kloop #(
   logic signed [DATA_WIDTH-1:0] act_lane_q[0:SIZE-1];
   logic [SIZE-1:0] wgt_load_seen_q;
   logic signed [(OUT_WIDTH*SIZE)-1:0] vpu_data_q;
+  logic signed [(OUT_WIDTH*SIZE)-1:0] vpu_next_data_q;
+  logic vpu_next_valid_q;
+  logic vpu_prefetch_pending_q;
+  logic vpu_prefetch_done_q;
 
   logic [ACC_ADDR_WIDTH:0] stream_idx_q;
   logic [ACC_ADDR_WIDTH:0] acc_read_idx_q;
+  logic [ACC_ADDR_WIDTH:0] next_acc_read_idx_w;
+  logic [ACC_ADDR_WIDTH:0] row_after_next_acc_idx_w;
   logic [15:0] weight_stream_row_q;
   logic [15:0] act_fetch_lane_q;
   logic [1:0] act_read_valid_pipe_q;
@@ -240,9 +257,17 @@ module controller_kloop #(
   logic inner_read_bank_w;
   logic inner_write_bank_w;
   logic signed [(DATA_WIDTH*SIZE)-1:0] weight_stream_row_data_w;
+  logic [15:0] address_k_tile_w;
+  logic [15:0] weight_stream_row_sel_w;
   logic signed [(DATA_WIDTH*SIZE)-1:0] act_flatten_launch_w;
   logic [SIZE-1:0] param_valid_required_w;
   logic launch_act_from_wait_w;
+  logic has_next_acc_row_w;
+  logic has_row_after_next_w;
+  logic row_after_next_is_last_w;
+  logic output_lane_last_w;
+  logic prefetched_vpu_available_w;
+  logic signed [(OUT_WIDTH*SIZE)-1:0] prefetched_vpu_data_w;
 
   function automatic logic [TAG_PTR_WIDTH-1:0] next_tag_ptr(
       input logic [TAG_PTR_WIDTH-1:0] ptr_i);
@@ -309,7 +334,7 @@ module controller_kloop #(
       .kernel_w_i            (desc_kernel_w_w),
       .k_total_i             (desc_k_total_w),
       .spatial_idx_i         (spatial_stream_idx_w),
-      .k_tile_idx_i          (k_tile_q),
+      .k_tile_idx_i          (address_k_tile_w),
       .oc_tile_idx_i         (oc_tile_idx_q),
       .act_addr_flatten_o    (act_addr_flatten_w),
       .act_valid_o           (act_valid_w),
@@ -397,7 +422,15 @@ module controller_kloop #(
     end
   endgenerate
 
-  assign rom_en_w = (state_q == S_FETCH_ROM);
+  assign address_k_tile_w = ((state_q == S_DRAIN_MXU) && (prefetch_state_q != PREFETCH_IDLE))
+                          ? prefetch_k_tile_q
+                          : k_tile_q;
+  assign weight_stream_row_sel_w =
+      ((state_q == S_DRAIN_MXU) && (prefetch_state_q == PREFETCH_WRITE_WEIGHT_ROW))
+      ? prefetch_weight_stream_row_q
+      : weight_stream_row_q;
+  assign rom_en_w = (state_q == S_FETCH_ROM)
+                 || ((state_q == S_DRAIN_MXU) && (prefetch_state_q == PREFETCH_FETCH_ROM));
   assign num_tiles_o = num_tiles_q;
   assign busy_o = (state_q != S_IDLE) && (state_q != S_DONE) && (state_q != S_ERROR);
   assign dbg_state_o = state_q;
@@ -413,6 +446,17 @@ module controller_kloop #(
   assign output_spatial_w = ADDR_CALC_WIDTH'(spatial_idx_q) + ADDR_CALC_WIDTH'(acc_read_idx_q);
   assign act_lane_addr_w = (act_fetch_lane_q < 16'(SIZE)) ? act_addr_w[act_fetch_lane_q] : '0;
   assign output_lane_addr_w = output_addr_w[output_lane_q];
+  assign next_acc_read_idx_w = acc_read_idx_q + ACC_COUNT_WIDTH'(1);
+  assign row_after_next_acc_idx_w = acc_read_idx_q + ACC_COUNT_WIDTH'(2);
+  assign has_next_acc_row_w = (next_acc_read_idx_w < block_size_q);
+  assign has_row_after_next_w = (row_after_next_acc_idx_w < block_size_q);
+  assign row_after_next_is_last_w =
+      ((acc_read_idx_q + ACC_COUNT_WIDTH'(3)) >= block_size_q);
+  assign output_lane_last_w = ((output_lane_q + 16'd1) >= 16'(SIZE));
+  assign prefetched_vpu_available_w = vpu_next_valid_q
+                                   || (vpu_prefetch_pending_q && vpu_data_valid_i);
+  assign prefetched_vpu_data_w =
+      (vpu_prefetch_pending_q && vpu_data_valid_i) ? vpu_data_flatten_i : vpu_next_data_q;
 
   always_comb begin
     for (int lane = 0; lane < SIZE; lane++) begin
@@ -437,7 +481,7 @@ module controller_kloop #(
     weight_stream_row_data_w = '0;
     for (int col = 0; col < SIZE; col++) begin
       weight_stream_row_data_w[(col*DATA_WIDTH)+:DATA_WIDTH] =
-          weight_mux_w[(weight_stream_row_q * 16'(SIZE)) + 16'(col)];
+          weight_mux_w[(weight_stream_row_sel_w * 16'(SIZE)) + 16'(col)];
     end
   end
 
@@ -466,6 +510,7 @@ module controller_kloop #(
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       state_q <= S_IDLE;
+      prefetch_state_q <= PREFETCH_IDLE;
       done_o <= 1'b0;
       error_o <= 1'b0;
       dbg_cycle_count_o <= '0;
@@ -482,6 +527,8 @@ module controller_kloop #(
       oc_tile_idx_q <= '0;
       k_tile_q <= '0;
       num_tiles_q <= TILE_COUNT_WIDTH'(1);
+      prefetch_k_tile_q <= '0;
+      prefetch_weight_stream_row_q <= '0;
       stream_idx_q <= '0;
       acc_read_idx_q <= '0;
       weight_stream_row_q <= '0;
@@ -490,6 +537,10 @@ module controller_kloop #(
       output_lane_q <= '0;
       wgt_load_seen_q <= '0;
       vpu_data_q <= '0;
+      vpu_next_data_q <= '0;
+      vpu_next_valid_q <= 1'b0;
+      vpu_prefetch_pending_q <= 1'b0;
+      vpu_prefetch_done_q <= 1'b0;
       bias_flatten_q <= '0;
       requant_multiplier_flatten_q <= '0;
       requant_shift_flatten_q <= '0;
@@ -550,7 +601,7 @@ module controller_kloop #(
       accumulator_clear_all_o <= 1'b0;
       accumulator_row_clear_o <= 1'b0;
       accumulator_read_en_o <= 1'b0;
-      vpu_input_done_o <= 1'b0;
+      vpu_input_done_o <= vpu_prefetch_done_q;
       vpu_act_mode_o <= act_mode_q;
       vpu_bias_flatten_o <= bias_flatten_q;
       vpu_requant_multiplier_flatten_o <= requant_multiplier_flatten_q;
@@ -620,6 +671,12 @@ module controller_kloop #(
               block_size_q <= block_size_i;
               spatial_idx_q <= spatial_idx_i;
               oc_tile_idx_q <= oc_tile_idx_i;
+              prefetch_state_q <= PREFETCH_IDLE;
+              prefetch_k_tile_q <= '0;
+              prefetch_weight_stream_row_q <= '0;
+              vpu_next_valid_q <= 1'b0;
+              vpu_prefetch_pending_q <= 1'b0;
+              vpu_prefetch_done_q <= 1'b0;
               dbg_cycle_count_o <= '0;
               dbg_useful_mac_count_o <= '0;
               for (int idx = 0; idx < DBG_STATE_COUNT; idx++) begin
@@ -660,6 +717,12 @@ module controller_kloop #(
               accumulator_clear_all_o <= 1'b1;
               num_tiles_q <= TILE_COUNT_WIDTH'(desc_num_k_tiles_w);
               k_tile_q <= '0;
+              prefetch_state_q <= PREFETCH_IDLE;
+              prefetch_k_tile_q <= '0;
+              prefetch_weight_stream_row_q <= '0;
+              vpu_next_valid_q <= 1'b0;
+              vpu_prefetch_pending_q <= 1'b0;
+              vpu_prefetch_done_q <= 1'b0;
               stream_idx_q <= '0;
               acc_read_idx_q <= '0;
               wgt_load_seen_q <= '0;
@@ -785,6 +848,13 @@ module controller_kloop #(
 
               if ((stream_idx_q + ACC_COUNT_WIDTH'(1)) >= block_size_q) begin
                 stream_idx_q <= stream_idx_q + ACC_COUNT_WIDTH'(1);
+                if (!last_k_tile_w) begin
+                  prefetch_state_q <= PREFETCH_FETCH_ROM;
+                  prefetch_k_tile_q <= k_tile_q + 16'd1;
+                  prefetch_weight_stream_row_q <= 16'(SIZE - 1);
+                end else begin
+                  prefetch_state_q <= PREFETCH_IDLE;
+                end
                 state_q <= S_DRAIN_MXU;
               end else begin
                 stream_idx_q <= stream_idx_q + ACC_COUNT_WIDTH'(1);
@@ -805,6 +875,13 @@ module controller_kloop #(
 
             if ((stream_idx_q + ACC_COUNT_WIDTH'(1)) >= block_size_q) begin
               stream_idx_q <= stream_idx_q + ACC_COUNT_WIDTH'(1);
+              if (!last_k_tile_w) begin
+                prefetch_state_q <= PREFETCH_FETCH_ROM;
+                prefetch_k_tile_q <= k_tile_q + 16'd1;
+                prefetch_weight_stream_row_q <= 16'(SIZE - 1);
+              end else begin
+                prefetch_state_q <= PREFETCH_IDLE;
+              end
               state_q <= S_DRAIN_MXU;
             end else begin
               stream_idx_q <= stream_idx_q + ACC_COUNT_WIDTH'(1);
@@ -817,13 +894,61 @@ module controller_kloop #(
           end
 
           S_DRAIN_MXU: begin
+            // Hide next K-tile ROM/FIFO preparation under drain, but do not
+            // switch PE active weights until all old psums have packed.
+            unique case (prefetch_state_q)
+              PREFETCH_FETCH_ROM: begin
+                prefetch_state_q <= PREFETCH_WAIT_ROM;
+              end
+
+              PREFETCH_WAIT_ROM: begin
+                if (weight_data_valid_w != {SIZE*SIZE{1'b1}}) begin
+                  state_q <= S_ERROR;
+                  error_o <= 1'b1;
+                  dbg_error_code_o <= ERR_ROM_VALID;
+                end else begin
+                  prefetch_state_q <= PREFETCH_WRITE_WEIGHT_ROW;
+                end
+              end
+
+              PREFETCH_WRITE_WEIGHT_ROW: begin
+                if (!wgt_fifo_full_i) begin
+                  wgt_fifo_wdata_o <= weight_stream_row_data_w;
+                  wgt_fifo_wr_en_o <= 1'b1;
+
+                  if (prefetch_weight_stream_row_q == 16'd0) begin
+                    prefetch_state_q <= PREFETCH_DONE;
+                  end else begin
+                    prefetch_weight_stream_row_q <= prefetch_weight_stream_row_q - 16'd1;
+                  end
+                end
+              end
+
+              default: begin
+              end
+            endcase
+
             if (!psum_packer_busy_i && !(|mxu_psum_valid_i)) begin
               if (last_k_tile_w) begin
                 state_q <= S_WAIT_ACC_READY;
-              end else begin
+              end else if (prefetch_state_q == PREFETCH_DONE) begin
+                k_tile_q <= prefetch_k_tile_q;
+                prefetch_state_q <= PREFETCH_IDLE;
+                stream_idx_q <= '0;
+                wgt_load_seen_q <= '0;
+
+                if (wgt_fetcher_ready_i) begin
+                  start_wgt_load_o <= 1'b1;
+                  state_q <= S_WAIT_WEIGHT_LOAD;
+                end else begin
+                  state_q <= S_START_WEIGHT_LOAD;
+                end
+              end else if (prefetch_state_q == PREFETCH_IDLE) begin
                 k_tile_q <= k_tile_q + 16'd1;
                 stream_idx_q <= '0;
                 state_q <= S_FETCH_ROM;
+              end else begin
+                stream_idx_q <= '0;
               end
             end
           end
@@ -843,22 +968,59 @@ module controller_kloop #(
           end
 
           S_WAIT_VPU_OUTPUT: begin
-            vpu_input_done_o <= (acc_read_idx_q == (block_size_q - ACC_COUNT_WIDTH'(1)));
+            vpu_input_done_o <= vpu_prefetch_pending_q
+                              ? vpu_prefetch_done_q
+                              : (acc_read_idx_q == (block_size_q - ACC_COUNT_WIDTH'(1)));
             if (vpu_data_valid_i) begin
               vpu_data_q <= vpu_data_flatten_i;
+              vpu_next_valid_q <= 1'b0;
+              if (vpu_prefetch_pending_q) begin
+                vpu_prefetch_pending_q <= 1'b0;
+                vpu_prefetch_done_q <= 1'b0;
+              end
+
+              if (has_next_acc_row_w) begin
+                accumulator_read_en_o <= 1'b1;
+                accumulator_read_addr_o <= next_acc_read_idx_w[ACC_ADDR_WIDTH-1:0];
+                vpu_prefetch_pending_q <= 1'b1;
+                vpu_prefetch_done_q <= !has_row_after_next_w;
+              end
+
               output_lane_q <= '0;
               state_q <= S_WRITE_OUTPUT_LANE;
             end
           end
 
           S_WRITE_OUTPUT_LANE: begin
+            if (vpu_prefetch_pending_q && vpu_data_valid_i) begin
+              vpu_next_data_q <= vpu_data_flatten_i;
+              vpu_next_valid_q <= 1'b1;
+              vpu_prefetch_pending_q <= 1'b0;
+              vpu_prefetch_done_q <= 1'b0;
+            end
+
             if (!oc_valid_w[output_lane_q]) begin
-              if ((output_lane_q + 16'd1) >= 16'(SIZE)) begin
-                if ((acc_read_idx_q + ACC_COUNT_WIDTH'(1)) >= block_size_q) begin
+              if (output_lane_last_w) begin
+                if (!has_next_acc_row_w) begin
                   state_q <= S_DONE;
+                end else if (prefetched_vpu_available_w) begin
+                  acc_read_idx_q <= next_acc_read_idx_w;
+                  vpu_data_q <= prefetched_vpu_data_w;
+                  vpu_next_valid_q <= 1'b0;
+                  output_lane_q <= '0;
+
+                  if (has_row_after_next_w) begin
+                    accumulator_read_en_o <= 1'b1;
+                    accumulator_read_addr_o <= row_after_next_acc_idx_w[ACC_ADDR_WIDTH-1:0];
+                    vpu_prefetch_pending_q <= 1'b1;
+                    vpu_prefetch_done_q <= row_after_next_is_last_w;
+                  end
+
+                  state_q <= S_WRITE_OUTPUT_LANE;
                 end else begin
-                  acc_read_idx_q <= acc_read_idx_q + ACC_COUNT_WIDTH'(1);
-                  state_q <= S_READ_ACC_ROW;
+                  acc_read_idx_q <= next_acc_read_idx_w;
+                  output_lane_q <= '0;
+                  state_q <= S_WAIT_VPU_OUTPUT;
                 end
               end else begin
                 output_lane_q <= output_lane_q + 16'd1;
@@ -873,12 +1035,27 @@ module controller_kloop #(
               ub_wr_addr_o <= UB_ADDR_WIDTH'(output_lane_addr_w);
               ub_wr_data_o <= vpu_data_q[(output_lane_q*OUT_WIDTH)+:OUT_WIDTH];
 
-              if ((output_lane_q + 16'd1) >= 16'(SIZE)) begin
-                if ((acc_read_idx_q + ACC_COUNT_WIDTH'(1)) >= block_size_q) begin
+              if (output_lane_last_w) begin
+                if (!has_next_acc_row_w) begin
                   state_q <= S_DONE;
+                end else if (prefetched_vpu_available_w) begin
+                  acc_read_idx_q <= next_acc_read_idx_w;
+                  vpu_data_q <= prefetched_vpu_data_w;
+                  vpu_next_valid_q <= 1'b0;
+                  output_lane_q <= '0;
+
+                  if (has_row_after_next_w) begin
+                    accumulator_read_en_o <= 1'b1;
+                    accumulator_read_addr_o <= row_after_next_acc_idx_w[ACC_ADDR_WIDTH-1:0];
+                    vpu_prefetch_pending_q <= 1'b1;
+                    vpu_prefetch_done_q <= row_after_next_is_last_w;
+                  end
+
+                  state_q <= S_WRITE_OUTPUT_LANE;
                 end else begin
-                  acc_read_idx_q <= acc_read_idx_q + ACC_COUNT_WIDTH'(1);
-                  state_q <= S_READ_ACC_ROW;
+                  acc_read_idx_q <= next_acc_read_idx_w;
+                  output_lane_q <= '0;
+                  state_q <= S_WAIT_VPU_OUTPUT;
                 end
               end else begin
                 output_lane_q <= output_lane_q + 16'd1;

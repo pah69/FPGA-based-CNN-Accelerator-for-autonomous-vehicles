@@ -10,7 +10,7 @@ module systolic_array #(
     parameter int LOCAL_PSUM_WIDTH   = (2 * DATA_WIDTH) + $clog2(SIZE),
     parameter int NUM_TILES          = SIZE,
     parameter int ACC_WIDTH          = 32,
-    parameter bit ENABLE_LOCAL_ACCUM = 1'b1,
+    parameter bit ENABLE_LOCAL_ACCUM = 1'b0,
     parameter int TILE_COUNT_WIDTH   = (NUM_TILES > 1) ? $clog2(NUM_TILES + 1) : 1,
     parameter int MAC_COUNT_WIDTH    = (SIZE*SIZE > 1) ? $clog2((SIZE*SIZE) + 1) : 1
 ) (

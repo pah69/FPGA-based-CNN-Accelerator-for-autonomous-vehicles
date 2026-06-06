@@ -42,6 +42,11 @@ module top #(
     output logic [31:0] dbg_conv1_activation_fetch_cycles_o,
     output logic [31:0] dbg_conv1_mxu_active_cycles_o,
     output logic [31:0] dbg_conv1_mxu_drain_cycles_o,
+    output logic [31:0] dbg_conv1_drain_mxu_valid_cycles_o,
+    output logic [31:0] dbg_conv1_drain_psum_packer_busy_cycles_o,
+    output logic [31:0] dbg_conv1_drain_accum_write_cycles_o,
+    output logic [31:0] dbg_conv1_drain_extra_wait_cycles_o,
+    output logic [31:0] dbg_conv1_drain_entries_o,
     output logic [31:0] dbg_conv1_accumulator_cycles_o,
     output logic [31:0] dbg_conv1_vpu_cycles_o,
     output logic [31:0] dbg_conv1_output_write_cycles_o,
@@ -54,6 +59,11 @@ module top #(
     output logic [31:0] dbg_conv2_activation_fetch_cycles_o,
     output logic [31:0] dbg_conv2_mxu_active_cycles_o,
     output logic [31:0] dbg_conv2_mxu_drain_cycles_o,
+    output logic [31:0] dbg_conv2_drain_mxu_valid_cycles_o,
+    output logic [31:0] dbg_conv2_drain_psum_packer_busy_cycles_o,
+    output logic [31:0] dbg_conv2_drain_accum_write_cycles_o,
+    output logic [31:0] dbg_conv2_drain_extra_wait_cycles_o,
+    output logic [31:0] dbg_conv2_drain_entries_o,
     output logic [31:0] dbg_conv2_accumulator_cycles_o,
     output logic [31:0] dbg_conv2_vpu_cycles_o,
     output logic [31:0] dbg_conv2_output_write_cycles_o,
@@ -66,6 +76,11 @@ module top #(
     output logic [31:0] dbg_fc1_activation_fetch_cycles_o,
     output logic [31:0] dbg_fc1_mxu_active_cycles_o,
     output logic [31:0] dbg_fc1_mxu_drain_cycles_o,
+    output logic [31:0] dbg_fc1_drain_mxu_valid_cycles_o,
+    output logic [31:0] dbg_fc1_drain_psum_packer_busy_cycles_o,
+    output logic [31:0] dbg_fc1_drain_accum_write_cycles_o,
+    output logic [31:0] dbg_fc1_drain_extra_wait_cycles_o,
+    output logic [31:0] dbg_fc1_drain_entries_o,
     output logic [31:0] dbg_fc1_accumulator_cycles_o,
     output logic [31:0] dbg_fc1_vpu_cycles_o,
     output logic [31:0] dbg_fc1_output_write_cycles_o,
@@ -78,6 +93,25 @@ module top #(
     output logic [(32*DBG_STATE_COUNT)-1:0] dbg_conv2_kloop_state_exec_counts_flat_o,
     output logic [(32*DBG_STATE_COUNT)-1:0] dbg_fc1_kloop_state_exec_counts_flat_o,
     output logic [(32*DBG_STATE_COUNT)-1:0] dbg_fc2_kloop_state_exec_counts_flat_o,
+    output logic [31:0] dbg_fc2_mxu_drain_cycles_o,
+    output logic [31:0] dbg_fc2_drain_mxu_valid_cycles_o,
+    output logic [31:0] dbg_fc2_drain_psum_packer_busy_cycles_o,
+    output logic [31:0] dbg_fc2_drain_accum_write_cycles_o,
+    output logic [31:0] dbg_fc2_drain_extra_wait_cycles_o,
+    output logic [31:0] dbg_fc2_drain_entries_o,
+    output logic [31:0] dbg_packer_lane_fifo_nonempty_cycles_o,
+    output logic [31:0] dbg_packer_row_active_cycles_o,
+    output logic [31:0] dbg_packer_complete_row_wait_cycles_o,
+    output logic [31:0] dbg_packer_packed_valid_cycles_o,
+    output logic [31:0] dbg_packer_busy_cycles_o,
+    output logic [31:0] dbg_packer_lane_fifo_full_cycles_o,
+    output logic [31:0] dbg_packer_lane_fifo_empty_cycles_o,
+    output logic [31:0] dbg_packer_complete_row_backlog_cycles_o,
+    output logic [(32*SIZE)-1:0] dbg_packer_lane_psum_valid_cycles_flat_o,
+    output logic [(32*SIZE)-1:0] dbg_packer_lane_pop_cycles_flat_o,
+    output logic [(32*SIZE)-1:0] dbg_packer_lane_last_arrival_count_flat_o,
+    output logic [31:0] dbg_packer_row_completion_latency_sum_o,
+    output logic [31:0] dbg_packer_row_completion_latency_max_o,
     output logic [31:0] dbg_error_code_o,
 
     input  logic                         host_rd_en_i,
@@ -242,6 +276,8 @@ module top #(
   logic signed [(OUT_WIDTH*SIZE)-1:0] vpu_data_flatten_w;
   logic vpu_data_valid_w;
   logic datapath_done_w;
+  logic datapath_accumulator_write_active_w;
+  logic psum_packer_dbg_counter_clear_w;
 
   logic signed [(LOCAL_PSUM_WIDTH*SIZE)-1:0] mxu_psum_flatten_w;
   logic [SIZE-1:0] mxu_psum_valid_w;
@@ -260,6 +296,11 @@ module top #(
   logic profile_vpu_w;
   logic profile_output_write_w;
   logic profile_controller_idle_w;
+  logic profile_drain_mxu_valid_w;
+  logic profile_drain_psum_packer_busy_w;
+  logic profile_drain_accum_write_w;
+  logic profile_drain_extra_wait_w;
+  logic profile_mxu_drain_q;
 
   function automatic logic [2:0] stage_from_state(input state_t state_i);
     begin
@@ -280,6 +321,7 @@ module top #(
   assign error_o = (state_q == S_ERROR);
   assign dbg_state_o = state_q;
   assign dbg_stage_o = stage_from_state(state_q);
+  assign psum_packer_dbg_counter_clear_w = (state_q == S_IDLE) && start_i;
   assign host_access_w = (state_q == S_IDLE) || (state_q == S_DONE) || (state_q == S_ERROR);
   assign layer_active_w = (state_q == S_START_CONV1) || (state_q == S_RUN_CONV1)
                        || (state_q == S_START_CONV2) || (state_q == S_RUN_CONV2)
@@ -298,6 +340,13 @@ module top #(
                                    || (dbg_layer_tile_state_o == TILE_S_READ_ACT_WAIT);
   assign profile_mxu_active_w = (mxu_valid_mac_count_w != '0);
   assign profile_mxu_drain_w = (dbg_layer_tile_state_o == TILE_S_DRAIN_MXU);
+  assign profile_drain_mxu_valid_w = profile_mxu_drain_w && (|mxu_psum_valid_w);
+  assign profile_drain_psum_packer_busy_w = profile_mxu_drain_w && psum_packer_busy_w;
+  assign profile_drain_accum_write_w = profile_mxu_drain_w && datapath_accumulator_write_active_w;
+  assign profile_drain_extra_wait_w = profile_mxu_drain_w
+                                   && !(|mxu_psum_valid_w)
+                                   && !psum_packer_busy_w
+                                   && !datapath_accumulator_write_active_w;
   assign profile_accumulator_w = (dbg_layer_tile_state_o == TILE_S_WAIT_ACC_READY)
                               || (dbg_layer_tile_state_o == TILE_S_READ_ACC_ROW);
   assign profile_vpu_w = (dbg_layer_tile_state_o == TILE_S_WAIT_VPU_OUTPUT);
@@ -514,6 +563,7 @@ module top #(
       .accumulator_write_addr_i        (accumulator_write_addr_w),
       .accumulator_read_en_i           (accumulator_read_en_w),
       .accumulator_read_addr_i         (accumulator_read_addr_w),
+      .psum_packer_dbg_counter_clear_i (psum_packer_dbg_counter_clear_w),
       .vpu_input_done_i                (vpu_input_done_w),
       .vpu_act_mode_i                  (vpu_act_mode_w),
       .vpu_bias_flatten_i              (vpu_bias_flatten_w),
@@ -524,6 +574,20 @@ module top #(
       .mxu_psum_valid_o                (mxu_psum_valid_w),
       .mxu_valid_mac_count_o           (mxu_valid_mac_count_w),
       .psum_packer_busy_o              (psum_packer_busy_w),
+      .accumulator_write_active_o      (datapath_accumulator_write_active_w),
+      .psum_packer_lane_fifo_nonempty_cycles_o(dbg_packer_lane_fifo_nonempty_cycles_o),
+      .psum_packer_row_active_cycles_o(dbg_packer_row_active_cycles_o),
+      .psum_packer_complete_row_wait_cycles_o(dbg_packer_complete_row_wait_cycles_o),
+      .psum_packer_packed_valid_cycles_o(dbg_packer_packed_valid_cycles_o),
+      .psum_packer_busy_cycles_o(dbg_packer_busy_cycles_o),
+      .psum_packer_lane_fifo_full_cycles_o(dbg_packer_lane_fifo_full_cycles_o),
+      .psum_packer_lane_fifo_empty_cycles_o(dbg_packer_lane_fifo_empty_cycles_o),
+      .psum_packer_complete_row_backlog_cycles_o(dbg_packer_complete_row_backlog_cycles_o),
+      .psum_packer_lane_psum_valid_cycles_flat_o(dbg_packer_lane_psum_valid_cycles_flat_o),
+      .psum_packer_lane_pop_cycles_flat_o(dbg_packer_lane_pop_cycles_flat_o),
+      .psum_packer_lane_last_arrival_count_flat_o(dbg_packer_lane_last_arrival_count_flat_o),
+      .psum_packer_row_completion_latency_sum_o(dbg_packer_row_completion_latency_sum_o),
+      .psum_packer_row_completion_latency_max_o(dbg_packer_row_completion_latency_max_o),
       .wgt_load_done_o                 (wgt_load_done_w),
       .accumulator_read_flatten_o      (accumulator_read_flatten_w),
       .accumulator_read_valid_o        (accumulator_read_valid_w),
@@ -590,6 +654,11 @@ module top #(
       dbg_conv1_activation_fetch_cycles_o <= '0;
       dbg_conv1_mxu_active_cycles_o <= '0;
       dbg_conv1_mxu_drain_cycles_o <= '0;
+      dbg_conv1_drain_mxu_valid_cycles_o <= '0;
+      dbg_conv1_drain_psum_packer_busy_cycles_o <= '0;
+      dbg_conv1_drain_accum_write_cycles_o <= '0;
+      dbg_conv1_drain_extra_wait_cycles_o <= '0;
+      dbg_conv1_drain_entries_o <= '0;
       dbg_conv1_accumulator_cycles_o <= '0;
       dbg_conv1_vpu_cycles_o <= '0;
       dbg_conv1_output_write_cycles_o <= '0;
@@ -602,6 +671,11 @@ module top #(
       dbg_conv2_activation_fetch_cycles_o <= '0;
       dbg_conv2_mxu_active_cycles_o <= '0;
       dbg_conv2_mxu_drain_cycles_o <= '0;
+      dbg_conv2_drain_mxu_valid_cycles_o <= '0;
+      dbg_conv2_drain_psum_packer_busy_cycles_o <= '0;
+      dbg_conv2_drain_accum_write_cycles_o <= '0;
+      dbg_conv2_drain_extra_wait_cycles_o <= '0;
+      dbg_conv2_drain_entries_o <= '0;
       dbg_conv2_accumulator_cycles_o <= '0;
       dbg_conv2_vpu_cycles_o <= '0;
       dbg_conv2_output_write_cycles_o <= '0;
@@ -614,6 +688,11 @@ module top #(
       dbg_fc1_activation_fetch_cycles_o <= '0;
       dbg_fc1_mxu_active_cycles_o <= '0;
       dbg_fc1_mxu_drain_cycles_o <= '0;
+      dbg_fc1_drain_mxu_valid_cycles_o <= '0;
+      dbg_fc1_drain_psum_packer_busy_cycles_o <= '0;
+      dbg_fc1_drain_accum_write_cycles_o <= '0;
+      dbg_fc1_drain_extra_wait_cycles_o <= '0;
+      dbg_fc1_drain_entries_o <= '0;
       dbg_fc1_accumulator_cycles_o <= '0;
       dbg_fc1_vpu_cycles_o <= '0;
       dbg_fc1_output_write_cycles_o <= '0;
@@ -626,10 +705,18 @@ module top #(
       dbg_conv2_kloop_state_exec_counts_flat_o <= '0;
       dbg_fc1_kloop_state_exec_counts_flat_o <= '0;
       dbg_fc2_kloop_state_exec_counts_flat_o <= '0;
+      dbg_fc2_mxu_drain_cycles_o <= '0;
+      dbg_fc2_drain_mxu_valid_cycles_o <= '0;
+      dbg_fc2_drain_psum_packer_busy_cycles_o <= '0;
+      dbg_fc2_drain_accum_write_cycles_o <= '0;
+      dbg_fc2_drain_extra_wait_cycles_o <= '0;
+      dbg_fc2_drain_entries_o <= '0;
       dbg_error_code_o <= '0;
+      profile_mxu_drain_q <= 1'b0;
     end else begin
       layer_start_q <= 1'b0;
       pool_start_q <= 1'b0;
+      profile_mxu_drain_q <= profile_mxu_drain_w;
 
       if (busy_o) begin
         dbg_cycle_count_o <= dbg_cycle_count_o + 32'd1;
@@ -662,6 +749,25 @@ module top #(
               if (profile_mxu_drain_w) begin
                 dbg_conv1_mxu_drain_cycles_o <= dbg_conv1_mxu_drain_cycles_o + 32'd1;
               end
+              if (profile_mxu_drain_w && !profile_mxu_drain_q) begin
+                dbg_conv1_drain_entries_o <= dbg_conv1_drain_entries_o + 32'd1;
+              end
+              if (profile_drain_mxu_valid_w) begin
+                dbg_conv1_drain_mxu_valid_cycles_o <=
+                    dbg_conv1_drain_mxu_valid_cycles_o + 32'd1;
+              end
+              if (profile_drain_psum_packer_busy_w) begin
+                dbg_conv1_drain_psum_packer_busy_cycles_o <=
+                    dbg_conv1_drain_psum_packer_busy_cycles_o + 32'd1;
+              end
+              if (profile_drain_accum_write_w) begin
+                dbg_conv1_drain_accum_write_cycles_o <=
+                    dbg_conv1_drain_accum_write_cycles_o + 32'd1;
+              end
+              if (profile_drain_extra_wait_w) begin
+                dbg_conv1_drain_extra_wait_cycles_o <=
+                    dbg_conv1_drain_extra_wait_cycles_o + 32'd1;
+              end
               if (profile_accumulator_w) begin
                 dbg_conv1_accumulator_cycles_o <= dbg_conv1_accumulator_cycles_o + 32'd1;
               end
@@ -691,6 +797,25 @@ module top #(
               end
               if (profile_mxu_drain_w) begin
                 dbg_conv2_mxu_drain_cycles_o <= dbg_conv2_mxu_drain_cycles_o + 32'd1;
+              end
+              if (profile_mxu_drain_w && !profile_mxu_drain_q) begin
+                dbg_conv2_drain_entries_o <= dbg_conv2_drain_entries_o + 32'd1;
+              end
+              if (profile_drain_mxu_valid_w) begin
+                dbg_conv2_drain_mxu_valid_cycles_o <=
+                    dbg_conv2_drain_mxu_valid_cycles_o + 32'd1;
+              end
+              if (profile_drain_psum_packer_busy_w) begin
+                dbg_conv2_drain_psum_packer_busy_cycles_o <=
+                    dbg_conv2_drain_psum_packer_busy_cycles_o + 32'd1;
+              end
+              if (profile_drain_accum_write_w) begin
+                dbg_conv2_drain_accum_write_cycles_o <=
+                    dbg_conv2_drain_accum_write_cycles_o + 32'd1;
+              end
+              if (profile_drain_extra_wait_w) begin
+                dbg_conv2_drain_extra_wait_cycles_o <=
+                    dbg_conv2_drain_extra_wait_cycles_o + 32'd1;
               end
               if (profile_accumulator_w) begin
                 dbg_conv2_accumulator_cycles_o <= dbg_conv2_accumulator_cycles_o + 32'd1;
@@ -722,6 +847,25 @@ module top #(
               if (profile_mxu_drain_w) begin
                 dbg_fc1_mxu_drain_cycles_o <= dbg_fc1_mxu_drain_cycles_o + 32'd1;
               end
+              if (profile_mxu_drain_w && !profile_mxu_drain_q) begin
+                dbg_fc1_drain_entries_o <= dbg_fc1_drain_entries_o + 32'd1;
+              end
+              if (profile_drain_mxu_valid_w) begin
+                dbg_fc1_drain_mxu_valid_cycles_o <=
+                    dbg_fc1_drain_mxu_valid_cycles_o + 32'd1;
+              end
+              if (profile_drain_psum_packer_busy_w) begin
+                dbg_fc1_drain_psum_packer_busy_cycles_o <=
+                    dbg_fc1_drain_psum_packer_busy_cycles_o + 32'd1;
+              end
+              if (profile_drain_accum_write_w) begin
+                dbg_fc1_drain_accum_write_cycles_o <=
+                    dbg_fc1_drain_accum_write_cycles_o + 32'd1;
+              end
+              if (profile_drain_extra_wait_w) begin
+                dbg_fc1_drain_extra_wait_cycles_o <=
+                    dbg_fc1_drain_extra_wait_cycles_o + 32'd1;
+              end
               if (profile_accumulator_w) begin
                 dbg_fc1_accumulator_cycles_o <= dbg_fc1_accumulator_cycles_o + 32'd1;
               end
@@ -740,6 +884,28 @@ module top #(
             end
           endcase
         end
+
+        if (stage_from_state(state_q) == STAGE_FC2) begin
+          if (profile_mxu_drain_w) begin
+            dbg_fc2_mxu_drain_cycles_o <= dbg_fc2_mxu_drain_cycles_o + 32'd1;
+          end
+          if (profile_mxu_drain_w && !profile_mxu_drain_q) begin
+            dbg_fc2_drain_entries_o <= dbg_fc2_drain_entries_o + 32'd1;
+          end
+          if (profile_drain_mxu_valid_w) begin
+            dbg_fc2_drain_mxu_valid_cycles_o <= dbg_fc2_drain_mxu_valid_cycles_o + 32'd1;
+          end
+          if (profile_drain_psum_packer_busy_w) begin
+            dbg_fc2_drain_psum_packer_busy_cycles_o <=
+                dbg_fc2_drain_psum_packer_busy_cycles_o + 32'd1;
+          end
+          if (profile_drain_accum_write_w) begin
+            dbg_fc2_drain_accum_write_cycles_o <= dbg_fc2_drain_accum_write_cycles_o + 32'd1;
+          end
+          if (profile_drain_extra_wait_w) begin
+            dbg_fc2_drain_extra_wait_cycles_o <= dbg_fc2_drain_extra_wait_cycles_o + 32'd1;
+          end
+        end
       end
 
       unique case (state_q)
@@ -757,6 +923,11 @@ module top #(
             dbg_conv1_activation_fetch_cycles_o <= '0;
             dbg_conv1_mxu_active_cycles_o <= '0;
             dbg_conv1_mxu_drain_cycles_o <= '0;
+            dbg_conv1_drain_mxu_valid_cycles_o <= '0;
+            dbg_conv1_drain_psum_packer_busy_cycles_o <= '0;
+            dbg_conv1_drain_accum_write_cycles_o <= '0;
+            dbg_conv1_drain_extra_wait_cycles_o <= '0;
+            dbg_conv1_drain_entries_o <= '0;
             dbg_conv1_accumulator_cycles_o <= '0;
             dbg_conv1_vpu_cycles_o <= '0;
             dbg_conv1_output_write_cycles_o <= '0;
@@ -769,6 +940,11 @@ module top #(
             dbg_conv2_activation_fetch_cycles_o <= '0;
             dbg_conv2_mxu_active_cycles_o <= '0;
             dbg_conv2_mxu_drain_cycles_o <= '0;
+            dbg_conv2_drain_mxu_valid_cycles_o <= '0;
+            dbg_conv2_drain_psum_packer_busy_cycles_o <= '0;
+            dbg_conv2_drain_accum_write_cycles_o <= '0;
+            dbg_conv2_drain_extra_wait_cycles_o <= '0;
+            dbg_conv2_drain_entries_o <= '0;
             dbg_conv2_accumulator_cycles_o <= '0;
             dbg_conv2_vpu_cycles_o <= '0;
             dbg_conv2_output_write_cycles_o <= '0;
@@ -781,6 +957,11 @@ module top #(
             dbg_fc1_activation_fetch_cycles_o <= '0;
             dbg_fc1_mxu_active_cycles_o <= '0;
             dbg_fc1_mxu_drain_cycles_o <= '0;
+            dbg_fc1_drain_mxu_valid_cycles_o <= '0;
+            dbg_fc1_drain_psum_packer_busy_cycles_o <= '0;
+            dbg_fc1_drain_accum_write_cycles_o <= '0;
+            dbg_fc1_drain_extra_wait_cycles_o <= '0;
+            dbg_fc1_drain_entries_o <= '0;
             dbg_fc1_accumulator_cycles_o <= '0;
             dbg_fc1_vpu_cycles_o <= '0;
             dbg_fc1_output_write_cycles_o <= '0;
@@ -793,6 +974,12 @@ module top #(
             dbg_conv2_kloop_state_exec_counts_flat_o <= '0;
             dbg_fc1_kloop_state_exec_counts_flat_o <= '0;
             dbg_fc2_kloop_state_exec_counts_flat_o <= '0;
+            dbg_fc2_mxu_drain_cycles_o <= '0;
+            dbg_fc2_drain_mxu_valid_cycles_o <= '0;
+            dbg_fc2_drain_psum_packer_busy_cycles_o <= '0;
+            dbg_fc2_drain_accum_write_cycles_o <= '0;
+            dbg_fc2_drain_extra_wait_cycles_o <= '0;
+            dbg_fc2_drain_entries_o <= '0;
             state_q <= S_START_CONV1;
           end
         end

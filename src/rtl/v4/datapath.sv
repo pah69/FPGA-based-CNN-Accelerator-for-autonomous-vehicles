@@ -55,6 +55,7 @@ module datapath #(
     input logic [ACC_ADDR_WIDTH-1:0] accumulator_write_addr_i,
     input logic                      accumulator_read_en_i,
     input logic [ACC_ADDR_WIDTH-1:0] accumulator_read_addr_i,
+    input logic                      psum_packer_dbg_counter_clear_i,
 
     input logic                                         vpu_input_done_i,
     input logic [1:0]                                   vpu_act_mode_i,
@@ -67,6 +68,20 @@ module datapath #(
     output logic        [                   SIZE-1:0] mxu_psum_valid_o,
     output logic        [        MAC_COUNT_WIDTH-1:0] mxu_valid_mac_count_o,
     output logic                                      psum_packer_busy_o,
+    output logic                                      accumulator_write_active_o,
+    output logic [31:0]                               psum_packer_lane_fifo_nonempty_cycles_o,
+    output logic [31:0]                               psum_packer_row_active_cycles_o,
+    output logic [31:0]                               psum_packer_complete_row_wait_cycles_o,
+    output logic [31:0]                               psum_packer_packed_valid_cycles_o,
+    output logic [31:0]                               psum_packer_busy_cycles_o,
+    output logic [31:0]                               psum_packer_lane_fifo_full_cycles_o,
+    output logic [31:0]                               psum_packer_lane_fifo_empty_cycles_o,
+    output logic [31:0]                               psum_packer_complete_row_backlog_cycles_o,
+    output logic [(32*SIZE)-1:0]                      psum_packer_lane_psum_valid_cycles_flat_o,
+    output logic [(32*SIZE)-1:0]                      psum_packer_lane_pop_cycles_flat_o,
+    output logic [(32*SIZE)-1:0]                      psum_packer_lane_last_arrival_count_flat_o,
+    output logic [31:0]                               psum_packer_row_completion_latency_sum_o,
+    output logic [31:0]                               psum_packer_row_completion_latency_max_o,
     output logic        [                   SIZE-1:0] wgt_load_done_o,
 
     output logic signed [(ACC_WIDTH*SIZE)-1:0] accumulator_read_flatten_o,
@@ -142,6 +157,7 @@ module datapath #(
       .clk                  (clk),
       .rst_n                (rst_n),
       .clear_i              (accumulator_clear_all_i),
+      .dbg_counter_clear_i  (psum_packer_dbg_counter_clear_i),
       .capture_en_i         (accumulator_write_en_i),
       .write_addr_i         (accumulator_write_addr_i),
       .psum_flatten_i       (mxu_psum_flatten_o),
@@ -150,7 +166,20 @@ module datapath #(
       .packed_write_addr_o  (packed_write_addr_w),
       .packed_psum_flatten_o(packed_psum_flatten_w),
       .packed_psum_valid_o  (packed_psum_lane_valid_w),
-      .busy_o               (psum_packer_busy_o)
+      .busy_o               (psum_packer_busy_o),
+      .dbg_lane_fifo_nonempty_cycles_o(psum_packer_lane_fifo_nonempty_cycles_o),
+      .dbg_row_active_cycles_o(psum_packer_row_active_cycles_o),
+      .dbg_complete_row_wait_cycles_o(psum_packer_complete_row_wait_cycles_o),
+      .dbg_packed_valid_cycles_o(psum_packer_packed_valid_cycles_o),
+      .dbg_packer_busy_cycles_o(psum_packer_busy_cycles_o),
+      .dbg_lane_fifo_full_cycles_o(psum_packer_lane_fifo_full_cycles_o),
+      .dbg_lane_fifo_empty_cycles_o(psum_packer_lane_fifo_empty_cycles_o),
+      .dbg_complete_row_backlog_cycles_o(psum_packer_complete_row_backlog_cycles_o),
+      .dbg_lane_psum_valid_cycles_flat_o(psum_packer_lane_psum_valid_cycles_flat_o),
+      .dbg_lane_pop_cycles_flat_o(psum_packer_lane_pop_cycles_flat_o),
+      .dbg_lane_last_arrival_count_flat_o(psum_packer_lane_last_arrival_count_flat_o),
+      .dbg_row_completion_latency_sum_o(psum_packer_row_completion_latency_sum_o),
+      .dbg_row_completion_latency_max_o(psum_packer_row_completion_latency_max_o)
   );
 
   accumulator_array #(
@@ -217,6 +246,7 @@ module datapath #(
   );
 
   assign wgt_load_done_o             = wgt_load_done_w;
+  assign accumulator_write_active_o  = packed_psum_valid_w;
   assign accumulator_read_flatten_o  = accumulator_read_flatten_w;
   assign accumulator_read_valid_o    = accumulator_read_valid_w;
   assign accumulator_row_done_o      = accumulator_row_done_w;

@@ -137,6 +137,11 @@ module top_axi_lite #(
   logic [31:0] conv1_activation_fetch_cycles_w;
   logic [31:0] conv1_mxu_active_cycles_w;
   logic [31:0] conv1_mxu_drain_cycles_w;
+  logic [31:0] conv1_drain_mxu_valid_cycles_w;
+  logic [31:0] conv1_drain_psum_packer_busy_cycles_w;
+  logic [31:0] conv1_drain_accum_write_cycles_w;
+  logic [31:0] conv1_drain_extra_wait_cycles_w;
+  logic [31:0] conv1_drain_entries_w;
   logic [31:0] conv1_accumulator_cycles_w;
   logic [31:0] conv1_vpu_cycles_w;
   logic [31:0] conv1_output_write_cycles_w;
@@ -149,6 +154,11 @@ module top_axi_lite #(
   logic [31:0] conv2_activation_fetch_cycles_w;
   logic [31:0] conv2_mxu_active_cycles_w;
   logic [31:0] conv2_mxu_drain_cycles_w;
+  logic [31:0] conv2_drain_mxu_valid_cycles_w;
+  logic [31:0] conv2_drain_psum_packer_busy_cycles_w;
+  logic [31:0] conv2_drain_accum_write_cycles_w;
+  logic [31:0] conv2_drain_extra_wait_cycles_w;
+  logic [31:0] conv2_drain_entries_w;
   logic [31:0] conv2_accumulator_cycles_w;
   logic [31:0] conv2_vpu_cycles_w;
   logic [31:0] conv2_output_write_cycles_w;
@@ -161,6 +171,11 @@ module top_axi_lite #(
   logic [31:0] fc1_activation_fetch_cycles_w;
   logic [31:0] fc1_mxu_active_cycles_w;
   logic [31:0] fc1_mxu_drain_cycles_w;
+  logic [31:0] fc1_drain_mxu_valid_cycles_w;
+  logic [31:0] fc1_drain_psum_packer_busy_cycles_w;
+  logic [31:0] fc1_drain_accum_write_cycles_w;
+  logic [31:0] fc1_drain_extra_wait_cycles_w;
+  logic [31:0] fc1_drain_entries_w;
   logic [31:0] fc1_accumulator_cycles_w;
   logic [31:0] fc1_vpu_cycles_w;
   logic [31:0] fc1_output_write_cycles_w;
@@ -169,6 +184,25 @@ module top_axi_lite #(
   logic [31:0] fc1_issued_mac_count_w;
   logic [31:0] fc1_useful_mac_count_w;
   logic [31:0] fc1_exclusive_state_cycles_w;
+  logic [31:0] fc2_mxu_drain_cycles_w;
+  logic [31:0] fc2_drain_mxu_valid_cycles_w;
+  logic [31:0] fc2_drain_psum_packer_busy_cycles_w;
+  logic [31:0] fc2_drain_accum_write_cycles_w;
+  logic [31:0] fc2_drain_extra_wait_cycles_w;
+  logic [31:0] fc2_drain_entries_w;
+  logic [31:0] packer_lane_fifo_nonempty_cycles_w;
+  logic [31:0] packer_row_active_cycles_w;
+  logic [31:0] packer_complete_row_wait_cycles_w;
+  logic [31:0] packer_packed_valid_cycles_w;
+  logic [31:0] packer_busy_cycles_w;
+  logic [31:0] packer_lane_fifo_full_cycles_w;
+  logic [31:0] packer_lane_fifo_empty_cycles_w;
+  logic [31:0] packer_complete_row_backlog_cycles_w;
+  logic [(32*SIZE)-1:0] packer_lane_psum_valid_cycles_flat_w;
+  logic [(32*SIZE)-1:0] packer_lane_pop_cycles_flat_w;
+  logic [(32*SIZE)-1:0] packer_lane_last_arrival_count_flat_w;
+  logic [31:0] packer_row_completion_latency_sum_w;
+  logic [31:0] packer_row_completion_latency_max_w;
   logic [31:0] top_error_code_w;
   logic signed [DATA_WIDTH-1:0] top_host_rd_data_w;
   logic top_host_rd_valid_w;
@@ -500,6 +534,11 @@ module top_axi_lite #(
       .dbg_conv1_activation_fetch_cycles_o(conv1_activation_fetch_cycles_w),
       .dbg_conv1_mxu_active_cycles_o      (conv1_mxu_active_cycles_w),
       .dbg_conv1_mxu_drain_cycles_o       (conv1_mxu_drain_cycles_w),
+      .dbg_conv1_drain_mxu_valid_cycles_o (conv1_drain_mxu_valid_cycles_w),
+      .dbg_conv1_drain_psum_packer_busy_cycles_o(conv1_drain_psum_packer_busy_cycles_w),
+      .dbg_conv1_drain_accum_write_cycles_o(conv1_drain_accum_write_cycles_w),
+      .dbg_conv1_drain_extra_wait_cycles_o(conv1_drain_extra_wait_cycles_w),
+      .dbg_conv1_drain_entries_o          (conv1_drain_entries_w),
       .dbg_conv1_accumulator_cycles_o     (conv1_accumulator_cycles_w),
       .dbg_conv1_vpu_cycles_o             (conv1_vpu_cycles_w),
       .dbg_conv1_output_write_cycles_o    (conv1_output_write_cycles_w),
@@ -512,6 +551,11 @@ module top_axi_lite #(
       .dbg_conv2_activation_fetch_cycles_o(conv2_activation_fetch_cycles_w),
       .dbg_conv2_mxu_active_cycles_o      (conv2_mxu_active_cycles_w),
       .dbg_conv2_mxu_drain_cycles_o       (conv2_mxu_drain_cycles_w),
+      .dbg_conv2_drain_mxu_valid_cycles_o (conv2_drain_mxu_valid_cycles_w),
+      .dbg_conv2_drain_psum_packer_busy_cycles_o(conv2_drain_psum_packer_busy_cycles_w),
+      .dbg_conv2_drain_accum_write_cycles_o(conv2_drain_accum_write_cycles_w),
+      .dbg_conv2_drain_extra_wait_cycles_o(conv2_drain_extra_wait_cycles_w),
+      .dbg_conv2_drain_entries_o          (conv2_drain_entries_w),
       .dbg_conv2_accumulator_cycles_o     (conv2_accumulator_cycles_w),
       .dbg_conv2_vpu_cycles_o             (conv2_vpu_cycles_w),
       .dbg_conv2_output_write_cycles_o    (conv2_output_write_cycles_w),
@@ -524,6 +568,11 @@ module top_axi_lite #(
       .dbg_fc1_activation_fetch_cycles_o  (fc1_activation_fetch_cycles_w),
       .dbg_fc1_mxu_active_cycles_o        (fc1_mxu_active_cycles_w),
       .dbg_fc1_mxu_drain_cycles_o         (fc1_mxu_drain_cycles_w),
+      .dbg_fc1_drain_mxu_valid_cycles_o   (fc1_drain_mxu_valid_cycles_w),
+      .dbg_fc1_drain_psum_packer_busy_cycles_o(fc1_drain_psum_packer_busy_cycles_w),
+      .dbg_fc1_drain_accum_write_cycles_o (fc1_drain_accum_write_cycles_w),
+      .dbg_fc1_drain_extra_wait_cycles_o  (fc1_drain_extra_wait_cycles_w),
+      .dbg_fc1_drain_entries_o            (fc1_drain_entries_w),
       .dbg_fc1_accumulator_cycles_o       (fc1_accumulator_cycles_w),
       .dbg_fc1_vpu_cycles_o               (fc1_vpu_cycles_w),
       .dbg_fc1_output_write_cycles_o      (fc1_output_write_cycles_w),
@@ -532,6 +581,29 @@ module top_axi_lite #(
       .dbg_fc1_issued_mac_count_o         (fc1_issued_mac_count_w),
       .dbg_fc1_useful_mac_count_o         (fc1_useful_mac_count_w),
       .dbg_fc1_exclusive_state_cycles_o   (fc1_exclusive_state_cycles_w),
+      .dbg_conv1_kloop_state_exec_counts_flat_o(),
+      .dbg_conv2_kloop_state_exec_counts_flat_o(),
+      .dbg_fc1_kloop_state_exec_counts_flat_o  (),
+      .dbg_fc2_kloop_state_exec_counts_flat_o  (),
+      .dbg_fc2_mxu_drain_cycles_o              (fc2_mxu_drain_cycles_w),
+      .dbg_fc2_drain_mxu_valid_cycles_o        (fc2_drain_mxu_valid_cycles_w),
+      .dbg_fc2_drain_psum_packer_busy_cycles_o (fc2_drain_psum_packer_busy_cycles_w),
+      .dbg_fc2_drain_accum_write_cycles_o      (fc2_drain_accum_write_cycles_w),
+      .dbg_fc2_drain_extra_wait_cycles_o       (fc2_drain_extra_wait_cycles_w),
+      .dbg_fc2_drain_entries_o                 (fc2_drain_entries_w),
+      .dbg_packer_lane_fifo_nonempty_cycles_o  (packer_lane_fifo_nonempty_cycles_w),
+      .dbg_packer_row_active_cycles_o          (packer_row_active_cycles_w),
+      .dbg_packer_complete_row_wait_cycles_o   (packer_complete_row_wait_cycles_w),
+      .dbg_packer_packed_valid_cycles_o        (packer_packed_valid_cycles_w),
+      .dbg_packer_busy_cycles_o                (packer_busy_cycles_w),
+      .dbg_packer_lane_fifo_full_cycles_o      (packer_lane_fifo_full_cycles_w),
+      .dbg_packer_lane_fifo_empty_cycles_o     (packer_lane_fifo_empty_cycles_w),
+      .dbg_packer_complete_row_backlog_cycles_o(packer_complete_row_backlog_cycles_w),
+      .dbg_packer_lane_psum_valid_cycles_flat_o(packer_lane_psum_valid_cycles_flat_w),
+      .dbg_packer_lane_pop_cycles_flat_o       (packer_lane_pop_cycles_flat_w),
+      .dbg_packer_lane_last_arrival_count_flat_o(packer_lane_last_arrival_count_flat_w),
+      .dbg_packer_row_completion_latency_sum_o (packer_row_completion_latency_sum_w),
+      .dbg_packer_row_completion_latency_max_o (packer_row_completion_latency_max_w),
       .dbg_error_code_o      (top_error_code_w),
       .host_rd_en_i          (ub_host_rd_en_q),
       .host_rd_bank_i        (ub_bank_q),

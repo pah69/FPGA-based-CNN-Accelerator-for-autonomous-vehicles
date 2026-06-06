@@ -27,6 +27,11 @@ module test_tpu_top_end_to_end;
   localparam int CLK_PERIOD = 10;
   localparam int TIMEOUT_CYCLES = 1200000;
   localparam int KLOOP_STATE_COUNT = 17;
+  localparam bit PRINT_EXPECTED_LOGITS = 1'b0;
+  localparam bit PRINT_PHASE_MAC_COUNTERS = 1'b0;
+  localparam bit PRINT_DRAIN_COUNTERS = 1'b1;
+  localparam bit PRINT_PACKER_COUNTERS = 1'b1;
+  localparam bit PRINT_KLOOP_STATE_COUNTERS = 1'b1;
 
   localparam int KLOOP_S_CLEAR_ACC_BLOCK = 1;
   localparam int KLOOP_S_FETCH_ROM = 2;
@@ -73,6 +78,11 @@ module test_tpu_top_end_to_end;
   logic [31:0] conv1_activation_fetch_cycles_o;
   logic [31:0] conv1_mxu_active_cycles_o;
   logic [31:0] conv1_mxu_drain_cycles_o;
+  logic [31:0] conv1_drain_mxu_valid_cycles_o;
+  logic [31:0] conv1_drain_psum_packer_busy_cycles_o;
+  logic [31:0] conv1_drain_accum_write_cycles_o;
+  logic [31:0] conv1_drain_extra_wait_cycles_o;
+  logic [31:0] conv1_drain_entries_o;
   logic [31:0] conv1_accumulator_cycles_o;
   logic [31:0] conv1_vpu_cycles_o;
   logic [31:0] conv1_output_write_cycles_o;
@@ -85,6 +95,11 @@ module test_tpu_top_end_to_end;
   logic [31:0] conv2_activation_fetch_cycles_o;
   logic [31:0] conv2_mxu_active_cycles_o;
   logic [31:0] conv2_mxu_drain_cycles_o;
+  logic [31:0] conv2_drain_mxu_valid_cycles_o;
+  logic [31:0] conv2_drain_psum_packer_busy_cycles_o;
+  logic [31:0] conv2_drain_accum_write_cycles_o;
+  logic [31:0] conv2_drain_extra_wait_cycles_o;
+  logic [31:0] conv2_drain_entries_o;
   logic [31:0] conv2_accumulator_cycles_o;
   logic [31:0] conv2_vpu_cycles_o;
   logic [31:0] conv2_output_write_cycles_o;
@@ -97,6 +112,11 @@ module test_tpu_top_end_to_end;
   logic [31:0] fc1_activation_fetch_cycles_o;
   logic [31:0] fc1_mxu_active_cycles_o;
   logic [31:0] fc1_mxu_drain_cycles_o;
+  logic [31:0] fc1_drain_mxu_valid_cycles_o;
+  logic [31:0] fc1_drain_psum_packer_busy_cycles_o;
+  logic [31:0] fc1_drain_accum_write_cycles_o;
+  logic [31:0] fc1_drain_extra_wait_cycles_o;
+  logic [31:0] fc1_drain_entries_o;
   logic [31:0] fc1_accumulator_cycles_o;
   logic [31:0] fc1_vpu_cycles_o;
   logic [31:0] fc1_output_write_cycles_o;
@@ -109,6 +129,25 @@ module test_tpu_top_end_to_end;
   logic [(32*KLOOP_STATE_COUNT)-1:0] conv2_kloop_state_exec_counts_flat_o;
   logic [(32*KLOOP_STATE_COUNT)-1:0] fc1_kloop_state_exec_counts_flat_o;
   logic [(32*KLOOP_STATE_COUNT)-1:0] fc2_kloop_state_exec_counts_flat_o;
+  logic [31:0] fc2_mxu_drain_cycles_o;
+  logic [31:0] fc2_drain_mxu_valid_cycles_o;
+  logic [31:0] fc2_drain_psum_packer_busy_cycles_o;
+  logic [31:0] fc2_drain_accum_write_cycles_o;
+  logic [31:0] fc2_drain_extra_wait_cycles_o;
+  logic [31:0] fc2_drain_entries_o;
+  logic [31:0] packer_lane_fifo_nonempty_cycles_o;
+  logic [31:0] packer_row_active_cycles_o;
+  logic [31:0] packer_complete_row_wait_cycles_o;
+  logic [31:0] packer_packed_valid_cycles_o;
+  logic [31:0] packer_busy_cycles_o;
+  logic [31:0] packer_lane_fifo_full_cycles_o;
+  logic [31:0] packer_lane_fifo_empty_cycles_o;
+  logic [31:0] packer_complete_row_backlog_cycles_o;
+  logic [(32*SIZE)-1:0] packer_lane_psum_valid_cycles_flat_o;
+  logic [(32*SIZE)-1:0] packer_lane_pop_cycles_flat_o;
+  logic [(32*SIZE)-1:0] packer_lane_last_arrival_count_flat_o;
+  logic [31:0] packer_row_completion_latency_sum_o;
+  logic [31:0] packer_row_completion_latency_max_o;
   logic [31:0] error_code_o;
 
   logic host_rd_en;
@@ -179,6 +218,11 @@ module test_tpu_top_end_to_end;
       .dbg_conv1_activation_fetch_cycles_o(conv1_activation_fetch_cycles_o),
       .dbg_conv1_mxu_active_cycles_o      (conv1_mxu_active_cycles_o),
       .dbg_conv1_mxu_drain_cycles_o       (conv1_mxu_drain_cycles_o),
+      .dbg_conv1_drain_mxu_valid_cycles_o (conv1_drain_mxu_valid_cycles_o),
+      .dbg_conv1_drain_psum_packer_busy_cycles_o(conv1_drain_psum_packer_busy_cycles_o),
+      .dbg_conv1_drain_accum_write_cycles_o(conv1_drain_accum_write_cycles_o),
+      .dbg_conv1_drain_extra_wait_cycles_o(conv1_drain_extra_wait_cycles_o),
+      .dbg_conv1_drain_entries_o          (conv1_drain_entries_o),
       .dbg_conv1_accumulator_cycles_o     (conv1_accumulator_cycles_o),
       .dbg_conv1_vpu_cycles_o             (conv1_vpu_cycles_o),
       .dbg_conv1_output_write_cycles_o    (conv1_output_write_cycles_o),
@@ -191,6 +235,11 @@ module test_tpu_top_end_to_end;
       .dbg_conv2_activation_fetch_cycles_o(conv2_activation_fetch_cycles_o),
       .dbg_conv2_mxu_active_cycles_o      (conv2_mxu_active_cycles_o),
       .dbg_conv2_mxu_drain_cycles_o       (conv2_mxu_drain_cycles_o),
+      .dbg_conv2_drain_mxu_valid_cycles_o (conv2_drain_mxu_valid_cycles_o),
+      .dbg_conv2_drain_psum_packer_busy_cycles_o(conv2_drain_psum_packer_busy_cycles_o),
+      .dbg_conv2_drain_accum_write_cycles_o(conv2_drain_accum_write_cycles_o),
+      .dbg_conv2_drain_extra_wait_cycles_o(conv2_drain_extra_wait_cycles_o),
+      .dbg_conv2_drain_entries_o          (conv2_drain_entries_o),
       .dbg_conv2_accumulator_cycles_o     (conv2_accumulator_cycles_o),
       .dbg_conv2_vpu_cycles_o             (conv2_vpu_cycles_o),
       .dbg_conv2_output_write_cycles_o    (conv2_output_write_cycles_o),
@@ -203,6 +252,11 @@ module test_tpu_top_end_to_end;
       .dbg_fc1_activation_fetch_cycles_o  (fc1_activation_fetch_cycles_o),
       .dbg_fc1_mxu_active_cycles_o        (fc1_mxu_active_cycles_o),
       .dbg_fc1_mxu_drain_cycles_o         (fc1_mxu_drain_cycles_o),
+      .dbg_fc1_drain_mxu_valid_cycles_o   (fc1_drain_mxu_valid_cycles_o),
+      .dbg_fc1_drain_psum_packer_busy_cycles_o(fc1_drain_psum_packer_busy_cycles_o),
+      .dbg_fc1_drain_accum_write_cycles_o (fc1_drain_accum_write_cycles_o),
+      .dbg_fc1_drain_extra_wait_cycles_o  (fc1_drain_extra_wait_cycles_o),
+      .dbg_fc1_drain_entries_o            (fc1_drain_entries_o),
       .dbg_fc1_accumulator_cycles_o       (fc1_accumulator_cycles_o),
       .dbg_fc1_vpu_cycles_o               (fc1_vpu_cycles_o),
       .dbg_fc1_output_write_cycles_o      (fc1_output_write_cycles_o),
@@ -215,6 +269,25 @@ module test_tpu_top_end_to_end;
       .dbg_conv2_kloop_state_exec_counts_flat_o(conv2_kloop_state_exec_counts_flat_o),
       .dbg_fc1_kloop_state_exec_counts_flat_o  (fc1_kloop_state_exec_counts_flat_o),
       .dbg_fc2_kloop_state_exec_counts_flat_o  (fc2_kloop_state_exec_counts_flat_o),
+      .dbg_fc2_mxu_drain_cycles_o              (fc2_mxu_drain_cycles_o),
+      .dbg_fc2_drain_mxu_valid_cycles_o         (fc2_drain_mxu_valid_cycles_o),
+      .dbg_fc2_drain_psum_packer_busy_cycles_o  (fc2_drain_psum_packer_busy_cycles_o),
+      .dbg_fc2_drain_accum_write_cycles_o       (fc2_drain_accum_write_cycles_o),
+      .dbg_fc2_drain_extra_wait_cycles_o        (fc2_drain_extra_wait_cycles_o),
+      .dbg_fc2_drain_entries_o                  (fc2_drain_entries_o),
+      .dbg_packer_lane_fifo_nonempty_cycles_o   (packer_lane_fifo_nonempty_cycles_o),
+      .dbg_packer_row_active_cycles_o           (packer_row_active_cycles_o),
+      .dbg_packer_complete_row_wait_cycles_o    (packer_complete_row_wait_cycles_o),
+      .dbg_packer_packed_valid_cycles_o         (packer_packed_valid_cycles_o),
+      .dbg_packer_busy_cycles_o                 (packer_busy_cycles_o),
+      .dbg_packer_lane_fifo_full_cycles_o       (packer_lane_fifo_full_cycles_o),
+      .dbg_packer_lane_fifo_empty_cycles_o      (packer_lane_fifo_empty_cycles_o),
+      .dbg_packer_complete_row_backlog_cycles_o (packer_complete_row_backlog_cycles_o),
+      .dbg_packer_lane_psum_valid_cycles_flat_o (packer_lane_psum_valid_cycles_flat_o),
+      .dbg_packer_lane_pop_cycles_flat_o        (packer_lane_pop_cycles_flat_o),
+      .dbg_packer_lane_last_arrival_count_flat_o(packer_lane_last_arrival_count_flat_o),
+      .dbg_packer_row_completion_latency_sum_o  (packer_row_completion_latency_sum_o),
+      .dbg_packer_row_completion_latency_max_o  (packer_row_completion_latency_max_o),
       .dbg_error_code_o      (error_code_o),
       .host_rd_en_i          (host_rd_en),
       .host_rd_bank_i        (host_rd_bank),
@@ -306,6 +379,86 @@ module test_tpu_top_end_to_end;
              mxu_active_ratio, useful_pe_util, useful_issued_ratio);
   endtask
 
+  task automatic print_drain_counters(
+      input string layer_name,
+      input logic [31:0] drain_total_cycles,
+      input logic [31:0] drain_mxu_valid_cycles,
+      input logic [31:0] drain_psum_packer_busy_cycles,
+      input logic [31:0] drain_accum_write_cycles,
+      input logic [31:0] drain_extra_wait_cycles,
+      input logic [31:0] drain_entries
+  );
+    real extra_ratio;
+    real drain_cycles_per_entry;
+
+    extra_ratio = 0.0;
+    drain_cycles_per_entry = 0.0;
+    if (drain_total_cycles != 0) begin
+      extra_ratio = (100.0 * real'(drain_extra_wait_cycles)) / real'(drain_total_cycles);
+    end
+    if (drain_entries != 0) begin
+      drain_cycles_per_entry = real'(drain_total_cycles) / real'(drain_entries);
+    end
+
+    $display("  DRAIN  %s: total=%0d entries=%0d cyc/entry=%0.2f mxu_valid=%0d psum_busy=%0d acc_write=%0d extra_wait=%0d extra_ratio=%0.2f%%",
+             layer_name, drain_total_cycles, drain_entries, drain_cycles_per_entry,
+             drain_mxu_valid_cycles, drain_psum_packer_busy_cycles,
+             drain_accum_write_cycles, drain_extra_wait_cycles, extra_ratio);
+  endtask
+
+  task automatic print_lane_counter_vector(
+      input string label,
+      input logic [(32*SIZE)-1:0] counts
+  );
+    $write("  PACKER %-14s {", label);
+    for (int lane = 0; lane < SIZE; lane++) begin
+      if (lane != 0) begin
+        $write(",");
+      end
+      $write("%0d", counts[(lane*32)+:32]);
+    end
+    $display("}");
+  endtask
+
+  task automatic print_packer_counters();
+    real avg_latency;
+    real row_latency_per_entry;
+    logic [31:0] total_drain_entries;
+
+    avg_latency = 0.0;
+    row_latency_per_entry = 0.0;
+    total_drain_entries = conv1_drain_entries_o + conv2_drain_entries_o
+                        + fc1_drain_entries_o + fc2_drain_entries_o;
+    if (packer_packed_valid_cycles_o != 0) begin
+      avg_latency = real'(packer_row_completion_latency_sum_o)
+                    / real'(packer_packed_valid_cycles_o);
+    end
+    if (total_drain_entries != 0) begin
+      row_latency_per_entry = real'(packer_row_completion_latency_sum_o)
+                              / real'(total_drain_entries);
+    end
+
+    $display(
+        "  PACKER : lane_nonempty=%0d row_active=%0d partial_wait=%0d packed_valid=%0d busy=%0d fifo_full=%0d fifo_empty_wait=%0d complete_backlog=%0d",
+        packer_lane_fifo_nonempty_cycles_o,
+        packer_row_active_cycles_o,
+        packer_complete_row_wait_cycles_o,
+        packer_packed_valid_cycles_o,
+        packer_busy_cycles_o,
+        packer_lane_fifo_full_cycles_o,
+        packer_lane_fifo_empty_cycles_o,
+        packer_complete_row_backlog_cycles_o);
+    print_lane_counter_vector("psum_valid", packer_lane_psum_valid_cycles_flat_o);
+    print_lane_counter_vector("pop", packer_lane_pop_cycles_flat_o);
+    print_lane_counter_vector("last_arrival", packer_lane_last_arrival_count_flat_o);
+    $display("  PACKER row_latency: sum=%0d max=%0d avg=%0.2f per_drain_entry=%0.2f total_drain_entries=%0d",
+             packer_row_completion_latency_sum_o,
+             packer_row_completion_latency_max_o,
+             avg_latency,
+             row_latency_per_entry,
+             total_drain_entries);
+  endtask
+
   function automatic logic [31:0] kloop_state_count(
       input logic [(32*KLOOP_STATE_COUNT)-1:0] counts,
       input int state_idx
@@ -356,49 +509,89 @@ module test_tpu_top_end_to_end;
     $display("  LAYERS : conv1=%0d pool1=%0d conv2=%0d pool2=%0d fc1=%0d fc2=%0d",
              conv1_cycle_count_o, pool1_cycle_count_o, conv2_cycle_count_o,
              pool2_cycle_count_o, fc1_cycle_count_o, fc2_cycle_count_o);
-    print_phase_counters("conv1",
-                         conv1_weight_load_cycles_o,
-                         conv1_activation_fetch_cycles_o,
-                         conv1_mxu_active_cycles_o,
-                         conv1_mxu_drain_cycles_o,
-                         conv1_accumulator_cycles_o,
-                         conv1_vpu_cycles_o,
-                         conv1_output_write_cycles_o,
-                         conv1_controller_idle_cycles_o,
-                         conv1_valid_mac_count_o,
-                         conv1_issued_mac_count_o,
-                         conv1_useful_mac_count_o,
-                         conv1_exclusive_state_cycles_o);
-    print_phase_counters("conv2",
-                         conv2_weight_load_cycles_o,
-                         conv2_activation_fetch_cycles_o,
-                         conv2_mxu_active_cycles_o,
-                         conv2_mxu_drain_cycles_o,
-                         conv2_accumulator_cycles_o,
-                         conv2_vpu_cycles_o,
-                         conv2_output_write_cycles_o,
-                         conv2_controller_idle_cycles_o,
-                         conv2_valid_mac_count_o,
-                         conv2_issued_mac_count_o,
-                         conv2_useful_mac_count_o,
-                         conv2_exclusive_state_cycles_o);
-    print_phase_counters("fc1",
-                         fc1_weight_load_cycles_o,
-                         fc1_activation_fetch_cycles_o,
-                         fc1_mxu_active_cycles_o,
-                         fc1_mxu_drain_cycles_o,
-                         fc1_accumulator_cycles_o,
-                         fc1_vpu_cycles_o,
-                         fc1_output_write_cycles_o,
-                         fc1_controller_idle_cycles_o,
-                         fc1_valid_mac_count_o,
-                         fc1_issued_mac_count_o,
-                         fc1_useful_mac_count_o,
-                         fc1_exclusive_state_cycles_o);
-    print_kloop_state_counters("conv1", conv1_kloop_state_exec_counts_flat_o);
-    print_kloop_state_counters("conv2", conv2_kloop_state_exec_counts_flat_o);
-    print_kloop_state_counters("fc1", fc1_kloop_state_exec_counts_flat_o);
-    print_kloop_state_counters("fc2", fc2_kloop_state_exec_counts_flat_o);
+    if (PRINT_PHASE_MAC_COUNTERS) begin
+      print_phase_counters("conv1",
+                           conv1_weight_load_cycles_o,
+                           conv1_activation_fetch_cycles_o,
+                           conv1_mxu_active_cycles_o,
+                           conv1_mxu_drain_cycles_o,
+                           conv1_accumulator_cycles_o,
+                           conv1_vpu_cycles_o,
+                           conv1_output_write_cycles_o,
+                           conv1_controller_idle_cycles_o,
+                           conv1_valid_mac_count_o,
+                           conv1_issued_mac_count_o,
+                           conv1_useful_mac_count_o,
+                           conv1_exclusive_state_cycles_o);
+      print_phase_counters("conv2",
+                           conv2_weight_load_cycles_o,
+                           conv2_activation_fetch_cycles_o,
+                           conv2_mxu_active_cycles_o,
+                           conv2_mxu_drain_cycles_o,
+                           conv2_accumulator_cycles_o,
+                           conv2_vpu_cycles_o,
+                           conv2_output_write_cycles_o,
+                           conv2_controller_idle_cycles_o,
+                           conv2_valid_mac_count_o,
+                           conv2_issued_mac_count_o,
+                           conv2_useful_mac_count_o,
+                           conv2_exclusive_state_cycles_o);
+      print_phase_counters("fc1",
+                           fc1_weight_load_cycles_o,
+                           fc1_activation_fetch_cycles_o,
+                           fc1_mxu_active_cycles_o,
+                           fc1_mxu_drain_cycles_o,
+                           fc1_accumulator_cycles_o,
+                           fc1_vpu_cycles_o,
+                           fc1_output_write_cycles_o,
+                           fc1_controller_idle_cycles_o,
+                           fc1_valid_mac_count_o,
+                           fc1_issued_mac_count_o,
+                           fc1_useful_mac_count_o,
+                           fc1_exclusive_state_cycles_o);
+    end
+
+    if (PRINT_DRAIN_COUNTERS) begin
+      print_drain_counters("conv1",
+                           conv1_mxu_drain_cycles_o,
+                           conv1_drain_mxu_valid_cycles_o,
+                           conv1_drain_psum_packer_busy_cycles_o,
+                           conv1_drain_accum_write_cycles_o,
+                           conv1_drain_extra_wait_cycles_o,
+                           conv1_drain_entries_o);
+      print_drain_counters("conv2",
+                           conv2_mxu_drain_cycles_o,
+                           conv2_drain_mxu_valid_cycles_o,
+                           conv2_drain_psum_packer_busy_cycles_o,
+                           conv2_drain_accum_write_cycles_o,
+                           conv2_drain_extra_wait_cycles_o,
+                           conv2_drain_entries_o);
+      print_drain_counters("fc1",
+                           fc1_mxu_drain_cycles_o,
+                           fc1_drain_mxu_valid_cycles_o,
+                           fc1_drain_psum_packer_busy_cycles_o,
+                           fc1_drain_accum_write_cycles_o,
+                           fc1_drain_extra_wait_cycles_o,
+                           fc1_drain_entries_o);
+      print_drain_counters("fc2",
+                           fc2_mxu_drain_cycles_o,
+                           fc2_drain_mxu_valid_cycles_o,
+                           fc2_drain_psum_packer_busy_cycles_o,
+                           fc2_drain_accum_write_cycles_o,
+                           fc2_drain_extra_wait_cycles_o,
+                           fc2_drain_entries_o);
+    end
+
+    if (PRINT_PACKER_COUNTERS) begin
+      print_packer_counters();
+    end
+
+    if (PRINT_KLOOP_STATE_COUNTERS) begin
+      print_kloop_state_counters("conv1", conv1_kloop_state_exec_counts_flat_o);
+      print_kloop_state_counters("conv2", conv2_kloop_state_exec_counts_flat_o);
+      print_kloop_state_counters("fc1", fc1_kloop_state_exec_counts_flat_o);
+      print_kloop_state_counters("fc2", fc2_kloop_state_exec_counts_flat_o);
+    end
   endtask
 
   task automatic init_signals();
@@ -616,7 +809,9 @@ module test_tpu_top_end_to_end;
     $display("  case[%0d] = %s", case_idx, current_case_name);
     $display("  UB bank0[0:%0d] loaded for current input image", INPUT_COUNT - 1);
     $display("  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2");
-    print_expected_logits();
+    if (PRINT_EXPECTED_LOGITS) begin
+      print_expected_logits();
+    end
   endtask
 
   task automatic run_top(input int case_idx);

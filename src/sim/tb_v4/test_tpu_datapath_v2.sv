@@ -113,6 +113,7 @@ module test_tpu_datapath_v2;
       .accumulator_row_clear_i         (accumulator_row_clear_i),
       .accumulator_row_clear_addr_i    (accumulator_row_clear_addr_i),
       .accumulator_write_en_i          (accumulator_write_en_i),
+      .psum_packer_dbg_counter_clear_i (1'b0),
       .accumulator_write_addr_i        (accumulator_write_addr_i),
       .accumulator_read_en_i           (accumulator_read_en_i),
       .accumulator_read_addr_i         (accumulator_read_addr_i),
