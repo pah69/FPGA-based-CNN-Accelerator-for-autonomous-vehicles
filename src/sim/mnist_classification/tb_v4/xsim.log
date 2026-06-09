@@ -1,0 +1,47 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Tue Jun  9 23:43:16 2026
+# Process ID         : 3309600
+# Current directory  : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/mnist_classification/tb_v4
+# Command line       : xsim -mode tcl -source {xsim.dir/test_tpu_top_end_to_end_snapshot/xsim_script.tcl}
+# Log file           : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/mnist_classification/tb_v4/xsim.log
+# Journal file       : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/mnist_classification/tb_v4/xsim.jou
+# Running On         : pah-PC
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 24.04.4 LTS
+# Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
+# CPU Frequency      : 4022.202 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 32887 MB
+# Swap memory        : 25033 MB
+# Total Virtual      : 57921 MB
+# Available Virtual  : 42968 MB
+#-----------------------------------------------------------
+source xsim.dir/test_tpu_top_end_to_end_snapshot/xsim_script.tcl
+# xsim {test_tpu_top_end_to_end_snapshot} -testplusarg E2E_FILE_CASES -testplusarg E2E_CASES=1 -testplusarg E2E_INPUT_HEX=/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/CNN_model/python/mnist_classification/18_05/e2e_cases/tpu_top_e2e_inputs_i8.hex -testplusarg E2E_LOGITS_HEX=/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/CNN_model/python/mnist_classification/18_05/e2e_cases/tpu_top_e2e_logits_i8.hex -autoloadwcfg -tclbatch {/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/mnist_classification/run_all_xsim.tcl}
+Time resolution is 1 ps
+source /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/mnist_classification/run_all_xsim.tcl
+## run all
+  E2E file cases enabled: cases=1
+  inputs = /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/CNN_model/python/mnist_classification/18_05/e2e_cases/tpu_top_e2e_inputs_i8.hex
+  logits = /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/CNN_model/python/mnist_classification/18_05/e2e_cases/tpu_top_e2e_logits_i8.hex
+
+============================================================
+CASE 0: file_case_0
+============================================================
+  preload: ub_bank0[0:783] schedule=Conv1->Pool1->Conv2->Pool2->FC1->FC2
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=92653 err=0x00000000
+  CYCLES : observed=92653 rtl_total=92653 layer_sum=92653
+  LAYERS : conv1=31958 pool1=10821 conv2=37390 pool2=2005 fc1=9932 fc2=547
+  actual logits   {-11,-30,22,23,-40,-26,-113,87,9,13}
+  expected logits {-11,-30,22,23,-40,-26,-113,87,9,13}
+  mismatches: 0
+test_tpu_top_end_to_end: checks=13 pass=13 fail=0
+$finish called at time : 942450 ns : File "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/mnist_classification/tb_v4/test_tpu_top_end_to_end.sv" Line 1153
+## quit
+INFO: xsimkernel Simulation Memory Usage: 301392 KB (Peak: 345852 KB), Simulation CPU Usage: 1990 ms
+INFO: [Common 17-206] Exiting xsim at Tue Jun  9 23:43:20 2026...

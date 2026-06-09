@@ -1,0 +1,4 @@
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_conv1_direct.sv" into library work
+INFO: [VRFC 10-311] analyzing module animals10_conv1_direct
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/animals-10_classification/tb/test_animals10_conv1_dut_case0.sv" into library work
+INFO: [VRFC 10-311] analyzing module test_animals10_conv1_dut_case0

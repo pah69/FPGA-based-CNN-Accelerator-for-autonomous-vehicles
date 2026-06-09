@@ -1,0 +1,4 @@
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_pe.sv" into library work
+INFO: [VRFC 10-311] analyzing module animals10_pe
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_systolic_array.sv" into library work
+INFO: [VRFC 10-311] analyzing module animals10_systolic_array

@@ -1,0 +1,9 @@
+0.7
+2020.2
+Nov 14 2025
+12:36:23
+/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_conv1_direct.sv,1780902050,systemVerilog,,/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/animals-10_classification/tb/test_animals10_conv1_dut_case0.sv,,animals10_conv1_direct,,,,,,,,
+/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_pe.sv,1780901993,systemVerilog,,/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_systolic_array.sv,,animals10_pe,,,,,,,,
+/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_systolic_array.sv,1780901993,systemVerilog,,,,animals10_systolic_array,,,,,,,,
+/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/animals-10_classification/tb/test_animals10_conv1_case0.sv,1780901425,systemVerilog,,,,test_animals10_conv1_case0,,,,,,,,
+/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/animals-10_classification/tb/test_animals10_conv1_dut_case0.sv,1780901823,systemVerilog,,,,test_animals10_conv1_dut_case0,,,,,,,,

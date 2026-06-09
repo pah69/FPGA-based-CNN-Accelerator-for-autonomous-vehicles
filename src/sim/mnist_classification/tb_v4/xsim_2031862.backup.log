@@ -1,0 +1,109 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Tue Jun  9 20:51:02 2026
+# Process ID         : 2031862
+# Current directory  : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/mnist_classification/tb_v4
+# Command line       : xsim -mode tcl -source {xsim.dir/test_tpu_top_end_to_end_snapshot/xsim_script.tcl}
+# Log file           : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/mnist_classification/tb_v4/xsim.log
+# Journal file       : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/mnist_classification/tb_v4/xsim.jou
+# Running On         : pah-PC
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 24.04.4 LTS
+# Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
+# CPU Frequency      : 4867.315 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 32887 MB
+# Swap memory        : 25033 MB
+# Total Virtual      : 57921 MB
+# Available Virtual  : 42600 MB
+#-----------------------------------------------------------
+source xsim.dir/test_tpu_top_end_to_end_snapshot/xsim_script.tcl
+# xsim {test_tpu_top_end_to_end_snapshot} -testplusarg E2E_FILE_CASES -testplusarg E2E_CASES=1 -testplusarg E2E_INPUT_HEX=/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/CNN_model/python/mnist_classification/18_05/e2e_cases/tpu_top_e2e_inputs_i8.hex -testplusarg E2E_LOGITS_HEX=/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/CNN_model/python/mnist_classification/18_05/e2e_cases/tpu_top_e2e_logits_i8.hex -autoloadwcfg -tclbatch {/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/mnist_classification/run_all_xsim.tcl}
+Time resolution is 1 ps
+source /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/mnist_classification/run_all_xsim.tcl
+## run all
+  E2E file cases enabled: cases=1
+  inputs = /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/CNN_model/python/mnist_classification/18_05/e2e_cases/tpu_top_e2e_inputs_i8.hex
+  logits = /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/CNN_model/python/mnist_classification/18_05/e2e_cases/tpu_top_e2e_logits_i8.hex
+
+============================================================
+TEST: Host preload input image
+============================================================
+  case[0] = file_case_0
+  UB bank0[0:783] loaded for current input image
+  Full schedule: Conv1 -> Pool1 -> Conv2 -> Pool2 -> FC1 -> FC2
+
+============================================================
+TEST: TPU top end-to-end inference
+============================================================
+  case[0] = file_case_0
+  stage=1 cycle=1 layer_state=0 pool_state=0
+  stage=2 cycle=31958 layer_state=0 pool_state=0
+  stage=3 cycle=42779 layer_state=0 pool_state=0
+  stage=4 cycle=80169 layer_state=0 pool_state=0
+  stage=5 cycle=82174 layer_state=0 pool_state=0
+  stage=6 cycle=92106 layer_state=0 pool_state=0
+  stage=0 cycle=92653 layer_state=0 pool_state=0
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=92653 err=0x00000000
+  CYCLES : observed=92653 rtl_total=92653 layer_sum=92653
+  LAYERS : conv1=31958 pool1=10821 conv2=37390 pool2=2005 fc1=9932 fc2=547
+  DRAIN  conv1: total=7998 entries=258 cyc/entry=31.00 mxu_valid=2910 psum_busy=7740 acc_write=2376 extra_wait=0 extra_ratio=0.00%
+  DRAIN  conv2: total=13392 entries=432 cyc/entry=31.00 mxu_valid=3813 psum_busy=12960 acc_write=3864 extra_wait=0 extra_ratio=0.00%
+  DRAIN  fc1: total=7812 entries=252 cyc/entry=31.00 mxu_valid=1008 psum_busy=7560 acc_write=252 extra_wait=0 extra_ratio=0.00%
+  DRAIN  fc2: total=372 entries=12 cyc/entry=31.00 mxu_valid=48 psum_busy=360 acc_write=12 extra_wait=0 extra_ratio=0.00%
+  PACKER : lane_nonempty=57606 row_active=58560 partial_wait=41388 packed_valid=10854 busy=58560 fifo_full=0 fifo_empty_wait=0 complete_backlog=0
+  PACKER     psum_valid {10854,10854,10854,10854}
+  PACKER            pop {10854,10854,10854,10854}
+  PACKER   last_arrival {0,0,0,10854}
+  PACKER row_latency: sum=119394 max=11 avg=11.00 per_drain_entry=125.15 total_drain_entries=954
+  KLOOP  conv1 1cyc-candidates: clear=86 fetch=86 wait_rom=86 wgt_row=344 start_wgt=0 act_req=6580 launch=0 acc_read=86 out_lane=5408
+  KLOOP  conv1 waits/drain: wgt_wait=1806 act_wait=5996 drain=7998 acc_wait=86 vpu_wait=3048 state_sum=31610
+  KLOOP  conv2 1cyc-candidates: clear=24 fetch=24 wait_rom=24 wgt_row=96 start_wgt=0 act_req=8988 launch=0 acc_read=24 out_lane=1452
+  KLOOP  conv2 waits/drain: wgt_wait=3024 act_wait=9396 drain=13392 acc_wait=24 vpu_wait=822 state_sum=37290
+  KLOOP  fc1 1cyc-candidates: clear=4 fetch=4 wait_rom=4 wgt_row=16 start_wgt=0 act_req=4 launch=0 acc_read=4 out_lane=16
+  KLOOP  fc1 waits/drain: wgt_wait=1764 act_wait=256 drain=7812 acc_wait=4 vpu_wait=24 state_sum=9912
+  KLOOP  fc2 1cyc-candidates: clear=3 fetch=3 wait_rom=3 wgt_row=12 start_wgt=0 act_req=3 launch=0 acc_read=3 out_lane=12
+  KLOOP  fc2 waits/drain: wgt_wait=84 act_wait=15 drain=372 acc_wait=3 vpu_wait=18 state_sum=531
+  PREFETCH conv1: attempts=2032 pushes=1864 hits=1864 misses=2192 hit_rate=45.96%
+  PREFETCH conv1: drops_full=0 invalid_boundary=0 full_cycles=0 empty_on_need=856 max_occ=13 avg_occ=1.94 curr_occ=0
+  PREFETCH conv1: early_attempts=0 early_pushes=0 drain_attempts=2032 drain_pushes=1864
+  PREFETCH conv1: stall_queue_full=0 stall_ub_busy=4558 stall_no_candidate=4678
+  PREFETCH conv1 miss_breakdown: no_entry=2192 tag_mismatch=0 lane_incomplete=0 invalid_boundary=0 wrong_k=0 wrong_spatial=0 wrong_oc=0
+  PREFETCH conv1 micro: vec_start=2032 vec_push=1864 lane_req=7960 lane_cap=4240 issue=2796 bubble=2116 busy=5252 cyc_per_vec=2.82 issue_eff=53.24%
+  PREFETCH conv2: attempts=4029 pushes=3672 hits=3672 misses=2862 hit_rate=56.20%
+  PREFETCH conv2: drops_full=0 invalid_boundary=0 full_cycles=0 empty_on_need=2499 max_occ=9 avg_occ=2.94 curr_occ=0
+  PREFETCH conv2: early_attempts=0 early_pushes=0 drain_attempts=4029 drain_pushes=3672
+  PREFETCH conv2: stall_queue_full=0 stall_ub_busy=8502 stall_no_candidate=1257
+  PREFETCH conv2 miss_breakdown: no_entry=2862 tag_mismatch=0 lane_incomplete=0 invalid_boundary=0 wrong_k=0 wrong_spatial=0 wrong_oc=0
+  PREFETCH conv2 micro: vec_start=4029 vec_push=3672 lane_req=15381 lane_cap=14688 issue=7701 bubble=4029 busy=12546 cyc_per_vec=3.42 issue_eff=61.38%
+  PREFETCH fc1: attempts=248 pushes=248 hits=248 misses=4 hit_rate=98.41%
+  PREFETCH fc1: drops_full=0 invalid_boundary=0 full_cycles=0 empty_on_need=0 max_occ=1 avg_occ=0.88 curr_occ=0
+  PREFETCH fc1: early_attempts=0 early_pushes=0 drain_attempts=248 drain_pushes=248
+  PREFETCH fc1: stall_queue_full=0 stall_ub_busy=4 stall_no_candidate=6816
+  PREFETCH fc1 miss_breakdown: no_entry=4 tag_mismatch=0 lane_incomplete=0 invalid_boundary=0 wrong_k=0 wrong_spatial=0 wrong_oc=0
+  PREFETCH fc1 micro: vec_start=248 vec_push=248 lane_req=992 lane_cap=984 issue=248 bubble=248 busy=744 cyc_per_vec=3.00 issue_eff=33.33%
+  PREFETCH fc2: attempts=9 pushes=9 hits=9 misses=3 hit_rate=75.00%
+  PREFETCH fc2: drops_full=0 invalid_boundary=0 full_cycles=0 empty_on_need=0 max_occ=1 avg_occ=0.59 curr_occ=0
+  PREFETCH fc2: early_attempts=0 early_pushes=0 drain_attempts=9 drain_pushes=9
+  PREFETCH fc2: stall_queue_full=0 stall_ub_busy=3 stall_no_candidate=333
+  PREFETCH fc2 miss_breakdown: no_entry=3 tag_mismatch=0 lane_incomplete=0 invalid_boundary=0 wrong_k=0 wrong_spatial=0 wrong_oc=0
+  PREFETCH fc2 micro: vec_start=9 vec_push=9 lane_req=36 lane_cap=36 issue=9 bubble=9 busy=27 cyc_per_vec=3.00 issue_eff=33.33%
+  LAYER  : state=0 tile_state=0 spatial=0 oc_tile=2 k_tile=3
+  POOL   : state=0 channel=9 row=0 col=0
+
+============================================================
+TEST: Host readback final logits
+============================================================
+  case[0] = file_case_0
+  actual logits   {-11,-30,22,23,-40,-26,-113,87,9,13}
+  expected logits {-11,-30,22,23,-40,-26,-113,87,9,13}
+  mismatches: 0
+test_tpu_top_end_to_end: checks=13 pass=13 fail=0
+$finish called at time : 942450 ns : File "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/mnist_classification/tb_v4/test_tpu_top_end_to_end.sv" Line 1081
+## quit
+INFO: xsimkernel Simulation Memory Usage: 301340 KB (Peak: 345800 KB), Simulation CPU Usage: 1880 ms
+INFO: [Common 17-206] Exiting xsim at Tue Jun  9 20:51:05 2026...

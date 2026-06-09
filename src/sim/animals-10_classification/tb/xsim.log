@@ -1,0 +1,36 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Tue Jun  9 20:19:38 2026
+# Process ID         : 1768670
+# Current directory  : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/animals-10_classification/tb
+# Command line       : xsim -mode tcl -source {xsim.dir/test_animals10_conv1_dut_case0_snapshot/xsim_script.tcl}
+# Log file           : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/animals-10_classification/tb/xsim.log
+# Journal file       : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/animals-10_classification/tb/xsim.jou
+# Running On         : pah-PC
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 24.04.4 LTS
+# Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
+# CPU Frequency      : 4756.732 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 32887 MB
+# Swap memory        : 25033 MB
+# Total Virtual      : 57921 MB
+# Available Virtual  : 43426 MB
+#-----------------------------------------------------------
+source xsim.dir/test_animals10_conv1_dut_case0_snapshot/xsim_script.tcl
+# xsim {test_animals10_conv1_dut_case0_snapshot} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+Animals-10 Conv1 DUT bench
+  export_dir=../../../../CNN_model/python/animals-10_classification/custom_cnn/int8_export
+WARNING: Too many words specified in data file ../../../../CNN_model/python/animals-10_classification/custom_cnn/int8_export/animals10_test_inputs_i8.hex
+ANIMALS10_CONV1_DUT outputs_seen=131072 acc_mismatches=0 out_mismatches=0
+PASS: Animals-10 Conv1 DUT matches Python INT8 golden output
+$finish called at time : 1574456 ns : File "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/animals-10_classification/tb/test_animals10_conv1_dut_case0.sv" Line 294
+exit
+INFO: xsimkernel Simulation Memory Usage: 301024 KB (Peak: 345484 KB), Simulation CPU Usage: 1540 ms
+INFO: [Common 17-206] Exiting xsim at Tue Jun  9 20:19:41 2026...
