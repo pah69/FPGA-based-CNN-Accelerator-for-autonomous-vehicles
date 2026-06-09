@@ -1,0 +1,45 @@
+Vivado Simulator v2025.2
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: /home/pah/tools/Xilinx_20252/2025.2/Vivado/bin/unwrapped/lnx64.o/xelab -debug typical -top test_tpu_top_end_to_end -snapshot test_tpu_top_end_to_end_snapshot 
+Multi-threading is on. Using 14 slave threads.
+WARNING: [XSIM 43-3431] One or more environment variables have been detected which affect the operation of the C compiler. These are typically not set in standard installations and are not tested by AMD, however they may be appropriate for your system, so the flow will attempt to continue.  If errors occur, try running xelab with the "-mt off -v 1" switches to see more information from the C compiler. The following environment variables have been detected:
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package work.layer_descriptor_pkg
+Compiling module work.unified_buffer(ADDR_WIDTH=13)
+Compiling module work.layer_descriptor_rom
+Compiling module work.address_generator(SIZE=4)
+Compiling module work.weight_rom(ADDR_WIDTH=13)
+Compiling module work.bias_rom(ADDR_WIDTH=6)
+Compiling module work.requant_mult_rom(ADDR_WIDTH=6)
+Compiling module work.requant_shift_rom(ADDR_WIDTH=6)
+Compiling module work.controller_kloop(SIZE=4,ACC_ADDR...
+Compiling module work.streaming_maxpool_writeback
+Compiling module work.controller_layer(SIZE=4,ACC_ADDR...
+Compiling module work.fifo(COUNT_WIDTH=5)
+Compiling module work.weight_fetcher(SIZE=4)
+Compiling module work.act_skew_buffer(SIZE=4)
+Compiling module work.multiplier(DATA_WIDTH=8)
+Compiling module work.pe(LOCAL_PSUM_WIDTH=18)
+Compiling module work.output_accumulator_v2(NUM_TILES=...
+Compiling module work.systolic_array(SIZE=4,LOCAL_PSUM...
+Compiling module work.mxu(SIZE=4,LOCAL_PSUM_WIDTH=18,N...
+Compiling module work.psum_packer(SIZE=4)
+Compiling module work.accumulator_array(SIZE=4,ADDR_WI...
+Compiling module work.fc_row_reducer(ADDR_WIDTH=4,TILE...
+Compiling module work.bias_requantize(SIZE=4)
+Compiling module work.activation_array(SIZE=4,IN_WIDTH...
+Compiling module work.normalizer(SIZE=4,IN_WIDTH=32)
+Compiling module work.pooling_unit(SIZE=4)
+Compiling module work.post_process(SIZE=4,ACT_WIDTH=32...
+Compiling module work.vector_processing_unit(SIZE=4,AC...
+Compiling module work.datapath(SIZE=4,LOCAL_PSUM_WIDTH...
+Compiling module work.maxpool2d(ADDR_WIDTH=13)
+Compiling module work.top(ACC_ADDR_WIDTH=4,TILE_COUNT_...
+Compiling module work.test_tpu_top_end_to_end
+Built simulation snapshot test_tpu_top_end_to_end_snapshot

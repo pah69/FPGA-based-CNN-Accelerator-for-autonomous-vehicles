@@ -1,0 +1,78 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Wed Jun 10 01:18:19 2026
+# Process ID         : 3893174
+# Current directory  : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/mnist_classification/tb_v5
+# Command line       : xsim -mode tcl -source {xsim.dir/test_tpu_top_end_to_end_snapshot/xsim_script.tcl}
+# Log file           : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/mnist_classification/tb_v5/xsim.log
+# Journal file       : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/mnist_classification/tb_v5/xsim.jou
+# Running On         : pah-PC
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 24.04.4 LTS
+# Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
+# CPU Frequency      : 4343.914 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 32887 MB
+# Swap memory        : 25033 MB
+# Total Virtual      : 57921 MB
+# Available Virtual  : 45025 MB
+#-----------------------------------------------------------
+source xsim.dir/test_tpu_top_end_to_end_snapshot/xsim_script.tcl
+# xsim {test_tpu_top_end_to_end_snapshot} -autoloadwcfg -tclbatch {/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/mnist_classification/run_all_xsim.tcl}
+Time resolution is 1 ps
+source /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/mnist_classification/run_all_xsim.tcl
+## run all
+
+============================================================
+CASE 0: exported_image
+============================================================
+  preload: ub_bank0[0:783] schedule=Conv1->Pool1->Conv2->Pool2->FC1->FC2
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=79575 err=0x00000000
+  CYCLES : observed=79575 rtl_total=79575 layer_sum=79575
+  LAYERS : conv1=31958 pool1=0 conv2=37390 pool2=0 fc1=9680 fc2=547
+  actual logits   {-11,-30,22,23,-40,-26,-113,87,9,13}
+  expected logits {-11,-30,22,23,-40,-26,-113,87,9,13}
+  mismatches: 0
+
+============================================================
+CASE 1: zero_image
+============================================================
+  preload: ub_bank0[0:783] schedule=Conv1->Pool1->Conv2->Pool2->FC1->FC2
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=79575 err=0x00000000
+  CYCLES : observed=79575 rtl_total=79575 layer_sum=79575
+  LAYERS : conv1=31958 pool1=0 conv2=37390 pool2=0 fc1=9680 fc2=547
+  actual logits   {-4,3,2,-3,-4,1,-2,3,0,-5}
+  expected logits {-4,3,2,-3,-4,1,-2,3,0,-5}
+  mismatches: 0
+
+============================================================
+CASE 2: impulse_center_127
+============================================================
+  preload: ub_bank0[0:783] schedule=Conv1->Pool1->Conv2->Pool2->FC1->FC2
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=79575 err=0x00000000
+  CYCLES : observed=79575 rtl_total=79575 layer_sum=79575
+  LAYERS : conv1=31958 pool1=0 conv2=37390 pool2=0 fc1=9680 fc2=547
+  actual logits   {-12,-3,3,3,0,2,-5,0,-2,0}
+  expected logits {-12,-3,3,3,0,2,-5,0,-2,0}
+  mismatches: 0
+
+============================================================
+CASE 3: checker_pm32
+============================================================
+  preload: ub_bank0[0:783] schedule=Conv1->Pool1->Conv2->Pool2->FC1->FC2
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=79575 err=0x00000000
+  CYCLES : observed=79575 rtl_total=79575 layer_sum=79575
+  LAYERS : conv1=31958 pool1=0 conv2=37390 pool2=0 fc1=9680 fc2=547
+  actual logits   {-5,3,2,-1,-4,1,-5,3,-1,-5}
+  expected logits {-5,3,2,-1,-4,1,-5,3,-1,-5}
+  mismatches: 0
+test_tpu_top_end_to_end: checks=52 pass=52 fail=0
+$finish called at time : 3246680 ns : File "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/mnist_classification/tb_v5/test_tpu_top_end_to_end.sv" Line 1153
+run: Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:09 . Memory (MB): peak = 1450.883 ; gain = 0.000 ; free physical = 4210 ; free virtual = 42584
+## quit
+INFO: xsimkernel Simulation Memory Usage: 301508 KB (Peak: 345968 KB), Simulation CPU Usage: 9770 ms
+INFO: [Common 17-206] Exiting xsim at Wed Jun 10 01:18:31 2026...

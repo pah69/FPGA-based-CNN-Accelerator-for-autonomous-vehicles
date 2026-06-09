@@ -1,0 +1,108 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Wed Jun 10 01:00:38 2026
+# Process ID         : 3792663
+# Current directory  : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/mnist_classification/tb_v5
+# Command line       : xsim -mode tcl -source {xsim.dir/test_tpu_top_end_to_end_snapshot/xsim_script.tcl}
+# Log file           : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/mnist_classification/tb_v5/xsim.log
+# Journal file       : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/mnist_classification/tb_v5/xsim.jou
+# Running On         : pah-PC
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 24.04.4 LTS
+# Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
+# CPU Frequency      : 4840.769 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 32887 MB
+# Swap memory        : 25033 MB
+# Total Virtual      : 57921 MB
+# Available Virtual  : 44861 MB
+#-----------------------------------------------------------
+source xsim.dir/test_tpu_top_end_to_end_snapshot/xsim_script.tcl
+# xsim {test_tpu_top_end_to_end_snapshot} -autoloadwcfg -tclbatch {/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/mnist_classification/run_all_xsim.tcl}
+Time resolution is 1 ps
+source /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/mnist_classification/run_all_xsim.tcl
+## run all
+
+============================================================
+CASE 0: exported_image
+============================================================
+  preload: ub_bank0[0:783] schedule=Conv1->Pool1->Conv2->Pool2->FC1->FC2
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=74619 err=0x00000000
+  CYCLES : observed=74619 rtl_total=74619 layer_sum=74619
+  LAYERS : conv1=31958 pool1=0 conv2=37390 pool2=0 fc1=4724 fc2=547
+FAIL: logit[0] got=-43 expected=-11
+FAIL: logit[1] got=-3 expected=-30
+FAIL: logit[2] got=2 expected=22
+FAIL: logit[3] got=17 expected=23
+FAIL: logit[4] got=-6 expected=-40
+FAIL: logit[5] got=10 expected=-26
+FAIL: logit[6] got=-67 expected=-113
+FAIL: logit[7] got=25 expected=87
+FAIL: logit[8] got=39 expected=9
+FAIL: logit[9] got=16 expected=13
+  actual logits   {-43,-3,2,17,-6,10,-67,25,39,16}
+  expected logits {-11,-30,22,23,-40,-26,-113,87,9,13}
+  mismatches: 10
+
+============================================================
+CASE 1: zero_image
+============================================================
+  preload: ub_bank0[0:783] schedule=Conv1->Pool1->Conv2->Pool2->FC1->FC2
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=74619 err=0x00000000
+  CYCLES : observed=74619 rtl_total=74619 layer_sum=74619
+  LAYERS : conv1=31958 pool1=0 conv2=37390 pool2=0 fc1=4724 fc2=547
+FAIL: logit[1] got=4 expected=3
+FAIL: logit[2] got=1 expected=2
+FAIL: logit[4] got=-3 expected=-4
+FAIL: logit[5] got=0 expected=1
+FAIL: logit[6] got=-3 expected=-2
+FAIL: logit[8] got=-2 expected=0
+  actual logits   {-4,4,1,-3,-3,0,-3,3,-2,-5}
+  expected logits {-4,3,2,-3,-4,1,-2,3,0,-5}
+  mismatches: 6
+
+============================================================
+CASE 2: impulse_center_127
+============================================================
+  preload: ub_bank0[0:783] schedule=Conv1->Pool1->Conv2->Pool2->FC1->FC2
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=74619 err=0x00000000
+  CYCLES : observed=74619 rtl_total=74619 layer_sum=74619
+  LAYERS : conv1=31958 pool1=0 conv2=37390 pool2=0 fc1=4724 fc2=547
+FAIL: logit[0] got=-8 expected=-12
+FAIL: logit[1] got=1 expected=-3
+FAIL: logit[2] got=7 expected=3
+FAIL: logit[4] got=-5 expected=0
+FAIL: logit[5] got=3 expected=2
+FAIL: logit[6] got=-6 expected=-5
+FAIL: logit[7] got=2 expected=0
+FAIL: logit[8] got=-7 expected=-2
+FAIL: logit[9] got=-5 expected=0
+  actual logits   {-8,1,7,3,-5,3,-6,2,-7,-5}
+  expected logits {-12,-3,3,3,0,2,-5,0,-2,0}
+  mismatches: 9
+
+============================================================
+CASE 3: checker_pm32
+============================================================
+  preload: ub_bank0[0:783] schedule=Conv1->Pool1->Conv2->Pool2->FC1->FC2
+  TOP    : done=1 busy=0 error=0 state=13 stage=0 cycles=74619 err=0x00000000
+  CYCLES : observed=74619 rtl_total=74619 layer_sum=74619
+  LAYERS : conv1=31958 pool1=0 conv2=37390 pool2=0 fc1=4724 fc2=547
+FAIL: logit[2] got=3 expected=2
+FAIL: logit[3] got=1 expected=-1
+FAIL: logit[6] got=-4 expected=-5
+  actual logits   {-5,3,3,1,-4,1,-4,3,-1,-5}
+  expected logits {-5,3,2,-1,-4,1,-5,3,-1,-5}
+  mismatches: 3
+test_tpu_top_end_to_end: checks=52 pass=24 fail=28
+Fatal: test_tpu_top_end_to_end failed
+Time: 3048440 ns  Iteration: 0  Process: /test_tpu_top_end_to_end/Initial1136_366  Scope: test_tpu_top_end_to_end  File: /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/mnist_classification/tb_v5/test_tpu_top_end_to_end.sv Line: 1151
+$finish called at time : 3048440 ns
+run: Time (s): cpu = 00:00:00.03 ; elapsed = 00:00:09 . Memory (MB): peak = 1450.883 ; gain = 0.000 ; free physical = 4463 ; free virtual = 42820
+## quit
+INFO: xsimkernel Simulation Memory Usage: 301484 KB (Peak: 345944 KB), Simulation CPU Usage: 9440 ms
+INFO: [Common 17-206] Exiting xsim at Wed Jun 10 01:00:50 2026...

@@ -1,0 +1,7 @@
+Running: xsim.dir/test_tpu_top_end_to_end_snapshot/xsimk -simmode gui -wdb test_tpu_top_end_to_end_snapshot.wdb -simrunnum 0 -socket 33289
+Design successfully loaded
+Design Loading Memory Usage: 206744 KB (Peak: 206752 KB)
+Design Loading CPU Usage: 850 ms
+Simulation completed
+Simulation Memory Usage: 301552 KB (Peak: 346012 KB)
+Simulation CPU Usage: 13260 ms
