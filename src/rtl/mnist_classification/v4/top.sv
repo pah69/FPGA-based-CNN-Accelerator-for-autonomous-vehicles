@@ -192,6 +192,7 @@ module top #(
   localparam logic [31:0] ERR_POOL  = 32'h0005_2000;
 
   localparam int POOL_BYPASS = 0;
+  localparam bit ENABLE_FUSED_POOL = 1'b1;
 
   state_t state_q;
 
@@ -205,6 +206,9 @@ module top #(
   logic layer_error_w;
   logic [31:0] layer_error_code_w;
   logic [1:0] layer_idx_w;
+  logic       layer_use_descriptor_banks_w;
+  logic       layer_read_bank_cfg_w;
+  logic       layer_write_bank_cfg_w;
   logic [31:0] layer_useful_mac_count_w;
   logic [(32*DBG_STATE_COUNT)-1:0] layer_state_exec_counts_flat_w;
   logic [(32*DBG_PREFETCH_COUNT)-1:0] layer_prefetch_counts_flat_w;
@@ -385,6 +389,41 @@ module top #(
   end
 
   always_comb begin
+    if (ENABLE_FUSED_POOL) begin
+      layer_use_descriptor_banks_w = 1'b0;
+      layer_read_bank_cfg_w = 1'b0;
+      layer_write_bank_cfg_w = 1'b1;
+
+      unique case (layer_idx_w)
+        LAYER_IDX_CONV1: begin
+          layer_read_bank_cfg_w = 1'b0;
+          layer_write_bank_cfg_w = 1'b1;
+        end
+        LAYER_IDX_CONV2: begin
+          layer_read_bank_cfg_w = 1'b1;
+          layer_write_bank_cfg_w = 1'b0;
+        end
+        LAYER_IDX_FC1: begin
+          layer_read_bank_cfg_w = 1'b0;
+          layer_write_bank_cfg_w = 1'b1;
+        end
+        LAYER_IDX_FC2: begin
+          layer_read_bank_cfg_w = 1'b1;
+          layer_write_bank_cfg_w = 1'b0;
+        end
+        default: begin
+          layer_read_bank_cfg_w = 1'b0;
+          layer_write_bank_cfg_w = 1'b1;
+        end
+      endcase
+    end else begin
+      layer_use_descriptor_banks_w = 1'b1;
+      layer_read_bank_cfg_w = 1'b0;
+      layer_write_bank_cfg_w = 1'b1;
+    end
+  end
+
+  always_comb begin
     pool_read_bank_w  = 1'b1;
     pool_write_bank_w = 1'b0;
     pool_in_h_w       = CONV1_OUT_H;
@@ -493,7 +532,8 @@ module top #(
       .BANK_DEPTH         (BANK_DEPTH),
       .DBG_STATE_COUNT    (DBG_STATE_COUNT),
       .DBG_PREFETCH_COUNT (DBG_PREFETCH_COUNT),
-      .ENABLE_PACKED_ACT_READ(1'b1)
+      .ENABLE_PACKED_ACT_READ(1'b1),
+      .ENABLE_FUSED_POOL  (ENABLE_FUSED_POOL)
   ) u_layer_controller (
       .clk                             (clk),
       .rst_n                           (rst_n),
@@ -512,9 +552,9 @@ module top #(
       .dbg_prefetch_counts_flat_o      (layer_prefetch_counts_flat_w),
       .dbg_error_code_o                (layer_error_code_w),
       .layer_idx_i                     (layer_idx_w),
-      .use_descriptor_banks_i          (1'b1),
-      .read_bank_i                     (1'b0),
-      .write_bank_i                    (1'b1),
+      .use_descriptor_banks_i          (layer_use_descriptor_banks_w),
+      .read_bank_i                     (layer_read_bank_cfg_w),
+      .write_bank_i                    (layer_write_bank_cfg_w),
       .activation_base_addr_i          ('0),
       .output_base_addr_i              ('0),
       .block_size_i                    ((ACC_ADDR_WIDTH+1)'(ACC_DEPTH)),
@@ -1045,7 +1085,7 @@ module top #(
             dbg_conv1_useful_mac_count_o <= layer_useful_mac_count_w;
             dbg_conv1_kloop_state_exec_counts_flat_o <= layer_state_exec_counts_flat_w;
             dbg_conv1_prefetch_counts_flat_o <= layer_prefetch_counts_flat_w;
-            state_q <= S_START_POOL1;
+            state_q <= ENABLE_FUSED_POOL ? S_START_CONV2 : S_START_POOL1;
           end
         end
 
@@ -1076,7 +1116,7 @@ module top #(
             dbg_conv2_useful_mac_count_o <= layer_useful_mac_count_w;
             dbg_conv2_kloop_state_exec_counts_flat_o <= layer_state_exec_counts_flat_w;
             dbg_conv2_prefetch_counts_flat_o <= layer_prefetch_counts_flat_w;
-            state_q <= S_START_POOL2;
+            state_q <= ENABLE_FUSED_POOL ? S_START_FC1 : S_START_POOL2;
           end
         end
 

@@ -24,7 +24,8 @@ module controller_layer #(
     parameter int PARAM_ADDR_WIDTH    = (PARAM_DEPTH > 1) ? $clog2(PARAM_DEPTH) : 1,
     parameter int DBG_STATE_COUNT     = 17,
     parameter int DBG_PREFETCH_COUNT  = 33,
-    parameter bit ENABLE_PACKED_ACT_READ = 1'b0
+    parameter bit ENABLE_PACKED_ACT_READ = 1'b0,
+    parameter bit ENABLE_FUSED_POOL      = 1'b0
 ) (
     input logic clk,
     input logic rst_n,
@@ -172,6 +173,27 @@ module controller_layer #(
   logic [15:0] max_block_size_w;
   logic [15:0] tile_block_size_16_w;
   logic [ACC_ADDR_WIDTH:0] tile_block_size_w;
+  logic fused_pool_enable_w;
+  logic [15:0] fused_pool_out_h_w;
+  logic [15:0] fused_pool_out_w_w;
+
+  logic                         tile_ub_rd_en_w;
+  logic                         tile_ub_rd_bank_w;
+  logic [UB_ADDR_WIDTH-1:0]     tile_ub_rd_addr_w;
+  logic                         tile_ub_rd_packed_en_w;
+  logic                         tile_ub_rd_packed_bank_w;
+  logic [UB_ADDR_WIDTH-1:0]     tile_ub_rd_packed_addr_w;
+  logic                         tile_ub_wr_en_w;
+  logic                         tile_ub_wr_bank_w;
+  logic [UB_ADDR_WIDTH-1:0]     tile_ub_wr_addr_w;
+  logic signed [DATA_WIDTH-1:0] tile_ub_wr_data_w;
+  logic [15:0]                  tile_ub_wr_spatial_idx_w;
+  logic [15:0]                  tile_ub_wr_oc_idx_w;
+
+  logic                         fused_pool_ub_wr_en_w;
+  logic                         fused_pool_ub_wr_bank_w;
+  logic [UB_ADDR_WIDTH-1:0]     fused_pool_ub_wr_addr_w;
+  logic signed [DATA_WIDTH-1:0] fused_pool_ub_wr_data_w;
 
   layer_descriptor_rom u_layer_descriptor_rom (
       .layer_idx_i    (layer_idx_q),
@@ -242,20 +264,22 @@ module controller_layer #(
       .block_size_i                    (tile_block_size_w),
       .spatial_idx_i                   (spatial_idx_q),
       .oc_tile_idx_i                   (oc_tile_q),
-      .ub_rd_en_o                      (ub_rd_en_o),
-      .ub_rd_bank_o                    (ub_rd_bank_o),
-      .ub_rd_addr_o                    (ub_rd_addr_o),
+      .ub_rd_en_o                      (tile_ub_rd_en_w),
+      .ub_rd_bank_o                    (tile_ub_rd_bank_w),
+      .ub_rd_addr_o                    (tile_ub_rd_addr_w),
       .ub_rd_data_i                    (ub_rd_data_i),
       .ub_rd_valid_i                   (ub_rd_valid_i),
-      .ub_rd_packed_en_o               (ub_rd_packed_en_o),
-      .ub_rd_packed_bank_o             (ub_rd_packed_bank_o),
-      .ub_rd_packed_addr_o             (ub_rd_packed_addr_o),
+      .ub_rd_packed_en_o               (tile_ub_rd_packed_en_w),
+      .ub_rd_packed_bank_o             (tile_ub_rd_packed_bank_w),
+      .ub_rd_packed_addr_o             (tile_ub_rd_packed_addr_w),
       .ub_rd_packed_data_i             (ub_rd_packed_data_i),
       .ub_rd_packed_valid_i            (ub_rd_packed_valid_i),
-      .ub_wr_en_o                      (ub_wr_en_o),
-      .ub_wr_bank_o                    (ub_wr_bank_o),
-      .ub_wr_addr_o                    (ub_wr_addr_o),
-      .ub_wr_data_o                    (ub_wr_data_o),
+      .ub_wr_en_o                      (tile_ub_wr_en_w),
+      .ub_wr_bank_o                    (tile_ub_wr_bank_w),
+      .ub_wr_addr_o                    (tile_ub_wr_addr_w),
+      .ub_wr_data_o                    (tile_ub_wr_data_w),
+      .ub_wr_spatial_idx_o             (tile_ub_wr_spatial_idx_w),
+      .ub_wr_oc_idx_o                  (tile_ub_wr_oc_idx_w),
       .work_o                          (work_o),
       .num_tiles_o                     (num_tiles_o),
       .start_wgt_load_o                (start_wgt_load_o),
@@ -284,6 +308,49 @@ module controller_layer #(
       .vpu_data_valid_i                (vpu_data_valid_i),
       .mxu_psum_valid_i                (mxu_psum_valid_i),
       .psum_packer_busy_i              (psum_packer_busy_i)
+  );
+
+  assign fused_pool_enable_w = ENABLE_FUSED_POOL && (desc_layer_type_w == LAYER_CONV);
+  assign fused_pool_out_h_w = desc_out_h_w >> 1;
+  assign fused_pool_out_w_w = desc_out_w_w >> 1;
+
+  assign ub_rd_en_o = tile_ub_rd_en_w;
+  assign ub_rd_bank_o = tile_ub_rd_bank_w;
+  assign ub_rd_addr_o = tile_ub_rd_addr_w;
+  assign ub_rd_packed_en_o = tile_ub_rd_packed_en_w;
+  assign ub_rd_packed_bank_o = tile_ub_rd_packed_bank_w;
+  assign ub_rd_packed_addr_o = tile_ub_rd_packed_addr_w;
+
+  assign ub_wr_en_o = fused_pool_enable_w ? fused_pool_ub_wr_en_w : tile_ub_wr_en_w;
+  assign ub_wr_bank_o = fused_pool_enable_w ? fused_pool_ub_wr_bank_w : tile_ub_wr_bank_w;
+  assign ub_wr_addr_o = fused_pool_enable_w ? fused_pool_ub_wr_addr_w : tile_ub_wr_addr_w;
+  assign ub_wr_data_o = fused_pool_enable_w ? fused_pool_ub_wr_data_w : tile_ub_wr_data_w;
+
+  streaming_maxpool_writeback #(
+      .DATA_WIDTH   (DATA_WIDTH),
+      .ADDR_WIDTH   (UB_ADDR_WIDTH),
+      .DIM_WIDTH    (16),
+      .MAX_CHANNELS (16),
+      .MAX_POOL_COLS(16)
+  ) u_streaming_maxpool_writeback (
+      .clk               (clk),
+      .rst_n             (rst_n),
+      .clear_i           (state_q == S_IDLE && start_i),
+      .enable_i          (fused_pool_enable_w),
+      .write_bank_i      (write_bank_q),
+      .output_base_addr_i(output_base_addr_q),
+      .input_h_i         (desc_out_h_w),
+      .input_w_i         (desc_out_w_w),
+      .output_h_i        (fused_pool_out_h_w),
+      .output_w_i        (fused_pool_out_w_w),
+      .output_ch_i       (desc_out_ch_w),
+      .stream_valid_i    (tile_ub_wr_en_w),
+      .stream_channel_idx_i(tile_ub_wr_oc_idx_w),
+      .stream_data_i     (tile_ub_wr_data_w),
+      .ub_wr_en_o        (fused_pool_ub_wr_en_w),
+      .ub_wr_bank_o      (fused_pool_ub_wr_bank_w),
+      .ub_wr_addr_o      (fused_pool_ub_wr_addr_w),
+      .ub_wr_data_o      (fused_pool_ub_wr_data_w)
   );
 
   assign busy_o = (state_q != S_IDLE) && (state_q != S_DONE) && (state_q != S_ERROR);

@@ -19,6 +19,7 @@ Compiling module work.bias_rom(ADDR_WIDTH=6)
 Compiling module work.requant_mult_rom(ADDR_WIDTH=6)
 Compiling module work.requant_shift_rom(ADDR_WIDTH=6)
 Compiling module work.controller_kloop(SIZE=4,ACC_ADDR...
+Compiling module work.streaming_maxpool_writeback
 Compiling module work.controller_layer(SIZE=4,ACC_ADDR...
 Compiling module work.fifo(COUNT_WIDTH=5)
 Compiling module work.weight_fetcher(SIZE=4)

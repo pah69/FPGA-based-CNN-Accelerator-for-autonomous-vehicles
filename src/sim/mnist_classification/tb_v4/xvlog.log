@@ -41,6 +41,8 @@ INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerato
 INFO: [VRFC 10-311] analyzing module requant_mult_rom
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/mnist_classification/v4/requant_shift_rom.sv" into library work
 INFO: [VRFC 10-311] analyzing module requant_shift_rom
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/mnist_classification/v4/streaming_maxpool_writeback.sv" into library work
+INFO: [VRFC 10-311] analyzing module streaming_maxpool_writeback
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/mnist_classification/v4/systolic_array.sv" into library work
 INFO: [VRFC 10-311] analyzing module systolic_array
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/mnist_classification/v4/top_axi_lite.sv" into library work

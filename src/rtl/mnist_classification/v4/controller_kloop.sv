@@ -74,6 +74,8 @@ module controller_kloop #(
     output logic                         ub_wr_bank_o,
     output logic [UB_ADDR_WIDTH-1:0]     ub_wr_addr_o,
     output logic signed [DATA_WIDTH-1:0] ub_wr_data_o,
+    output logic [15:0]                  ub_wr_spatial_idx_o,
+    output logic [15:0]                  ub_wr_oc_idx_o,
 
     output logic                         work_o,
     output logic [TILE_COUNT_WIDTH-1:0]  num_tiles_o,
@@ -1041,6 +1043,8 @@ module controller_kloop #(
       ub_wr_bank_o <= 1'b0;
       ub_wr_addr_o <= '0;
       ub_wr_data_o <= '0;
+      ub_wr_spatial_idx_o <= '0;
+      ub_wr_oc_idx_o <= '0;
       work_o <= 1'b0;
       start_wgt_load_o <= 1'b0;
       wgt_fifo_wdata_o <= '0;
@@ -1108,6 +1112,8 @@ module controller_kloop #(
       vpu_requant_multiplier_flatten_o <= requant_multiplier_flatten_q;
       vpu_requant_shift_flatten_o <= requant_shift_flatten_q;
       vpu_output_zero_point_o <= '0;
+      ub_wr_spatial_idx_o <= '0;
+      ub_wr_oc_idx_o <= '0;
 
       act_read_valid_pipe_q[1] <= act_read_valid_pipe_q[0];
       act_read_valid_pipe_q[0] <= 1'b0;
@@ -2082,6 +2088,8 @@ module controller_kloop #(
               ub_wr_bank_o <= inner_write_bank_w;
               ub_wr_addr_o <= UB_ADDR_WIDTH'(output_lane_addr_w);
               ub_wr_data_o <= vpu_data_q[(output_lane_q*OUT_WIDTH)+:OUT_WIDTH];
+              ub_wr_spatial_idx_o <= output_spatial_w[15:0];
+              ub_wr_oc_idx_o <= oc_idx_w[output_lane_q];
 
               if (output_lane_last_w) begin
                 if (!has_next_acc_row_w) begin

@@ -1,7 +1,7 @@
-Running: xsim.dir/test_tpu_top_end_to_end_snapshot/xsimk -simmode gui -testplusarg E2E_FILE_CASES -testplusarg E2E_CASES=1 -testplusarg E2E_INPUT_HEX=/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/CNN_model/python/mnist_classification/18_05/e2e_cases/tpu_top_e2e_inputs_i8.hex -testplusarg E2E_LOGITS_HEX=/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/CNN_model/python/mnist_classification/18_05/e2e_cases/tpu_top_e2e_logits_i8.hex -wdb test_tpu_top_end_to_end_snapshot.wdb -simrunnum 0 -socket 59751
+Running: xsim.dir/test_tpu_top_end_to_end_snapshot/xsimk -simmode gui -testplusarg E2E_FILE_CASES -testplusarg E2E_CASES=1 -testplusarg E2E_INPUT_HEX=/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/CNN_model/python/mnist_classification/18_05/e2e_cases/tpu_top_e2e_inputs_i8.hex -testplusarg E2E_LOGITS_HEX=/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/CNN_model/python/mnist_classification/18_05/e2e_cases/tpu_top_e2e_logits_i8.hex -wdb test_tpu_top_end_to_end_snapshot.wdb -simrunnum 0 -socket 43487
 Design successfully loaded
-Design Loading Memory Usage: 206584 KB (Peak: 206592 KB)
-Design Loading CPU Usage: 650 ms
+Design Loading Memory Usage: 206620 KB (Peak: 206628 KB)
+Design Loading CPU Usage: 660 ms
 Simulation completed
-Simulation Memory Usage: 301392 KB (Peak: 345852 KB)
-Simulation CPU Usage: 1990 ms
+Simulation Memory Usage: 301428 KB (Peak: 345888 KB)
+Simulation CPU Usage: 1910 ms
