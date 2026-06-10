@@ -23,7 +23,7 @@ module controller_layer #(
     parameter int PARAM_DEPTH         = 44,
     parameter int PARAM_ADDR_WIDTH    = (PARAM_DEPTH > 1) ? $clog2(PARAM_DEPTH) : 1,
     parameter int DBG_STATE_COUNT     = 17,
-    parameter int DBG_PREFETCH_COUNT  = 33,
+    parameter int DBG_PREFETCH_COUNT  = 37,
     parameter bit ENABLE_PACKED_ACT_READ = 1'b0,
     parameter bit ENABLE_FUSED_POOL      = 1'b0
 ) (
@@ -120,6 +120,14 @@ module controller_layer #(
   localparam int ACC_COUNT_WIDTH = ACC_ADDR_WIDTH + 1;
   localparam int PREFETCH_MAX_OCCUPANCY_IDX = 8;
   localparam int PREFETCH_CURRENT_OCCUPANCY_IDX = 11;
+  // Largest read-only activation tensor in the current MNIST flow is Pool1
+  // (13x13x8 = 1352 bytes). Keep a single layer-local cache large enough to
+  // retain the whole activation tensor so Conv1/Conv2 can reuse data across
+  // OC tiles and across spatial-block boundaries.
+  localparam int ACT_BLOCK_CACHE_DEPTH = 1536;
+  localparam int ACT_BLOCK_CACHE_ADDR_WIDTH =
+      (ACT_BLOCK_CACHE_DEPTH > 1) ? $clog2(ACT_BLOCK_CACHE_DEPTH) : 1;
+  localparam int ACT_BLOCK_CACHE_EPOCH_WIDTH = 8;
 
   state_t state_q;
 
@@ -176,13 +184,20 @@ module controller_layer #(
   logic fused_pool_enable_w;
   logic [15:0] fused_pool_out_h_w;
   logic [15:0] fused_pool_out_w_w;
+  logic tile_act_reuse_clear_w;
+  logic tile_act_vector_cache_clear_w;
+  logic act_block_cache_enable_w;
 
   logic                         tile_ub_rd_en_w;
   logic                         tile_ub_rd_bank_w;
   logic [UB_ADDR_WIDTH-1:0]     tile_ub_rd_addr_w;
+  logic signed [DATA_WIDTH-1:0] tile_ub_rd_data_w;
+  logic                         tile_ub_rd_valid_w;
   logic                         tile_ub_rd_packed_en_w;
   logic                         tile_ub_rd_packed_bank_w;
   logic [UB_ADDR_WIDTH-1:0]     tile_ub_rd_packed_addr_w;
+  logic signed [(DATA_WIDTH*SIZE)-1:0] tile_ub_rd_packed_data_w;
+  logic                         tile_ub_rd_packed_valid_w;
   logic                         tile_ub_wr_en_w;
   logic                         tile_ub_wr_bank_w;
   logic [UB_ADDR_WIDTH-1:0]     tile_ub_wr_addr_w;
@@ -194,6 +209,30 @@ module controller_layer #(
   logic                         fused_pool_ub_wr_bank_w;
   logic [UB_ADDR_WIDTH-1:0]     fused_pool_ub_wr_addr_w;
   logic signed [DATA_WIDTH-1:0] fused_pool_ub_wr_data_w;
+
+  logic [ACT_BLOCK_CACHE_EPOCH_WIDTH-1:0]
+      act_block_cache_entry_epoch_q[0:ACT_BLOCK_CACHE_DEPTH-1];
+  logic signed [DATA_WIDTH-1:0]
+      act_block_cache_data_q[0:ACT_BLOCK_CACHE_DEPTH-1];
+  logic [ACT_BLOCK_CACHE_EPOCH_WIDTH-1:0] act_block_cache_epoch_q;
+  logic cache_scalar_hit_w;
+  logic cache_packed_hit_w;
+  logic signed [DATA_WIDTH-1:0] cache_scalar_data_w;
+  logic signed [(DATA_WIDTH*SIZE)-1:0] cache_packed_data_w;
+  logic cache_scalar_range_w;
+  logic cache_packed_range_w;
+  logic [ACT_BLOCK_CACHE_ADDR_WIDTH-1:0] cache_scalar_idx_w;
+  logic [ACT_BLOCK_CACHE_ADDR_WIDTH-1:0] cache_packed_idx_w[0:SIZE-1];
+  logic cache_resp_scalar_valid_q;
+  logic signed [DATA_WIDTH-1:0] cache_resp_scalar_data_q;
+  logic cache_resp_packed_valid_q;
+  logic signed [(DATA_WIDTH*SIZE)-1:0] cache_resp_packed_data_q;
+  logic ext_scalar_pending_q;
+  logic [UB_ADDR_WIDTH-1:0] ext_scalar_addr_q;
+  logic ext_packed_pending_q;
+  logic [UB_ADDR_WIDTH-1:0] ext_packed_addr_q;
+  logic ext_scalar_forward_w;
+  logic ext_packed_forward_w;
 
   layer_descriptor_rom u_layer_descriptor_rom (
       .layer_idx_i    (layer_idx_q),
@@ -245,6 +284,8 @@ module controller_layer #(
       .clk                             (clk),
       .rst_n                           (rst_n),
       .start_i                         (tile_start_q),
+      .act_reuse_clear_i               (tile_act_reuse_clear_w),
+      .act_vector_cache_clear_i        (tile_act_vector_cache_clear_w),
       .done_o                          (tile_done_w),
       .busy_o                          (tile_busy_w),
       .error_o                         (tile_error_w),
@@ -267,13 +308,13 @@ module controller_layer #(
       .ub_rd_en_o                      (tile_ub_rd_en_w),
       .ub_rd_bank_o                    (tile_ub_rd_bank_w),
       .ub_rd_addr_o                    (tile_ub_rd_addr_w),
-      .ub_rd_data_i                    (ub_rd_data_i),
-      .ub_rd_valid_i                   (ub_rd_valid_i),
+      .ub_rd_data_i                    (tile_ub_rd_data_w),
+      .ub_rd_valid_i                   (tile_ub_rd_valid_w),
       .ub_rd_packed_en_o               (tile_ub_rd_packed_en_w),
       .ub_rd_packed_bank_o             (tile_ub_rd_packed_bank_w),
       .ub_rd_packed_addr_o             (tile_ub_rd_packed_addr_w),
-      .ub_rd_packed_data_i             (ub_rd_packed_data_i),
-      .ub_rd_packed_valid_i            (ub_rd_packed_valid_i),
+      .ub_rd_packed_data_i             (tile_ub_rd_packed_data_w),
+      .ub_rd_packed_valid_i            (tile_ub_rd_packed_valid_w),
       .ub_wr_en_o                      (tile_ub_wr_en_w),
       .ub_wr_bank_o                    (tile_ub_wr_bank_w),
       .ub_wr_addr_o                    (tile_ub_wr_addr_w),
@@ -313,13 +354,65 @@ module controller_layer #(
   assign fused_pool_enable_w = ENABLE_FUSED_POOL && (desc_layer_type_w == LAYER_CONV);
   assign fused_pool_out_h_w = desc_out_h_w >> 1;
   assign fused_pool_out_w_w = desc_out_w_w >> 1;
+  assign act_block_cache_enable_w = (desc_layer_type_w == LAYER_CONV);
 
-  assign ub_rd_en_o = tile_ub_rd_en_w;
+  assign cache_scalar_range_w =
+      act_block_cache_enable_w
+      && (tile_ub_rd_addr_w >= activation_base_addr_q)
+      && ((tile_ub_rd_addr_w - activation_base_addr_q) < ACT_BLOCK_CACHE_DEPTH);
+  assign cache_scalar_idx_w =
+      ACT_BLOCK_CACHE_ADDR_WIDTH'(tile_ub_rd_addr_w - activation_base_addr_q);
+  assign cache_scalar_hit_w =
+      tile_ub_rd_en_w
+      && cache_scalar_range_w
+      && (act_block_cache_entry_epoch_q[cache_scalar_idx_w] == act_block_cache_epoch_q);
+  assign cache_scalar_data_w = act_block_cache_data_q[cache_scalar_idx_w];
+
+  generate
+    for (genvar cache_lane = 0; cache_lane < SIZE; cache_lane++) begin : GEN_ACT_CACHE_PACKED
+      assign cache_packed_idx_w[cache_lane] =
+          ACT_BLOCK_CACHE_ADDR_WIDTH'(
+              tile_ub_rd_packed_addr_w + UB_ADDR_WIDTH'(cache_lane) - activation_base_addr_q);
+      assign cache_packed_data_w[(cache_lane*DATA_WIDTH)+:DATA_WIDTH] =
+          act_block_cache_data_q[cache_packed_idx_w[cache_lane]];
+    end
+  endgenerate
+
+  always_comb begin
+    cache_packed_range_w = act_block_cache_enable_w;
+    cache_packed_hit_w = tile_ub_rd_packed_en_w;
+
+    for (int lane = 0; lane < SIZE; lane++) begin
+      logic [UB_ADDR_WIDTH-1:0] lane_addr_w;
+      lane_addr_w = tile_ub_rd_packed_addr_w + UB_ADDR_WIDTH'(lane);
+
+      cache_packed_range_w = cache_packed_range_w
+          && (lane_addr_w >= activation_base_addr_q)
+          && ((lane_addr_w - activation_base_addr_q) < ACT_BLOCK_CACHE_DEPTH);
+      cache_packed_hit_w = cache_packed_hit_w
+          && (act_block_cache_entry_epoch_q[cache_packed_idx_w[lane]]
+              == act_block_cache_epoch_q);
+    end
+
+    cache_packed_hit_w = cache_packed_hit_w && cache_packed_range_w;
+  end
+
+  assign ext_scalar_forward_w =
+      tile_ub_rd_en_w && !cache_scalar_hit_w;
+  assign ext_packed_forward_w = tile_ub_rd_packed_en_w && !cache_packed_hit_w;
+
+  assign ub_rd_en_o = ext_scalar_forward_w;
   assign ub_rd_bank_o = tile_ub_rd_bank_w;
   assign ub_rd_addr_o = tile_ub_rd_addr_w;
-  assign ub_rd_packed_en_o = tile_ub_rd_packed_en_w;
+  assign ub_rd_packed_en_o = ext_packed_forward_w;
   assign ub_rd_packed_bank_o = tile_ub_rd_packed_bank_w;
   assign ub_rd_packed_addr_o = tile_ub_rd_packed_addr_w;
+  assign tile_ub_rd_valid_w = cache_resp_scalar_valid_q || ub_rd_valid_i;
+  assign tile_ub_rd_data_w =
+      cache_resp_scalar_valid_q ? cache_resp_scalar_data_q : ub_rd_data_i;
+  assign tile_ub_rd_packed_valid_w = cache_resp_packed_valid_q || ub_rd_packed_valid_i;
+  assign tile_ub_rd_packed_data_w =
+      cache_resp_packed_valid_q ? cache_resp_packed_data_q : ub_rd_packed_data_i;
 
   assign ub_wr_en_o = fused_pool_enable_w ? fused_pool_ub_wr_en_w : tile_ub_wr_en_w;
   assign ub_wr_bank_o = fused_pool_enable_w ? fused_pool_ub_wr_bank_w : tile_ub_wr_bank_w;
@@ -360,6 +453,15 @@ module controller_layer #(
   assign dbg_oc_tile_o = oc_tile_q;
   assign dbg_k_tile_o = tile_k_tile_w;
   assign last_oc_tile_w = ((oc_tile_q + 16'd1) >= desc_num_oc_tiles_w);
+  // Clear the direct activation reuse store only on the first tile of the
+  // layer run. That lets Conv layers reuse overlapping-window bytes across
+  // spatial-block boundaries, not only across OC tiles inside one block.
+  assign tile_act_reuse_clear_w =
+      (oc_tile_q == 16'd0) && (spatial_idx_q == spatial_idx_i);
+  // The assembled activation-vector cache is indexed by block-local
+  // `stream_idx_q`, so it must be cleared at the first OC tile of each new
+  // spatial block.
+  assign tile_act_vector_cache_clear_w = (oc_tile_q == 16'd0);
   assign max_block_size_w = 16'(block_size_q);
   assign remaining_spatial_w = (spatial_idx_q < desc_num_spatial_w)
                              ? (desc_num_spatial_w - spatial_idx_q)
@@ -402,6 +504,19 @@ module controller_layer #(
       spatial_idx_q <= '0;
       oc_tile_q <= '0;
       tile_start_q <= 1'b0;
+      act_block_cache_epoch_q <= ACT_BLOCK_CACHE_EPOCH_WIDTH'(1);
+      cache_resp_scalar_valid_q <= 1'b0;
+      cache_resp_scalar_data_q <= '0;
+      cache_resp_packed_valid_q <= 1'b0;
+      cache_resp_packed_data_q <= '0;
+      ext_scalar_pending_q <= 1'b0;
+      ext_scalar_addr_q <= '0;
+      ext_packed_pending_q <= 1'b0;
+      ext_packed_addr_q <= '0;
+      for (int idx = 0; idx < ACT_BLOCK_CACHE_DEPTH; idx++) begin
+        act_block_cache_entry_epoch_q[idx] <= '0;
+        act_block_cache_data_q[idx] <= '0;
+      end
       for (int idx = 0; idx < DBG_STATE_COUNT; idx++) begin
         state_exec_counts_q[idx] <= '0;
       end
@@ -411,6 +526,59 @@ module controller_layer #(
     end else begin
       done_o <= 1'b0;
       tile_start_q <= 1'b0;
+      cache_resp_scalar_valid_q <= 1'b0;
+      cache_resp_packed_valid_q <= 1'b0;
+
+      if (cache_scalar_hit_w) begin
+        cache_resp_scalar_valid_q <= 1'b1;
+        cache_resp_scalar_data_q <= cache_scalar_data_w;
+      end
+      if (cache_packed_hit_w) begin
+        cache_resp_packed_valid_q <= 1'b1;
+        cache_resp_packed_data_q <= cache_packed_data_w;
+      end
+
+      if (ext_scalar_forward_w) begin
+        ext_scalar_pending_q <= 1'b1;
+        ext_scalar_addr_q <= tile_ub_rd_addr_w;
+      end
+      if (ext_packed_forward_w) begin
+        ext_packed_pending_q <= 1'b1;
+        ext_packed_addr_q <= tile_ub_rd_packed_addr_w;
+      end
+
+      if (ub_rd_valid_i && ext_scalar_pending_q && act_block_cache_enable_w
+          && (ext_scalar_addr_q >= activation_base_addr_q)
+          && ((ext_scalar_addr_q - activation_base_addr_q) < ACT_BLOCK_CACHE_DEPTH)) begin
+        act_block_cache_entry_epoch_q[
+            ACT_BLOCK_CACHE_ADDR_WIDTH'(ext_scalar_addr_q - activation_base_addr_q)]
+            <= act_block_cache_epoch_q;
+        act_block_cache_data_q[
+            ACT_BLOCK_CACHE_ADDR_WIDTH'(ext_scalar_addr_q - activation_base_addr_q)]
+            <= ub_rd_data_i;
+      end
+      if (ub_rd_valid_i && ext_scalar_pending_q) begin
+        ext_scalar_pending_q <= 1'b0;
+      end
+
+      if (ub_rd_packed_valid_i && ext_packed_pending_q && act_block_cache_enable_w) begin
+        for (int lane = 0; lane < SIZE; lane++) begin
+          logic [UB_ADDR_WIDTH-1:0] lane_addr_w;
+          lane_addr_w = ext_packed_addr_q + UB_ADDR_WIDTH'(lane);
+          if ((lane_addr_w >= activation_base_addr_q)
+              && ((lane_addr_w - activation_base_addr_q) < ACT_BLOCK_CACHE_DEPTH)) begin
+            act_block_cache_entry_epoch_q[
+                ACT_BLOCK_CACHE_ADDR_WIDTH'(lane_addr_w - activation_base_addr_q)]
+                <= act_block_cache_epoch_q;
+            act_block_cache_data_q[
+                ACT_BLOCK_CACHE_ADDR_WIDTH'(lane_addr_w - activation_base_addr_q)]
+                <= ub_rd_packed_data_i[(lane*DATA_WIDTH)+:DATA_WIDTH];
+          end
+        end
+      end
+      if (ub_rd_packed_valid_i && ext_packed_pending_q) begin
+        ext_packed_pending_q <= 1'b0;
+      end
 
       if (state_q != S_IDLE && state_q != S_DONE && state_q != S_ERROR) begin
         dbg_cycle_count_o <= dbg_cycle_count_o + 32'd1;
@@ -430,6 +598,9 @@ module controller_layer #(
             block_size_q <= block_size_i;
             spatial_idx_q <= spatial_idx_i;
             oc_tile_q <= '0;
+            act_block_cache_epoch_q <= act_block_cache_epoch_q + ACT_BLOCK_CACHE_EPOCH_WIDTH'(1);
+            ext_scalar_pending_q <= 1'b0;
+            ext_packed_pending_q <= 1'b0;
             dbg_cycle_count_o <= '0;
             dbg_useful_mac_count_o <= '0;
             for (int idx = 0; idx < DBG_STATE_COUNT; idx++) begin
@@ -490,10 +661,14 @@ module controller_layer #(
               end else begin
                 spatial_idx_q <= spatial_idx_q + tile_block_size_16_w;
                 oc_tile_q <= '0;
+                ext_scalar_pending_q <= 1'b0;
+                ext_packed_pending_q <= 1'b0;
                 state_q <= S_START_TILE;
               end
             end else begin
               oc_tile_q <= oc_tile_q + 16'd1;
+              ext_scalar_pending_q <= 1'b0;
+              ext_packed_pending_q <= 1'b0;
               state_q <= S_START_TILE;
             end
           end

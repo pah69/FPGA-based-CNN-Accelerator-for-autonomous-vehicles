@@ -31,13 +31,15 @@ module controller_kloop #(
     parameter int PARAM_ADDR_WIDTH    = (PARAM_DEPTH > 1) ? $clog2(PARAM_DEPTH) : 1,
     parameter int LANE_COUNT_WIDTH    = (SIZE > 1) ? $clog2(SIZE + 1) : 1,
     parameter int DBG_STATE_COUNT     = 17,
-    parameter int DBG_PREFETCH_COUNT  = 33,
+    parameter int DBG_PREFETCH_COUNT  = 37,
     parameter bit ENABLE_PACKED_ACT_READ = 1'b0
 ) (
     input logic clk,
     input logic rst_n,
 
     input  logic start_i,
+    input  logic act_reuse_clear_i,
+    input  logic act_vector_cache_clear_i,
     output logic done_o,
     output logic busy_o,
     output logic error_o,
@@ -161,13 +163,26 @@ module controller_kloop #(
 
   localparam int ACC_COUNT_WIDTH = ACC_ADDR_WIDTH + 1;
   localparam int ADDR_CALC_WIDTH = 32;
-  localparam int ACT_REUSE_DEPTH = 128;
-  localparam int ACT_REUSE_PTR_WIDTH =
+  // Layer-local activation cache for conv reuse. Size it to hold the largest
+  // MNIST activation tensor that feeds a conv layer (Pool1: 13x13x8 = 1352).
+  // This turns reuse into direct address hits instead of a short associative
+  // history, which is closer to a real sliding-window frontend.
+  localparam int ACT_REUSE_DEPTH = 1536;
+  localparam int ACT_REUSE_IDX_WIDTH =
       (ACT_REUSE_DEPTH <= 1) ? 1 : $clog2(ACT_REUSE_DEPTH);
+  localparam int ACT_REUSE_EPOCH_WIDTH = 8;
+  localparam int ACT_VECTOR_CACHE_DEPTH = MAX_NUM_TILES * ACC_DEPTH;
+  localparam int ACT_VECTOR_CACHE_IDX_WIDTH =
+      (ACT_VECTOR_CACHE_DEPTH <= 1) ? 1 : $clog2(ACT_VECTOR_CACHE_DEPTH);
+  localparam int ACT_VECTOR_CACHE_EPOCH_WIDTH = 8;
   localparam int ACT_PREFETCH_DEPTH = 16;
   localparam int ACT_PREFETCH_SLOT_WIDTH = (ACT_PREFETCH_DEPTH <= 1) ? 1 : $clog2(ACT_PREFETCH_DEPTH);
   localparam int ACT_PREFETCH_CHAIN_MAX_CYCLE = (SIZE * SIZE) + SIZE + 2;
   localparam bit ENABLE_EARLY_ACT_PREFETCH = 1'b0;
+  localparam bit ENABLE_CONV2_LINEBUF = 1'b0;
+  localparam int CONV2_LINEBUF_ROWS = 3;
+  localparam int CONV2_LINEBUF_CHANS = 8;
+  localparam int CONV2_LINEBUF_WIDTH = 13;
   localparam int PREFETCH_ATTEMPTS_IDX             = 0;
   localparam int PREFETCH_PUSHES_IDX               = 1;
   localparam int PREFETCH_HITS_IDX                 = 2;
@@ -201,6 +216,10 @@ module controller_kloop #(
   localparam int PREFETCH_ISSUE_CYCLES_IDX         = 30;
   localparam int PREFETCH_BUBBLE_CYCLES_IDX        = 31;
   localparam int PREFETCH_BUSY_CYCLES_IDX          = 32;
+  localparam int ACT_REUSE_HITS_IDX                = 33;
+  localparam int ACT_REUSE_BYTES_SERVED_IDX        = 34;
+  localparam int ACT_REUSE_FULL_VECTORS_IDX        = 35;
+  localparam int ACT_REUSE_PARTIAL_VECTORS_IDX     = 36;
 
   state_t state_q;
   prefetch_state_t prefetch_state_q;
@@ -236,10 +255,35 @@ module controller_kloop #(
   logic [15:0] act_prefetch_tag_k_tile_q;
   logic act_prefetch_tag_read_bank_q;
   logic [15:0] drain_prefetch_cycle_q;
-  logic [ACT_REUSE_DEPTH-1:0] act_reuse_valid_q;
-  logic [UB_ADDR_WIDTH-1:0] act_reuse_addr_q[0:ACT_REUSE_DEPTH-1];
+  logic [ACT_REUSE_EPOCH_WIDTH-1:0] act_reuse_epoch_q;
+  logic [ACT_REUSE_EPOCH_WIDTH-1:0] act_reuse_entry_epoch_q[0:ACT_REUSE_DEPTH-1];
   logic signed [DATA_WIDTH-1:0] act_reuse_data_q[0:ACT_REUSE_DEPTH-1];
-  logic [ACT_REUSE_PTR_WIDTH-1:0] act_reuse_wr_ptr_q;
+  logic [ACT_VECTOR_CACHE_EPOCH_WIDTH-1:0] act_vector_cache_epoch_q;
+  logic [ACT_VECTOR_CACHE_EPOCH_WIDTH-1:0]
+      act_vector_cache_entry_epoch_q[0:ACT_VECTOR_CACHE_DEPTH-1];
+  logic signed [(DATA_WIDTH*SIZE)-1:0]
+      act_vector_cache_data_q[0:ACT_VECTOR_CACHE_DEPTH-1];
+  logic conv2_lb_valid_q;
+  logic conv2_lb_read_bank_q;
+  logic [UB_ADDR_WIDTH-1:0] conv2_lb_activation_base_q;
+  logic [15:0] conv2_lb_anchor_row_q;
+  logic [1:0] conv2_lb_slot_base_q;
+  logic signed [DATA_WIDTH-1:0]
+      conv2_lb_data_q[0:CONV2_LINEBUF_ROWS-1][0:CONV2_LINEBUF_CHANS-1][0:CONV2_LINEBUF_WIDTH-1];
+  logic conv2_lb_load_active_q;
+  logic conv2_lb_load_full_q;
+  logic [15:0] conv2_lb_target_anchor_q;
+  logic [1:0] conv2_lb_load_row_offset_q;
+  logic [1:0] conv2_lb_load_slot_q;
+  logic [15:0] conv2_lb_load_row_q;
+  logic [15:0] conv2_lb_load_chan_q;
+  logic [15:0] conv2_lb_load_col_q;
+  logic [1:0] conv2_lb_load_valid_pipe_q;
+  logic [1:0] conv2_lb_load_is_packed_pipe_q;
+  logic [1:0] conv2_lb_load_slot_pipe_q[0:1];
+  logic [15:0] conv2_lb_load_row_pipe_q[0:1];
+  logic [15:0] conv2_lb_load_chan_pipe_q[0:1];
+  logic [15:0] conv2_lb_load_col_pipe_q[0:1];
 
   logic desc_valid_w;
   layer_type_t desc_layer_type_w;
@@ -271,6 +315,7 @@ module controller_kloop #(
   logic [SIZE*SIZE-1:0]                weight_zero_w;
   logic [16*SIZE-1:0]                  k_index_flatten_bus_w;
   logic [16*SIZE-1:0]                  oc_index_flatten_bus_w;
+  logic [15:0]                         k_idx_w[0:SIZE-1];
   logic [15:0]                         oc_idx_w[0:SIZE-1];
   logic [SIZE-1:0]                     oc_valid_w;
 
@@ -409,15 +454,49 @@ module controller_kloop #(
   logic drain_payload_active_w;
   logic act_reuse_lane_hit_w[0:SIZE-1];
   logic signed [DATA_WIDTH-1:0] act_reuse_lane_data_w[0:SIZE-1];
+  logic act_shift_lane_hit_w[0:SIZE-1];
+  logic signed [DATA_WIDTH-1:0] act_shift_lane_data_w[0:SIZE-1];
   logic act_reuse_prefix_valid_w;
   logic [SIZE-1:0] act_reuse_prefix_mask_w;
+  logic [SIZE-1:0] act_reuse_hit_prefix_mask_w;
   logic [15:0] act_reuse_next_lane_w;
+  logic act_reuse_cache_hit_w;
+  logic act_vector_cache_hit_w;
+  logic [ACT_VECTOR_CACHE_IDX_WIDTH-1:0] act_vector_cache_idx_w;
+  logic signed [(DATA_WIDTH*SIZE)-1:0] act_vector_cache_hit_data_w;
+  logic act_vector_cache_prev_hit_w;
+  logic [ACT_VECTOR_CACHE_IDX_WIDTH-1:0] act_vector_cache_prev_idx_w;
+  logic signed [(DATA_WIDTH*SIZE)-1:0] act_vector_cache_prev_data_w;
+  logic act_shift_stream_eligible_w;
   logic has_next_acc_row_w;
   logic has_row_after_next_w;
   logic row_after_next_is_last_w;
   logic output_lane_last_w;
   logic prefetched_vpu_available_w;
   logic signed [(OUT_WIDTH*SIZE)-1:0] prefetched_vpu_data_w;
+  logic conv2_lb_enabled_w;
+  logic conv2_lb_context_match_w;
+  logic conv2_lb_window_ready_w;
+  logic conv2_lb_need_full_reload_w;
+  logic conv2_lb_need_row_advance_w;
+  logic conv2_lb_need_service_w;
+  logic conv2_lb_start_full_w;
+  logic conv2_lb_start_advance_w;
+  logic conv2_lb_load_issue_w;
+  logic conv2_lb_issue_packed_w;
+  logic conv2_lb_issue_scalar_w;
+  logic [ADDR_CALC_WIDTH-1:0] conv2_lb_load_addr_w;
+  logic conv2_lb_load_addr_error_w;
+  logic conv2_lb_load_capture_w;
+  logic conv2_lb_load_capture_scalar_w;
+  logic conv2_lb_load_capture_packed_w;
+  logic conv2_lb_load_pipe_empty_w;
+  logic [15:0] conv2_lb_curr_oh_w;
+  logic [15:0] conv2_lb_curr_ow_w;
+  logic signed [(DATA_WIDTH*SIZE)-1:0] conv2_lb_vector_data_w;
+  logic conv2_lb_vector_hit_w;
+  logic [1:0] conv2_lb_next_slot_base_w;
+  logic [1:0] conv2_lb_load_target_slot_w;
 
   function automatic logic [TAG_PTR_WIDTH-1:0] next_tag_ptr(
       input logic [TAG_PTR_WIDTH-1:0] ptr_i);
@@ -466,14 +545,42 @@ module controller_kloop #(
     end
   endfunction
 
-  function automatic logic [ACT_REUSE_PTR_WIDTH-1:0] next_act_reuse_ptr(
-      input logic [ACT_REUSE_PTR_WIDTH-1:0] ptr_i);
-    if (ACT_REUSE_DEPTH == 1) begin
-      next_act_reuse_ptr = '0;
-    end else if (ptr_i == ACT_REUSE_PTR_WIDTH'(ACT_REUSE_DEPTH - 1)) begin
-      next_act_reuse_ptr = '0;
-    end else begin
-      next_act_reuse_ptr = ptr_i + ACT_REUSE_PTR_WIDTH'(1);
+  function automatic logic [ADDR_CALC_WIDTH-1:0] mul13_addr(
+      input logic [15:0] value_i);
+    begin
+      mul13_addr = ADDR_CALC_WIDTH'((value_i << 3) + (value_i << 2) + value_i);
+    end
+  endfunction
+
+  function automatic logic [ADDR_CALC_WIDTH-1:0] mul169_addr(
+      input logic [15:0] value_i);
+    begin
+      mul169_addr =
+          ADDR_CALC_WIDTH'((value_i << 7) + (value_i << 5) + (value_i << 3) + value_i);
+    end
+  endfunction
+
+  function automatic logic [1:0] conv2_lb_next_slot(
+      input logic [1:0] slot_i);
+    begin
+      if (slot_i == 2'd2) begin
+        conv2_lb_next_slot = 2'd0;
+      end else begin
+        conv2_lb_next_slot = slot_i + 2'd1;
+      end
+    end
+  endfunction
+
+  function automatic logic [1:0] conv2_lb_slot_for_offset(
+      input logic [1:0] base_i,
+      input logic [1:0] offset_i);
+    logic [2:0] sum_w;
+    begin
+      sum_w = {1'b0, base_i} + {1'b0, offset_i};
+      if (sum_w >= 3'd3) begin
+        sum_w = sum_w - 3'd3;
+      end
+      conv2_lb_slot_for_offset = sum_w[1:0];
     end
   endfunction
 
@@ -552,6 +659,7 @@ module controller_kloop #(
     end
 
     for (genvar lane = 0; lane < SIZE; lane++) begin : GEN_PARAM_ROMS
+      assign k_idx_w[lane] = k_index_flatten_bus_w[(lane*16)+:16];
       assign oc_idx_w[lane] = oc_index_flatten_bus_w[(lane*16)+:16];
       assign oc_valid_w[lane] = (oc_idx_w[lane] < desc_out_ch_w);
       assign bias_addr_w[lane] =
@@ -798,13 +906,32 @@ module controller_kloop #(
                                   && (!act_prefetch_packed_valid_pipe_q[1]
                                       || act_prefetch_packed_capture_w);
   assign launch_act_from_wait_w = (state_q == S_READ_ACT_WAIT)
-                               && act_read_pipeline_empty_w;
+                               && act_read_pipeline_empty_w
+                               && !conv2_lb_need_service_w;
 
   assign output_spatial_w = ADDR_CALC_WIDTH'(spatial_idx_q) + ADDR_CALC_WIDTH'(acc_read_idx_q);
   assign act_lane_addr_w = (act_fetch_lane_q < 16'(SIZE)) ? act_addr_w[act_fetch_lane_q] : '0;
   assign act_prefetch_addr_lane_sel_w = act_prefetch_chain_issue_w ? '0 : act_prefetch_issue_lane_w;
   assign act_prefetch_lane_addr_w =
       (act_prefetch_addr_lane_sel_w < 16'(SIZE)) ? act_addr_w[act_prefetch_addr_lane_sel_w] : '0;
+  assign act_vector_cache_idx_w =
+      ACT_VECTOR_CACHE_IDX_WIDTH'((k_tile_q << ACC_ADDR_WIDTH) + stream_idx_q[ACC_ADDR_WIDTH-1:0]);
+  assign act_vector_cache_hit_w =
+      (desc_layer_type_w == LAYER_CONV)
+      && (act_vector_cache_entry_epoch_q[act_vector_cache_idx_w] == act_vector_cache_epoch_q);
+  assign act_vector_cache_hit_data_w = act_vector_cache_data_q[act_vector_cache_idx_w];
+  assign act_vector_cache_prev_idx_w =
+      ACT_VECTOR_CACHE_IDX_WIDTH'((k_tile_q << ACC_ADDR_WIDTH)
+                                + (stream_idx_q[ACC_ADDR_WIDTH-1:0] - ACC_ADDR_WIDTH'(1)));
+  assign act_shift_stream_eligible_w =
+      (desc_layer_type_w == LAYER_CONV)
+      && (stream_idx_q != '0)
+      && (desc_out_w_w != 16'd0)
+      && ((spatial_stream_idx_w % desc_out_w_w) != 16'd0);
+  assign act_vector_cache_prev_hit_w =
+      act_shift_stream_eligible_w
+      && (act_vector_cache_entry_epoch_q[act_vector_cache_prev_idx_w] == act_vector_cache_epoch_q);
+  assign act_vector_cache_prev_data_w = act_vector_cache_data_q[act_vector_cache_prev_idx_w];
   assign output_lane_addr_w = output_addr_w[output_lane_q];
   assign next_acc_read_idx_w = acc_read_idx_q + ACC_COUNT_WIDTH'(1);
   assign row_after_next_acc_idx_w = acc_read_idx_q + ACC_COUNT_WIDTH'(2);
@@ -825,21 +952,145 @@ module controller_kloop #(
       (drain_prefetch_cycle_q <= 16'(ACT_PREFETCH_CHAIN_MAX_CYCLE));
   assign act_prefetch_occupancy_w = count_prefetch_occupancy(act_prefetch_entry_valid_q);
   assign drain_payload_active_w = psum_packer_busy_i || (|mxu_psum_valid_i);
+  assign conv2_lb_enabled_w =
+      ENABLE_CONV2_LINEBUF
+      && (desc_layer_type_w == LAYER_CONV)
+      && (desc_in_w_w == 16'd13)
+      && (desc_out_w_w == 16'd11)
+      && (desc_in_ch_w == 16'd8)
+      && (desc_kernel_h_w == 16'd3)
+      && (desc_kernel_w_w == 16'd3)
+      && (desc_k_total_w == 16'd72);
+  assign conv2_lb_curr_oh_w = spatial_stream_idx_w / 16'd11;
+  assign conv2_lb_curr_ow_w = spatial_stream_idx_w - (conv2_lb_curr_oh_w * 16'd11);
+  assign conv2_lb_context_match_w =
+      conv2_lb_valid_q
+      && (conv2_lb_activation_base_q == activation_base_addr_q)
+      && (conv2_lb_read_bank_q == inner_read_bank_w);
+  assign conv2_lb_window_ready_w =
+      conv2_lb_enabled_w
+      && conv2_lb_context_match_w
+      && !conv2_lb_load_active_q
+      && (conv2_lb_anchor_row_q == conv2_lb_curr_oh_w);
+  assign conv2_lb_need_full_reload_w =
+      conv2_lb_enabled_w
+      && !conv2_lb_window_ready_w
+      && (!conv2_lb_context_match_w
+          || !conv2_lb_valid_q
+          || (conv2_lb_curr_oh_w != (conv2_lb_anchor_row_q + 16'd1)));
+  assign conv2_lb_need_row_advance_w =
+      conv2_lb_enabled_w
+      && !conv2_lb_window_ready_w
+      && conv2_lb_context_match_w
+      && conv2_lb_valid_q
+      && (conv2_lb_curr_oh_w == (conv2_lb_anchor_row_q + 16'd1));
+  assign conv2_lb_start_full_w = !conv2_lb_load_active_q && conv2_lb_need_full_reload_w;
+  assign conv2_lb_start_advance_w = !conv2_lb_load_active_q && conv2_lb_need_row_advance_w;
+  assign conv2_lb_load_issue_w = conv2_lb_load_active_q && conv2_lb_load_pipe_empty_w;
+  assign conv2_lb_issue_packed_w = conv2_lb_load_issue_w && (conv2_lb_load_col_q != 16'd12);
+  assign conv2_lb_issue_scalar_w = conv2_lb_load_issue_w && (conv2_lb_load_col_q == 16'd12);
+  assign conv2_lb_load_addr_w =
+      ADDR_CALC_WIDTH'(activation_base_addr_q)
+      + mul169_addr(conv2_lb_load_chan_q)
+      + mul13_addr(conv2_lb_load_row_q)
+      + ADDR_CALC_WIDTH'(conv2_lb_load_col_q);
+  assign conv2_lb_load_addr_error_w =
+      conv2_lb_load_issue_w
+      && (((conv2_lb_issue_packed_w
+            && ((conv2_lb_load_addr_w + ADDR_CALC_WIDTH'(3)) >= ADDR_CALC_WIDTH'(BANK_DEPTH))))
+          || (conv2_lb_issue_scalar_w
+              && (conv2_lb_load_addr_w >= ADDR_CALC_WIDTH'(BANK_DEPTH))));
+  assign conv2_lb_load_capture_scalar_w =
+      conv2_lb_load_valid_pipe_q[1]
+      && !conv2_lb_load_is_packed_pipe_q[1]
+      && ub_rd_valid_i;
+  assign conv2_lb_load_capture_packed_w =
+      conv2_lb_load_valid_pipe_q[1]
+      && conv2_lb_load_is_packed_pipe_q[1]
+      && ub_rd_packed_valid_i;
+  assign conv2_lb_load_capture_w =
+      conv2_lb_load_capture_scalar_w || conv2_lb_load_capture_packed_w;
+  assign conv2_lb_load_pipe_empty_w =
+      !conv2_lb_load_valid_pipe_q[0]
+      && (!conv2_lb_load_valid_pipe_q[1] || conv2_lb_load_capture_w);
+  assign conv2_lb_vector_hit_w =
+      conv2_lb_enabled_w
+      && (act_fetch_lane_q == '0)
+      && conv2_lb_window_ready_w;
+  assign conv2_lb_next_slot_base_w = conv2_lb_next_slot(conv2_lb_slot_base_q);
+  assign conv2_lb_load_target_slot_w =
+      conv2_lb_load_full_q ? conv2_lb_load_row_offset_q : conv2_lb_slot_base_q;
+  assign conv2_lb_need_service_w =
+      conv2_lb_enabled_w
+      && (act_fetch_lane_q == '0)
+      && !act_vector_cache_hit_w
+      && !act_prefetch_match_w
+      && (conv2_lb_load_active_q || !conv2_lb_window_ready_w);
+
+  always_comb begin
+    conv2_lb_vector_data_w = '0;
+    for (int lane = 0; lane < SIZE; lane++) begin
+      if (!act_valid_w[lane] || act_zero_w[lane]) begin
+        conv2_lb_vector_data_w[(lane*DATA_WIDTH)+:DATA_WIDTH] = '0;
+      end else begin
+        logic [15:0] ic_w;
+        logic [15:0] rem_w;
+        logic [15:0] ky_w;
+        logic [15:0] kx_w;
+        logic [1:0] slot_w;
+        logic [15:0] col_w;
+
+        ic_w = k_idx_w[lane] / 16'd9;
+        rem_w = k_idx_w[lane] - (ic_w * 16'd9);
+        if (rem_w >= 16'd6) begin
+          ky_w = 16'd2;
+          kx_w = rem_w - 16'd6;
+        end else if (rem_w >= 16'd3) begin
+          ky_w = 16'd1;
+          kx_w = rem_w - 16'd3;
+        end else begin
+          ky_w = 16'd0;
+          kx_w = rem_w;
+        end
+
+        slot_w = conv2_lb_slot_for_offset(conv2_lb_slot_base_q, ky_w[1:0]);
+        col_w = conv2_lb_curr_ow_w + kx_w;
+        conv2_lb_vector_data_w[(lane*DATA_WIDTH)+:DATA_WIDTH] =
+            conv2_lb_data_q[slot_w][ic_w][col_w];
+      end
+    end
+  end
+
   always_comb begin
     for (int lane = 0; lane < SIZE; lane++) begin
       act_reuse_lane_hit_w[lane] = 1'b0;
       act_reuse_lane_data_w[lane] = '0;
+      act_shift_lane_hit_w[lane] = 1'b0;
+      act_shift_lane_data_w[lane] = '0;
 
       if ((desc_layer_type_w == LAYER_CONV)
           && !act_zero_w[lane]
-          && (act_addr_w[lane] < ADDR_CALC_WIDTH'(BANK_DEPTH))) begin
-        for (int idx = 0; idx < ACT_REUSE_DEPTH; idx++) begin
-          if (act_reuse_valid_q[idx]
-              && (act_reuse_addr_q[idx] == UB_ADDR_WIDTH'(act_addr_w[lane]))) begin
-            act_reuse_lane_hit_w[lane] = 1'b1;
-            act_reuse_lane_data_w[lane] = act_reuse_data_q[idx];
-          end
-        end
+          && (act_addr_w[lane] >= ADDR_CALC_WIDTH'(activation_base_addr_q))
+          && ((act_addr_w[lane] - ADDR_CALC_WIDTH'(activation_base_addr_q))
+              < ADDR_CALC_WIDTH'(ACT_REUSE_DEPTH))) begin
+        logic [ACT_REUSE_IDX_WIDTH-1:0] act_reuse_idx_w;
+        act_reuse_idx_w =
+            ACT_REUSE_IDX_WIDTH'(act_addr_w[lane] - ADDR_CALC_WIDTH'(activation_base_addr_q));
+        act_reuse_lane_hit_w[lane] =
+            (act_reuse_entry_epoch_q[act_reuse_idx_w] == act_reuse_epoch_q);
+        act_reuse_lane_data_w[lane] = act_reuse_data_q[act_reuse_idx_w];
+      end
+
+      if (act_vector_cache_prev_hit_w
+          && !act_zero_w[lane]
+          && (lane < (SIZE - 1))
+          && ((k_idx_w[lane] % 16'd9) != 16'd2)
+          && ((k_idx_w[lane] % 16'd9) != 16'd5)
+          && ((k_idx_w[lane] % 16'd9) != 16'd8)
+          && (k_idx_w[lane + 1] == (k_idx_w[lane] + 16'd1))) begin
+        act_shift_lane_hit_w[lane] = 1'b1;
+        act_shift_lane_data_w[lane] =
+            act_vector_cache_prev_data_w[((lane + 1)*DATA_WIDTH)+:DATA_WIDTH];
       end
     end
   end
@@ -855,7 +1106,7 @@ module controller_kloop #(
       prefix_active_w = 1'b1;
       for (int lane = 0; lane < SIZE; lane++) begin
         if ((16'(lane) >= act_fetch_lane_q) && prefix_active_w) begin
-          if (act_zero_w[lane] || act_reuse_lane_hit_w[lane]) begin
+          if (act_zero_w[lane] || act_shift_lane_hit_w[lane] || act_reuse_lane_hit_w[lane]) begin
             act_reuse_prefix_valid_w = 1'b1;
             act_reuse_prefix_mask_w[lane] = 1'b1;
             act_reuse_next_lane_w = 16'(lane + 1);
@@ -866,6 +1117,17 @@ module controller_kloop #(
       end
     end
   end
+
+  always_comb begin
+    act_reuse_hit_prefix_mask_w = '0;
+    for (int lane = 0; lane < SIZE; lane++) begin
+      act_reuse_hit_prefix_mask_w[lane] =
+          act_reuse_prefix_mask_w[lane]
+          && (act_shift_lane_hit_w[lane] || act_reuse_lane_hit_w[lane]);
+    end
+  end
+  assign act_reuse_cache_hit_w = |act_reuse_hit_prefix_mask_w;
+
   always_comb begin
     act_packed_prefix_valid_w = 1'b0;
     act_packed_prefix_mask_w = '0;
@@ -1080,7 +1342,6 @@ module controller_kloop #(
       act_prefetch_tag_k_tile_q <= '0;
       act_prefetch_tag_read_bank_q <= 1'b0;
       drain_prefetch_cycle_q <= '0;
-      act_reuse_wr_ptr_q <= '0;
       stream_idx_q <= '0;
       acc_read_idx_q <= '0;
       weight_stream_row_q <= '0;
@@ -1143,6 +1404,10 @@ module controller_kloop #(
         act_prefetch_packed_start_lane_pipe_q[idx] <= '0;
         act_prefetch_packed_mask_pipe_q[idx] <= '0;
         act_prefetch_packed_base_addr_pipe_q[idx] <= '0;
+        conv2_lb_load_slot_pipe_q[idx] <= '0;
+        conv2_lb_load_row_pipe_q[idx] <= '0;
+        conv2_lb_load_chan_pipe_q[idx] <= '0;
+        conv2_lb_load_col_pipe_q[idx] <= '0;
       end
 
       for (int lane = 0; lane < SIZE; lane++) begin
@@ -1155,11 +1420,31 @@ module controller_kloop #(
         act_prefetch_queue_stream_q[idx] <= '0;
       end
 
+      act_reuse_epoch_q <= ACT_REUSE_EPOCH_WIDTH'(1);
       for (int idx = 0; idx < ACT_REUSE_DEPTH; idx++) begin
-        act_reuse_valid_q[idx] <= 1'b0;
-        act_reuse_addr_q[idx] <= '0;
+        act_reuse_entry_epoch_q[idx] <= '0;
         act_reuse_data_q[idx] <= '0;
       end
+      act_vector_cache_epoch_q <= ACT_VECTOR_CACHE_EPOCH_WIDTH'(1);
+      for (int idx = 0; idx < ACT_VECTOR_CACHE_DEPTH; idx++) begin
+        act_vector_cache_entry_epoch_q[idx] <= '0;
+        act_vector_cache_data_q[idx] <= '0;
+      end
+      conv2_lb_valid_q <= 1'b0;
+      conv2_lb_read_bank_q <= 1'b0;
+      conv2_lb_activation_base_q <= '0;
+      conv2_lb_anchor_row_q <= '0;
+      conv2_lb_slot_base_q <= '0;
+      conv2_lb_load_active_q <= 1'b0;
+      conv2_lb_load_full_q <= 1'b0;
+      conv2_lb_target_anchor_q <= '0;
+      conv2_lb_load_row_offset_q <= '0;
+      conv2_lb_load_slot_q <= '0;
+      conv2_lb_load_row_q <= '0;
+      conv2_lb_load_chan_q <= '0;
+      conv2_lb_load_col_q <= '0;
+      conv2_lb_load_valid_pipe_q <= '0;
+      conv2_lb_load_is_packed_pipe_q <= '0;
 
       for (int idx = 0; idx < TAG_DEPTH; idx++) begin
         tag_mem_q[idx] <= '0;
@@ -1173,11 +1458,6 @@ module controller_kloop #(
         prefetch_counts_q[idx] <= '0;
       end
     end else begin : p_seq
-      logic [ACT_REUSE_PTR_WIDTH-1:0] act_reuse_wr_ptr_next_v;
-      logic act_reuse_found_v;
-      logic [ACT_REUSE_PTR_WIDTH-1:0] act_reuse_slot_v;
-
-      act_reuse_wr_ptr_next_v = act_reuse_wr_ptr_q;
       done_o <= 1'b0;
       ub_rd_en_o <= 1'b0;
       ub_rd_packed_en_o <= 1'b0;
@@ -1227,27 +1507,30 @@ module controller_kloop #(
       act_prefetch_packed_mask_pipe_q[0] <= '0;
       act_prefetch_packed_base_addr_pipe_q[1] <= act_prefetch_packed_base_addr_pipe_q[0];
       act_prefetch_packed_base_addr_pipe_q[0] <= '0;
+      conv2_lb_load_valid_pipe_q[1] <= conv2_lb_load_valid_pipe_q[0];
+      conv2_lb_load_valid_pipe_q[0] <= 1'b0;
+      conv2_lb_load_is_packed_pipe_q[1] <= conv2_lb_load_is_packed_pipe_q[0];
+      conv2_lb_load_is_packed_pipe_q[0] <= 1'b0;
+      conv2_lb_load_slot_pipe_q[1] <= conv2_lb_load_slot_pipe_q[0];
+      conv2_lb_load_slot_pipe_q[0] <= '0;
+      conv2_lb_load_row_pipe_q[1] <= conv2_lb_load_row_pipe_q[0];
+      conv2_lb_load_row_pipe_q[0] <= '0;
+      conv2_lb_load_chan_pipe_q[1] <= conv2_lb_load_chan_pipe_q[0];
+      conv2_lb_load_chan_pipe_q[0] <= '0;
+      conv2_lb_load_col_pipe_q[1] <= conv2_lb_load_col_pipe_q[0];
+      conv2_lb_load_col_pipe_q[0] <= '0;
 
       if (act_read_capture_w) begin
         act_lane_q[act_read_lane_pipe_q[1]] <= ub_rd_data_i;
 
         if (desc_layer_type_w == LAYER_CONV) begin
-          act_reuse_found_v = 1'b0;
-          act_reuse_slot_v = act_reuse_wr_ptr_next_v;
-          for (int idx = 0; idx < ACT_REUSE_DEPTH; idx++) begin
-            if (!act_reuse_found_v
-                && act_reuse_valid_q[idx]
-                && (act_reuse_addr_q[idx] == act_read_addr_pipe_q[1])) begin
-              act_reuse_found_v = 1'b1;
-              act_reuse_slot_v = ACT_REUSE_PTR_WIDTH'(idx);
-            end
-          end
-
-          act_reuse_valid_q[act_reuse_slot_v] <= 1'b1;
-          act_reuse_addr_q[act_reuse_slot_v] <= act_read_addr_pipe_q[1];
-          act_reuse_data_q[act_reuse_slot_v] <= ub_rd_data_i;
-          if (!act_reuse_found_v) begin
-            act_reuse_wr_ptr_next_v = next_act_reuse_ptr(act_reuse_wr_ptr_next_v);
+          if ((act_read_addr_pipe_q[1] >= activation_base_addr_q)
+              && ((act_read_addr_pipe_q[1] - activation_base_addr_q) < ACT_REUSE_DEPTH)) begin
+            logic [ACT_REUSE_IDX_WIDTH-1:0] act_reuse_write_idx_w;
+            act_reuse_write_idx_w =
+                ACT_REUSE_IDX_WIDTH'(act_read_addr_pipe_q[1] - activation_base_addr_q);
+            act_reuse_entry_epoch_q[act_reuse_write_idx_w] <= act_reuse_epoch_q;
+            act_reuse_data_q[act_reuse_write_idx_w] <= ub_rd_data_i;
           end
         end
       end
@@ -1265,23 +1548,14 @@ module controller_kloop #(
               act_reuse_write_addr_w =
                   act_read_packed_base_addr_pipe_q[1]
                   + UB_ADDR_WIDTH'(lane - int'(act_read_packed_start_lane_pipe_q[1]));
-              act_reuse_found_v = 1'b0;
-              act_reuse_slot_v = act_reuse_wr_ptr_next_v;
-              for (int idx = 0; idx < ACT_REUSE_DEPTH; idx++) begin
-                if (!act_reuse_found_v
-                    && act_reuse_valid_q[idx]
-                    && (act_reuse_addr_q[idx] == act_reuse_write_addr_w)) begin
-                  act_reuse_found_v = 1'b1;
-                  act_reuse_slot_v = ACT_REUSE_PTR_WIDTH'(idx);
-                end
-              end
-
-              act_reuse_valid_q[act_reuse_slot_v] <= 1'b1;
-              act_reuse_addr_q[act_reuse_slot_v] <= act_reuse_write_addr_w;
-              act_reuse_data_q[act_reuse_slot_v] <=
-                  ub_rd_packed_data_i[((lane - int'(act_read_packed_start_lane_pipe_q[1]))*DATA_WIDTH)+:DATA_WIDTH];
-              if (!act_reuse_found_v) begin
-                act_reuse_wr_ptr_next_v = next_act_reuse_ptr(act_reuse_wr_ptr_next_v);
+              if ((act_reuse_write_addr_w >= activation_base_addr_q)
+                  && ((act_reuse_write_addr_w - activation_base_addr_q) < ACT_REUSE_DEPTH)) begin
+                logic [ACT_REUSE_IDX_WIDTH-1:0] act_reuse_write_idx_w;
+                act_reuse_write_idx_w =
+                    ACT_REUSE_IDX_WIDTH'(act_reuse_write_addr_w - activation_base_addr_q);
+                act_reuse_entry_epoch_q[act_reuse_write_idx_w] <= act_reuse_epoch_q;
+                act_reuse_data_q[act_reuse_write_idx_w] <=
+                    ub_rd_packed_data_i[((lane - int'(act_read_packed_start_lane_pipe_q[1]))*DATA_WIDTH)+:DATA_WIDTH];
               end
             end
           end
@@ -1295,22 +1569,13 @@ module controller_kloop #(
             prefetch_counts_q[PREFETCH_LANE_CAPTURE_IDX] + 32'd1;
 
         if (desc_layer_type_w == LAYER_CONV) begin
-          act_reuse_found_v = 1'b0;
-          act_reuse_slot_v = act_reuse_wr_ptr_next_v;
-          for (int idx = 0; idx < ACT_REUSE_DEPTH; idx++) begin
-            if (!act_reuse_found_v
-                && act_reuse_valid_q[idx]
-                && (act_reuse_addr_q[idx] == act_prefetch_addr_pipe_q[1])) begin
-              act_reuse_found_v = 1'b1;
-              act_reuse_slot_v = ACT_REUSE_PTR_WIDTH'(idx);
-            end
-          end
-
-          act_reuse_valid_q[act_reuse_slot_v] <= 1'b1;
-          act_reuse_addr_q[act_reuse_slot_v] <= act_prefetch_addr_pipe_q[1];
-          act_reuse_data_q[act_reuse_slot_v] <= ub_rd_data_i;
-          if (!act_reuse_found_v) begin
-            act_reuse_wr_ptr_next_v = next_act_reuse_ptr(act_reuse_wr_ptr_next_v);
+          if ((act_prefetch_addr_pipe_q[1] >= activation_base_addr_q)
+              && ((act_prefetch_addr_pipe_q[1] - activation_base_addr_q) < ACT_REUSE_DEPTH)) begin
+            logic [ACT_REUSE_IDX_WIDTH-1:0] act_reuse_write_idx_w;
+            act_reuse_write_idx_w =
+                ACT_REUSE_IDX_WIDTH'(act_prefetch_addr_pipe_q[1] - activation_base_addr_q);
+            act_reuse_entry_epoch_q[act_reuse_write_idx_w] <= act_reuse_epoch_q;
+            act_reuse_data_q[act_reuse_write_idx_w] <= ub_rd_data_i;
           end
         end
       end
@@ -1329,23 +1594,14 @@ module controller_kloop #(
               act_reuse_write_addr_w =
                   act_prefetch_packed_base_addr_pipe_q[1]
                   + UB_ADDR_WIDTH'(lane - int'(act_prefetch_packed_start_lane_pipe_q[1]));
-              act_reuse_found_v = 1'b0;
-              act_reuse_slot_v = act_reuse_wr_ptr_next_v;
-              for (int idx = 0; idx < ACT_REUSE_DEPTH; idx++) begin
-                if (!act_reuse_found_v
-                    && act_reuse_valid_q[idx]
-                    && (act_reuse_addr_q[idx] == act_reuse_write_addr_w)) begin
-                  act_reuse_found_v = 1'b1;
-                  act_reuse_slot_v = ACT_REUSE_PTR_WIDTH'(idx);
-                end
-              end
-
-              act_reuse_valid_q[act_reuse_slot_v] <= 1'b1;
-              act_reuse_addr_q[act_reuse_slot_v] <= act_reuse_write_addr_w;
-              act_reuse_data_q[act_reuse_slot_v] <=
-                  ub_rd_packed_data_i[((lane - int'(act_prefetch_packed_start_lane_pipe_q[1]))*DATA_WIDTH)+:DATA_WIDTH];
-              if (!act_reuse_found_v) begin
-                act_reuse_wr_ptr_next_v = next_act_reuse_ptr(act_reuse_wr_ptr_next_v);
+              if ((act_reuse_write_addr_w >= activation_base_addr_q)
+                  && ((act_reuse_write_addr_w - activation_base_addr_q) < ACT_REUSE_DEPTH)) begin
+                logic [ACT_REUSE_IDX_WIDTH-1:0] act_reuse_write_idx_w;
+                act_reuse_write_idx_w =
+                    ACT_REUSE_IDX_WIDTH'(act_reuse_write_addr_w - activation_base_addr_q);
+                act_reuse_entry_epoch_q[act_reuse_write_idx_w] <= act_reuse_epoch_q;
+                act_reuse_data_q[act_reuse_write_idx_w] <=
+                    ub_rd_packed_data_i[((lane - int'(act_prefetch_packed_start_lane_pipe_q[1]))*DATA_WIDTH)+:DATA_WIDTH];
               end
             end
           end
@@ -1355,7 +1611,97 @@ module controller_kloop #(
             + count_lane_mask(act_prefetch_packed_mask_pipe_q[1]);
       end
 
-      act_reuse_wr_ptr_q <= act_reuse_wr_ptr_next_v;
+      if (conv2_lb_load_capture_scalar_w) begin
+        logic [1:0] slot_w;
+        logic [15:0] row_w;
+        logic [15:0] chan_w;
+        logic [15:0] col_w;
+        logic [ACT_REUSE_IDX_WIDTH-1:0] act_reuse_write_idx_w;
+
+        slot_w = conv2_lb_load_slot_pipe_q[1];
+        row_w = conv2_lb_load_row_pipe_q[1];
+        chan_w = conv2_lb_load_chan_pipe_q[1];
+        col_w = conv2_lb_load_col_pipe_q[1];
+
+        conv2_lb_data_q[slot_w][chan_w][col_w] <= ub_rd_data_i;
+
+        if (((mul169_addr(chan_w) + mul13_addr(row_w) + ADDR_CALC_WIDTH'(col_w)))
+            < ADDR_CALC_WIDTH'(ACT_REUSE_DEPTH)) begin
+          act_reuse_write_idx_w =
+              ACT_REUSE_IDX_WIDTH'(mul169_addr(chan_w) + mul13_addr(row_w)
+                                   + ADDR_CALC_WIDTH'(col_w));
+          act_reuse_entry_epoch_q[act_reuse_write_idx_w] <= act_reuse_epoch_q;
+          act_reuse_data_q[act_reuse_write_idx_w] <= ub_rd_data_i;
+        end
+
+        if (chan_w == 16'd7) begin
+          if (conv2_lb_load_full_q) begin
+            if (conv2_lb_load_row_offset_q == 2'd2) begin
+              conv2_lb_valid_q <= 1'b1;
+              conv2_lb_anchor_row_q <= conv2_lb_target_anchor_q;
+              conv2_lb_slot_base_q <= 2'd0;
+              conv2_lb_activation_base_q <= activation_base_addr_q;
+              conv2_lb_read_bank_q <= inner_read_bank_w;
+              conv2_lb_load_active_q <= 1'b0;
+            end else begin
+              conv2_lb_load_row_offset_q <= conv2_lb_load_row_offset_q + 2'd1;
+              conv2_lb_load_row_q <= conv2_lb_target_anchor_q
+                                   + 16'(conv2_lb_load_row_offset_q + 2'd1);
+              conv2_lb_load_chan_q <= '0;
+              conv2_lb_load_col_q <= '0;
+            end
+          end else begin
+            conv2_lb_valid_q <= 1'b1;
+            conv2_lb_anchor_row_q <= conv2_lb_curr_oh_w;
+            conv2_lb_slot_base_q <= conv2_lb_next_slot_base_w;
+            conv2_lb_activation_base_q <= activation_base_addr_q;
+            conv2_lb_read_bank_q <= inner_read_bank_w;
+            conv2_lb_load_active_q <= 1'b0;
+          end
+        end else begin
+          conv2_lb_load_chan_q <= conv2_lb_load_chan_q + 16'd1;
+          conv2_lb_load_col_q <= '0;
+        end
+      end
+
+      if (conv2_lb_load_capture_packed_w) begin
+        logic [1:0] slot_w;
+        logic [15:0] row_w;
+        logic [15:0] chan_w;
+        logic [15:0] col_w;
+
+        slot_w = conv2_lb_load_slot_pipe_q[1];
+        row_w = conv2_lb_load_row_pipe_q[1];
+        chan_w = conv2_lb_load_chan_pipe_q[1];
+        col_w = conv2_lb_load_col_pipe_q[1];
+
+        for (int byte_idx = 0; byte_idx < SIZE; byte_idx++) begin
+          logic [15:0] write_col_w;
+          logic [ACT_REUSE_IDX_WIDTH-1:0] act_reuse_write_idx_w;
+          logic signed [DATA_WIDTH-1:0] data_w;
+
+          write_col_w = col_w + 16'(byte_idx);
+          if (write_col_w < 16'(CONV2_LINEBUF_WIDTH)) begin
+            data_w = ub_rd_packed_data_i[(byte_idx*DATA_WIDTH)+:DATA_WIDTH];
+            conv2_lb_data_q[slot_w][chan_w][write_col_w] <= data_w;
+
+            if ((mul169_addr(chan_w) + mul13_addr(row_w) + ADDR_CALC_WIDTH'(write_col_w))
+                < ADDR_CALC_WIDTH'(ACT_REUSE_DEPTH)) begin
+              act_reuse_write_idx_w =
+                  ACT_REUSE_IDX_WIDTH'(mul169_addr(chan_w) + mul13_addr(row_w)
+                                       + ADDR_CALC_WIDTH'(write_col_w));
+              act_reuse_entry_epoch_q[act_reuse_write_idx_w] <= act_reuse_epoch_q;
+              act_reuse_data_q[act_reuse_write_idx_w] <= data_w;
+            end
+          end
+        end
+
+        if (col_w == 16'd8) begin
+          conv2_lb_load_col_q <= 16'd12;
+        end else begin
+          conv2_lb_load_col_q <= col_w + 16'd4;
+        end
+      end
 
       if ((state_q == S_DRAIN_MXU) && drain_payload_active_w) begin
         drain_prefetch_cycle_q <= drain_prefetch_cycle_q + 16'd1;
@@ -1474,9 +1820,18 @@ module controller_kloop #(
               act_prefetch_packed_valid_pipe_q <= '0;
               act_prefetch_lane_done_q <= '0;
               act_prefetch_entry_valid_q <= '0;
+              conv2_lb_load_active_q <= 1'b0;
+              conv2_lb_load_valid_pipe_q <= '0;
+              conv2_lb_load_is_packed_pipe_q <= '0;
               drain_prefetch_cycle_q <= '0;
-              act_reuse_valid_q <= '0;
-              act_reuse_wr_ptr_q <= '0;
+              if (act_reuse_clear_i) begin
+                act_reuse_epoch_q <= act_reuse_epoch_q + ACT_REUSE_EPOCH_WIDTH'(1);
+                conv2_lb_valid_q <= 1'b0;
+              end
+              if (act_vector_cache_clear_i) begin
+                act_vector_cache_epoch_q <=
+                    act_vector_cache_epoch_q + ACT_VECTOR_CACHE_EPOCH_WIDTH'(1);
+              end
               vpu_next_valid_q <= 1'b0;
               vpu_prefetch_pending_q <= 1'b0;
               vpu_prefetch_done_q <= 1'b0;
@@ -1533,8 +1888,17 @@ module controller_kloop #(
               act_prefetch_packed_valid_pipe_q <= '0;
               act_prefetch_lane_done_q <= '0;
               act_prefetch_entry_valid_q <= '0;
-              act_reuse_valid_q <= '0;
-              act_reuse_wr_ptr_q <= '0;
+              conv2_lb_load_active_q <= 1'b0;
+              conv2_lb_load_valid_pipe_q <= '0;
+              conv2_lb_load_is_packed_pipe_q <= '0;
+              if (act_reuse_clear_i) begin
+                act_reuse_epoch_q <= act_reuse_epoch_q + ACT_REUSE_EPOCH_WIDTH'(1);
+                conv2_lb_valid_q <= 1'b0;
+              end
+              if (act_vector_cache_clear_i) begin
+                act_vector_cache_epoch_q <=
+                    act_vector_cache_epoch_q + ACT_VECTOR_CACHE_EPOCH_WIDTH'(1);
+              end
               vpu_next_valid_q <= 1'b0;
               vpu_prefetch_pending_q <= 1'b0;
               vpu_prefetch_done_q <= 1'b0;
@@ -1622,13 +1986,27 @@ module controller_kloop #(
               act_read_packed_mask_pipe_q[1] <= '0;
               act_read_packed_base_addr_pipe_q[0] <= '0;
               act_read_packed_base_addr_pipe_q[1] <= '0;
-              if (act_prefetch_match_w) begin
+              if (act_vector_cache_hit_w) begin
+                for (int lane = 0; lane < SIZE; lane++) begin
+                  act_lane_q[lane] <=
+                      act_vector_cache_hit_data_w[(lane*DATA_WIDTH)+:DATA_WIDTH];
+                end
+                act_fetch_lane_q <= 16'(SIZE);
+                state_q <= S_READ_ACT_WAIT;
+              end else if (act_prefetch_match_w) begin
                 for (int lane = 0; lane < SIZE; lane++) begin
                   act_lane_q[lane] <= act_prefetch_match_data_w[(lane*DATA_WIDTH)+:DATA_WIDTH];
                 end
+                act_fetch_lane_q <= 16'(SIZE);
                 act_prefetch_entry_valid_q[act_prefetch_match_slot_w] <= 1'b0;
                 prefetch_counts_q[PREFETCH_HITS_IDX] <=
                     prefetch_counts_q[PREFETCH_HITS_IDX] + 32'd1;
+                state_q <= S_READ_ACT_WAIT;
+              end else if (conv2_lb_vector_hit_w) begin
+                for (int lane = 0; lane < SIZE; lane++) begin
+                  act_lane_q[lane] <= conv2_lb_vector_data_w[(lane*DATA_WIDTH)+:DATA_WIDTH];
+                end
+                act_fetch_lane_q <= 16'(SIZE);
                 state_q <= S_READ_ACT_WAIT;
               end else begin
                 state_q <= S_READ_ACT_REQ;
@@ -1650,14 +2028,72 @@ module controller_kloop #(
                   prefetch_counts_q[PREFETCH_STALL_NO_CANDIDATE_IDX] + 32'd1;
             end
 
-            if (act_prefetch_match_w && (act_fetch_lane_q == '0)) begin
+            if (act_vector_cache_hit_w && (act_fetch_lane_q == '0)) begin
+              for (int lane = 0; lane < SIZE; lane++) begin
+                act_lane_q[lane] <= act_vector_cache_hit_data_w[(lane*DATA_WIDTH)+:DATA_WIDTH];
+              end
+              act_fetch_lane_q <= 16'(SIZE);
+              state_q <= S_READ_ACT_WAIT;
+            end else if (act_prefetch_match_w && (act_fetch_lane_q == '0)) begin
               for (int lane = 0; lane < SIZE; lane++) begin
                 act_lane_q[lane] <= act_prefetch_match_data_w[(lane*DATA_WIDTH)+:DATA_WIDTH];
               end
+              act_fetch_lane_q <= 16'(SIZE);
               act_prefetch_entry_valid_q[act_prefetch_match_slot_w] <= 1'b0;
               prefetch_counts_q[PREFETCH_HITS_IDX] <=
                   prefetch_counts_q[PREFETCH_HITS_IDX] + 32'd1;
               state_q <= S_READ_ACT_WAIT;
+            end else if (conv2_lb_vector_hit_w) begin
+              for (int lane = 0; lane < SIZE; lane++) begin
+                act_lane_q[lane] <= conv2_lb_vector_data_w[(lane*DATA_WIDTH)+:DATA_WIDTH];
+              end
+              act_fetch_lane_q <= 16'(SIZE);
+              state_q <= S_READ_ACT_WAIT;
+            end else if (conv2_lb_need_service_w) begin
+              if (conv2_lb_start_full_w) begin
+                conv2_lb_valid_q <= 1'b0;
+                conv2_lb_load_active_q <= 1'b1;
+                conv2_lb_load_full_q <= 1'b1;
+                conv2_lb_target_anchor_q <= conv2_lb_curr_oh_w;
+                conv2_lb_load_row_offset_q <= '0;
+                conv2_lb_load_slot_q <= '0;
+                conv2_lb_load_row_q <= conv2_lb_curr_oh_w;
+                conv2_lb_load_chan_q <= '0;
+                conv2_lb_load_col_q <= '0;
+              end else if (conv2_lb_start_advance_w) begin
+                conv2_lb_valid_q <= 1'b0;
+                conv2_lb_load_active_q <= 1'b1;
+                conv2_lb_load_full_q <= 1'b0;
+                conv2_lb_target_anchor_q <= conv2_lb_curr_oh_w;
+                conv2_lb_load_row_offset_q <= '0;
+                conv2_lb_load_slot_q <= conv2_lb_slot_base_q;
+                conv2_lb_load_row_q <= conv2_lb_curr_oh_w + 16'd2;
+                conv2_lb_load_chan_q <= '0;
+                conv2_lb_load_col_q <= '0;
+              end else if (conv2_lb_load_addr_error_w) begin
+                state_q <= S_ERROR;
+                error_o <= 1'b1;
+                dbg_error_code_o <= ERR_INPUT_ADDR;
+              end else if (conv2_lb_load_issue_w) begin
+                if (conv2_lb_issue_packed_w) begin
+                  ub_rd_packed_en_o <= 1'b1;
+                  ub_rd_packed_bank_o <= inner_read_bank_w;
+                  ub_rd_packed_addr_o <= UB_ADDR_WIDTH'(conv2_lb_load_addr_w);
+                end else begin
+                  ub_rd_en_o <= 1'b1;
+                  ub_rd_bank_o <= inner_read_bank_w;
+                  ub_rd_addr_o <= UB_ADDR_WIDTH'(conv2_lb_load_addr_w);
+                end
+                conv2_lb_load_valid_pipe_q[0] <= 1'b1;
+                conv2_lb_load_is_packed_pipe_q[0] <= conv2_lb_issue_packed_w;
+                conv2_lb_load_slot_pipe_q[0] <= conv2_lb_load_target_slot_w;
+                conv2_lb_load_row_pipe_q[0] <= conv2_lb_load_row_q;
+                conv2_lb_load_chan_pipe_q[0] <= conv2_lb_load_chan_q;
+                conv2_lb_load_col_pipe_q[0] <= conv2_lb_load_col_q;
+                state_q <= S_READ_ACT_WAIT;
+              end else begin
+                state_q <= S_READ_ACT_WAIT;
+              end
             end else if (act_fetch_lane_q >= 16'(SIZE)) begin
               state_q <= S_READ_ACT_WAIT;
             end else begin
@@ -1692,10 +2128,27 @@ module controller_kloop #(
               if (act_reuse_prefix_valid_w
                   && (!act_packed_prefix_valid_w
                       || (act_reuse_next_lane_w >= 16'(SIZE)))) begin
+                if (act_reuse_cache_hit_w) begin
+                  prefetch_counts_q[ACT_REUSE_HITS_IDX] <=
+                      prefetch_counts_q[ACT_REUSE_HITS_IDX] + 32'd1;
+                  prefetch_counts_q[ACT_REUSE_BYTES_SERVED_IDX] <=
+                      prefetch_counts_q[ACT_REUSE_BYTES_SERVED_IDX]
+                      + count_lane_mask(act_reuse_hit_prefix_mask_w);
+                  if (act_reuse_next_lane_w >= 16'(SIZE)) begin
+                    prefetch_counts_q[ACT_REUSE_FULL_VECTORS_IDX] <=
+                        prefetch_counts_q[ACT_REUSE_FULL_VECTORS_IDX] + 32'd1;
+                  end else begin
+                    prefetch_counts_q[ACT_REUSE_PARTIAL_VECTORS_IDX] <=
+                        prefetch_counts_q[ACT_REUSE_PARTIAL_VECTORS_IDX] + 32'd1;
+                  end
+                end
+
                 for (int lane = 0; lane < SIZE; lane++) begin
                   if (act_reuse_prefix_mask_w[lane]) begin
                     if (act_zero_w[lane]) begin
                       act_lane_q[lane] <= '0;
+                    end else if (act_shift_lane_hit_w[lane]) begin
+                      act_lane_q[lane] <= act_shift_lane_data_w[lane];
                     end else begin
                       act_lane_q[lane] <= act_reuse_lane_data_w[lane];
                     end
@@ -1754,6 +2207,11 @@ module controller_kloop #(
 
           S_READ_ACT_WAIT: begin
             if (act_read_pipeline_empty_w) begin
+              if (conv2_lb_need_service_w) begin
+                if (conv2_lb_load_pipe_empty_w) begin
+                  state_q <= S_READ_ACT_REQ;
+                end
+              end else begin
               if (act_prefetch_early_service_w) begin
                 if (act_prefetch_can_start_next_w) begin
                   prefetch_k_tile_q <= k_tile_q + 16'd1;
@@ -1912,6 +2370,11 @@ module controller_kloop #(
               end
 
               if (!act_prefetch_addr_error_w) begin
+                if (desc_layer_type_w == LAYER_CONV) begin
+                  act_vector_cache_entry_epoch_q[act_vector_cache_idx_w] <=
+                      act_vector_cache_epoch_q;
+                  act_vector_cache_data_q[act_vector_cache_idx_w] <= act_flatten_launch_w;
+                end
                 act_flat_raw_o <= act_flatten_launch_w;
                 act_valid_raw_o <= {SIZE{1'b1}};
                 work_o <= 1'b1;
@@ -1969,10 +2432,16 @@ module controller_kloop #(
                   state_q <= S_READ_ACT_REQ;
                 end
               end
+              end
             end
           end
 
           S_LAUNCH_ACT: begin
+            if (desc_layer_type_w == LAYER_CONV) begin
+              act_vector_cache_entry_epoch_q[act_vector_cache_idx_w] <=
+                  act_vector_cache_epoch_q;
+              act_vector_cache_data_q[act_vector_cache_idx_w] <= act_flatten_launch_w;
+            end
             act_flat_raw_o <= act_flatten_launch_w;
             act_valid_raw_o <= {SIZE{1'b1}};
             work_o <= 1'b1;

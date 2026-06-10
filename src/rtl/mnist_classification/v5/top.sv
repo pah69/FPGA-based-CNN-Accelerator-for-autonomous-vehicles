@@ -19,7 +19,7 @@ module top #(
     parameter int MAC_COUNT_WIDTH     = (SIZE*SIZE > 1) ? $clog2((SIZE*SIZE) + 1) : 1,
     parameter int WGT_FIFO_DEPTH      = 16,
     parameter int DBG_STATE_COUNT     = 17,
-    parameter int DBG_PREFETCH_COUNT  = 33,
+    parameter int DBG_PREFETCH_COUNT  = 37,
     parameter int BANK_DEPTH          = 8192,
     parameter int UB_ADDR_WIDTH       = (BANK_DEPTH > 1) ? $clog2(BANK_DEPTH) : 1
 ) (

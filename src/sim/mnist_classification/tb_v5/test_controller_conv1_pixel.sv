@@ -178,6 +178,7 @@ module test_controller_conv1_pixel;
       .clk                             (clk),
       .rst_n                           (rst_n),
       .start_i                         (start_i),
+      .act_reuse_clear_i               (1'b1),
       .done_o                          (controller_done_o),
       .busy_o                          (controller_busy_o),
       .error_o                         (controller_error_o),

@@ -27,7 +27,7 @@ module test_tpu_top_end_to_end;
   localparam int CLK_PERIOD = 10;
   localparam int TIMEOUT_CYCLES = 1200000;
   localparam int KLOOP_STATE_COUNT = 17;
-  localparam int PREFETCH_COUNTER_COUNT = 33;
+  localparam int PREFETCH_COUNTER_COUNT = 37;
   localparam bit DEFAULT_PRINT_EXPECTED_LOGITS = 1'b0;
   localparam bit DEFAULT_PRINT_RESULT_LOGITS = 1'b0;
   localparam bit DEFAULT_PRINT_STAGE_TRANSITIONS = 1'b0;
@@ -87,6 +87,10 @@ module test_tpu_top_end_to_end;
   localparam int PREFETCH_ISSUE_CYCLES = 30;
   localparam int PREFETCH_BUBBLE_CYCLES = 31;
   localparam int PREFETCH_BUSY_CYCLES = 32;
+  localparam int ACT_REUSE_HITS = 33;
+  localparam int ACT_REUSE_BYTES_SERVED = 34;
+  localparam int ACT_REUSE_FULL_VECTORS = 35;
+  localparam int ACT_REUSE_PARTIAL_VECTORS = 36;
 
   localparam int INPUT_COUNT = 784;
   localparam int LOGIT_COUNT = 10;
@@ -628,6 +632,10 @@ module test_tpu_top_end_to_end;
     logic [31:0] issue_cycles;
     logic [31:0] bubble_cycles;
     logic [31:0] busy_cycles;
+    logic [31:0] reuse_hits;
+    logic [31:0] reuse_bytes_served;
+    logic [31:0] reuse_full_vectors;
+    logic [31:0] reuse_partial_vectors;
     logic [31:0] demand_count;
     real hit_rate;
     real avg_occupancy;
@@ -667,6 +675,10 @@ module test_tpu_top_end_to_end;
     issue_cycles = prefetch_count(counts, PREFETCH_ISSUE_CYCLES);
     bubble_cycles = prefetch_count(counts, PREFETCH_BUBBLE_CYCLES);
     busy_cycles = prefetch_count(counts, PREFETCH_BUSY_CYCLES);
+    reuse_hits = prefetch_count(counts, ACT_REUSE_HITS);
+    reuse_bytes_served = prefetch_count(counts, ACT_REUSE_BYTES_SERVED);
+    reuse_full_vectors = prefetch_count(counts, ACT_REUSE_FULL_VECTORS);
+    reuse_partial_vectors = prefetch_count(counts, ACT_REUSE_PARTIAL_VECTORS);
     demand_count = hits + misses;
     hit_rate = 0.0;
     avg_occupancy = 0.0;
@@ -703,6 +715,9 @@ module test_tpu_top_end_to_end;
              layer_name, vector_start_count, vector_push_count, lane_req_count,
              lane_capture_count, issue_cycles, bubble_cycles, busy_cycles,
              cycles_per_vector, issue_efficiency);
+    $display("  REUSE    %s: hits=%0d bytes=%0d full_vec=%0d partial_vec=%0d",
+             layer_name, reuse_hits, reuse_bytes_served, reuse_full_vectors,
+             reuse_partial_vectors);
   endtask
 
   task automatic print_kloop_state_counters(
