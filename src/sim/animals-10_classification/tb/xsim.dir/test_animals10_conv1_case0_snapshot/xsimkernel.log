@@ -1,4 +1,4 @@
-Running: xsim.dir/test_animals10_conv1_case0_snapshot/xsimk -runall -simmode gui -wdb test_animals10_conv1_case0_snapshot.wdb -simrunnum 0 -socket 50995
+Running: xsim.dir/test_animals10_conv1_case0_snapshot/xsimk -runall -simmode gui -wdb test_animals10_conv1_case0_snapshot.wdb -simrunnum 0 -socket 35457
 Design successfully loaded
 Design Loading Memory Usage: 207648 KB (Peak: 207648 KB)
 Design Loading CPU Usage: 650 ms

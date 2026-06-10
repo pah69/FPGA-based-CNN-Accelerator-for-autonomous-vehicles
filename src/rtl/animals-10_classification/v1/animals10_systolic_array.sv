@@ -15,6 +15,10 @@ module animals10_systolic_array #(
 
     input logic signed [(DATA_WIDTH*SIZE)-1:0] weight_flatten_i,
     input logic [SIZE-1:0] weight_load_i,
+    input logic weight_stream_enable_i,
+    input logic signed [(DATA_WIDTH*SIZE*SIZE)-1:0] weight_matrix_flatten_i,
+    input logic weight_matrix_load_i,
+    input logic weight_switch_i,
 
     input logic signed [(DATA_WIDTH*SIZE)-1:0] act_flatten_i,
     input logic [SIZE-1:0] act_valid_i,
@@ -58,6 +62,9 @@ module animals10_systolic_array #(
         logic pe_weight_load_i_w;
         logic signed [PSUM_WIDTH-1:0] pe_psum_i_w;
         logic pe_psum_valid_i_w;
+        logic signed [DATA_WIDTH-1:0] pe_matrix_weight_w;
+
+        assign pe_matrix_weight_w = weight_matrix_flatten_i[((row*SIZE + col)*DATA_WIDTH)+:DATA_WIDTH];
 
         if (col == 0) begin : GEN_LEFT_EDGE
           assign pe_act_i_w = act_row_w[row];
@@ -67,12 +74,17 @@ module animals10_systolic_array #(
           assign pe_act_valid_i_w = act_valid_fwd_w[row][col-1];
         end
 
-        if (row == 0) begin : GEN_TOP_EDGE_WEIGHT
-          assign pe_weight_i_w = weight_col_w[col];
-          assign pe_weight_load_i_w = weight_load_i[col];
-        end else begin : GEN_WEIGHT_FROM_ABOVE
-          assign pe_weight_i_w = weight_fwd_w[row-1][col];
-          assign pe_weight_load_i_w = weight_valid_fwd_w[row-1][col];
+        always_comb begin
+          if (weight_matrix_load_i) begin
+            pe_weight_i_w = pe_matrix_weight_w;
+            pe_weight_load_i_w = 1'b1;
+          end else if (row == 0) begin
+            pe_weight_i_w = weight_col_w[col];
+            pe_weight_load_i_w = weight_stream_enable_i && weight_load_i[col];
+          end else begin
+            pe_weight_i_w = weight_fwd_w[row-1][col];
+            pe_weight_load_i_w = weight_stream_enable_i && weight_valid_fwd_w[row-1][col];
+          end
         end
 
         if (row == 0) begin : GEN_TOP_EDGE_PSUM
@@ -99,6 +111,7 @@ module animals10_systolic_array #(
             .psum_valid_o(psum_valid_fwd_w[row][col]),
             .weight_i(pe_weight_i_w),
             .weight_load_i(pe_weight_load_i_w),
+            .weight_switch_i(weight_switch_i),
             .weight_o(weight_fwd_w[row][col]),
             .weight_valid_o(weight_valid_fwd_w[row][col])
         );
@@ -126,4 +139,3 @@ module animals10_systolic_array #(
   end
 
 endmodule : animals10_systolic_array
-

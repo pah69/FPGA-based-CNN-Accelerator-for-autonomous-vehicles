@@ -1,0 +1,38 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Wed Jun 10 10:37:54 2026
+# Process ID         : 2499479
+# Current directory  : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/animals-10_classification/tb
+# Command line       : xsim -mode tcl -source {xsim.dir/test_animals10_full_network_10cases_snapshot/xsim_script.tcl}
+# Log file           : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/animals-10_classification/tb/xsim.log
+# Journal file       : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/animals-10_classification/tb/xsim.jou
+# Running On         : pah-PC
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 24.04.4 LTS
+# Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
+# CPU Frequency      : 4840.989 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 32887 MB
+# Swap memory        : 25033 MB
+# Total Virtual      : 57921 MB
+# Available Virtual  : 45795 MB
+#-----------------------------------------------------------
+source xsim.dir/test_animals10_full_network_10cases_snapshot/xsim_script.tcl
+# xsim {test_animals10_full_network_10cases_snapshot} -testplusarg MAX_CASES=1 -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+Animals-10 full-network balanced DUT bench
+  export_dir=../../../../CNN_model/python/animals-10_classification/custom_cnn/int8_export
+  cases_to_run=1
+ANIMALS10_FULL_NETWORK_CASE case=0 label=0 prediction=0 outputs=10 out_mismatches_so_far=0 total_cycles=78192945
+ANIMALS10_FULL_NETWORK_BALANCED cases=1 outputs_seen=10 out_mismatches=0 duplicates=0
+PASS: Animals-10 balanced full-network DUT matches Python INT8 logits
+$finish called at time : 788271466 ns : File "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/animals-10_classification/tb/test_animals10_full_network_10cases.sv" Line 442
+run: Time (s): cpu = 00:00:00.79 ; elapsed = 00:07:59 . Memory (MB): peak = 1450.883 ; gain = 0.000 ; free physical = 5283 ; free virtual = 43938
+exit
+INFO: xsimkernel Simulation Memory Usage: 303008 KB (Peak: 347468 KB), Simulation CPU Usage: 479370 ms
+INFO: [Common 17-206] Exiting xsim at Wed Jun 10 10:45:55 2026...

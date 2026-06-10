@@ -7,6 +7,7 @@
 //   - signed INT32 partial sum
 //   - DSP-backed multiplier when synthesis honors use_dsp
 //   - one registered MAC stage, with activation/weight forwarding
+//   - shadow/active stationary weights for safe tile preloading
 module animals10_pe #(
     parameter int DATA_WIDTH = 8,
     parameter int PSUM_WIDTH = 32
@@ -26,18 +27,20 @@ module animals10_pe #(
 
     input logic signed [DATA_WIDTH-1:0] weight_i,
     input logic weight_load_i,
+    input logic weight_switch_i,
     output logic signed [DATA_WIDTH-1:0] weight_o,
     output logic weight_valid_o
 );
 
   localparam int PRODUCT_WIDTH = 2 * DATA_WIDTH;
 
-  logic signed [DATA_WIDTH-1:0] weight_q;
+  logic signed [DATA_WIDTH-1:0] weight_active_q;
+  logic signed [DATA_WIDTH-1:0] weight_shadow_q;
   (* use_dsp = "yes" *) logic signed [PRODUCT_WIDTH-1:0] product_w;
   logic signed [PSUM_WIDTH-1:0] product_ext_w;
   logic mac_valid_w;
 
-  assign product_w = act_i * weight_q;
+  assign product_w = act_i * weight_active_q;
   assign product_ext_w = {
     {(PSUM_WIDTH - PRODUCT_WIDTH) {product_w[PRODUCT_WIDTH-1]}}, product_w
   };
@@ -45,7 +48,8 @@ module animals10_pe #(
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      weight_q <= '0;
+      weight_active_q <= '0;
+      weight_shadow_q <= '0;
       weight_o <= '0;
       weight_valid_o <= 1'b0;
       act_o <= '0;
@@ -54,7 +58,10 @@ module animals10_pe #(
       psum_valid_o <= 1'b0;
     end else begin
       if (weight_load_i) begin
-        weight_q <= weight_i;
+        weight_shadow_q <= weight_i;
+      end
+      if (weight_switch_i) begin
+        weight_active_q <= weight_shadow_q;
       end
 
       weight_o <= weight_i;
@@ -69,4 +76,3 @@ module animals10_pe #(
   end
 
 endmodule : animals10_pe
-

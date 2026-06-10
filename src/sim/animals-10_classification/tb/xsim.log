@@ -3,34 +3,45 @@
 # SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Tue Jun  9 20:19:38 2026
-# Process ID         : 1768670
+# Start of session at: Wed Jun 10 10:41:32 2026
+# Process ID         : 2535917
 # Current directory  : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/animals-10_classification/tb
-# Command line       : xsim -mode tcl -source {xsim.dir/test_animals10_conv1_dut_case0_snapshot/xsim_script.tcl}
+# Command line       : xsim -mode tcl -source {xsim.dir/test_animals10_full_network_10cases_snapshot/xsim_script.tcl}
 # Log file           : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/animals-10_classification/tb/xsim.log
 # Journal file       : /home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/animals-10_classification/tb/xsim.jou
 # Running On         : pah-PC
 # Platform           : Ubuntu
 # Operating System   : Ubuntu 24.04.4 LTS
 # Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
-# CPU Frequency      : 4756.732 MHz
+# CPU Frequency      : 4739.362 MHz
 # CPU Physical cores : 8
 # CPU Logical cores  : 16
 # Host memory        : 32887 MB
 # Swap memory        : 25033 MB
 # Total Virtual      : 57921 MB
-# Available Virtual  : 43426 MB
+# Available Virtual  : 45621 MB
 #-----------------------------------------------------------
-source xsim.dir/test_animals10_conv1_dut_case0_snapshot/xsim_script.tcl
-# xsim {test_animals10_conv1_dut_case0_snapshot} -autoloadwcfg -runall
+source xsim.dir/test_animals10_full_network_10cases_snapshot/xsim_script.tcl
+# xsim {test_animals10_full_network_10cases_snapshot} -autoloadwcfg -runall
 Time resolution is 1 ps
 run -all
-Animals-10 Conv1 DUT bench
+Animals-10 full-network balanced DUT bench
   export_dir=../../../../CNN_model/python/animals-10_classification/custom_cnn/int8_export
-WARNING: Too many words specified in data file ../../../../CNN_model/python/animals-10_classification/custom_cnn/int8_export/animals10_test_inputs_i8.hex
-ANIMALS10_CONV1_DUT outputs_seen=131072 acc_mismatches=0 out_mismatches=0
-PASS: Animals-10 Conv1 DUT matches Python INT8 golden output
-$finish called at time : 1574456 ns : File "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/animals-10_classification/tb/test_animals10_conv1_dut_case0.sv" Line 294
+  cases_to_run=10
+ANIMALS10_FULL_NETWORK_CASE case=0 label=0 prediction=0 outputs=10 out_mismatches_so_far=0 total_cycles=78192945
+ANIMALS10_FULL_NETWORK_CASE case=1 label=1 prediction=1 outputs=10 out_mismatches_so_far=0 total_cycles=78192945
+ANIMALS10_FULL_NETWORK_CASE case=2 label=2 prediction=2 outputs=10 out_mismatches_so_far=0 total_cycles=78192945
+ANIMALS10_FULL_NETWORK_CASE case=3 label=3 prediction=3 outputs=10 out_mismatches_so_far=0 total_cycles=78192945
+ANIMALS10_FULL_NETWORK_CASE case=4 label=4 prediction=3 outputs=10 out_mismatches_so_far=0 total_cycles=78192945
+ANIMALS10_FULL_NETWORK_CASE case=5 label=5 prediction=5 outputs=10 out_mismatches_so_far=0 total_cycles=78192945
+ANIMALS10_FULL_NETWORK_CASE case=6 label=6 prediction=6 outputs=10 out_mismatches_so_far=0 total_cycles=78192945
+ANIMALS10_FULL_NETWORK_CASE case=7 label=7 prediction=7 outputs=10 out_mismatches_so_far=0 total_cycles=78192945
+ANIMALS10_FULL_NETWORK_CASE case=8 label=8 prediction=3 outputs=10 out_mismatches_so_far=0 total_cycles=78192945
+ANIMALS10_FULL_NETWORK_CASE case=9 label=9 prediction=9 outputs=10 out_mismatches_so_far=0 total_cycles=78192945
+ANIMALS10_FULL_NETWORK_BALANCED cases=10 outputs_seen=100 out_mismatches=0 duplicates=0
+PASS: Animals-10 balanced full-network DUT matches Python INT8 logits
+$finish called at time : 7827848536 ns : File "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/animals-10_classification/tb/test_animals10_full_network_10cases.sv" Line 442
+run: Time (s): cpu = 00:00:06 ; elapsed = 01:18:41 . Memory (MB): peak = 1450.883 ; gain = 0.000 ; free physical = 4332 ; free virtual = 43356
 exit
-INFO: xsimkernel Simulation Memory Usage: 301024 KB (Peak: 345484 KB), Simulation CPU Usage: 1540 ms
-INFO: [Common 17-206] Exiting xsim at Tue Jun  9 20:19:41 2026...
+INFO: xsimkernel Simulation Memory Usage: 303008 KB (Peak: 347468 KB), Simulation CPU Usage: 4720010 ms
+INFO: [Common 17-206] Exiting xsim at Wed Jun 10 12:00:15 2026...

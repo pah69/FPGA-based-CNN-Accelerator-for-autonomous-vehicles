@@ -1,4 +1,42 @@
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_conv1_direct.sv" into library work
-INFO: [VRFC 10-311] analyzing module animals10_conv1_direct
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/animals-10_classification/tb/test_animals10_conv1_dut_case0.sv" into library work
-INFO: [VRFC 10-311] analyzing module test_animals10_conv1_dut_case0
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_pe.sv" into library work
+INFO: [VRFC 10-311] analyzing module animals10_pe
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_systolic_array_4x4.sv" into library work
+INFO: [VRFC 10-311] analyzing module animals10_systolic_array_4x4
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_conv1_systolic_4x4.sv" into library work
+INFO: [VRFC 10-311] analyzing module animals10_conv1_systolic_4x4
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_conv_systolic_4x4.sv" into library work
+INFO: [VRFC 10-311] analyzing module animals10_conv_systolic_4x4
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_conv2_systolic_4x4.sv" into library work
+INFO: [VRFC 10-311] analyzing module animals10_conv2_systolic_4x4
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_conv3_systolic_4x4.sv" into library work
+INFO: [VRFC 10-311] analyzing module animals10_conv3_systolic_4x4
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_conv4_systolic_4x4.sv" into library work
+INFO: [VRFC 10-311] analyzing module animals10_conv4_systolic_4x4
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_conv5_systolic_4x4.sv" into library work
+INFO: [VRFC 10-311] analyzing module animals10_conv5_systolic_4x4
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_conv6_systolic_4x4.sv" into library work
+INFO: [VRFC 10-311] analyzing module animals10_conv6_systolic_4x4
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_maxpool2x2_i8.sv" into library work
+INFO: [VRFC 10-311] analyzing module animals10_maxpool2x2_i8
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_conv1_conv2_pool1_systolic_4x4.sv" into library work
+INFO: [VRFC 10-311] analyzing module animals10_conv1_conv2_pool1_systolic_4x4
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_conv3_conv4_pool2_systolic_4x4.sv" into library work
+INFO: [VRFC 10-311] analyzing module animals10_conv3_conv4_pool2_systolic_4x4
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_conv5_conv6_pool3_systolic_4x4.sv" into library work
+INFO: [VRFC 10-311] analyzing module animals10_conv5_conv6_pool3_systolic_4x4
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_gap_i8.sv" into library work
+INFO: [VRFC 10-311] analyzing module animals10_gap_i8
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_dense_i8.sv" into library work
+INFO: [VRFC 10-311] analyzing module animals10_dense_i8
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_fc1_i8.sv" into library work
+INFO: [VRFC 10-311] analyzing module animals10_fc1_i8
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_fc2_i8.sv" into library work
+INFO: [VRFC 10-311] analyzing module animals10_fc2_i8
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_gap_fc1_fc2_i8.sv" into library work
+INFO: [VRFC 10-311] analyzing module animals10_gap_fc1_fc2_i8
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_conv5_conv6_pool3_gap_fc1_fc2_i8.sv" into library work
+INFO: [VRFC 10-311] analyzing module animals10_conv5_conv6_pool3_gap_fc1_fc2_i8
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/rtl/animals-10_classification/v1/animals10_full_network_i8.sv" into library work
+INFO: [VRFC 10-311] analyzing module animals10_full_network_i8
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/pah/fpga_cnn_accelerator/FPGA-based-CNN-Accelerator-for-autonomous-vehicles/src/sim/animals-10_classification/tb/test_animals10_full_network_10cases.sv" into library work
+INFO: [VRFC 10-311] analyzing module test_animals10_full_network_10cases

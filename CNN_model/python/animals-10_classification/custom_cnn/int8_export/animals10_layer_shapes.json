@@ -1,0 +1,280 @@
+{
+  "layers": [
+    {
+      "activation": "relu",
+      "bias_offset": 0,
+      "input_c": 3,
+      "input_shape": [
+        3,
+        64,
+        64
+      ],
+      "kernel_h": 3,
+      "kernel_w": 3,
+      "name": "conv1",
+      "output_c": 32,
+      "output_shape": [
+        32,
+        64,
+        64
+      ],
+      "padding": 1,
+      "requant_offset": 0,
+      "type": "conv",
+      "weight_count": 864,
+      "weight_offset": 0,
+      "weight_shape": [
+        32,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "activation": "relu",
+      "bias_offset": 32,
+      "input_c": 32,
+      "input_shape": [
+        32,
+        64,
+        64
+      ],
+      "kernel_h": 3,
+      "kernel_w": 3,
+      "name": "conv2",
+      "output_c": 32,
+      "output_shape": [
+        32,
+        64,
+        64
+      ],
+      "padding": 1,
+      "requant_offset": 32,
+      "type": "conv",
+      "weight_count": 9216,
+      "weight_offset": 864,
+      "weight_shape": [
+        32,
+        32,
+        3,
+        3
+      ]
+    },
+    {
+      "input_shape": [
+        32,
+        64,
+        64
+      ],
+      "name": "pool1",
+      "output_shape": [
+        32,
+        32,
+        32
+      ],
+      "type": "maxpool"
+    },
+    {
+      "activation": "relu",
+      "bias_offset": 64,
+      "input_c": 32,
+      "input_shape": [
+        32,
+        32,
+        32
+      ],
+      "kernel_h": 3,
+      "kernel_w": 3,
+      "name": "conv3",
+      "output_c": 64,
+      "output_shape": [
+        64,
+        32,
+        32
+      ],
+      "padding": 1,
+      "requant_offset": 64,
+      "type": "conv",
+      "weight_count": 18432,
+      "weight_offset": 10080,
+      "weight_shape": [
+        64,
+        32,
+        3,
+        3
+      ]
+    },
+    {
+      "activation": "relu",
+      "bias_offset": 128,
+      "input_c": 64,
+      "input_shape": [
+        64,
+        32,
+        32
+      ],
+      "kernel_h": 3,
+      "kernel_w": 3,
+      "name": "conv4",
+      "output_c": 64,
+      "output_shape": [
+        64,
+        32,
+        32
+      ],
+      "padding": 1,
+      "requant_offset": 128,
+      "type": "conv",
+      "weight_count": 36864,
+      "weight_offset": 28512,
+      "weight_shape": [
+        64,
+        64,
+        3,
+        3
+      ]
+    },
+    {
+      "input_shape": [
+        64,
+        32,
+        32
+      ],
+      "name": "pool2",
+      "output_shape": [
+        64,
+        16,
+        16
+      ],
+      "type": "maxpool"
+    },
+    {
+      "activation": "relu",
+      "bias_offset": 192,
+      "input_c": 64,
+      "input_shape": [
+        64,
+        16,
+        16
+      ],
+      "kernel_h": 3,
+      "kernel_w": 3,
+      "name": "conv5",
+      "output_c": 128,
+      "output_shape": [
+        128,
+        16,
+        16
+      ],
+      "padding": 1,
+      "requant_offset": 192,
+      "type": "conv",
+      "weight_count": 73728,
+      "weight_offset": 65376,
+      "weight_shape": [
+        128,
+        64,
+        3,
+        3
+      ]
+    },
+    {
+      "activation": "relu",
+      "bias_offset": 320,
+      "input_c": 128,
+      "input_shape": [
+        128,
+        16,
+        16
+      ],
+      "kernel_h": 3,
+      "kernel_w": 3,
+      "name": "conv6",
+      "output_c": 128,
+      "output_shape": [
+        128,
+        16,
+        16
+      ],
+      "padding": 1,
+      "requant_offset": 320,
+      "type": "conv",
+      "weight_count": 147456,
+      "weight_offset": 139104,
+      "weight_shape": [
+        128,
+        128,
+        3,
+        3
+      ]
+    },
+    {
+      "input_shape": [
+        128,
+        16,
+        16
+      ],
+      "name": "pool3",
+      "output_shape": [
+        128,
+        8,
+        8
+      ],
+      "type": "maxpool"
+    },
+    {
+      "input_shape": [
+        128,
+        8,
+        8
+      ],
+      "name": "gap",
+      "output_shape": [
+        128
+      ],
+      "type": "gap"
+    },
+    {
+      "activation": "relu",
+      "bias_offset": 448,
+      "input_features": 128,
+      "input_shape": [
+        128
+      ],
+      "name": "fc1",
+      "output_features": 128,
+      "output_shape": [
+        128
+      ],
+      "requant_offset": 448,
+      "type": "dense",
+      "weight_count": 16384,
+      "weight_offset": 286560,
+      "weight_shape": [
+        128,
+        128
+      ]
+    },
+    {
+      "activation": "none",
+      "bias_offset": 576,
+      "input_features": 128,
+      "input_shape": [
+        128
+      ],
+      "name": "fc2",
+      "output_features": 10,
+      "output_shape": [
+        10
+      ],
+      "requant_offset": 576,
+      "type": "dense",
+      "weight_count": 1280,
+      "weight_offset": 302944,
+      "weight_shape": [
+        10,
+        128
+      ]
+    }
+  ]
+}

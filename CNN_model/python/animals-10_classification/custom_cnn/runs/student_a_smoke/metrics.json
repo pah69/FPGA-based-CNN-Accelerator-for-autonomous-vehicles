@@ -1,0 +1,23 @@
+{
+  "history": [
+    {
+      "accuracy": 0.4864864864864865,
+      "correct": 1908.0,
+      "epoch": 1,
+      "loss": 1.4798490226663903,
+      "phase": "train",
+      "total": 3922.0,
+      "train_loss": 1.8076051227027004
+    },
+    {
+      "accuracy": 0.4825921219822109,
+      "correct": 1899.0,
+      "epoch": 1,
+      "images_per_second": 1077.627001119764,
+      "loss": 1.4923337366862703,
+      "ms_per_image": 0.9279648699975951,
+      "phase": "test",
+      "total": 3935.0
+    }
+  ]
+}

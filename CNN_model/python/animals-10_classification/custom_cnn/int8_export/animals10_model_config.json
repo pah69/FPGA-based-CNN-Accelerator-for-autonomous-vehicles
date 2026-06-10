@@ -1,0 +1,35 @@
+{
+  "arithmetic": {
+    "accumulator": "signed_int32",
+    "bias": "signed_int32",
+    "clamp": [
+      -128,
+      127
+    ],
+    "input": "signed_int8",
+    "requant": "round((acc + bias) * multiplier / 2**shift)",
+    "weights": "signed_int8_per_output_channel",
+    "zero_point": 0
+  },
+  "class_names": [
+    "dog",
+    "cat",
+    "horse",
+    "spider",
+    "butterfly",
+    "chicken",
+    "sheep",
+    "cow",
+    "squirrel",
+    "elephant"
+  ],
+  "input_addr": "base + c * H * W + y * W + x",
+  "input_shape_chw": [
+    3,
+    64,
+    64
+  ],
+  "model_name": "animals10_student_a_int8",
+  "tensor_layout": "channel_major_chw",
+  "weight_layout": "output_channel_major_oihw"
+}

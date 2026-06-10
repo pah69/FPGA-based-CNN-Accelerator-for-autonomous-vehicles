@@ -1,0 +1,7 @@
+Running: xsim.dir/test_animals10_gap_fc1_fc2_case0_snapshot/xsimk -runall -simmode gui -wdb test_animals10_gap_fc1_fc2_case0_snapshot.wdb -simrunnum 0 -socket 39805
+Design successfully loaded
+Design Loading Memory Usage: 205024 KB (Peak: 205024 KB)
+Design Loading CPU Usage: 660 ms
+Simulation completed
+Simulation Memory Usage: 299832 KB (Peak: 344292 KB)
+Simulation CPU Usage: 720 ms

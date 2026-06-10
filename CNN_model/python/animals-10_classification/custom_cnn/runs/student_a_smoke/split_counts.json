@@ -1,0 +1,38 @@
+{
+  "test": {
+    "butterfly": 318,
+    "cat": 251,
+    "chicken": 466,
+    "cow": 281,
+    "dog": 730,
+    "elephant": 218,
+    "horse": 394,
+    "sheep": 273,
+    "spider": 724,
+    "squirrel": 280
+  },
+  "train": {
+    "butterfly": 1478,
+    "cat": 1167,
+    "chicken": 2168,
+    "cow": 1306,
+    "dog": 3404,
+    "elephant": 1012,
+    "horse": 1836,
+    "sheep": 1274,
+    "spider": 3374,
+    "squirrel": 1303
+  },
+  "val": {
+    "butterfly": 316,
+    "cat": 250,
+    "chicken": 464,
+    "cow": 279,
+    "dog": 729,
+    "elephant": 216,
+    "horse": 393,
+    "sheep": 273,
+    "spider": 723,
+    "squirrel": 279
+  }
+}
